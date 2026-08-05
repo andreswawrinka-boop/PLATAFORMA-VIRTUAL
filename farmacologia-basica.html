@@ -1,0 +1,775 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Guía de Farmacología Básica en Anestesiología – Dr. Andrés Robayo</title>
+<style>
+  :root {
+    --azul-oscuro:#0B2545;--azul-medio:#1B4F8A;--azul-claro:#2E86C1;--azul-tenue:#D6EAF8;
+    --rojo:#C0392B;--rojo-tenue:#FADBD8;--verde:#1A7A4A;--verde-tenue:#D5F5E3;
+    --naranja:#D35400;--naranja-tenue:#FAE5D3;--gris-claro:#F4F6F7;--gris-borde:#D5D8DC;
+    --texto:#1C2833;--texto-suave:#566573;--blanco:#FFFFFF;
+    --amarillo-tenue:#FEF9E7;--lila-tenue:#F4ECF7;--lila:#7D3C98;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:'Segoe UI',Arial,sans-serif;font-size:14px;line-height:1.6;color:var(--texto);background:#EAECEE;}
+
+  /* PORTADA */
+  .portada{background:linear-gradient(160deg,#071D35 0%,#0B2545 45%,#1A5276 100%);color:white;padding:60px 48px 48px;position:relative;overflow:hidden;}
+  .portada::before{content:'';position:absolute;top:-80px;right:-80px;width:360px;height:360px;border-radius:50%;background:rgba(255,255,255,0.03);}
+  .portada::after{content:'';position:absolute;bottom:-50px;left:38%;width:240px;height:240px;border-radius:50%;background:rgba(255,255,255,0.025);}
+  .portada-logo{font-size:11px;letter-spacing:2px;text-transform:uppercase;opacity:0.7;margin-bottom:32px;}
+  .portada h1{font-size:34px;font-weight:700;line-height:1.2;margin-bottom:10px;}
+  .portada h1 span{color:#85C1E9;}
+  .portada-subtitulo{font-size:15px;opacity:0.85;margin-bottom:36px;max-width:620px;}
+  .portada-meta{display:flex;gap:32px;flex-wrap:wrap;border-top:1px solid rgba(255,255,255,0.2);padding-top:24px;margin-top:24px;}
+  .portada-meta-item{font-size:12.5px;opacity:0.85;line-height:1.5;}
+  .portada-meta-item strong{display:block;font-size:14px;opacity:1;}
+
+  /* LAYOUT */
+  .contenedor{max-width:980px;margin:0 auto;padding:40px 24px 80px;}
+
+  /* ÍNDICE */
+  .indice{background:var(--blanco);border:1px solid var(--gris-borde);border-radius:10px;padding:28px 32px;margin-bottom:40px;}
+  .indice h2{font-size:15px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--azul-oscuro);margin-bottom:16px;border-bottom:2px solid var(--azul-claro);padding-bottom:8px;}
+  .indice ol{columns:2;column-gap:32px;padding-left:20px;}
+  .indice li{font-size:13px;color:var(--azul-medio);margin-bottom:6px;line-height:1.4;}
+  .indice li a{color:var(--azul-medio);text-decoration:none;}
+  .indice li a:hover{text-decoration:underline;}
+
+  /* SECCIONES */
+  .seccion{background:var(--blanco);border-radius:10px;border:1px solid var(--gris-borde);margin-bottom:32px;overflow:hidden;}
+  .seccion-header{background:var(--azul-oscuro);color:white;padding:18px 28px;display:flex;align-items:center;gap:14px;}
+  .seccion-numero{width:32px;height:32px;border-radius:50%;background:rgba(255,255,255,0.2);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;flex-shrink:0;}
+  .seccion-titulo{font-size:17px;font-weight:700;}
+  .seccion-body{padding:28px;}
+  .subseccion{margin-bottom:28px;}
+  .subseccion h3{font-size:14px;font-weight:700;color:var(--azul-medio);text-transform:uppercase;letter-spacing:0.8px;margin-bottom:12px;padding-bottom:6px;border-bottom:1.5px solid var(--azul-tenue);}
+  .subseccion h4{font-size:13.5px;font-weight:700;color:var(--azul-oscuro);margin:16px 0 8px;}
+  p.parrafo{font-size:13.5px;margin-bottom:12px;line-height:1.65;}
+
+  /* TABLAS */
+  .tabla-wrap{overflow-x:auto;margin-bottom:16px;}
+  table{width:100%;border-collapse:collapse;font-size:13px;}
+  thead th{background:var(--azul-oscuro);color:white;padding:10px 14px;text-align:left;font-weight:600;font-size:12.5px;}
+  tbody tr:nth-child(even){background:var(--gris-claro);}
+  tbody tr:hover{background:var(--azul-tenue);}
+  tbody td{padding:9px 14px;border-bottom:1px solid var(--gris-borde);vertical-align:top;line-height:1.5;}
+  tbody td:first-child{font-weight:600;color:var(--azul-oscuro);}
+
+  /* CAJAS */
+  .caja{border-radius:8px;padding:16px 18px;margin-bottom:16px;border-left:4px solid;font-size:13.5px;line-height:1.65;}
+  .caja-alerta{background:var(--rojo-tenue);border-color:var(--rojo);}
+  .caja-alerta strong{color:var(--rojo);}
+  .caja-info{background:var(--azul-tenue);border-color:var(--azul-claro);}
+  .caja-info strong{color:var(--azul-medio);}
+  .caja-ok{background:var(--verde-tenue);border-color:var(--verde);}
+  .caja-ok strong{color:var(--verde);}
+  .caja-advertencia{background:var(--naranja-tenue);border-color:var(--naranja);}
+  .caja-advertencia strong{color:var(--naranja);}
+  .caja-evidencia{background:var(--amarillo-tenue);border-color:#F4D03F;}
+  .caja-evidencia strong{color:#9A7D0A;}
+  .caja-lila{background:var(--lila-tenue);border-color:var(--lila);}
+  .caja-lila strong{color:var(--lila);}
+
+  /* FÓRMULAS */
+  .formula-box{background:#EBF5FB;border:1.5px solid var(--azul-claro);border-radius:8px;padding:14px 18px;font-family:'Courier New',monospace;font-size:13px;color:var(--azul-oscuro);margin-bottom:14px;text-align:center;font-weight:600;line-height:1.9;}
+
+  /* TARJETAS DE FASES */
+  .fases-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:16px;}
+  .fase-card{border-radius:8px;overflow:hidden;border:1px solid var(--gris-borde);}
+  .fase-h{padding:10px 14px;font-size:13px;font-weight:700;color:white;display:flex;align-items:center;gap:8px;}
+  .fase-alpha{background:#1A5276;}
+  .fase-beta{background:#117A65;}
+  .fase-gamma{background:#6C3483;}
+  .fase-body{padding:12px 14px;font-size:12.5px;line-height:1.6;}
+  .fase-tag{font-size:22px;font-weight:900;opacity:0.25;float:right;}
+
+  /* MODELOS COMPARTIMENTAL */
+  .modelos-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:16px;}
+  .modelo-card{border-radius:8px;border:1.5px solid;padding:16px;text-align:center;}
+  .mc-mono{background:#EBF5FB;border-color:#2E86C1;}
+  .mc-bi{background:#E9F7EF;border-color:#1E8449;}
+  .mc-tri{background:var(--lila-tenue);border-color:var(--lila);}
+  .mc-nombre{font-size:14px;font-weight:700;margin-bottom:6px;}
+  .mc-mono .mc-nombre{color:#1A5276;}
+  .mc-bi .mc-nombre{color:#145A32;}
+  .mc-tri .mc-nombre{color:#4A235A;}
+  .mc-desc{font-size:12px;line-height:1.5;}
+  .mc-ejemplos{margin-top:8px;font-size:11.5px;font-weight:700;}
+  .mc-mono .mc-ejemplos{color:#1A5276;}
+  .mc-bi .mc-ejemplos{color:#145A32;}
+  .mc-tri .mc-ejemplos{color:#4A235A;}
+
+  /* FARMACODINAMIA CARDS */
+  .fd-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:16px;}
+  .fd-card{border-radius:8px;border:1px solid var(--gris-borde);overflow:hidden;}
+  .fd-h{padding:9px 14px;font-size:13px;font-weight:700;color:white;background:var(--azul-medio);}
+  .fd-body{padding:12px 14px;font-size:12.5px;line-height:1.6;}
+
+  /* CONCEPTO CARDS */
+  .concepto-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin-bottom:16px;}
+  .concepto-card{border-radius:8px;padding:14px;border:1px solid var(--gris-borde);background:white;}
+  .concepto-nombre{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:0.5px;color:var(--texto-suave);display:block;margin-bottom:4px;}
+  .concepto-valor{font-size:15px;font-weight:700;color:var(--azul-oscuro);display:block;margin-bottom:4px;}
+  .concepto-desc{font-size:11.5px;color:var(--texto-suave);line-height:1.4;}
+
+  /* PROP FISICOQUIMICA */
+  .prop-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:16px;}
+  .prop-card{border-radius:8px;border:1px solid var(--gris-borde);overflow:hidden;}
+  .prop-h{padding:8px 14px;font-weight:700;font-size:13px;color:white;}
+  .prop-pk{background:#1A5276;}
+  .prop-lipo{background:#117A65;}
+  .prop-ion{background:#784212;}
+  .prop-est{background:#6C3483;}
+  .prop-body{padding:12px 14px;font-size:12.5px;line-height:1.6;}
+
+  /* SEMÁFORO VD */
+  .vd-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:16px;}
+  .vd-card{border-radius:8px;padding:14px;text-align:center;border:1.5px solid;}
+  .vd-bajo{background:#D6EAF8;border-color:#2E86C1;}
+  .vd-medio{background:#D5F5E3;border-color:#1E8449;}
+  .vd-alto{background:var(--lila-tenue);border-color:var(--lila);}
+  .vd-rango{font-size:18px;font-weight:700;display:block;margin-bottom:4px;}
+  .vd-bajo .vd-rango{color:#1A5276;}
+  .vd-medio .vd-rango{color:#145A32;}
+  .vd-alto .vd-rango{color:#4A235A;}
+  .vd-lbl{font-size:12px;font-weight:700;display:block;margin-bottom:6px;}
+  .vd-bajo .vd-lbl{color:#1A5276;}
+  .vd-medio .vd-lbl{color:#145A32;}
+  .vd-alto .vd-lbl{color:#4A235A;}
+  .vd-ej{font-size:11.5px;line-height:1.4;}
+
+  /* CINÉTICA */
+  .cinetica-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:16px;}
+  .cinetica-card{border-radius:8px;border:1.5px solid;overflow:hidden;}
+  .cinetica-h{padding:10px 14px;font-size:13px;font-weight:700;color:white;}
+  .ck-uno{border-color:#1E8449;}.ck-uno .cinetica-h{background:#1E8449;}
+  .ck-cero{border-color:#C0392B;}.ck-cero .cinetica-h{background:#C0392B;}
+  .cinetica-body{padding:12px 14px;font-size:12.5px;line-height:1.6;}
+
+  /* AGONISTA/ANTAGONISTA */
+  .ag-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:16px;}
+  .ag-card{border-radius:8px;padding:14px;border:1.5px solid;text-align:center;}
+  .ag-completo{background:#D5F5E3;border-color:#1A7A4A;}
+  .ag-parcial{background:#D6EAF8;border-color:#2E86C1;}
+  .ag-antagonista{background:var(--rojo-tenue);border-color:var(--rojo);}
+  .ag-nombre{font-size:13px;font-weight:700;display:block;margin-bottom:6px;}
+  .ag-completo .ag-nombre{color:#145A32;}
+  .ag-parcial .ag-nombre{color:#1A5276;}
+  .ag-antagonista .ag-nombre{color:var(--rojo);}
+  .ag-def{font-size:12px;line-height:1.4;margin-bottom:6px;}
+  .ag-ej{font-size:11.5px;font-style:italic;}
+
+  /* PIE */
+  .footer{background:var(--azul-oscuro);color:rgba(255,255,255,0.7);padding:28px 48px;font-size:12px;line-height:1.7;}
+  .footer-grid{display:grid;grid-template-columns:1fr 1fr;gap:32px;max-width:980px;margin:0 auto;}
+  .footer strong{color:white;display:block;margin-bottom:4px;}
+  .copyright{background:#070F1C;color:rgba(255,255,255,0.4);text-align:center;padding:14px;font-size:11px;}
+
+  @media(max-width:640px){
+    .portada{padding:36px 20px 32px;}.portada h1{font-size:24px;}
+    .contenedor{padding:24px 12px 60px;}.seccion-body{padding:18px;}
+    .fases-grid,.modelos-grid,.fd-grid,.prop-grid,.cinetica-grid,.ag-grid{grid-template-columns:1fr;}
+    .vd-grid{grid-template-columns:1fr;}
+    .indice ol{columns:1;}
+    .footer-grid{grid-template-columns:1fr;}.footer{padding:24px 20px;}
+  }
+  @media print{
+    body{background:white;}.seccion{break-inside:avoid;}
+    .portada{background:#0B2545!important;-webkit-print-color-adjust:exact;print-color-adjust:exact;}
+  }
+</style>
+</head>
+<body>
+
+<!-- PORTADA -->
+<div class="portada">
+  <div class="portada-logo">Subred Integrada de Servicios de Salud Suroccidente · Hospitales de Kennedy y Bosa</div>
+  <h1>Guía de <span>Farmacología Básica</span><br>en Anestesiología</h1>
+  <p class="portada-subtitulo">Farmacocinética (ADME, modelos compartimentales, vidas medias, CSHT) y farmacodinamia (receptores, curvas dosis-respuesta, propiedades fisicoquímicas) aplicados a los fármacos anestésicos. Guía de apoyo teórico para la rotación de Anestesiología.</p>
+  <div class="portada-meta">
+    <div class="portada-meta-item"><strong>Autor y Docente</strong>Dr. Andrés Robayo<br>Especialista en Anestesiología</div>
+    <div class="portada-meta-item"><strong>Institución</strong>Hospital de Kennedy · Hospital de Bosa<br>Subred Suroccidente – Bogotá, Colombia</div>
+    <div class="portada-meta-item"><strong>Versión</strong>2025 · Evidencia actualizada<br>Guía de apoyo teórico</div>
+    <div class="portada-meta-item"><strong>Dirigida a</strong>Estudiantes de medicina en<br>rotación por Anestesiología</div>
+  </div>
+</div>
+
+<div class="contenedor">
+
+<!-- ÍNDICE -->
+<div class="indice">
+  <h2>Contenido</h2>
+  <ol>
+    <li><a href="#s1">ADME: Absorción, Distribución, Metabolismo, Excreción</a></li>
+    <li><a href="#s2">Volumen de distribución (Vd)</a></li>
+    <li><a href="#s3">Aclaramiento (Clearance)</a></li>
+    <li><a href="#s4">Vidas medias: α, β y γ</a></li>
+    <li><a href="#s5">Modelos farmacocinéticos compartimentales</a></li>
+    <li><a href="#s6">Cinética de orden uno y orden cero</a></li>
+    <li><a href="#s7">Vida media sensible al contexto (CSHT)</a></li>
+    <li><a href="#s8">Tolerancia y taquifilaxia</a></li>
+    <li><a href="#s9">Farmacodinamia: receptores y ligandos</a></li>
+    <li><a href="#s10">Curvas dosis-respuesta: potencia y eficacia</a></li>
+    <li><a href="#s11">Agonistas, agonistas parciales y antagonistas</a></li>
+    <li><a href="#s12">Propiedades fisicoquímicas de los fármacos</a></li>
+  </ol>
+</div>
+
+<!-- S1 -->
+<div class="seccion" id="s1">
+  <div class="seccion-header"><div class="seccion-numero">1</div><div class="seccion-titulo">ADME – Absorción, Distribución, Metabolismo y Excreción</div></div>
+  <div class="seccion-body">
+    <p class="parrafo">La <strong>farmacocinética</strong> estudia qué le hace el cuerpo al fármaco. Abarca los cuatro procesos del acrónimo ADME, fundamentales para planificar dosis, evitar toxicidad y optimizar la anestesia en cada paciente.</p>
+    <div class="subseccion">
+      <h3>Los cuatro procesos ADME</h3>
+      <div class="tabla-wrap"><table>
+        <thead><tr><th>Proceso</th><th>Definición</th><th>Factores determinantes</th><th>Ejemplo en anestesia</th></tr></thead>
+        <tbody>
+          <tr><td>Absorción</td><td>Entrada del fármaco al torrente sanguíneo desde el sitio de administración</td><td>Vía de administración, liposolubilidad, ionización, flujo sanguíneo local</td><td>Propofol IV: evita absorción GI → acción inmediata. Sevoflurano inhalado: absorción alveolar rápida.</td></tr>
+          <tr><td>Distribución</td><td>Movimiento del fármaco desde el plasma hacia los tejidos</td><td>Flujo sanguíneo orgánico, unión a proteínas plasmáticas, liposolubilidad, Vd</td><td>Fentanilo: distribución rápida al cerebro (efecto), luego redistribución a grasa y músculo (fin del efecto).</td></tr>
+          <tr><td>Metabolismo</td><td>Transformación del fármaco en metabolitos activos o inactivos</td><td>Enzimas CYP450 (hepáticas), hidrólisis plasmática (esterasas), reacciones de fase I y II</td><td>Midazolam → 1-hidroximidazolam (activo) por CYP3A4. Remifentanilo → hidrolizado por esterasas plasmáticas (independiente del hígado).</td></tr>
+          <tr><td>Excreción</td><td>Eliminación del fármaco y sus metabolitos del organismo</td><td>Función renal (filtración glomerular), función hepática (bilis), pulmón (gases), saliva</td><td>Rocuronio: excreción parcialmente biliar. Morfina-6-glucurónido: acumulación en insuficiencia renal.</td></tr>
+        </tbody>
+      </table></div>
+    </div>
+    <div class="subseccion">
+      <h3>Vías de administración relevantes en anestesia</h3>
+      <div class="tabla-wrap"><table>
+        <thead><tr><th>Vía</th><th>Biodisponibilidad</th><th>Inicio de acción</th><th>Fármacos representativos</th><th>Consideración clínica</th></tr></thead>
+        <tbody>
+          <tr><td>Intravenosa (IV)</td><td>100% (definición)</td><td>Segundos – 1 min</td><td>Propofol, fentanilo, rocuronio, midazolam</td><td>Sin efecto de primer paso. Goldestándar en anestesia.</td></tr>
+          <tr><td>Inhalatoria</td><td>Variable (ajustable)</td><td>Minutos</td><td>Sevoflurano, desflurano, óxido nitroso</td><td>Coeficiente sangre/gas determina velocidad de inducción. Bajo = inicio rápido.</td></tr>
+          <tr><td>Intramuscular (IM)</td><td>75–100%</td><td>15–30 min</td><td>Ketamina, atropina, morfina</td><td>Útil en pediatría refractaria o cuando no hay acceso IV.</td></tr>
+          <tr><td>Epidural / Subaracnoidea</td><td>Variable (local)</td><td>5–20 min</td><td>Bupivacaína, ropivacaína, morfina neuroaxial</td><td>Alta liposolubilidad = inicio más rápido en el espacio epidural.</td></tr>
+          <tr><td>Transmucosa / Sublingual</td><td>50–80%</td><td>5–15 min</td><td>Fentanilo transmucoso, midazolam intranasal</td><td>Evita primer paso. Útil en premedicación pediátrica.</td></tr>
+        </tbody>
+      </table></div>
+    </div>
+    <div class="subseccion">
+      <h3>Metabolismo hepático: CYP450 y relevancia clínica</h3>
+      <p class="parrafo">El sistema del citocromo P450 (CYP450) es la principal maquinaria metabólica de los anestésicos. Su actividad puede ser inhibida o inducida por otros fármacos, con consecuencias clínicas significativas.</p>
+      <div class="tabla-wrap"><table>
+        <thead><tr><th>Isoenzima</th><th>Fármacos sustratos (anestesia)</th><th>Inhibidores</th><th>Inductores</th><th>Consecuencia práctica</th></tr></thead>
+        <tbody>
+          <tr><td>CYP3A4</td><td>Midazolam, fentanilo, sufentanilo, lidocaína, ketamina</td><td>Eritromicina, azoles, ritonavir, jugo de pomelo</td><td>Rifampicina, fenitoína, carbamazepina, dexametasona</td><td>Inhibición → acumulación y efecto prolongado. Inducción → dosis mayores para mismo efecto.</td></tr>
+          <tr><td>CYP2D6</td><td>Tramadol (activación), codeína (activación), ondansetrón</td><td>Fluoxetina, paroxetina, haloperidol</td><td>Poco inducible</td><td>Metabolizadores pobres (10% población): mayor efecto y toxicidad de codeína. Metabolizadores ultrarrápidos: riesgo de sobredosis neonatal con codeína en lactancia.</td></tr>
+          <tr><td>CYP2E1</td><td>Halotano, sevoflurano (parcial), alcohol etílico</td><td>Disulfiram</td><td>Alcohol crónico, ayuno prolongado</td><td>Inducción por alcohol → ↑ metabolismo de sevoflurano → ↑ fluoruro inorgánico.</td></tr>
+        </tbody>
+      </table></div>
+      <div class="caja caja-advertencia"><strong>⚠ Vías de metabolismo independientes del hígado:</strong> El <strong>remifentanilo</strong> es hidrolizado por <strong>esterasas plasmáticas y tisulares</strong> (no por CYP450 ni pseudocolinesterasa), por lo que su eliminación es prácticamente independiente de la función hepática y renal. El <strong>atracurio</strong> sufre eliminación de Hofmann (degradación química espontánea a temperatura y pH fisiológicos), también independiente de órganos. El <strong>succinilcolina</strong> es hidrolizado por pseudocolinesterasa plasmática — su déficit genético genera bloqueo neuromuscular prolongado.</div>
+    </div>
+  </div>
+</div>
+
+<!-- S2 -->
+<div class="seccion" id="s2">
+  <div class="seccion-header"><div class="seccion-numero">2</div><div class="seccion-titulo">Volumen de Distribución (Vd)</div></div>
+  <div class="seccion-body">
+    <p class="parrafo">El <strong>volumen de distribución (Vd)</strong> es un parámetro farmacocinético teórico que relaciona la dosis total administrada de un fármaco con su concentración plasmática inicial. No representa un volumen anatómico real, sino una medida de qué tan ampliamente se distribuye el fármaco fuera del plasma.</p>
+    <div class="formula-box">
+      Vd = Dosis administrada (mg) / Concentración plasmática inicial (mg/L)
+      <br><br>
+      Vd alto → el fármaco "desaparece" del plasma hacia los tejidos
+      <br>
+      Vd bajo → el fármaco permanece principalmente en el plasma
+    </div>
+    <div class="vd-grid">
+      <div class="vd-card vd-bajo">
+        <span class="vd-rango">3–10 L</span>
+        <span class="vd-lbl">Vd BAJO</span>
+        <div class="vd-ej">Permanece principalmente en plasma. Fármacos hidrofílicos, alta unión a proteínas.<br><br><strong>Ejemplos:</strong> Heparina (Vd ~3 L), aminoglucósidos, warfarina, succinilcolina, atracurio, rocuronio, vecuronio.<br><br>Dosis de carga pequeña para alcanzar concentración terapéutica.</div>
+      </div>
+      <div class="vd-card vd-medio">
+        <span class="vd-rango">10–40 L</span>
+        <span class="vd-lbl">Vd INTERMEDIO</span>
+        <div class="vd-ej">Distribución en líquido extracelular e intersticial. Moderada liposolubilidad.<br><br><strong>Ejemplos:</strong> Morfina (~200 L, moderadamente lipofílica), algunos antibióticos (aminoglucósidos 15–25 L), lidocaína (~90 L).<br><br>Dosis de carga y mantenimiento intermedias.</div>
+      </div>
+      <div class="vd-card vd-alto">
+        <span class="vd-rango">&gt;100 L</span>
+        <span class="vd-lbl">Vd ALTO</span>
+        <div class="vd-ej">Distribución amplia a tejidos lipofílicos. Fármacos altamente liposolubles.<br><br><strong>Ejemplos:</strong> Propofol (~250 L), midazolam (~70 L), fentanilo (~300 L), sufentanilo (~1700 L), tiopental.<br><br>Requiere dosis de carga mayor para alcanzar concentración terapéutica rápida. Mayor acumulación con perfusiones prolongadas.</div>
+      </div>
+    </div>
+    <div class="caja caja-info"><strong>ℹ Importancia clínica del Vd en anestesia:</strong> Un Vd alto implica que el fármaco se distribuye ampliamente a tejidos (especialmente grasa y músculo). Esto tiene dos consecuencias opuestas: (1) el efecto clínico inicial termina rápidamente por redistribución desde el cerebro a la periferia (no por eliminación), y (2) con perfusiones prolongadas se produce acumulación en grasa → efecto residual prolongado al suspender el fármaco. Este es el fundamento del modelo tricompartimental y de la vida media sensible al contexto (CSHT).</div>
+    <div class="subseccion">
+      <h3>Ajuste de dosis por peso en obesidad</h3>
+      <p class="parrafo">En pacientes obesos, el Vd cambia de forma diferente para fármacos hidrofílicos vs. lipofílicos, por lo que el peso a utilizar para los cálculos de dosis varía según el fármaco.</p>
+      <div class="tabla-wrap"><table>
+        <thead><tr><th>Tipo de peso</th><th>Definición</th><th>Uso recomendado</th></tr></thead>
+        <tbody>
+          <tr><td>Peso ideal (IBW)</td><td>♂: 50 + 0.91×(talla cm − 152.4) · ♀: 45.5 + 0.91×(talla cm − 152.4)</td><td>Fármacos hidrofílicos: succinilcolina, rocuronio, vecuronio, atracurio, morfina, etomidato, remifentanilo</td></tr>
+          <tr><td>Peso total (TBW / ABW)</td><td>Peso real del paciente en la báscula</td><td>Succinilcolina (dosis de intubación basada en TBW), fentanilo dosis inicial, midazolam</td></tr>
+          <tr><td>Peso ajustado (AdjBW)</td><td>IBW + 0.4 × (TBW − IBW)</td><td>Propofol en mantenimiento prolongado, fentanilo en perfusión larga, midazolam en sedación prolongada</td></tr>
+        </tbody>
+      </table></div>
+      <div class="caja caja-advertencia"><strong>⚠ Propofol en obesidad:</strong> Para la <strong>inducción</strong>, usar IBW (el volumen del compartimento central no aumenta proporcionalmente con la grasa). Para el <strong>mantenimiento prolongado</strong>, usar AdjBW porque la acumulación en tejido adiposo es relevante. No usar TBW para propofol: riesgo de sobredosis en inducción y sindrome de infusión de propofol (PRIS) en perfusiones largas.</div>
+    </div>
+  </div>
+</div>
+
+<!-- S3 -->
+<div class="seccion" id="s3">
+  <div class="seccion-header"><div class="seccion-numero">3</div><div class="seccion-titulo">Aclaramiento (Clearance, CL)</div></div>
+  <div class="seccion-body">
+    <p class="parrafo">El <strong>aclaramiento (CL)</strong> es el volumen de plasma del que el fármaco es completamente eliminado por unidad de tiempo. Es el parámetro que mejor predice la dosis de mantenimiento necesaria y el riesgo de acumulación.</p>
+    <div class="formula-box">
+      CL (L/h) = Dosis / AUC &nbsp;|&nbsp; AUC = área bajo la curva concentración-tiempo
+      <br><br>
+      Dosis de mantenimiento = CL × Concentración plasmática objetivo
+      <br>
+      Vida media (t½) = 0.693 × Vd / CL
+    </div>
+    <div class="tabla-wrap"><table>
+      <thead><tr><th>Fármaco</th><th>CL aprox.</th><th>Mecanismo de eliminación</th><th>Implicación clínica</th></tr></thead>
+      <tbody>
+        <tr><td>Remifentanilo</td><td>~3–4 L/min (muy alto)</td><td>Esterasas plasmáticas y tisulares</td><td>No se acumula. CSHT casi constante (~3 min) independiente de la duración de la perfusión. Ideal para TIVA y sedación prolongada. Analgesia postoperatoria debe planificarse antes de suspender.</td></tr>
+        <tr><td>Propofol</td><td>~1.5–2 L/min (alto)</td><td>Conjugación hepática + CYP2B6 (parcial). CL suprahepático documentado.</td><td>Eliminación rápida pero aumenta su CSHT con perfusiones prolongadas por acumulación en grasa. No usar en PRIS.</td></tr>
+        <tr><td>Fentanilo</td><td>~0.8–1 L/min (moderado)</td><td>CYP3A4 hepático → norfentanilo (inactivo)</td><td>Se acumula con perfusiones largas. CSHT aumenta progresivamente. Preferir remifentanilo para cirugías largas.</td></tr>
+        <tr><td>Sufentanilo</td><td>~0.9 L/min</td><td>CYP3A4 hepático</td><td>Similar a fentanilo pero 10× más potente. Alta liposolubilidad → mayor Vd y acumulación en perfusiones largas.</td></tr>
+        <tr><td>Morfina</td><td>~1 L/min</td><td>Glucuronidación (UGT2B7) → M6G (activo, potente) + M3G (neuroexcitador)</td><td>M6G se acumula en insuficiencia renal → sedación y depresión respiratoria prolongadas. Reducir dosis en IRA/IRC.</td></tr>
+        <tr><td>Midazolam</td><td>~0.3–0.5 L/min (moderado-bajo)</td><td>CYP3A4 → 1-OH-midazolam (activo)</td><td>Se acumula en perfusiones largas. Evitar infusiones prolongadas en UCI en pacientes con IH o fármacos inhibidores CYP3A4.</td></tr>
+        <tr><td>Rocuronio</td><td>~0.3 L/min</td><td>Excreción biliar (~75%) y renal (~10%)</td><td>Puede prolongarse en insuficiencia hepática. Reversión con sugammadex (encapsulación específica) independiente del CL.</td></tr>
+      </tbody>
+    </table></div>
+    <div class="caja caja-lila"><strong>🔬 CL suprahepático del propofol:</strong> El CL del propofol excede el flujo hepático total (~1.5 L/min vs flujo hepático ~1.4 L/min), lo que demuestra que existe eliminación extrahepática significativa (pulmón, riñón, intestino). Esto tiene implicación en el síndrome de infusión de propofol (PRIS): la disfunción mitocondrial por dosis altas (&gt;4 mg/kg/h por &gt;48 h) puede ocurrir incluso cuando el hígado funciona correctamente.</div>
+  </div>
+</div>
+
+<!-- S4 -->
+<div class="seccion" id="s4">
+  <div class="seccion-header"><div class="seccion-numero">4</div><div class="seccion-titulo">Vidas Medias: Fases α, β y γ</div></div>
+  <div class="seccion-body">
+    <p class="parrafo">La vida media (t½) indica el tiempo que tarda la concentración plasmática en reducirse a la mitad. Los fármacos anestésicos lipofílicos presentan <strong>tres fases cinéticas diferenciadas</strong>, lo que hace que un único valor de t½ sea insuficiente para predecir su comportamiento clínico.</p>
+    <div class="fases-grid">
+      <div class="fase-card">
+        <div class="fase-h fase-alpha">Fase α · t½ α <span class="fase-tag">α</span></div>
+        <div class="fase-body">
+          <strong>Duración:</strong> Minutos (2–20 min)<br>
+          <strong>Proceso:</strong> Redistribución rápida del compartimento central (plasma, cerebro, corazón) hacia compartimentos periféricos (músculo).<br>
+          <strong>No representa eliminación</strong> — la concentración plasmática baja rápido pero el fármaco sigue en el cuerpo.<br><br>
+          <strong>Implicación clínica:</strong> Explica el despertar rápido tras una dosis única de inducción de propofol o tiopental: el efecto no termina porque se elimina, sino porque se redistribuye desde el cerebro al músculo.<br><br>
+          <strong>Ejemplos:</strong> Propofol t½α ≈ 1–3 min · Tiopental t½α ≈ 2–8 min · Fentanilo t½α ≈ 1–2 min
+        </div>
+      </div>
+      <div class="fase-card">
+        <div class="fase-h fase-beta">Fase β · t½ β <span class="fase-tag">β</span></div>
+        <div class="fase-body">
+          <strong>Duración:</strong> 30 min a pocas horas<br>
+          <strong>Proceso:</strong> Metabolismo y excreción predominantes. El fármaco se elimina realmente del organismo por vías hepáticas o renales.<br>
+          <strong>Sí representa eliminación real</strong> del organismo.<br><br>
+          <strong>Implicación clínica:</strong> En perfusiones cortas, la fase β determina cuándo el paciente estará libre del fármaco. En cirugías breves, la fase β del propofol (t½β ≈ 30–60 min) permite recuperación rápida.<br><br>
+          <strong>Ejemplos:</strong> Propofol t½β ≈ 30–60 min · Fentanilo t½β ≈ 2–4 h · Midazolam t½β ≈ 1–4 h
+        </div>
+      </div>
+      <div class="fase-card">
+        <div class="fase-h fase-gamma">Fase γ · t½ γ <span class="fase-tag">γ</span></div>
+        <div class="fase-body">
+          <strong>Duración:</strong> Horas a días<br>
+          <strong>Proceso:</strong> Redistribución desde compartimentos profundos (grasa) de vuelta a la sangre → eliminación terminal lenta.<br>
+          <strong>Relevante en perfusiones prolongadas</strong> — es la causa del "hang-over" postanestésico.<br><br>
+          <strong>Implicación clínica:</strong> En sedación en UCI o cirugías largas, la grasa actúa como "depósito" que libera el fármaco lentamente tras suspender la perfusión. Esto retrasa el despertar horas después de finalizar la anestesia.<br><br>
+          <strong>Ejemplos:</strong> Propofol t½γ ≈ 4–7 h · Fentanilo t½γ ≈ 180–250 min · Midazolam t½γ ≈ 40–90 h en UCI
+        </div>
+      </div>
+    </div>
+    <div class="subseccion">
+      <h3>Resumen comparativo de fases y ejemplos</h3>
+      <div class="tabla-wrap"><table>
+        <thead><tr><th>Fase</th><th>Nombre</th><th>Duración</th><th>Proceso principal</th><th>Clínica relevante</th></tr></thead>
+        <tbody>
+          <tr><td>α</td><td>Distribución rápida</td><td>Minutos</td><td>Redistribución plasma → músculo/cerebro</td><td>Despertar tras dosis única de inducción</td></tr>
+          <tr><td>β</td><td>Eliminación</td><td>30–240 min</td><td>Metabolismo hepático / excreción renal</td><td>Recuperación tras cirugías cortas</td></tr>
+          <tr><td>γ</td><td>Redistribución profunda</td><td>Horas – días</td><td>Liberación desde grasa/músculo + eliminación terminal</td><td>Sedación residual en perfusiones largas; UCI</td></tr>
+        </tbody>
+      </table></div>
+      <div class="caja caja-evidencia"><strong>📚 Concepto clave:</strong> El <strong>despertar tras una dosis única de propofol</strong> (60–90 segundos de pérdida de consciencia seguidos de recuperación en 5–10 min) se debe principalmente a la redistribución (fase α), no a la eliminación. Si se administra una infusión prolongada, el despertar depende de la fase β y γ — puede tardar horas. Este es el principio del modelo tricompartimental y la base del concepto de CSHT (Sección 7).</div>
+    </div>
+  </div>
+</div>
+
+<!-- S5 -->
+<div class="seccion" id="s5">
+  <div class="seccion-header"><div class="seccion-numero">5</div><div class="seccion-titulo">Modelos Farmacocinéticos Compartimentales</div></div>
+  <div class="seccion-body">
+    <p class="parrafo">Los modelos compartimentales son representaciones matemáticas simplificadas del cuerpo humano que permiten predecir el comportamiento de los fármacos en el tiempo. La elección del modelo depende de la liposolubilidad y comportamiento cinético del fármaco.</p>
+    <div class="modelos-grid">
+      <div class="modelo-card mc-mono">
+        <div class="mc-nombre">Monocompartimental</div>
+        <div class="mc-desc">El cuerpo se trata como un único espacio homogéneo. El fármaco se distribuye instantánea y uniformemente en todo el volumen.<br><br>Curva plasmática: decaimiento exponencial simple (una sola fase).<br><br>Eliminación de orden 1: proporcional a la concentración en todo momento.</div>
+        <div class="mc-ejemplos">Etomidato · Remifentanilo · Rocuronio · Vecuronio · Atracurio · Succinilcolina</div>
+      </div>
+      <div class="modelo-card mc-bi">
+        <div class="mc-nombre">Bicompartimental</div>
+        <div class="mc-desc">El cuerpo se divide en dos compartimentos:<br>
+        1. <strong>Central:</strong> plasma, corazón, riñón, hígado, cerebro (alta perfusión).<br>
+        2. <strong>Periférico:</strong> músculo, tejido conectivo (perfusión intermedia).<br><br>Curva plasmática bifásica: caída rápida (α) seguida de caída lenta (β).</div>
+        <div class="mc-ejemplos">Propofol (dosis única) · Midazolam · Morfina · Lidocaína · Ketamina</div>
+      </div>
+      <div class="modelo-card mc-tri">
+        <div class="mc-nombre">Tricompartimental</div>
+        <div class="mc-desc">Tres compartimentos:<br>
+        1. <strong>Central:</strong> plasma y órganos de alta perfusión.<br>
+        2. <strong>Periférico rápido:</strong> músculo, tejidos moderadamente perfundidos.<br>
+        3. <strong>Periférico lento:</strong> grasa y tejidos de baja perfusión.<br><br>Curva plasmática trifásica (α · β · γ). Explica acumulación en perfusiones largas.</div>
+        <div class="mc-ejemplos">Propofol (perfusión prolongada) · Fentanilo · Sufentanilo · Tiopental · Midazolam (UCI)</div>
+      </div>
+    </div>
+    <div class="subseccion">
+      <h3>Tabla de fármacos, modelo y peso en obesos</h3>
+      <div class="tabla-wrap"><table>
+        <thead><tr><th>Fármaco</th><th>Modelo</th><th>Comportamiento</th><th>Peso a usar en obesos</th></tr></thead>
+        <tbody>
+          <tr><td>Propofol (inducción)</td><td>Bicompartimental</td><td>Distribución inicial rápida a cerebro → redistribución</td><td>IBW para inducción</td></tr>
+          <tr><td>Propofol (perfusión prolongada)</td><td>Tricompartimental</td><td>Acumulación progresiva en grasa; eliminación lenta</td><td>AdjBW para mantenimiento</td></tr>
+          <tr><td>Etomidato</td><td>Monocompartimental</td><td>Distribución homogénea, eliminación hepática/renal rápida</td><td>IBW</td></tr>
+          <tr><td>Tiopental</td><td>Tricompartimental</td><td>Muy lipofílico; despertar rápido por redistribución pero t½γ largo</td><td>IBW para inducción</td></tr>
+          <tr><td>Midazolam</td><td>Bicompartimental (→ tri en UCI)</td><td>Distribución rápida, acumulación en adiposo en perfusión prolongada</td><td>AdjBW (o IBW en cirugía corta)</td></tr>
+          <tr><td>Fentanilo</td><td>Tricompartimental</td><td>Muy lipofílico, inicio rápido por cerebro, acumulación grasa</td><td>ABW inicial; titular posteriormente</td></tr>
+          <tr><td>Sufentanilo</td><td>Tricompartimental</td><td>Lipofílico, 10× más potente que fentanilo, mayor Vd</td><td>IBW o AdjBW</td></tr>
+          <tr><td>Remifentanilo</td><td>Monocompartimental</td><td>Hidrolizado por esterasas; no se acumula en ningún depósito</td><td>IBW (el tejido graso no metaboliza ni retiene)</td></tr>
+          <tr><td>Morfina</td><td>Bicompartimental</td><td>Hidrofílica; menor liposolubilidad; metabolito M6G activo</td><td>IBW</td></tr>
+          <tr><td>Ketamina</td><td>Bicompartimental</td><td>Lipofílica; distribución amplia; metabolito norketamina activo (10–20%)</td><td>IBW o TBW (según indicación)</td></tr>
+          <tr><td>Rocuronio</td><td>Monocompartimental</td><td>Hidrofílico; eliminación biliar predominante</td><td>IBW</td></tr>
+          <tr><td>Atracurio</td><td>Monocompartimental</td><td>Eliminación de Hofmann (independiente de órganos)</td><td>IBW</td></tr>
+          <tr><td>Succinilcolina</td><td>Monocompartimental</td><td>Hidrofílico; metabolismo por pseudocolinesterasa plasmática</td><td>TBW (el Vd del LEC aumenta con obesidad)</td></tr>
+        </tbody>
+      </table></div>
+    </div>
+  </div>
+</div>
+
+<!-- S6 -->
+<div class="seccion" id="s6">
+  <div class="seccion-header"><div class="seccion-numero">6</div><div class="seccion-titulo">Cinética de Orden Uno y Orden Cero</div></div>
+  <div class="seccion-body">
+    <div class="cinetica-grid">
+      <div class="cinetica-card ck-uno">
+        <div class="cinetica-h">Cinética de Orden Uno</div>
+        <div class="cinetica-body">
+          <strong>Definición:</strong> La velocidad de eliminación del fármaco es <em>proporcional</em> a su concentración plasmática actual.<br><br>
+          <strong>Característica:</strong> A mayor concentración → mayor velocidad de eliminación. La <em>fracción</em> eliminada por unidad de tiempo es constante (ej: siempre el 50% cada t½).<br><br>
+          <div style="background:#E9F7EF;padding:8px 10px;border-radius:6px;font-family:'Courier New',monospace;font-size:12px;margin:8px 0;">dC/dt = −k · C</div>
+          <strong>Tiempo hasta estado estable (Css):</strong> ~5 × t½<br><br>
+          <strong>La mayoría de los fármacos anestésicos</strong> siguen cinética de orden 1 a dosis terapéuticas habituales: propofol, remifentanilo, midazolam, fentanilo, rocuronio.<br><br>
+          <strong>Ventaja clínica:</strong> Predecible. La vida media y el aclaramiento son constantes → facilita la titulación.
+        </div>
+      </div>
+      <div class="cinetica-card ck-cero">
+        <div class="cinetica-h">Cinética de Orden Cero</div>
+        <div class="cinetica-body">
+          <strong>Definición:</strong> La velocidad de eliminación del fármaco es <em>constante</em>, independiente de su concentración plasmática.<br><br>
+          <strong>Causa:</strong> Saturación de los sistemas de metabolismo/excreción (enzimas CYP450 saturadas, transportadores renales saturados).<br><br>
+          <div style="background:var(--rojo-tenue);padding:8px 10px;border-radius:6px;font-family:'Courier New',monospace;font-size:12px;margin:8px 0;">dC/dt = −k₀ (constante)</div>
+          <strong>Consecuencia:</strong> Acumulación exponencial del fármaco con pequeños aumentos de dosis → toxicidad impredecible.<br><br>
+          <strong>Ejemplos clínicos:</strong> Fentanilo en dosis muy altas o repetidas puede saturar el CYP3A4 → depresión respiratoria. Etanol (alcohol) sigue cinética de orden 0 (~15 mg/dL/h). Fenitoína en dosis altas (Km comparable a Css).<br><br>
+          <strong>Implicación:</strong> En anestesia con opioides en dosis elevadas: monitoreo estricto de depresión respiratoria.
+        </div>
+      </div>
+    </div>
+    <div class="caja caja-info"><strong>ℹ Cinética mixta de Michaelis-Menten:</strong> Muchos fármacos muestran cinética de orden 1 a dosis bajas y cinética de orden 0 cuando la concentración supera la capacidad máxima de las enzimas metabólicas (Km). Este comportamiento se denomina cinética de Michaelis-Menten o no lineal. En anestesia, el paso de cinética lineal a no lineal puede ocurrir durante bolos repetidos o perfusiones de alta dosis de opioides, aumentando el riesgo de acumulación y toxicidad de forma no proporcional al aumento de dosis.</div>
+  </div>
+</div>
+
+<!-- S7 -->
+<div class="seccion" id="s7">
+  <div class="seccion-header"><div class="seccion-numero">7</div><div class="seccion-titulo">Vida Media Sensible al Contexto (CSHT)</div></div>
+  <div class="seccion-body">
+    <p class="parrafo">La <strong>vida media sensible al contexto</strong> (Context-Sensitive Half-Time, CSHT) es el tiempo que tarda la concentración plasmática de un fármaco en reducirse a la mitad tras finalizar una perfusión de determinada duración. Es el parámetro más clínicamente relevante para predecir el despertar postanestésico.</p>
+    <div class="caja caja-lila"><strong>🔬 ¿Por qué "sensible al contexto"?</strong> Porque el tiempo de reducción a la mitad depende del <em>contexto</em> (duración) de la infusión previa. A diferencia de la t½ clásica, que es constante para una cinética de orden 1, el CSHT aumenta con la duración de la perfusión para fármacos que se acumulan en compartimentos periféricos (grasa, músculo). El "contexto" es la duración de la infusión.</div>
+    <div class="tabla-wrap"><table>
+      <thead><tr><th>Fármaco</th><th>CSHT tras 1 h perfusión</th><th>CSHT tras 8 h perfusión</th><th>CSHT tras 24 h perfusión</th><th>Comportamiento</th></tr></thead>
+      <tbody>
+        <tr><td>Remifentanilo</td><td>~3 min</td><td>~3–4 min</td><td>~4 min</td><td>Prácticamente constante. Ideal para perfusiones largas. El metabolismo por esterasas no se satura.</td></tr>
+        <tr><td>Propofol</td><td>~10 min</td><td>~30–40 min</td><td>~60–90 min</td><td>Aumenta moderadamente. Aceptable para cirugías de hasta 8–12 h.</td></tr>
+        <tr><td>Fentanilo</td><td>~20 min</td><td>~200–300 min</td><td>&gt;600 min</td><td>Aumenta enormemente con la duración. No apto para perfusiones largas si se desea recuperación rápida.</td></tr>
+        <tr><td>Sufentanilo</td><td>~30 min</td><td>~300 min</td><td>~500 min</td><td>Similar a fentanilo. Acumulación significativa en perfusiones largas.</td></tr>
+        <tr><td>Midazolam</td><td>~40 min</td><td>&gt;400 min</td><td>&gt;1000 min (días)</td><td>Muy sensible al contexto. Perfusiones largas en UCI pueden causar despertar tardío de días.</td></tr>
+        <tr><td>Alfentanilo</td><td>~60 min</td><td>~60 min</td><td>~60 min</td><td>Sorprendentemente estable a pesar de ser lipofílico. Vd relativamente bajo.</td></tr>
+      </tbody>
+    </table></div>
+    <div class="caja caja-ok"><strong>✔ Aplicación práctica en TIVA:</strong> Para cirugías largas donde se requiere recuperación rápida y predecible (neurocirugía, cirugía cardíaca con extubación temprana, cirugía ambulatoria), la combinación <strong>propofol + remifentanilo</strong> es la de mejor perfil farmacocinético porque ambos tienen CSHT bajo y estable. El fentanilo en perfusión es adecuado para cirugías de 1–2 horas pero su CSHT se vuelve problemático en cirugías de más de 4–6 horas.</div>
+    <div class="subseccion">
+      <h3>Factores que modifican el CSHT en la práctica</h3>
+      <div class="tabla-wrap"><table>
+        <thead><tr><th>Factor</th><th>Efecto sobre CSHT</th><th>Ejemplo clínico</th></tr></thead>
+        <tbody>
+          <tr><td>Duración de la perfusión</td><td>↑ CSHT con mayor duración (excepto remifentanilo)</td><td>Fentanilo: 20 min tras 1 h → 300 min tras 8 h</td></tr>
+          <tr><td>Liposolubilidad del fármaco</td><td>Mayor lipo → mayor depósito en grasa → mayor CSHT</td><td>Sufentanilo &gt; fentanilo &gt; alfentanilo &gt; remifentanilo</td></tr>
+          <tr><td>Obesidad</td><td>↑ depósito en grasa → ↑ CSHT</td><td>Fentanilo y midazolam se acumulan más en obesos</td></tr>
+          <tr><td>Hipotermia</td><td>↓ metabolismo hepático → ↑ CSHT efectivo</td><td>Cirugía cardíaca con hipotermia: despertar retrasado</td></tr>
+          <tr><td>Falla hepática</td><td>↓ CL → ↑ CSHT (fármacos CYP-dependientes)</td><td>Midazolam: acumulación grave en cirrosis</td></tr>
+        </tbody>
+      </table></div>
+    </div>
+  </div>
+</div>
+
+<!-- S8 -->
+<div class="seccion" id="s8">
+  <div class="seccion-header"><div class="seccion-numero">8</div><div class="seccion-titulo">Tolerancia y Taquifilaxia</div></div>
+  <div class="seccion-body">
+    <div class="fd-grid">
+      <div class="fd-card">
+        <div class="fd-h">Tolerancia</div>
+        <div class="fd-body">
+          <strong>Definición:</strong> Disminución progresiva y sostenida de la respuesta a un fármaco tras su administración repetida, que requiere aumentar la dosis para mantener el mismo efecto terapéutico.<br><br>
+          <strong>Mecanismos:</strong><br>
+          • <em>Tolerancia farmacocinética:</em> ↑ metabolismo del fármaco (inducción enzimática CYP).<br>
+          • <em>Tolerancia farmacodinámica:</em> ↓ número o sensibilidad de receptores (down-regulation), desensibilización de receptores, cambios en señalización intracelular (↑ AMPc en opioides).<br><br>
+          <strong>Ejemplo en anestesia:</strong> Paciente con dolor crónico en tratamiento con opioides (morfina, oxicodona, buprenorfina) requiere dosis anestésicas de opioides significativamente mayores durante la cirugía y el postoperatorio. La ketamina (antagonista NMDA) puede ser útil como adyuvante analgésico en estos pacientes para reducir el consumo de opioides.<br><br>
+          <strong>Tolerancia cruzada:</strong> La tolerancia a un opioide suele conferir tolerancia parcial a otros opioides (tolerancia cruzada incompleta). Permite la rotación de opioides con reducción de dosis del 25–50%.
+        </div>
+      </div>
+      <div class="fd-card">
+        <div class="fd-h">Taquifilaxia</div>
+        <div class="fd-body">
+          <strong>Definición:</strong> Disminución rápida de la respuesta a un fármaco tras dosis repetidas en un período corto. Es aguda, reversible y temporal, a diferencia de la tolerancia que es gradual y sostenida.<br><br>
+          <strong>Mecanismo:</strong> Depleción del mediador (neurotransmisor) en la terminal nerviosa, internalización rápida de receptores, o agotamiento del segundo mensajero.<br><br>
+          <strong>Ejemplos en anestesia:</strong><br>
+          • <em>Efedrina:</em> Las dosis repetidas producen respuesta hipotensora cada vez menor porque depletan las catecolaminas de los terminales adrenérgicos (mecanismo indirecto). Solución: cambiar a fenilefrina (acción directa) o adrenalina.<br>
+          • <em>Descongestionantes nasales tópicos</em> (oximetazolina): rebote vasodilatador tras uso repetido.<br>
+          • <em>Nitroprusiato de sodio:</em> Taquifilaxia en hipertensión refractaria con infusión prolongada.<br><br>
+          <strong>Diferencia clave:</strong> Tolerancia = gradual, días–semanas. Taquifilaxia = minutos–horas.
+        </div>
+      </div>
+    </div>
+    <div class="caja caja-advertencia"><strong>⚠ Hiperalgesia inducida por opioides (HIO):</strong> Un fenómeno paradójico relacionado con la tolerancia es la <strong>hiperalgesia inducida por opioides</strong>: la exposición crónica o aguda a opioides (especialmente remifentanilo en altas dosis) puede paradójicamente aumentar la sensibilidad al dolor. El mecanismo involucra sensibilización central vía receptores NMDA. El remifentanilo, por su potencia y vida media muy corta, puede producir HIO aguda significativa si se usan dosis altas sin analgésicos complementarios. Estrategia: multimodal (ketamina + AINE + dexametasona) y reducción de dosis de remifentanilo.</div>
+  </div>
+</div>
+
+<!-- S9 -->
+<div class="seccion" id="s9">
+  <div class="seccion-header"><div class="seccion-numero">9</div><div class="seccion-titulo">Farmacodinamia: Receptores, Ligandos y Mecanismos</div></div>
+  <div class="seccion-body">
+    <p class="parrafo">La <strong>farmacodinamia</strong> estudia qué le hace el fármaco al cuerpo: cómo se unen los fármacos a sus receptores y qué efecto biológico producen. La comprensión de los receptores involucrados en la anestesia es fundamental para entender los mecanismos de acción, los antagonismos y las interacciones farmacológicas.</p>
+    <div class="subseccion">
+      <h3>Receptores principales en anestesiología</h3>
+      <div class="tabla-wrap"><table>
+        <thead><tr><th>Receptor</th><th>Tipo</th><th>Ligando endógeno</th><th>Fármacos anestésicos</th><th>Efecto clínico</th></tr></thead>
+        <tbody>
+          <tr><td>GABA-A</td><td>Canal iónico de Cl⁻ (ionotrópico)</td><td>GABA (ácido γ-aminobutírico)</td><td>Propofol, midazolam, benzodiacepinas, barbitúricos, etomidato, anestésicos halogenados</td><td>↑ flujo de Cl⁻ → hiperpolarización → sedación, hipnosis, amnesia, relajación muscular, anticonvulsivante</td></tr>
+          <tr><td>NMDA</td><td>Canal iónico (ionotrópico) – activado por glutamato</td><td>Glutamato, glicina</td><td>Ketamina (antagonista), óxido nitroso (antagonista parcial), remifentanilo (modulación)</td><td>Ketamina bloquea el canal → analgesia disociativa, amnesia. Previene sensibilización central al dolor.</td></tr>
+          <tr><td>Opioide μ (mu)</td><td>Receptor acoplado a proteína Gi</td><td>β-endorfina, encefalinas</td><td>Morfina, fentanilo, sufentanilo, remifentanilo, tramadol (agonistas); buprenorfina (agonista parcial); naloxona (antagonista)</td><td>Analgesia potente, euforia, sedación, depresión respiratoria, miosis, constipación, prurito</td></tr>
+          <tr><td>Opioide κ (kappa)</td><td>Receptor acoplado a proteína Gi</td><td>Dinorfinas</td><td>Nalbufina, pentazocina (agonistas κ / antagonistas μ parciales)</td><td>Analgesia espinal, sedación, disforia, alucinaciones</td></tr>
+          <tr><td>Nicotínico muscular (nAChR)</td><td>Canal iónico de Na⁺/K⁺ (ionotrópico)</td><td>Acetilcolina</td><td>Succinilcolina (agonista-despolarizante), rocuronio, vecuronio, atracurio (antagonistas competitivos)</td><td>Despolarización y relajación muscular (succinilcolina) o bloqueo competitivo (no despolarizantes)</td></tr>
+          <tr><td>Adrenérgico α₂</td><td>Receptor acoplado a proteína Gi</td><td>Noradrenalina</td><td>Dexmedetomidina, clonidina (agonistas)</td><td>Sedación, analgesia, bradicardia, hipotensión. Reduce requerimientos de opioides y anestésicos.</td></tr>
+          <tr><td>Canal de Na⁺ voltaje-dependiente</td><td>Canal iónico</td><td>Despolarización de membrana</td><td>Anestésicos locales (lidocaína, bupivacaína, ropivacaína, levobupivacaína)</td><td>Bloqueo de conducción nerviosa → anestesia local y regional; antiarrítmico (lidocaína IV)</td></tr>
+        </tbody>
+      </table></div>
+    </div>
+    <div class="subseccion">
+      <h3>Sitio alostérico y modulación alostérica</h3>
+      <p class="parrafo">La <strong>modulación alostérica</strong> ocurre cuando un ligando se une a un sitio diferente al sitio activo del receptor, modificando (potenciando o inhibiendo) la respuesta al ligando principal sin ocupar el sitio activo.</p>
+      <div class="caja caja-info"><strong>ℹ Ejemplo paradigmático: Benzodiacepinas y receptor GABA-A:</strong> El GABA se une al sitio activo del receptor GABA-A y abre el canal de Cl⁻. Las benzodiacepinas (midazolam, diazepam, lorazepam) se unen a un <strong>sitio alostérico diferente</strong> (entre las subunidades α y γ), aumentando la frecuencia de apertura del canal sin activarlo directamente. Esto explica por qué las benzodiacepinas solas tienen un "techo de efecto" (no causan coma ni paro respiratorio fácilmente a dosis habituales) y por qué flumazenil las antagoniza específicamente sin afectar el propofol ni los barbitúricos (que actúan en sitios diferentes del mismo receptor).</div>
+      <div class="formula-box">
+        Efecto = Emax × [D]ⁿ / (EC₅₀ⁿ + [D]ⁿ)
+        <br><br>
+        Emax = efecto máximo posible &nbsp;|&nbsp; EC₅₀ = concentración que produce 50% del Emax
+        <br>
+        [D] = concentración del fármaco &nbsp;|&nbsp; n = coeficiente de Hill (pendiente de la curva)
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- S10 -->
+<div class="seccion" id="s10">
+  <div class="seccion-header"><div class="seccion-numero">10</div><div class="seccion-titulo">Curvas Dosis-Respuesta: Potencia, Eficacia y EC₅₀</div></div>
+  <div class="seccion-body">
+    <div class="subseccion">
+      <h3>Conceptos fundamentales</h3>
+      <div class="concepto-grid">
+        <div class="concepto-card">
+          <span class="concepto-nombre">Potencia</span>
+          <span class="concepto-valor">EC₅₀</span>
+          <span class="concepto-desc">Concentración necesaria para producir el 50% del efecto máximo. Menor EC₅₀ = mayor potencia. Ejemplo: Sufentanilo es 10× más potente que fentanilo (menor EC₅₀ para analgesia). Curva dosis-respuesta desplazada a la izquierda = más potente.</span>
+        </div>
+        <div class="concepto-card">
+          <span class="concepto-nombre">Eficacia</span>
+          <span class="concepto-valor">Emax</span>
+          <span class="concepto-desc">Efecto máximo que puede alcanzar un fármaco al ocupar todos sus receptores. Agonista completo = Emax alto. Agonista parcial = Emax bajo (nunca alcanza el efecto máximo, aunque aumente la dosis). Morfina y fentanilo tienen igual Emax (agonistas μ completos).</span>
+        </div>
+        <div class="concepto-card">
+          <span class="concepto-nombre">Índice Terapéutico</span>
+          <span class="concepto-valor">DL₅₀ / DE₅₀</span>
+          <span class="concepto-desc">Relación entre la dosis letal 50 y la dosis efectiva 50. Mayor IT = mayor margen de seguridad. Benzodiacepinas: IT alto (≫10). Opioides: IT moderado (~3–10 según vía). Barbitúricos: IT bajo. Los fármacos con IT bajo requieren monitoreo estricto.</span>
+        </div>
+        <div class="concepto-card">
+          <span class="concepto-nombre">Eficiencia</span>
+          <span class="concepto-valor">Efecto / Dosis</span>
+          <span class="concepto-desc">Efecto logrado con la dosis administrada. Concepto relacionado con la titulación. Propofol titulado con la menor dosis para lograr el efecto deseado = alta eficiencia. Implica menor riesgo y menor costo. Se optimiza con monitoreo de profundidad anestésica (BIS).</span>
+        </div>
+      </div>
+    </div>
+    <div class="subseccion">
+      <h3>Interpretación de las curvas dosis-respuesta</h3>
+      <div class="tabla-wrap"><table>
+        <thead><tr><th>Característica de la curva</th><th>Interpretación</th><th>Ejemplo clínico</th></tr></thead>
+        <tbody>
+          <tr><td>Curva desplazada a la IZQUIERDA</td><td>Mayor potencia (menor EC₅₀ para el mismo efecto)</td><td>Sufentanilo vs fentanilo: sufentanilo tiene curva más a la izquierda → más potente</td></tr>
+          <tr><td>Curva con Emax más ALTO</td><td>Mayor eficacia máxima</td><td>Morfina (agonista μ completo) tiene Emax mayor que buprenorfina (agonista parcial)</td></tr>
+          <tr><td>Curva con pendiente más EMPINADA (n↑)</td><td>Transición rápida entre dosis inefectiva y tóxica → menor margen terapéutico</td><td>Barbitúricos: pendiente empinada → poca diferencia entre dosis hipnótica y letal</td></tr>
+          <tr><td>Curva con TECHO (Emax limitado)</td><td>Agonismo parcial: aumentar la dosis no produce más efecto</td><td>Buprenorfina: nunca alcanza analgesia completa ni depresión respiratoria máxima de un agonista completo</td></tr>
+        </tbody>
+      </table></div>
+      <div class="caja caja-evidencia"><strong>📚 MAC en anestésicos inhalados – aplicación de la curva dosis-respuesta:</strong> La <strong>MAC</strong> (Concentración Alveolar Mínima) es el equivalente al EC₅₀ para los agentes inhalados: la concentración alveolar que previene el movimiento ante incisión en el 50% de los pacientes. MAC-BAR (>1.3 MAC) bloquea la respuesta autonómica. MAC-awake (~0.3 MAC) permite despertar. La curva dosis-respuesta de los halogenados es sigmoidal y permite predecir los efectos según la concentración end-tidal.</div>
+    </div>
+  </div>
+</div>
+
+<!-- S11 -->
+<div class="seccion" id="s11">
+  <div class="seccion-header"><div class="seccion-numero">11</div><div class="seccion-titulo">Agonistas, Agonistas Parciales y Antagonistas</div></div>
+  <div class="seccion-body">
+    <div class="ag-grid">
+      <div class="ag-card ag-completo">
+        <span class="ag-nombre">Agonista Completo</span>
+        <div class="ag-def">Se une al receptor y produce el <strong>efecto máximo posible</strong> (Emax total). Alta eficacia y afinidad.</div>
+        <div class="ag-ej">Morfina, fentanilo, sufentanilo, remifentanilo (receptor μ)<br>Propofol, midazolam (receptor GABA-A)<br>Succinilcolina (receptor nicotínico)</div>
+      </div>
+      <div class="ag-card ag-parcial">
+        <span class="ag-nombre">Agonista Parcial</span>
+        <div class="ag-def">Se une al receptor pero produce un <strong>efecto submáximo</strong> aunque ocupe todos los receptores. Tiene "techo" de efecto inherente.</div>
+        <div class="ag-ej">Buprenorfina (μ parcial + κ antagonista)<br>Tramadol (μ débil + inhibición recaptación)<br>Nalbufina (κ agonista + μ antagonista parcial)</div>
+      </div>
+      <div class="ag-card ag-antagonista">
+        <span class="ag-nombre">Antagonista</span>
+        <div class="ag-def">Se une al receptor con alta afinidad pero <strong>sin producir efecto</strong>. Bloquea la acción del agonista. Puede ser competitivo (reversible) o no competitivo (irreversible).</div>
+        <div class="ag-ej">Naloxona/naltrexona (μ antagonista → revierte depresión respiratoria por opioides)<br>Flumazenil (GABA-A antagonista → revierte BDZ)<br>Sugammadex (encapsula rocuronio/vecuronio → no es antagonismo de receptor)</div>
+      </div>
+    </div>
+    <div class="subseccion">
+      <h3>Consideraciones clínicas importantes sobre los antagonistas</h3>
+      <div class="tabla-wrap"><table>
+        <thead><tr><th>Antagonista</th><th>Receptor</th><th>Indicación</th><th>Precaución clínica</th></tr></thead>
+        <tbody>
+          <tr><td>Naloxona</td><td>μ, κ, δ (opioides)</td><td>Reversión de depresión respiratoria por opioides en emergencia</td><td>T½ ~60–90 min (más corta que la mayoría de opioides) → riesgo de re-narcotización. Puede precipitar síndrome de abstinencia agudo en adictos. Usar dosis tituladas (0.04 mg IV) para revertir depresión sin eliminar analgesia.</td></tr>
+          <tr><td>Flumazenil</td><td>GABA-A (sitio BDZ)</td><td>Reversión de sedación por benzodiacepinas</td><td>T½ ~1 hora (más corta que BDZ) → re-sedación posible. No revierte el propofol ni los barbitúricos. Puede precipitar convulsiones en pacientes con epilepsia dependientes de BDZ.</td></tr>
+          <tr><td>Sugammadex</td><td>No es antagonismo de receptor: encapsula molecularmente el rocuronio o vecuronio</td><td>Reversión rápida de bloqueo neuromuscular no despolarizante</td><td>No útil para succinilcolina ni atracurio. Dosis varía según profundidad del bloqueo (2 mg/kg moderado, 16 mg/kg bloqueo profundo urgente). Puede prolongar el QT.</td></tr>
+          <tr><td>Neostigmina</td><td>Anticolinesterásico → ↑ ACh en la unión neuromuscular</td><td>Reversión de bloqueo neuromuscular no despolarizante (alternativa al sugammadex)</td><td>Debe combinarse con anticolinérgico (atropina o glicopirrolato) para evitar efectos muscarínicos (bradicardia, broncospasmo, hipersecreción). Menos completa que sugammadex.</td></tr>
+      </tbody>
+      </table></div>
+    </div>
+    <div class="caja caja-alerta"><strong>⚠ Buprenorfina y el problema del "techo":</strong> La buprenorfina como agonista parcial μ tiene implicaciones importantes: (1) En pacientes con buprenorfina crónica (tratamiento de adicción), los opioides agonistas completos tienen dificultad para desplazarla del receptor (alta afinidad), lo que reduce su efectividad analgésica perioperatoria. Estrategia: continuar buprenorfina y agregar analgesia multimodal intensa (ketamina, AINE, anestesia regional) más que suspenderla abruptamente. (2) La naloxona puede revertir parcialmente la depresión respiratoria por buprenorfina pero requiere dosis mayores y es menos predecible.</div>
+  </div>
+</div>
+
+<!-- S12 -->
+<div class="seccion" id="s12">
+  <div class="seccion-header"><div class="seccion-numero">12</div><div class="seccion-titulo">Propiedades Fisicoquímicas de los Fármacos en Anestesiología</div></div>
+  <div class="seccion-body">
+    <p class="parrafo">Las propiedades fisicoquímicas de los fármacos determinan directamente su absorción, distribución a través de membranas biológicas, potencia de acción y duración del efecto. Son especialmente relevantes en anestesiología donde la velocidad de cruce de la barrera hematoencefálica y la membrana neuronal determinan el inicio y fin del efecto clínico.</p>
+    <div class="prop-grid">
+      <div class="prop-card">
+        <div class="prop-h prop-pk">pKa – Constante de Ionización</div>
+        <div class="prop-body">
+          <strong>Definición:</strong> pH al cual el 50% de la molécula está ionizada y el 50% no ionizada.<br><br>
+          <strong>Regla general:</strong><br>
+          • Ácidos débiles: forma no ionizada = forma ácida (a pH bajo → más no ionizado → mejor absorción).<br>
+          • Bases débiles: forma no ionizada = forma básica (a pH alto → más no ionizado → mejor absorción).<br><br>
+          <div style="background:#D6EAF8;padding:8px 10px;border-radius:6px;font-family:'Courier New',monospace;font-size:11.5px;margin:8px 0;">
+            Ácidos: pH = pKa + log([A⁻]/[HA])<br>
+            Bases: pH = pKa + log([B]/[BH⁺])
+          </div>
+          <strong>Solo la forma NO ionizada</strong> atraviesa membranas lipídicas.<br><br>
+          <strong>Ejemplos clínicos críticos:</strong><br>
+          • <em>Lidocaína</em> (pKa 7.9, base débil): A pH 7.4 (normal) → ~25% no ionizada → cruza membrana. En tejido inflamado (pH 6.5–7.0) → mayor ionización → <strong>menor efecto del anestésico local en tejido inflamado</strong>.<br>
+          • <em>Bupivacaína</em> (pKa 8.1): Similar fenómeno. Usar mayor concentración en tejido inflamado o acidótico.<br>
+          • <em>Fentanilo</em> (pKa 8.4, base débil): A pH 7.4 → ~10% no ionizado → equilibrio rápido con SNC. Más ionizado en plasma ácido.
+        </div>
+      </div>
+      <div class="prop-card">
+        <div class="prop-h prop-lipo">Liposolubilidad – Coeficiente de Partición</div>
+        <div class="prop-body">
+          <strong>Definición:</strong> Capacidad de disolverse en lípidos. Se mide como el coeficiente de partición octanol/agua (Koctanol/agua).<br><br>
+          <div style="background:#D5F5E3;padding:8px 10px;border-radius:6px;font-family:'Courier New',monospace;font-size:11.5px;margin:8px 0;">
+            K(oct/agua) = [fármaco]lipídico / [fármaco]acuoso
+          </div>
+          <strong>Mayor K</strong> → más liposoluble → cruce más rápido de membranas → inicio más rápido de acción en SNC.<br><br>
+          <strong>Anestésicos locales:</strong> Mayor liposolubilidad → mayor potencia intrínseca y duración más larga, pero inicio no necesariamente más rápido (depende también del pKa).<br><br>
+          <strong>Anestésicos inhalados:</strong> Coeficiente sangre/gas (no octanol): menor = inicio y recuperación más rápidos (desflurano &lt; sevoflurano &lt; isoflurano &lt; halotano).<br><br>
+          <strong>Ejemplos:</strong><br>
+          • Propofol: muy lipofílico → inicio ultrarrápido, gran Vd.<br>
+          • Sufentanilo: 1600× más lipofílico que morfina → potencia 10× mayor que fentanilo.<br>
+          • Morfina: hidrofílica → inicio más lento, duración mayor en espacio neuroaxial.
+        </div>
+      </div>
+      <div class="prop-card">
+        <div class="prop-h prop-ion">Ionización y Unión a Proteínas Plasmáticas</div>
+        <div class="prop-body">
+          <strong>Unión a proteínas:</strong> Los fármacos pueden unirse a albúmina (ácidos), α₁-glucoproteína ácida (bases) y otras proteínas. Solo la fracción libre (no unida) es farmacológicamente activa y puede cruzar membranas.<br><br>
+          <strong>Importancia clínica:</strong><br>
+          • Hipoalbuminemia (cirrosis, sepsis, desnutrición) → ↑ fracción libre de fármacos → mayor efecto y toxicidad con la misma dosis.<br>
+          • <em>Lidocaína:</em> 65% unida a α₁-glucoproteína. En el embarazo (↓ proteínas) → ↑ fracción libre → mayor riesgo de toxicidad sistémica.<br>
+          • <em>Fentanilo:</em> 84% unido a proteínas. Paciente con sepsis y hipoalbuminemia → precaución con dosis habituales.<br>
+          • <em>Bupivacaína:</em> 95% unida a proteínas → pequeños cambios en la fracción libre tienen grandes consecuencias.<br><br>
+          <strong>Cationes vs Aniones:</strong><br>
+          • Cationes (+): Na⁺, K⁺, Ca²⁺ → importantes en electrofisiología y coagulación.<br>
+          • Aniones (-): Cl⁻, HCO₃⁻ → importantes en equilibrio ácido-base.
+        </div>
+      </div>
+      <div class="prop-card">
+        <div class="prop-h prop-est">Estereoisomería y Mezclas Racémicas</div>
+        <div class="prop-body">
+          <strong>Definición:</strong> Los enantiómeros son moléculas con la misma fórmula química pero configuración espacial especular no superponible (imagen especular). Tienen diferente actividad biológica, toxicidad y metabolismo.<br><br>
+          <strong>Actividad óptica:</strong><br>
+          • Levógiro (L, S): desvía luz hacia la izquierda.<br>
+          • Dextrógiro (D, R): desvía luz hacia la derecha.<br><br>
+          <strong>Ejemplos críticos en anestesia:</strong><br>
+          • <em>Bupivacaína racémica (50% R + 50% S):</em> El enantiómero R (+) es altamente cardiotóxico (bloquea canales de Na⁺ y K⁺ cardíacos de forma tónica). La <strong>levobupivacaína (S(-))</strong> y la <strong>ropivacaína (S(-))</strong> tienen menor cardiotoxicidad al mismo efecto anestésico local.<br>
+          • <em>Ketamina racémica:</em> El S(+)-ketamina (esketamina) es 4× más potente que el R(-) para analgesia y tiene menos efectos disfóricos. Disponible como esketamina nasal (Spravato®) para depresión resistente.<br>
+          • <em>Morfina:</em> Solo el enantiómero natural L (-) tiene actividad opioide. El enantiómero sintético D (+) es inactivo sobre receptores opioides.<br>
+          • <em>Etomidato:</em> Solo el R(+) tiene actividad hipnótica. Las formulaciones modernas contienen solo este enantiómero.
+        </div>
+      </div>
+    </div>
+    <div class="subseccion">
+      <h3>Tabla de propiedades fisicoquímicas de anestésicos locales</h3>
+      <div class="tabla-wrap"><table>
+        <thead><tr><th>Anestésico Local</th><th>pKa</th><th>Unión prot. (%)</th><th>Liposolubilidad</th><th>Inicio</th><th>Duración</th><th>Cardiotoxicidad</th></tr></thead>
+        <tbody>
+          <tr><td>Lidocaína</td><td>7.9</td><td>65%</td><td>Media</td><td>Rápido (~5 min)</td><td>Intermedia (1–2 h)</td><td>Baja (antiarrítmico a dosis bajas)</td></tr>
+          <tr><td>Bupivacaína (racémica)</td><td>8.1</td><td>95%</td><td>Alta</td><td>Lento (~15 min)</td><td>Larga (4–8 h)</td><td>Alta (cardiotóxica, arritmias ventriculares graves)</td></tr>
+          <tr><td>Levobupivacaína</td><td>8.1</td><td>97%</td><td>Alta</td><td>Lento</td><td>Larga</td><td>Menor que racémica</td></tr>
+          <tr><td>Ropivacaína</td><td>8.1</td><td>94%</td><td>Media-alta</td><td>Intermedio</td><td>Larga (3–6 h)</td><td>La más baja del grupo (preferida en obstetricia)</td></tr>
+          <tr><td>Mepivacaína</td><td>7.6</td><td>75%</td><td>Media</td><td>Rápido</td><td>Intermedia</td><td>Baja-moderada. Evitar en embarazo (metabolismo neonatal lento).</td></tr>
+          <tr><td>Prilocaína</td><td>7.9</td><td>55%</td><td>Baja-media</td><td>Rápido</td><td>Corta-intermedia</td><td>Baja, pero puede causar metahemoglobinemia</td></tr>
+        </tbody>
+      </table></div>
+    </div>
+    <div class="caja caja-alerta"><strong>⚠ Toxicidad sistémica de anestésicos locales (LAST):</strong> La inyección intravascular inadvertida de anestésicos locales puede producir toxicidad sistémica grave (LAST: Local Anesthetic Systemic Toxicity). Signos: sabor metálico, tinnitus, convulsiones (SNC), arritmias (cardiovascular). La bupivacaína racémica produce arritmias ventriculares refractarias por bloqueo tónico de canales Na⁺/K⁺ cardíacos. Tratamiento: emulsión lipídica al 20% (Intralipid®) 1.5 ml/kg en bolo IV — secuestra el anestésico local liposoluble del plasma. La ropivacaína y levobupivacaína son más seguras por esta razón.</div>
+    <div class="caja caja-evidencia"><strong>📚 Fuentes principales:</strong> Goodman & Gilman: Las Bases Farmacológicas de la Terapéutica, 13ª ed. (2018) · Miller's Anesthesia, 9ª ed. (2020) · Stoelting's Pharmacology & Physiology in Anesthetic Practice, 5ª ed. (2015) · Brunton LL et al., Goodman & Gilman 2018 · Rosen MA et al. Clinical Anesthesia, 8ª ed. · Shafer SL et al. TCI and pharmacokinetics, Anesthesiology 2023 · Actualizado: 2025.</div>
+  </div>
+</div>
+
+</div><!-- /contenedor -->
+
+<!-- PIE -->
+<div class="footer">
+  <div class="footer-grid">
+    <div>
+      <strong>Autor y Docente Responsable</strong>
+      Dr. Andrés Robayo · Médico Especialista en Anestesiología y Reanimación<br>
+      Docente de Pregrado – Rotación de Anestesiología<br>
+      Hospital de Kennedy · Hospital de Bosa<br>
+      Subred Integrada de Servicios de Salud Suroccidente – Bogotá, D.C., Colombia
+    </div>
+    <div>
+      <strong>Fuentes y Actualización</strong>
+      Miller's Anesthesia 9ª ed. 2020 · Goodman & Gilman 13ª ed. 2018<br>
+      Stoelting's Pharmacology & Physiology 5ª ed. · Clinical Anesthesia 8ª ed.<br>
+      Shafer SL – TCI and Pharmacokinetics (Anesthesiology 2023) · Actualizado: 2025
+    </div>
+  </div>
+</div>
+<div class="copyright">
+  © 2025 Dr. Andrés Robayo – Subred Suroccidente (Hospitales de Kennedy y Bosa), Bogotá, Colombia.<br>
+  Material de uso exclusivo para fines académicos y docentes. Prohibida su reproducción total o parcial sin autorización escrita del autor.<br>
+  Este documento no reemplaza el juicio clínico ni los protocolos institucionales vigentes.
+</div>
+
+</body>
+</html>

@@ -1,0 +1,626 @@
+<!DOCTYPE html>
+<html lang="es"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Rotación de Salas — Grupo 2  — Hospital de Bosa</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600;700;800&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#0D1B2A;--slate:#1E293B;--smoke:#374151;--mist:#94A3B8;--fog:#CBD5E1;--canvas:#F1F5F9;--gold:#FFD740;}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'DM Sans',sans-serif;font-size:13.5px;line-height:1.6;color:var(--ink);background:#EEF2F7;}
+.portada{background:linear-gradient(135deg,#050F2C,#0D47A1,#01579B);color:#fff;padding:50px 54px 42px;position:relative;overflow:hidden;}
+.portada::before{content:'';position:absolute;inset:0;background:rgba(255,255,255,.05);border-radius:50%;top:-80px;right:-80px;width:320px;height:320px;}
+.portada::after{content:'';position:absolute;bottom:-60px;right:-60px;width:280px;height:280px;border-radius:50%;background:rgba(255,255,255,.03);}
+.portada-inner{position:relative;z-index:1;max-width:1200px;}
+.portada-tag{font-family:'DM Sans',sans-serif;font-size:10px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:rgba(255,255,255,.6);margin-bottom:18px;display:flex;align-items:center;gap:8px;}
+.portada-tag::before{content:'▸';color:var(--gold);}
+.portada h1{font-family:'Bebas Neue',sans-serif;font-size:clamp(30px,5vw,54px);letter-spacing:2px;line-height:.95;margin-bottom:10px;}
+.portada h1 em{font-style:normal;color:var(--gold);}
+.portada-sub{font-family:'DM Sans',sans-serif;font-size:13px;color:rgba(255,255,255,.75);margin-bottom:28px;max-width:700px;font-weight:500;line-height:1.7;}
+.portada-pills{display:flex;flex-wrap:wrap;gap:8px;border-top:1px solid rgba(255,255,255,.15);padding-top:18px;}
+.pill{display:inline-flex;align-items:center;gap:6px;padding:5px 14px;border-radius:8px;font-size:11.5px;font-weight:700;border:1.5px solid rgba(255,255,255,.25);background:rgba(255,255,255,.12);color:rgba(255,255,255,.9);}
+.pill-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;}
+.cont{max-width:1200px;margin:0 auto;padding:28px 18px 80px;}
+.nota{border-radius:10px;padding:12px 16px;margin-bottom:12px;border-left:5px solid;font-size:13px;line-height:1.65;}
+.nota-info{background:#EFF6FF;border-color:#2563EB;color:#1E3A8A;}.nota-info strong{color:#1D4ED8;}
+.nota-warn{background:#FFFBEB;border-color:#D97706;color:#78350F;}.nota-warn strong{color:#92400E;}
+.leyenda{background:#fff;border-radius:12px;border:2px solid #CBD5E1;padding:14px 18px;margin-bottom:18px;box-shadow:0 3px 12px rgba(0,0,0,.07);}
+.ley-titulo{font-family:'Bebas Neue',sans-serif;font-size:13px;letter-spacing:2px;text-transform:uppercase;color:#374151;margin-bottom:10px;}
+.ley-grid{display:flex;flex-wrap:wrap;gap:14px;}
+.ley-group{flex:1;min-width:180px;}
+.ley-group-title{font-size:9px;text-transform:uppercase;letter-spacing:1px;color:#6B7280;font-weight:800;margin-bottom:5px;}
+.ley-items{display:flex;flex-wrap:wrap;gap:4px;}
+.ley-badge{display:inline-flex;align-items:center;gap:4px;padding:3px 9px;border-radius:5px;font-size:11px;font-weight:700;border-left:4px solid;white-space:nowrap;}
+.seccion{background:#fff;border-radius:14px;border:2px solid #CBD5E1;margin-bottom:20px;overflow:hidden;box-shadow:0 4px 18px rgba(0,0,0,.07);}
+.sec-h{padding:13px 22px;display:flex;align-items:center;gap:12px;color:#fff;flex-wrap:wrap;}
+.sec-num{width:26px;height:26px;border-radius:6px;background:rgba(255,255,255,.2);display:flex;align-items:center;justify-content:center;font-family:'Bebas Neue',sans-serif;font-size:15px;font-weight:700;flex-shrink:0;}
+.sec-titulo{font-family:'Bebas Neue',sans-serif;font-size:18px;letter-spacing:1.5px;}
+.sec-sub{font-size:10px;color:rgba(255,255,255,.6);font-weight:700;letter-spacing:1px;margin-left:auto;text-transform:uppercase;}
+.sec-b{overflow-x:auto;}
+.cal-table{width:100%;border-collapse:collapse;font-size:12px;min-width:960px;}
+.week-title-row td{padding:0;}
+.week-title{background:linear-gradient(135deg,#0D47A1,#1565C0);color:#fff;font-family:'Bebas Neue',sans-serif;font-size:12px;font-weight:700;letter-spacing:2px;text-transform:uppercase;padding:8px 16px;}
+.subhead-row .sh{padding:7px 6px;font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.7px;text-align:center;color:#fff;white-space:nowrap;}
+.subhead-row .sh.th-meta{background:#334155;text-align:left;min-width:85px;}
+.day-row td{border-bottom:1.5px solid #E2E8F0;border-right:1px solid #E2E8F0;vertical-align:middle;padding:6px 4px;}
+.day-row:nth-child(even) td{background:#F8FAFC;}
+.day-row:hover td{background:#EFF6FF;transition:background .15s;}
+.col-fecha{font-family:'DM Mono',monospace;font-size:10.5px;font-weight:600;color:#374151;padding-left:12px !important;white-space:nowrap;}
+.col-dia{font-weight:800;color:#0D1B2A;white-space:nowrap;padding-right:6px !important;font-size:12px;}
+.cell-on{text-align:center;padding:5px 3px !important;min-width:75px;}
+.cell-off{text-align:center;color:#CBD5E1;font-size:16px;font-weight:300;border-right:1px solid #E2E8F0;}
+.chip-u{display:inline-block;padding:2px 6px;border-radius:4px;font-size:8px;font-weight:800;letter-spacing:.6px;text-transform:uppercase;border:1.5px solid;}
+.cell-name{font-weight:800;font-size:11.5px;line-height:1.2;color:#0D1B2A;}
+.row-urg td{background:#FFF1F2 !important;border-bottom:2px solid #FECDD3;}
+.row-urg .col-fecha{color:#9F1239;}.row-urg .col-dia{color:#9F1239;}
+.cell-urg{padding:7px 12px !important;}
+.urg-inner{display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
+.urg-label{display:inline-flex;align-items:center;gap:5px;background:#C62828;color:#fff;padding:3px 10px;border-radius:5px;font-size:10.5px;font-weight:800;white-space:nowrap;flex-shrink:0;}
+.urg-slot{background:#fff;border:2px dashed #FFCDD2;border-radius:5px;padding:3px 10px;font-size:11px;color:#9F1239;font-weight:700;min-width:120px;font-family:'DM Mono',monospace;}
+.urg-sep{color:#FFCDD2;font-weight:800;}
+.urg-note{font-size:10px;color:#E57373;font-style:italic;}
+.tag-tipo{display:inline-block;background:#FFCDD2;color:#9F1239;border:1px solid #EF9A9A;border-radius:4px;font-size:9px;font-weight:800;padding:1px 5px;margin-left:3px;vertical-align:middle;}
+.tag-fest{display:inline-block;background:#FFF9C4;color:#F57F17;border:1px solid #FFF176;border-radius:4px;font-size:9px;font-weight:800;padding:1px 5px;margin-left:3px;vertical-align:middle;}
+.students-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(540px,1fr));gap:16px;padding:18px;}
+.student-card{border-radius:12px;border:2px solid #CBD5E1;overflow:hidden;box-shadow:0 4px 16px rgba(0,0,0,.07);}
+.student-card-h{padding:12px 16px;color:#fff;font-family:'Bebas Neue',sans-serif;font-size:17px;letter-spacing:1.5px;display:flex;align-items:center;justify-content:space-between;}
+.student-card-h small{font-size:10px;color:rgba(255,255,255,.7);font-weight:400;font-family:'DM Mono',monospace;}
+.ind-table{width:100%;border-collapse:collapse;font-size:11px;}
+.ind-table thead th{background:#F1F5F9;padding:6px 9px;text-align:left;font-size:9.5px;text-transform:uppercase;letter-spacing:.7px;font-weight:800;color:#475569;border-bottom:2px solid #CBD5E1;}
+.ind-table tbody tr:nth-child(even) td{background:#F8FAFC;}
+.ind-table td{padding:5px 9px;border-bottom:1px solid #E2E8F0;vertical-align:middle;}
+.ind-fecha{font-family:'DM Mono',monospace;font-size:10px;color:#475569;}
+.ind-dia{font-weight:700;color:#0D1B2A;}
+.badge-ind{display:inline-block;padding:2px 9px;border-radius:5px;font-size:10px;font-weight:800;}
+.turnos-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px;margin-bottom:16px;}
+.turno-card{border-radius:10px;padding:14px 16px;border:2px solid;}
+.t-dia{background:#E3F2FD;border-color:#1976D2;}
+.t-noche{background:#1A1F3A;color:#fff;border-color:#3949AB;}
+.t-fds{background:#FFF9C4;border-color:#F9A825;}
+.t-post{background:#E8F5E9;border-color:#2E7D32;}
+.t-pre{background:#FFF3E0;border-color:#E65100;}
+.turno-title{font-family:'Bebas Neue',sans-serif;font-size:14px;letter-spacing:1px;display:block;margin-bottom:5px;}
+.t-dia .turno-title{color:#0D47A1;}.t-noche .turno-title{color:#90CAF9;}.t-fds .turno-title{color:#F57F17;}.t-post .turno-title{color:#1B5E20;}.t-pre .turno-title{color:#E65100;}
+.turno-hrs{font-family:'Bebas Neue',sans-serif;font-size:24px;letter-spacing:1px;display:block;}
+.t-dia .turno-hrs{color:#0D47A1;}.t-noche .turno-hrs{color:#90CAF9;}.t-fds .turno-hrs{color:#E65100;}.t-post .turno-hrs{color:#1B5E20;}.t-pre .turno-hrs{color:#E65100;}
+.turno-desc{font-size:11.5px;line-height:1.55;margin-top:5px;color:inherit;opacity:.85;}
+.protocolo-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px;margin-bottom:16px;}
+.prot-card{border-radius:10px;padding:13px 15px;border:2px solid #CBD5E1;background:#fff;}
+.prot-num{width:24px;height:24px;border-radius:50%;background:linear-gradient(135deg,#0D47A1,#1565C0);color:#fff;font-size:11px;font-weight:800;display:inline-flex;align-items:center;justify-content:center;margin-right:7px;flex-shrink:0;}
+.prot-item{display:flex;align-items:flex-start;font-size:12.5px;line-height:1.5;color:#374151;}
+.n-rojo{background:#FFEBEE;border-left:4px solid #C62828;border-radius:10px;padding:13px 16px;margin-bottom:12px;font-size:13px;line-height:1.65;}
+.n-rojo strong{color:#C62828;}
+.nota-info{background:#EFF6FF;border-left:4px solid #1976D2;border-radius:10px;padding:13px 16px;margin-bottom:12px;font-size:13px;line-height:1.65;color:#1E3A8A;}
+.nota-info strong{color:#1D4ED8;}
+.nota-warn{background:#FFFBEB;border-left:4px solid #E65100;border-radius:10px;padding:13px 16px;margin-bottom:12px;font-size:13px;line-height:1.65;color:#78350F;}
+.nota-warn strong{color:#E65100;}
+.sec-h.comun{background:linear-gradient(135deg,#0D47A1,#1565C0);}
+.footer{background:linear-gradient(135deg,#050F2C,#0D47A1);color:rgba(255,255,255,.7);padding:24px 54px;font-size:12px;line-height:1.8;}
+.footer-g{display:grid;grid-template-columns:1fr 1fr;gap:28px;max-width:1200px;margin:0 auto;}
+.footer strong{font-family:'Bebas Neue',sans-serif;font-size:14px;letter-spacing:1.5px;color:#fff;display:block;margin-bottom:4px;}
+.copyright{background:#050F2C;color:rgba(255,255,255,.3);text-align:center;padding:11px;font-size:10.5px;letter-spacing:.5px;}
+@media(max-width:700px){.portada{padding:28px 16px 22px;}.portada h1{font-size:26px;}.cont{padding:14px 10px 60px;}.footer-g{grid-template-columns:1fr;}.footer{padding:18px;}.students-grid{grid-template-columns:1fr;}}
+@media print{body{background:#fff;}.portada,.sec-h,.week-title{-webkit-print-color-adjust:exact;print-color-adjust:exact;}.row-urg td{background:#FFF1F2!important;-webkit-print-color-adjust:exact;print-color-adjust:exact;}}
+</style></head><body>
+
+<div class="portada"><div class="portada-inner">
+  <div class="portada-tag">Hospital de Bosa · Subred Integrada de Servicios de Salud Suroccidente · Bogotá D.C.</div>
+  <h1>Rotación de <em>Salas de Cirugía</em><br>Grupo 2  — Anestesiología</h1>
+  <p class="portada-sub">Distribución diaria de salas, recuperación e interconsultas. Turnos noche, posturno, días libres y urgencias de fin de semana y festivos. II Semestre · Julio – Diciembre 2026.</p>
+  <div class="portada-pills">
+    <div class="pill"><span class="pill-dot" style="background:#8B5CF6;"></span>AN — Ant. Nariño</div>
+    <div class="pill">6 salas + Rec. + IC · 2 estudiantes</div>
+    <div class="pill">03/08/2026 → 19/08/2026</div>
+  </div>
+</div></div>
+
+<div class="cont">
+<div class="nota n-rojo">
+  <strong>🚫 Reglas de indumentaria en salas de cirugía — OBLIGATORIO:</strong><br>
+  <ul style="margin:6px 0 0 18px;line-height:1.9;">
+    <li>❌ <strong>No sacos/chaquetas</strong> dentro de las salas de cirugía</li>
+    <li>❌ <strong>No anillos, no relojes, no cadenas, no aretes grandes</strong> (solo aretes pequeños pegados al lóbulo)</li>
+    <li>❌ <strong>No colocar el traje quirúrgico sobre ropa de calle</strong> — cambiarse completamente antes de ingresar</li>
+    <li>❌ <strong>No salir de salas de cirugía con el traje quirúrgico puesto</strong> — cambiarse antes de salir al área pública</li>
+    <li>✅ Cabello recogido completamente · Uñas cortas y sin esmalte · Sin perfume excesivo</li>
+  </ul>
+</div>
+
+<div class="seccion">
+  <div class="sec-h comun"><div class="sec-num">⏰</div><div class="sec-titulo">Horarios de Rotación y Turnos</div></div>
+  <div class="sec-b">
+    <div class="turnos-grid">
+      <div class="turno-card t-dia">
+        <span class="turno-title">ROTACIÓN NORMAL — Entre semana</span>
+        <span class="turno-hrs">07:00 – 16:00 h</span>
+        <div class="turno-desc">Lunes a viernes (excepto días de TURNO). Entrada a salas 7:00 a.m. con protocolo completo. Almuerzo 12:00–14:00 h según el anestesiólogo de la sala.</div>
+      </div>
+      <div class="turno-card t-pre">
+        <span class="turno-title">PRE-TURNO (parte del TURNO entre semana)</span>
+        <span class="turno-hrs">13:00 – 19:00 h</span>
+        <div class="turno-desc">Segunda fase del TURNO entre semana. Continuidad en sala asignada, empalme hacia el turno nocturno de las 19:00 h.</div>
+      </div>
+      <div class="turno-card t-noche">
+        <span class="turno-title">TURNO — Entre semana (3 fases)</span>
+        <span class="turno-hrs">7:00 · 13:00 · 19:00</span>
+        <div class="turno-desc"><strong>Fase diurna:</strong> 7:00–13:00 h en sala · <strong>Pre-turno:</strong> 13:00–19:00 h · <strong>Noche:</strong> 19:00–07:00 h del día siguiente. Post-turno desde las 7:00 a.m. del día siguiente.</div>
+      </div>
+      <div class="turno-card t-fds">
+        <span class="turno-title">TURNO URGENCIAS — Fin de semana</span>
+        <span class="turno-hrs">07:00 – 17:00 h</span>
+        <div class="turno-desc">Sábados, domingos y festivos colombianos. Solo urgencias y emergencias quirúrgicas. Cuando cae en fin de semana/festivo, el TURNO es únicamente nocturno (19:00–07:00 h), sin fase diurna.</div>
+      </div>
+      <div class="turno-card t-noche">
+        <span class="turno-title">TURNO — Fin de semana / Festivo</span>
+        <span class="turno-hrs">19:00 – 07:00 h</span>
+        <div class="turno-desc">Exclusivamente nocturno. Sin fase diurna ni pre-turno. Post-turno al día siguiente desde las 7:00 a.m. Pueden coincidir dos estudiantes en turno nocturno el mismo día.</div>
+      </div>
+      <div class="turno-card t-post">
+        <span class="turno-title">POST-TURNO — Descanso</span>
+        <span class="turno-hrs">07:00 h → libre</span>
+        <div class="turno-desc">El día después del turno nocturno. El estudiante firma presencia a las 7:00 a.m. y queda libre el resto del día para recuperación. No se asigna a sala.</div>
+      </div>
+    </div>
+
+    <p style="font-weight:700;color:var(--azul);font-size:13px;margin:14px 0 10px;text-transform:uppercase;letter-spacing:.4px;">🧼 Protocolo OMS de Lavado de Manos — Obligatorio al ingresar a sala de cirugía</p>
+    <div class="protocolo-grid">
+      <div class="prot-card" style="border-color:#2E86C1;background:#EBF5FB;">
+        <div class="prot-item"><span class="prot-num">1</span><span><strong>Mójese las manos</strong> con agua limpia y corriente. Cierre el grifo.</span></div>
+      </div>
+      <div class="prot-card" style="border-color:#2E86C1;background:#EBF5FB;">
+        <div class="prot-item"><span class="prot-num">2</span><span><strong>Aplique jabón</strong> suficiente para cubrir toda la superficie de las manos.</span></div>
+      </div>
+      <div class="prot-card" style="border-color:#2E86C1;background:#EBF5FB;">
+        <div class="prot-item"><span class="prot-num">3</span><span><strong>Frótese palma con palma</strong>, luego dorso de cada mano con palma opuesta.</span></div>
+      </div>
+      <div class="prot-card" style="border-color:#2E86C1;background:#EBF5FB;">
+        <div class="prot-item"><span class="prot-num">4</span><span><strong>Palmas enfrentadas con dedos entrelazados</strong>, frote entre los dedos por todas las caras.</span></div>
+      </div>
+      <div class="prot-card" style="border-color:#2E86C1;background:#EBF5FB;">
+        <div class="prot-item"><span class="prot-num">5</span><span><strong>Frote el dorso de los dedos</strong> contra la palma opuesta (manos en gancho). Frote el pulgar con la palma contraria.</span></div>
+      </div>
+      <div class="prot-card" style="border-color:#2E86C1;background:#EBF5FB;">
+        <div class="prot-item"><span class="prot-num">6</span><span><strong>Frote la punta de los dedos</strong> en círculo sobre la palma opuesta. Enjuague con agua, seque con toalla de un solo uso. Duración total: <strong>40–60 segundos</strong>.</span></div>
+      </div>
+    </div>
+
+    <p style="font-weight:700;color:var(--azul);font-size:13px;margin:14px 0 10px;text-transform:uppercase;letter-spacing:.4px;">📋 Protocolo de ingreso a sala de cirugía (7:00 a.m.)</p>
+    <div class="protocolo-grid">
+      <div class="prot-card">
+        <div class="prot-item"><span class="prot-num">1</span><span><strong>Lavado de manos</strong> — protocolo OMS de 6 pasos antes de tocar al paciente o implementos</span></div>
+      </div>
+      <div class="prot-card">
+        <div class="prot-item"><span class="prot-num">2</span><span><strong>Revisar historia clínica</strong> — diagnóstico, antecedentes, alergias, medicamentos y plan anestésico</span></div>
+      </div>
+      <div class="prot-card">
+        <div class="prot-item"><span class="prot-num">3</span><span><strong>Anamnesis del paciente</strong> — confirmar identidad, procedimiento, ayuno y consentimiento informado</span></div>
+      </div>
+      <div class="prot-card">
+        <div class="prot-item"><span class="prot-num">4</span><span><strong>Revisar vía aérea</strong> — clasificación Mallampati, apertura bucal, extensión cervical, distancia tiromentoniana</span></div>
+      </div>
+      <div class="prot-card">
+        <div class="prot-item"><span class="prot-num">5</span><span><strong>Verificar implementos:</strong> Máscara laríngea (talla), laringoscopio + hojas (funcionamiento), cánula de Guedel, tubos orotraqueales</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="nota nota-info"><strong>📋 Sistema de asignación:</strong> Las salas se asignan por aleatorización equitativa rotativa — cada estudiante rota por todas las salas. Los días de clase, turno noche y post-turno quedan excluidos. Los festivos colombianos están marcados automáticamente.</div>
+<div class="nota nota-warn"><strong>🚨 Urgencias:</strong> Los fines de semana y festivos colombianos muestran los estudiantes asignados a urgencias. Las celdas sin asignar pueden completarse manualmente.</div>
+
+<div class="leyenda">
+  <div class="ley-titulo">Leyenda</div>
+  <div class="ley-grid">
+    <div class="ley-group">
+      <div class="ley-group-title">Universidades</div>
+      <div class="ley-items"><span class="ley-badge" style="background:#EDE9FE;border-left-color:#8B5CF6;color:#4C1D95;">AN — Ant. Nariño</span></div>
+    </div>
+    <div class="ley-group">
+      <div class="ley-group-title">Tipos de día</div>
+      <div class="ley-items">
+        <span class="ley-badge" style="background:#312E8122;border-left-color:#312E81;color:#312E81;">🌙 Turno Noche</span><span class="ley-badge" style="background:#4A1D9622;border-left-color:#4A1D96;color:#4A1D96;">😴 Post-turno</span><span class="ley-badge" style="background:#14532D22;border-left-color:#14532D;color:#14532D;">📋 Interconsultas</span><span class="ley-badge" style="background:#0C4A6E22;border-left-color:#0C4A6E;color:#0C4A6E;">🔄 Gastro AM / Recup PM</span><span class="ley-badge" style="background:#7C2D1222;border-left-color:#7C2D12;color:#7C2D12;">🧲 Resonancia Magnética</span><span class="ley-badge" style="background:#0F766E22;border-left-color:#0F766E;color:#0F766E;">🏨 Hospital Tintal</span><span class="ley-badge" style="background:#7F1D1D22;border-left-color:#7F1D1D;color:#7F1D1D;">🚨 Urgencias</span><span class="ley-badge" style="background:#37415122;border-left-color:#374151;color:#374151;">🏖️ Día Libre</span>
+        <span class="ley-badge" style="background:#FEF3C7;border-left-color:#D97706;color:#92400E;">📚 Clase</span>
+        <span class="ley-badge" style="background:#FFF1F2;border-left-color:#E11D48;color:#881337;">🇨🇴 Festivo</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="seccion">
+  <div class="sec-h">
+    <div class="sec-num">1</div>
+    <div class="sec-titulo">Distribución General — Hospital de Bosa</div>
+    <div class="sec-sub">03/08/2026 → 19/08/2026</div>
+  </div>
+  <div class="sec-b">
+    <table class="cal-table">
+    <colgroup><col style="width:85px;"><col style="width:75px;"><col><col><col><col><col><col><col><col><col></colgroup>
+    <tbody class="week-body">
+    <tr class="week-title-row"><td colspan="11" class="week-title">📅 Semana 03/08/2026 &nbsp;→&nbsp; 09/08/2026</td></tr>
+    <tr class="subhead-row"><td class="sh th-meta">Fecha</td><td class="sh th-meta">Día</td><th class="sh" style="background:#B45309;">Sala 1</th><th class="sh" style="background:#9F1239;">Sala 2</th><th class="sh" style="background:#1D4ED8;">Sala 3</th><th class="sh" style="background:#15803D;">Sala 4</th><th class="sh" style="background:#7E22CE;">Sala 5</th><th class="sh" style="background:#B91C1C;">Sala 6</th><th class="sh" style="background:#0369A1;">Gastro AM / Recup PM</th><th class="sh" style="background:#047857;">Resonancia Magnética</th><th class="sh" style="background:#B45309;">Interconsultas</th></tr><tr class="day-row">
+        <td class="col-fecha">03/08/2026</td>
+        <td class="col-dia">Lunes</td>
+        <td class="cell-on" style="">
+            <span class="chip-u" style="background:#EDE9FE;border-color:#7C3AED;color:#4C1D95;">AN</span>
+            <div class="cell-name" style="color:#78350F;">Laura Sofía Lopez Moreno</div>
+            
+          </td><td class="cell-on" style="">
+            <span class="chip-u" style="background:#EDE9FE;border-color:#7C3AED;color:#4C1D95;">AN</span>
+            <div class="cell-name" style="color:#881337;">María Alejandra Hilarion Borja</div>
+            
+          </td><td class="cell-off">·</td><td class="cell-off">·</td><td class="cell-off">·</td><td class="cell-off">·</td><td class="cell-off">·</td><td class="cell-off">·</td><td class="cell-off">·</td>
+      </tr><tr class="day-row">
+        <td class="col-fecha">04/08/2026</td>
+        <td class="col-dia">Martes</td>
+        <td class="cell-on" style="">
+            <span class="chip-u" style="background:#EDE9FE;border-color:#7C3AED;color:#4C1D95;">AN</span>
+            <div class="cell-name" style="color:#881337;">María Alejandra Hilarion Borja</div>
+            
+          </td><td class="cell-off">·</td><td class="cell-off">·</td><td class="cell-off">·</td><td class="cell-off">·</td><td class="cell-off">·</td><td class="cell-off">·</td><td class="cell-on" style="">
+            <span class="chip-u" style="background:#EDE9FE;border-color:#7C3AED;color:#4C1D95;">AN</span>
+            <div class="cell-name" style="color:#78350F;">Laura Sofía Lopez Moreno</div>
+            <div style="font-size:8px;color:#FED7AA;font-weight:700;">🧲 RM</div>
+          </td><td class="cell-off">·</td>
+      </tr><tr class="day-row">
+        <td class="col-fecha">05/08/2026</td>
+        <td class="col-dia">Miércoles</td>
+        <td class="cell-off">·</td><td class="cell-on" style="">
+            <span class="chip-u" style="background:#EDE9FE;border-color:#7C3AED;color:#4C1D95;">AN</span>
+            <div class="cell-name" style="color:#78350F;">Laura Sofía Lopez Moreno</div>
+            
+          </td><td class="cell-on" style="">
+            <span class="chip-u" style="background:#EDE9FE;border-color:#7C3AED;color:#4C1D95;">AN</span>
+            <div class="cell-name" style="color:#881337;">María Alejandra Hilarion Borja</div>
+            
+          </td><td class="cell-off">·</td><td class="cell-off">·</td><td class="cell-off">·</td><td class="cell-off">·</td><td class="cell-off">·</td><td class="cell-off">·</td>
+      </tr><tr class="day-row">
+        <td class="col-fecha">06/08/2026</td>
+        <td class="col-dia">Jueves</td>
+        <td class="cell-off">·</td><td class="cell-off">·</td><td class="cell-off">·</td><td class="cell-off">·</td><td class="cell-off">·</td><td class="cell-off">·</td><td class="cell-off">·</td><td class="cell-off">·</td><td class="cell-off">·</td>
+      </tr><tr><td colspan="11" style="padding:4px 14px 5px;background:#1A1F3A;border-bottom:2px solid #3949AB;"><span style="background:#292524;color:#FDE68A;padding:2px 9px;border-radius:4px;font-weight:700;font-size:10.5px;margin-right:5px;">📚 Clase: Laura Sofía Lopez Moreno</span><span style="background:#292524;color:#FDE68A;padding:2px 9px;border-radius:4px;font-weight:700;font-size:10.5px;margin-right:5px;">📚 Clase: María Alejandra Hilarion Borja</span></td></tr><tr class="day-row row-urg">
+          <td class="col-fecha">07/08/2026</td>
+          <td class="col-dia">Viernes <span class="tag-tipo">Viernes</span><span class="tag-fest">🇨🇴 Festivo</span></td>
+          <td colspan="9" class="cell-urg">
+            <div class="urg-inner"><span class="urg-label">🚨 Urgencias</span><span class="urg-slot">Est. ____________________</span><span class="urg-sep">/</span><span class="urg-slot">Est. ____________________</span><span class="urg-note">(sin asignar)</span></div>
+          </td>
+        </tr><tr class="day-row row-urg">
+          <td class="col-fecha">08/08/2026</td>
+          <td class="col-dia">Sábado <span class="tag-tipo">Sábado</span></td>
+          <td colspan="9" class="cell-urg">
+            <div class="urg-inner"><span class="urg-label">🚨 Urgencias</span><span class="urg-slot" style="border-color:#7C3AED;background:#EDE9FE;color:#4C1D95;font-weight:700;">Laura Sofía Lopez Moreno</span></div>
+          </td>
+        </tr><tr class="day-row row-urg">
+          <td class="col-fecha">09/08/2026</td>
+          <td class="col-dia">Domingo <span class="tag-tipo">Domingo</span></td>
+          <td colspan="9" class="cell-urg">
+            <div class="urg-inner"><span class="urg-label">🚨 Urgencias</span><span class="urg-slot">Est. ____________________</span><span class="urg-sep">/</span><span class="urg-slot">Est. ____________________</span><span class="urg-note">(sin asignar)</span></div>
+          </td>
+        </tr></tbody><tbody class="week-body">
+    <tr class="week-title-row"><td colspan="11" class="week-title">📅 Semana 10/08/2026 &nbsp;→&nbsp; 16/08/2026</td></tr>
+    <tr class="subhead-row"><td class="sh th-meta">Fecha</td><td class="sh th-meta">Día</td><th class="sh" style="background:#B45309;">Sala 1</th><th class="sh" style="background:#9F1239;">Sala 2</th><th class="sh" style="background:#1D4ED8;">Sala 3</th><th class="sh" style="background:#15803D;">Sala 4</th><th class="sh" style="background:#7E22CE;">Sala 5</th><th class="sh" style="background:#B91C1C;">Sala 6</th><th class="sh" style="background:#0369A1;">Gastro AM / Recup PM</th><th class="sh" style="background:#047857;">Resonancia Magnética</th><th class="sh" style="background:#B45309;">Interconsultas</th></tr><tr class="day-row">
+        <td class="col-fecha">10/08/2026</td>
+        <td class="col-dia">Lunes</td>
+        <td class="cell-off">·</td><td class="cell-off">·</td><td class="cell-on" style="">
+            <span class="chip-u" style="background:#EDE9FE;border-color:#7C3AED;color:#4C1D95;">AN</span>
+            <div class="cell-name" style="color:#78350F;">Laura Sofía Lopez Moreno</div>
+            
+          </td><td class="cell-on" style="">
+            <span class="chip-u" style="background:#EDE9FE;border-color:#7C3AED;color:#4C1D95;">AN</span>
+            <div class="cell-name" style="color:#881337;">María Alejandra Hilarion Borja</div>
+            
+          </td><td class="cell-off">·</td><td class="cell-off">·</td><td class="cell-off">·</td><td class="cell-off">·</td><td class="cell-off">·</td>
+      </tr><tr class="day-row">
+        <td class="col-fecha">11/08/2026</td>
+        <td class="col-dia">Martes</td>
+        <td class="cell-off">·</td><td class="cell-off">·</td><td class="cell-off">·</td><td class="cell-on" style="">
+            <span class="chip-u" style="background:#EDE9FE;border-color:#7C3AED;color:#4C1D95;">AN</span>
+            <div class="cell-name" style="color:#78350F;">Laura Sofía Lopez Moreno</div>
+            
+          </td><td class="cell-off">·</td><td class="cell-off">·</td><td class="cell-off">·</td><td class="cell-on" style="">
+            <span class="chip-u" style="background:#EDE9FE;border-color:#7C3AED;color:#4C1D95;">AN</span>
+            <div class="cell-name" style="color:#881337;">María Alejandra Hilarion Borja</div>
+            <div style="font-size:8px;color:#FED7AA;font-weight:700;">🧲 RM</div>
+          </td><td class="cell-off">·</td>
+      </tr><tr class="day-row">
+        <td class="col-fecha">12/08/2026</td>
+        <td class="col-dia">Miércoles</td>
+        <td class="cell-off">·</td><td class="cell-off">·</td><td class="cell-off">·</td><td class="cell-off">·</td><td class="cell-on" style="">
+            <span class="chip-u" style="background:#EDE9FE;border-color:#7C3AED;color:#4C1D95;">AN</span>
+            <div class="cell-name" style="color:#78350F;">Laura Sofía Lopez Moreno</div>
+            
+          </td><td class="cell-on" style="">
+            <span class="chip-u" style="background:#EDE9FE;border-color:#7C3AED;color:#4C1D95;">AN</span>
+            <div class="cell-name" style="color:#881337;">María Alejandra Hilarion Borja</div>
+            
+          </td><td class="cell-off">·</td><td class="cell-off">·</td><td class="cell-off">·</td>
+      </tr><tr class="day-row">
+        <td class="col-fecha">13/08/2026</td>
+        <td class="col-dia">Jueves</td>
+        <td class="cell-off">·</td><td class="cell-off">·</td><td class="cell-off">·</td><td class="cell-off">·</td><td class="cell-off">·</td><td class="cell-off">·</td><td class="cell-off">·</td><td class="cell-off">·</td><td class="cell-off">·</td>
+      </tr><tr><td colspan="11" style="padding:4px 14px 5px;background:#1A1F3A;border-bottom:2px solid #3949AB;"><span style="background:#292524;color:#FDE68A;padding:2px 9px;border-radius:4px;font-weight:700;font-size:10.5px;margin-right:5px;">📚 Clase: Laura Sofía Lopez Moreno</span><span style="background:#292524;color:#FDE68A;padding:2px 9px;border-radius:4px;font-weight:700;font-size:10.5px;margin-right:5px;">📚 Clase: María Alejandra Hilarion Borja</span></td></tr><tr class="day-row">
+        <td class="col-fecha">14/08/2026</td>
+        <td class="col-dia">Viernes</td>
+        <td class="cell-off">·</td><td class="cell-off">·</td><td class="cell-off">·</td><td class="cell-off">·</td><td class="cell-on" style="">
+            <span class="chip-u" style="background:#EDE9FE;border-color:#7C3AED;color:#4C1D95;">AN</span>
+            <div class="cell-name" style="color:#881337;">María Alejandra Hilarion Borja</div>
+            
+          </td><td class="cell-on" style="">
+            <span class="chip-u" style="background:#EDE9FE;border-color:#7C3AED;color:#4C1D95;">AN</span>
+            <div class="cell-name" style="color:#78350F;">Laura Sofía Lopez Moreno</div>
+            
+          </td><td class="cell-off">·</td><td class="cell-off">·</td><td class="cell-off">·</td>
+      </tr><tr class="day-row row-urg">
+          <td class="col-fecha">15/08/2026</td>
+          <td class="col-dia">Sábado <span class="tag-tipo">Sábado</span></td>
+          <td colspan="9" class="cell-urg">
+            <div class="urg-inner"><span class="urg-label">🚨 Urgencias</span><span class="urg-slot" style="border-color:#7C3AED;background:#EDE9FE;color:#4C1D95;font-weight:700;">María Alejandra Hilarion Borja</span></div>
+          </td>
+        </tr><tr class="day-row row-urg">
+          <td class="col-fecha">16/08/2026</td>
+          <td class="col-dia">Domingo <span class="tag-tipo">Domingo</span></td>
+          <td colspan="9" class="cell-urg">
+            <div class="urg-inner"><span class="urg-label">🚨 Urgencias</span><span class="urg-slot">Est. ____________________</span><span class="urg-sep">/</span><span class="urg-slot">Est. ____________________</span><span class="urg-note">(sin asignar)</span></div>
+          </td>
+        </tr></tbody><tbody class="week-body">
+    <tr class="week-title-row"><td colspan="11" class="week-title">📅 Semana 17/08/2026 &nbsp;→&nbsp; 19/08/2026</td></tr>
+    <tr class="subhead-row"><td class="sh th-meta">Fecha</td><td class="sh th-meta">Día</td><th class="sh" style="background:#B45309;">Sala 1</th><th class="sh" style="background:#9F1239;">Sala 2</th><th class="sh" style="background:#1D4ED8;">Sala 3</th><th class="sh" style="background:#15803D;">Sala 4</th><th class="sh" style="background:#7E22CE;">Sala 5</th><th class="sh" style="background:#B91C1C;">Sala 6</th><th class="sh" style="background:#0369A1;">Gastro AM / Recup PM</th><th class="sh" style="background:#047857;">Resonancia Magnética</th><th class="sh" style="background:#B45309;">Interconsultas</th></tr><tr class="day-row row-urg">
+          <td class="col-fecha">17/08/2026</td>
+          <td class="col-dia">Lunes <span class="tag-tipo">Lunes</span><span class="tag-fest">🇨🇴 Festivo</span></td>
+          <td colspan="9" class="cell-urg">
+            <div class="urg-inner"><span class="urg-label">🚨 Urgencias</span><span class="urg-slot">Est. ____________________</span><span class="urg-sep">/</span><span class="urg-slot">Est. ____________________</span><span class="urg-note">(sin asignar)</span></div>
+          </td>
+        </tr><tr class="day-row">
+        <td class="col-fecha">18/08/2026</td>
+        <td class="col-dia">Martes</td>
+        <td class="cell-off">·</td><td class="cell-off">·</td><td class="cell-off">·</td><td class="cell-off">·</td><td class="cell-off">·</td><td class="cell-off">·</td><td class="cell-on" style="">
+            <span class="chip-u" style="background:#EDE9FE;border-color:#7C3AED;color:#4C1D95;">AN</span>
+            <div class="cell-name" style="color:#78350F;">Laura Sofía Lopez Moreno</div>
+            <div style="font-size:8px;color:#7DD3FC;font-weight:700;">🔄 GR</div>
+          </td><td class="cell-off">·</td><td class="cell-on" style="">
+            <span class="chip-u" style="background:#EDE9FE;border-color:#7C3AED;color:#4C1D95;">AN</span>
+            <div class="cell-name" style="color:#881337;">María Alejandra Hilarion Borja</div>
+            <div style="font-size:8px;color:#4ADE80;font-weight:700;">📋 IC</div>
+          </td>
+      </tr><tr class="day-row">
+        <td class="col-fecha">19/08/2026</td>
+        <td class="col-dia">Miércoles</td>
+        <td class="cell-off">·</td><td class="cell-off">·</td><td class="cell-off">·</td><td class="cell-off">·</td><td class="cell-off">·</td><td class="cell-off">·</td><td class="cell-on" style="">
+            <span class="chip-u" style="background:#EDE9FE;border-color:#7C3AED;color:#4C1D95;">AN</span>
+            <div class="cell-name" style="color:#881337;">María Alejandra Hilarion Borja</div>
+            <div style="font-size:8px;color:#7DD3FC;font-weight:700;">🔄 GR</div>
+          </td><td class="cell-off">·</td><td class="cell-on" style="">
+            <span class="chip-u" style="background:#EDE9FE;border-color:#7C3AED;color:#4C1D95;">AN</span>
+            <div class="cell-name" style="color:#78350F;">Laura Sofía Lopez Moreno</div>
+            <div style="font-size:8px;color:#4ADE80;font-weight:700;">📋 IC</div>
+          </td>
+      </tr></tbody>
+    </table>
+  </div>
+</div>
+
+<div class="seccion">
+  <div class="sec-h">
+    <div class="sec-num">2</div>
+    <div class="sec-titulo">Rotación Individual por Estudiante</div>
+    <div class="sec-sub">2 estudiantes</div>
+  </div>
+  <div class="students-grid"><div class="student-card">
+      <div class="student-card-h" style="background:#8B5CF6;">
+        Laura Sofía Lopez Moreno <small>AN · 03/08/2026 → 19/08/2026</small>
+      </div>
+      <div style="padding:8px 14px;background:#F8F9FA;font-size:11px;display:flex;flex-wrap:wrap;gap:10px;border-bottom:2px solid #E2E8F0;">
+        <span>🏥 <strong>9</strong> días en salas</span>
+        <span>🌙 <strong>0</strong> turno(s) noche</span>
+        <span>🏖️ <strong>0</strong> libre(s)</span>
+        <span>📚 Clase: <strong>Jue</strong></span>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 200px;">
+        <div style="overflow-x:auto;border-right:1px solid #E2E8F0;">
+          <table class="ind-table">
+            <thead><tr><th>Fecha</th><th>Día</th><th>Tipo</th><th>Asignación</th></tr></thead>
+            <tbody><tr style="">
+        <td class="ind-fecha">03/08/2026</td>
+        <td class="ind-dia">Lun</td>
+        <td><span class="badge-ind" style="background:#B45309;color:#fff;">🏥 Sala</span></td>
+        <td><span style="font-weight:700;color:#B45309;">Sala 1</span></td>
+      </tr><tr style="">
+        <td class="ind-fecha">04/08/2026</td>
+        <td class="ind-dia">Mar</td>
+        <td><span class="badge-ind" style="background:#7C2D12;color:#FED7AA;">🧲 Resonancia Magnética</span></td>
+        <td><span style="font-weight:700;color:#7C2D12;">Resonancia Magnética</span></td>
+      </tr><tr style="">
+        <td class="ind-fecha">05/08/2026</td>
+        <td class="ind-dia">Mié</td>
+        <td><span class="badge-ind" style="background:#9F1239;color:#fff;">🏥 Sala</span></td>
+        <td><span style="font-weight:700;color:#9F1239;">Sala 2</span></td>
+      </tr><tr style="">
+        <td class="ind-fecha">06/08/2026</td>
+        <td class="ind-dia">Jue</td>
+        <td><span class="badge-ind" style="background:#78350F;color:#FDE68A;">📚 Clase</span></td>
+        <td>—</td>
+      </tr><tr><td class="ind-fecha">08/08/2026</td><td class="ind-dia">Sáb</td>
+            <td><span class="badge-ind" style="background:#7F1D1D;color:#FCA5A5;">🚨 Urgencias</span></td>
+            <td style="font-family:monospace;font-size:10px;">—</td></tr><tr style="">
+        <td class="ind-fecha">10/08/2026</td>
+        <td class="ind-dia">Lun</td>
+        <td><span class="badge-ind" style="background:#1D4ED8;color:#fff;">🏥 Sala</span></td>
+        <td><span style="font-weight:700;color:#1D4ED8;">Sala 3</span></td>
+      </tr><tr style="">
+        <td class="ind-fecha">11/08/2026</td>
+        <td class="ind-dia">Mar</td>
+        <td><span class="badge-ind" style="background:#15803D;color:#fff;">🏥 Sala</span></td>
+        <td><span style="font-weight:700;color:#15803D;">Sala 4</span></td>
+      </tr><tr style="">
+        <td class="ind-fecha">12/08/2026</td>
+        <td class="ind-dia">Mié</td>
+        <td><span class="badge-ind" style="background:#7E22CE;color:#fff;">🏥 Sala</span></td>
+        <td><span style="font-weight:700;color:#7E22CE;">Sala 5</span></td>
+      </tr><tr style="">
+        <td class="ind-fecha">13/08/2026</td>
+        <td class="ind-dia">Jue</td>
+        <td><span class="badge-ind" style="background:#78350F;color:#FDE68A;">📚 Clase</span></td>
+        <td>—</td>
+      </tr><tr style="">
+        <td class="ind-fecha">14/08/2026</td>
+        <td class="ind-dia">Vie</td>
+        <td><span class="badge-ind" style="background:#B91C1C;color:#fff;">🏥 Sala</span></td>
+        <td><span style="font-weight:700;color:#B91C1C;">Sala 6</span></td>
+      </tr><tr style="">
+        <td class="ind-fecha">18/08/2026</td>
+        <td class="ind-dia">Mar</td>
+        <td><span class="badge-ind" style="background:#0C4A6E;color:#7DD3FC;">🔄 Gastro AM / Recup PM</span></td>
+        <td><span style="font-weight:700;color:#0C4A6E;">Gastro AM / Recup PM</span></td>
+      </tr><tr style="">
+        <td class="ind-fecha">19/08/2026</td>
+        <td class="ind-dia">Mié</td>
+        <td><span class="badge-ind" style="background:#14532D;color:#4ADE80;">📋 Interconsultas</span></td>
+        <td><span style="font-weight:700;color:#14532D;">Interconsultas</span></td>
+      </tr></tbody>
+          </table>
+        </div>
+        <div style="padding:12px 14px;background:#FAFBFC;">
+          <div style="font-size:9.5px;font-weight:700;letter-spacing:.8px;text-transform:uppercase;color:#94A3B8;margin-bottom:7px;">Rotación por Sala</div>
+          <div style="display:flex;justify-content:space-between;padding:3px 0;border-bottom:1px solid #EEE;font-size:11px;">
+        <span style="color:#B45309;font-weight:600;">Sala 1</span>
+        <span style="font-family:'DM Mono',monospace;font-weight:700;">1d</span>
+      </div><div style="display:flex;justify-content:space-between;padding:3px 0;border-bottom:1px solid #EEE;font-size:11px;">
+        <span style="color:#9F1239;font-weight:600;">Sala 2</span>
+        <span style="font-family:'DM Mono',monospace;font-weight:700;">1d</span>
+      </div><div style="display:flex;justify-content:space-between;padding:3px 0;border-bottom:1px solid #EEE;font-size:11px;">
+        <span style="color:#1D4ED8;font-weight:600;">Sala 3</span>
+        <span style="font-family:'DM Mono',monospace;font-weight:700;">1d</span>
+      </div><div style="display:flex;justify-content:space-between;padding:3px 0;border-bottom:1px solid #EEE;font-size:11px;">
+        <span style="color:#15803D;font-weight:600;">Sala 4</span>
+        <span style="font-family:'DM Mono',monospace;font-weight:700;">1d</span>
+      </div><div style="display:flex;justify-content:space-between;padding:3px 0;border-bottom:1px solid #EEE;font-size:11px;">
+        <span style="color:#7E22CE;font-weight:600;">Sala 5</span>
+        <span style="font-family:'DM Mono',monospace;font-weight:700;">1d</span>
+      </div><div style="display:flex;justify-content:space-between;padding:3px 0;border-bottom:1px solid #EEE;font-size:11px;">
+        <span style="color:#B91C1C;font-weight:600;">Sala 6</span>
+        <span style="font-family:'DM Mono',monospace;font-weight:700;">1d</span>
+      </div><div style="display:flex;justify-content:space-between;padding:3px 0;border-bottom:1px solid #EEE;font-size:11px;">
+        <span style="color:#0369A1;font-weight:600;">Gastro AM / Recup PM</span>
+        <span style="font-family:'DM Mono',monospace;font-weight:700;">1d</span>
+      </div><div style="display:flex;justify-content:space-between;padding:3px 0;border-bottom:1px solid #EEE;font-size:11px;">
+        <span style="color:#047857;font-weight:600;">Resonancia Magnética</span>
+        <span style="font-family:'DM Mono',monospace;font-weight:700;">1d</span>
+      </div><div style="display:flex;justify-content:space-between;padding:3px 0;border-bottom:1px solid #EEE;font-size:11px;">
+        <span style="color:#B45309;font-weight:600;">Interconsultas</span>
+        <span style="font-family:'DM Mono',monospace;font-weight:700;">1d</span>
+      </div>
+        </div>
+      </div>
+    </div><div class="student-card">
+      <div class="student-card-h" style="background:#8B5CF6;">
+        María Alejandra Hilarion Borja <small>AN · 03/08/2026 → 19/08/2026</small>
+      </div>
+      <div style="padding:8px 14px;background:#F8F9FA;font-size:11px;display:flex;flex-wrap:wrap;gap:10px;border-bottom:2px solid #E2E8F0;">
+        <span>🏥 <strong>9</strong> días en salas</span>
+        <span>🌙 <strong>0</strong> turno(s) noche</span>
+        <span>🏖️ <strong>0</strong> libre(s)</span>
+        <span>📚 Clase: <strong>Jue</strong></span>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 200px;">
+        <div style="overflow-x:auto;border-right:1px solid #E2E8F0;">
+          <table class="ind-table">
+            <thead><tr><th>Fecha</th><th>Día</th><th>Tipo</th><th>Asignación</th></tr></thead>
+            <tbody><tr style="">
+        <td class="ind-fecha">03/08/2026</td>
+        <td class="ind-dia">Lun</td>
+        <td><span class="badge-ind" style="background:#9F1239;color:#fff;">🏥 Sala</span></td>
+        <td><span style="font-weight:700;color:#9F1239;">Sala 2</span></td>
+      </tr><tr style="">
+        <td class="ind-fecha">04/08/2026</td>
+        <td class="ind-dia">Mar</td>
+        <td><span class="badge-ind" style="background:#B45309;color:#fff;">🏥 Sala</span></td>
+        <td><span style="font-weight:700;color:#B45309;">Sala 1</span></td>
+      </tr><tr style="">
+        <td class="ind-fecha">05/08/2026</td>
+        <td class="ind-dia">Mié</td>
+        <td><span class="badge-ind" style="background:#1D4ED8;color:#fff;">🏥 Sala</span></td>
+        <td><span style="font-weight:700;color:#1D4ED8;">Sala 3</span></td>
+      </tr><tr style="">
+        <td class="ind-fecha">06/08/2026</td>
+        <td class="ind-dia">Jue</td>
+        <td><span class="badge-ind" style="background:#78350F;color:#FDE68A;">📚 Clase</span></td>
+        <td>—</td>
+      </tr><tr style="">
+        <td class="ind-fecha">10/08/2026</td>
+        <td class="ind-dia">Lun</td>
+        <td><span class="badge-ind" style="background:#15803D;color:#fff;">🏥 Sala</span></td>
+        <td><span style="font-weight:700;color:#15803D;">Sala 4</span></td>
+      </tr><tr style="">
+        <td class="ind-fecha">11/08/2026</td>
+        <td class="ind-dia">Mar</td>
+        <td><span class="badge-ind" style="background:#7C2D12;color:#FED7AA;">🧲 Resonancia Magnética</span></td>
+        <td><span style="font-weight:700;color:#7C2D12;">Resonancia Magnética</span></td>
+      </tr><tr style="">
+        <td class="ind-fecha">12/08/2026</td>
+        <td class="ind-dia">Mié</td>
+        <td><span class="badge-ind" style="background:#B91C1C;color:#fff;">🏥 Sala</span></td>
+        <td><span style="font-weight:700;color:#B91C1C;">Sala 6</span></td>
+      </tr><tr style="">
+        <td class="ind-fecha">13/08/2026</td>
+        <td class="ind-dia">Jue</td>
+        <td><span class="badge-ind" style="background:#78350F;color:#FDE68A;">📚 Clase</span></td>
+        <td>—</td>
+      </tr><tr style="">
+        <td class="ind-fecha">14/08/2026</td>
+        <td class="ind-dia">Vie</td>
+        <td><span class="badge-ind" style="background:#7E22CE;color:#fff;">🏥 Sala</span></td>
+        <td><span style="font-weight:700;color:#7E22CE;">Sala 5</span></td>
+      </tr><tr><td class="ind-fecha">15/08/2026</td><td class="ind-dia">Sáb</td>
+            <td><span class="badge-ind" style="background:#7F1D1D;color:#FCA5A5;">🚨 Urgencias</span></td>
+            <td style="font-family:monospace;font-size:10px;">—</td></tr><tr style="">
+        <td class="ind-fecha">18/08/2026</td>
+        <td class="ind-dia">Mar</td>
+        <td><span class="badge-ind" style="background:#14532D;color:#4ADE80;">📋 Interconsultas</span></td>
+        <td><span style="font-weight:700;color:#14532D;">Interconsultas</span></td>
+      </tr><tr style="">
+        <td class="ind-fecha">19/08/2026</td>
+        <td class="ind-dia">Mié</td>
+        <td><span class="badge-ind" style="background:#0C4A6E;color:#7DD3FC;">🔄 Gastro AM / Recup PM</span></td>
+        <td><span style="font-weight:700;color:#0C4A6E;">Gastro AM / Recup PM</span></td>
+      </tr></tbody>
+          </table>
+        </div>
+        <div style="padding:12px 14px;background:#FAFBFC;">
+          <div style="font-size:9.5px;font-weight:700;letter-spacing:.8px;text-transform:uppercase;color:#94A3B8;margin-bottom:7px;">Rotación por Sala</div>
+          <div style="display:flex;justify-content:space-between;padding:3px 0;border-bottom:1px solid #EEE;font-size:11px;">
+        <span style="color:#B45309;font-weight:600;">Sala 1</span>
+        <span style="font-family:'DM Mono',monospace;font-weight:700;">1d</span>
+      </div><div style="display:flex;justify-content:space-between;padding:3px 0;border-bottom:1px solid #EEE;font-size:11px;">
+        <span style="color:#9F1239;font-weight:600;">Sala 2</span>
+        <span style="font-family:'DM Mono',monospace;font-weight:700;">1d</span>
+      </div><div style="display:flex;justify-content:space-between;padding:3px 0;border-bottom:1px solid #EEE;font-size:11px;">
+        <span style="color:#1D4ED8;font-weight:600;">Sala 3</span>
+        <span style="font-family:'DM Mono',monospace;font-weight:700;">1d</span>
+      </div><div style="display:flex;justify-content:space-between;padding:3px 0;border-bottom:1px solid #EEE;font-size:11px;">
+        <span style="color:#15803D;font-weight:600;">Sala 4</span>
+        <span style="font-family:'DM Mono',monospace;font-weight:700;">1d</span>
+      </div><div style="display:flex;justify-content:space-between;padding:3px 0;border-bottom:1px solid #EEE;font-size:11px;">
+        <span style="color:#7E22CE;font-weight:600;">Sala 5</span>
+        <span style="font-family:'DM Mono',monospace;font-weight:700;">1d</span>
+      </div><div style="display:flex;justify-content:space-between;padding:3px 0;border-bottom:1px solid #EEE;font-size:11px;">
+        <span style="color:#B91C1C;font-weight:600;">Sala 6</span>
+        <span style="font-family:'DM Mono',monospace;font-weight:700;">1d</span>
+      </div><div style="display:flex;justify-content:space-between;padding:3px 0;border-bottom:1px solid #EEE;font-size:11px;">
+        <span style="color:#0369A1;font-weight:600;">Gastro AM / Recup PM</span>
+        <span style="font-family:'DM Mono',monospace;font-weight:700;">1d</span>
+      </div><div style="display:flex;justify-content:space-between;padding:3px 0;border-bottom:1px solid #EEE;font-size:11px;">
+        <span style="color:#047857;font-weight:600;">Resonancia Magnética</span>
+        <span style="font-family:'DM Mono',monospace;font-weight:700;">1d</span>
+      </div><div style="display:flex;justify-content:space-between;padding:3px 0;border-bottom:1px solid #EEE;font-size:11px;">
+        <span style="color:#B45309;font-weight:600;">Interconsultas</span>
+        <span style="font-family:'DM Mono',monospace;font-weight:700;">1d</span>
+      </div>
+        </div>
+      </div>
+    </div></div>
+</div>
+
+</div>
+
+<div class="footer"><div class="footer-g">
+  <div><strong>Docente Responsable</strong>Dr. Andrés Robayo · Médico Especialista en Anestesiología y Reanimación<br>Docente de Pregrado – Rotaciones de Anestesiología<br>Hospital de Bosa · Subred Suroccidente · Bogotá D.C.</div>
+  <div><strong>Grupo Grupo 2 </strong>AN: Ant. Nariño<br>Festivos: calendario oficial Colombia · Urgencias según asignación<br>© 2026 Dr. Andrés Robayo – Uso académico interno exclusivo</div>
+</div></div>
+<div class="copyright">Rotación de Salas — Anestesiología · Hospital de Bosa · II Semestre · Julio – Diciembre 2026 · Generado automáticamente</div>
+</body></html>

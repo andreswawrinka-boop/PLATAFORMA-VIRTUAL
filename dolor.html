@@ -1,0 +1,1238 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Manejo Farmacológico del Dolor · Dr. Andrés Robayo</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&family=Nunito:wght@400;600;700;800&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#0f2744;--navy-mid:#1a3a5c;
+  --teal:#0d7a6e;--teal-light:#e6f4f2;
+  --amber:#b85c00;--amber-light:#fdf3e7;
+  --red:#991b1b;--red-light:#fef2f2;
+  --purple:#5b21b6;--purple-light:#ede9fe;
+  --green:#166534;--green-light:#dcfce7;
+  --gray-50:#f8f9fa;--gray-100:#f1f3f5;
+  --gray-400:#868e96;--gray-600:#495057;
+  --border:#dee2e6;
+  --serif:'Source Serif 4',Georgia,serif;
+  --sans:'DM Sans',system-ui,sans-serif;
+  --mono:'DM Mono',monospace;
+  /* original palette for embedded components */
+  --azul:#0B2545;--azul-m:#1B4F8A;--azul-c:#2E86C1;--azul-t:#D6EAF8;
+  --verde:#1A7A4A;--verde-t:#D5F5E3;--naranja:#D35400;--naranja-t:#FAE5D3;
+  --lila:#7D3C98;--lila-t:#F4ECF7;--rojo:#C0392B;--rojo-t:#FADBD8;
+  --teal2:#117A65;--teal2-t:#D1F2EB;--amarillo-t:#FEF9E7;
+  --gris:#F4F6F7;--borde:#D5D8DC;--texto:#1C2833;--suave:#566573;
+}
+/* ── PALETTE VARIANTS ── */
+[data-design="B"] .cover{background:linear-gradient(135deg,#f0f9ff 0%,#e6f4f2 55%,#fdf3e7 100%)!important;border-bottom:4px solid var(--teal);}
+[data-design="B"] .cover h1{color:var(--navy)!important;}
+[data-design="B"] .tab-btn.active{background:var(--teal);}
+[data-design="B"] thead th{background:var(--teal);}
+[data-design="B"] body{background:#fafbfc;}
+[data-design="B"] .sec-h{border-bottom:3px solid var(--teal)!important;background:var(--navy)!important;}
+[data-palette="bosque"]{--navy:#1a3d2b;--navy-mid:#2d5a3d;--teal:#3a7d44;--teal-light:#e8f5e9;--amber:#8d6e1a;--amber-light:#fffde7;}
+[data-palette="atardecer"]{--navy:#4a1942;--navy-mid:#6b2d5e;--teal:#c0392b;--teal-light:#fde8e8;--amber:#e67e22;--amber-light:#fff3e0;}
+[data-palette="pizarra"]{--navy:#2d3748;--navy-mid:#4a5568;--teal:#4a90a4;--teal-light:#e6f3f8;--amber:#c09040;--amber-light:#fdf8ee;}
+[data-palette="cereza"]{--navy:#5c1a2e;--navy-mid:#7d2a42;--teal:#c0394f;--teal-light:#fde8ee;--amber:#d4822a;--amber-light:#fff3e6;}
+[data-palette="indigo"]{--navy:#1e2460;--navy-mid:#2d3580;--teal:#4a67d4;--teal-light:#eaedfa;--amber:#a05c00;--amber-light:#fff8e6;}
+
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:var(--serif);font-size:10.5pt;color:#212529;background:white;line-height:1.75;}
+.page{max-width:900px;margin:0 auto;width:100%;}
+
+/* ── TAB SYSTEM ── */
+.tab-nav{display:flex;border-bottom:2px solid var(--navy);position:sticky;top:0;z-index:100;background:white;}
+.tab-btn{font-family:var(--sans);font-size:8.5pt;font-weight:600;padding:11px 22px;border:none;background:var(--gray-100);color:var(--gray-600);cursor:pointer;letter-spacing:.06em;text-transform:uppercase;border-right:1px solid var(--border);transition:all .2s;}
+.tab-btn:hover{background:var(--teal-light);color:var(--teal);}
+.tab-btn.active{background:var(--navy);color:white;}
+.tab-content{display:none;width:100%;box-sizing:border-box;}
+.tab-content.active{display:block;width:100%;box-sizing:border-box;}
+
+/* ── PALETTE / DESIGN CONTROLS ── */
+.palette-btn{position:fixed;top:14px;right:18px;z-index:9999;background:var(--navy);color:white;border:none;border-radius:50%;width:40px;height:40px;font-size:18px;cursor:pointer;box-shadow:0 2px 12px rgba(0,0,0,.25);transition:transform .2s;}
+.palette-btn:hover{transform:scale(1.1);}
+.palette-panel{position:fixed;top:62px;right:18px;z-index:9998;background:white;border:1px solid var(--border);border-radius:10px;padding:14px;box-shadow:0 8px 32px rgba(0,0,0,.15);display:none;flex-direction:column;gap:8px;}
+.palette-panel.open{display:flex;}
+.palette-panel-title{font-family:var(--sans);font-size:8pt;color:var(--gray-400);letter-spacing:.1em;text-transform:uppercase;}
+.palette-options{display:grid;grid-template-columns:1fr 1fr;gap:6px;}
+.palette-opt{font-family:var(--sans);font-size:8.5pt;font-weight:500;padding:7px 12px;border-radius:6px;cursor:pointer;border:2px solid transparent;transition:all .15s;}
+.palette-opt:hover,.palette-opt.sel{border-color:var(--teal);}
+.po-oceano{background:#0f2744;color:white;}.po-bosque{background:#1a3d2b;color:white;}
+.po-atardecer{background:#4a1942;color:white;}.po-pizarra{background:#2d3748;color:white;}
+.po-cereza{background:#5c1a2e;color:white;}.po-indigo{background:#1e2460;color:white;}
+.design-switcher{position:fixed;top:60px;right:66px;z-index:9999;display:flex;flex-direction:column;gap:4px;}
+.ds-label{font-family:var(--sans);font-size:7pt;color:var(--gray-400);text-transform:uppercase;letter-spacing:.1em;text-align:center;}
+.ds-btns{display:flex;gap:4px;}
+.ds-btn{font-family:var(--sans);font-size:8pt;font-weight:600;padding:5px 9px;border:2px solid var(--border);border-radius:5px;cursor:pointer;background:white;color:var(--navy);transition:all .2s;}
+.ds-btn.active,.ds-btn:hover{background:var(--navy);color:white;border-color:var(--navy);}
+
+/* ── COVER ── */
+.cover{background:var(--navy);color:white;padding:50px 56px 42px;position:relative;overflow:hidden;}
+.cover::before{content:'';position:absolute;top:-80px;right:-80px;width:380px;height:380px;border-radius:50%;background:rgba(255,255,255,.03);}
+.cover::after{content:'';position:absolute;bottom:-50px;left:240px;width:220px;height:220px;border-radius:50%;background:rgba(255,255,255,.025);}
+.cover-tag{font-family:var(--sans);font-size:8pt;font-weight:500;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.5);margin-bottom:20px;}
+.cover h1{font-family:var(--serif);font-size:26pt;font-weight:600;line-height:1.15;color:white;margin-bottom:12px;max-width:580px;}
+.cover h1 span{color:#FFB74D;}
+.cover-subtitle{font-family:var(--sans);font-size:9.5pt;color:rgba(255,255,255,.6);margin-bottom:36px;font-weight:300;line-height:1.5;max-width:600px;}
+.cover-meta{display:flex;gap:28px;padding-top:26px;border-top:1px solid rgba(255,255,255,.14);flex-wrap:wrap;}
+.cover-meta-label{font-family:var(--sans);font-size:7pt;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.4);display:block;margin-bottom:2px;}
+.cover-meta-value{font-family:var(--sans);font-size:9pt;color:rgba(255,255,255,.88);}
+.cover-rule{width:52px;height:3px;background:#FFB74D;margin-bottom:22px;border-radius:2px;}
+
+/* ── SHARED CONTENT WRAPPER (teoría y taller usan el mismo) ── */
+.cont{max-width:820px;margin:0 auto;padding:36px 40px 60px;box-sizing:border-box;}
+
+/* ── INDEX ── */
+.indice{background:white;border:1px solid var(--border);border-radius:10px;padding:24px 28px;margin-bottom:32px;}
+.indice h2{font-family:var(--sans);font-size:9pt;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--navy);margin-bottom:12px;padding-bottom:7px;border-bottom:2px solid var(--teal);}
+.indice ol{columns:2;column-gap:24px;padding-left:20px;}
+.indice li{font-family:var(--sans);font-size:8.5pt;color:var(--navy-mid);margin-bottom:4px;line-height:1.45;}
+.indice li a{color:var(--navy-mid);text-decoration:none;}
+.indice li a:hover{text-decoration:underline;}
+
+/* ── SECTIONS (preserving original colour-coded headers) ── */
+.seccion{background:white;border-radius:10px;border:1px solid var(--border);margin-bottom:28px;overflow:hidden;}
+.sec-h{color:white;padding:14px 24px;display:flex;align-items:center;gap:11px;}
+.sec-h.azul{background:var(--azul);}
+.sec-h.verde{background:var(--verde);}
+.sec-h.teal{background:var(--teal2);}
+.sec-h.lila{background:var(--lila);}
+.sec-h.naranja{background:var(--naranja);}
+.sec-h.rojo{background:var(--rojo);}
+.sec-num{width:28px;height:28px;border-radius:50%;background:rgba(255,255,255,.22);display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:9pt;font-weight:700;flex-shrink:0;}
+.sec-titulo{font-family:var(--serif);font-size:14pt;font-weight:600;}
+.sec-b{padding:22px 24px;}
+.subsec{margin-bottom:24px;}
+.subsec h3{font-family:var(--sans);font-size:8.5pt;font-weight:700;color:var(--navy-mid);text-transform:uppercase;letter-spacing:.6px;margin-bottom:10px;padding-bottom:5px;border-bottom:1.5px solid var(--azul-t);}
+.subsec h3.verde{color:var(--verde);border-color:var(--verde-t);}
+.subsec h3.teal{color:var(--teal2);border-color:var(--teal2-t);}
+.subsec h3.lila{color:var(--lila);border-color:var(--lila-t);}
+p.p{font-family:var(--sans);font-size:9.5pt;margin-bottom:10px;line-height:1.65;color:var(--gray-600);}
+
+/* ── TABLES ── */
+.tw{overflow-x:auto;margin-bottom:14px;border-radius:6px;overflow:hidden;border:1px solid var(--border);}
+table{width:100%;border-collapse:collapse;font-family:var(--sans);font-size:9pt;}
+thead th{background:var(--azul);color:white;padding:8px 12px;text-align:left;font-weight:600;font-size:8.5pt;}
+tbody tr:nth-child(even){background:var(--gray-50);}
+tbody tr:hover{background:var(--teal-light);}
+tbody td{padding:7px 12px;border-bottom:1px solid var(--border);vertical-align:top;line-height:1.5;color:var(--gray-600);}
+tbody td:first-child{font-weight:600;color:var(--navy);}
+.th-verde thead th{background:var(--verde);}
+.th-teal thead th{background:var(--teal2);}
+.th-lila thead th{background:var(--lila);}
+.th-naranja thead th{background:var(--naranja);}
+.th-rojo thead th{background:var(--rojo);}
+
+/* ── CALLOUTS ── */
+.caja{border-radius:8px;padding:13px 16px;margin-bottom:13px;border-left:4px solid;font-family:var(--sans);font-size:9.5pt;line-height:1.65;}
+.c-info{background:var(--azul-t);border-color:var(--azul-c);}
+.c-info strong{color:var(--azul-m);}
+.c-ok{background:var(--verde-t);border-color:var(--verde);}
+.c-ok strong{color:var(--verde);}
+.c-warn{background:var(--naranja-t);border-color:var(--naranja);}
+.c-warn strong{color:var(--naranja);}
+.c-rojo{background:var(--rojo-t);border-color:var(--rojo);}
+.c-rojo strong{color:var(--rojo);}
+.c-lila{background:var(--lila-t);border-color:var(--lila);}
+.c-lila strong{color:var(--lila);}
+.c-teal{background:var(--teal2-t);border-color:var(--teal2);}
+.c-teal strong{color:var(--teal2);}
+.c-amarillo{background:var(--amarillo-t);border-color:#D4AC0D;}
+.c-amarillo strong{color:#9A7D0A;}
+
+/* ── DRUG CARDS ── */
+.farmaco-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px;margin-bottom:16px;}
+.farmaco-card{border-radius:9px;border:1.5px solid var(--border);overflow:hidden;}
+.fc-h{padding:10px 14px;color:white;font-family:var(--sans);font-size:10pt;font-weight:700;}
+.fc-h.azul{background:var(--azul-m);}.fc-h.verde{background:var(--verde);}
+.fc-h.teal{background:var(--teal2);}.fc-h.lila{background:var(--lila);}
+.fc-h.naranja{background:var(--naranja);}.fc-h.rojo{background:var(--rojo);}
+.fc-b{padding:11px 14px;font-family:var(--sans);font-size:9pt;line-height:1.65;background:white;}
+.fc-b .fila{display:flex;gap:6px;margin-bottom:4px;}
+.fc-b .lbl{font-weight:700;color:var(--gray-400);font-size:8pt;text-transform:uppercase;min-width:88px;flex-shrink:0;}
+.fc-b .val{color:var(--texto);}
+.fc-b .dosis{background:var(--azul-t);border-radius:4px;padding:2px 7px;font-family:var(--mono);font-size:9pt;font-weight:700;color:var(--azul);}
+
+/* ── SUMMARY CARDS ── */
+.res-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(175px,1fr));gap:10px;margin-bottom:14px;}
+.res-card{border-radius:8px;padding:12px 14px;font-family:var(--sans);font-size:9.5pt;line-height:1.6;border:1px solid var(--border);}
+.res-card.azul{background:var(--azul-t);border-color:var(--azul-c);}
+.res-card.verde{background:var(--verde-t);border-color:var(--verde);}
+.res-card.naranja{background:var(--naranja-t);border-color:var(--naranja);}
+.res-card.lila{background:var(--lila-t);border-color:var(--lila);}
+.res-card.teal{background:var(--teal2-t);border-color:var(--teal2);}
+.res-card.rojo{background:var(--rojo-t);border-color:var(--rojo);}
+.res-card strong{display:block;margin-bottom:3px;font-size:10pt;}
+.res-card.azul strong{color:var(--azul-m);}
+.res-card.verde strong{color:var(--verde);}
+.res-card.naranja strong{color:var(--naranja);}
+.res-card.lila strong{color:var(--lila);}
+.res-card.teal strong{color:var(--teal2);}
+.res-card.rojo strong{color:var(--rojo);}
+
+/* ── TALLER COMPONENTS (same width as theory via .cont) ── */
+.taller-header{background:var(--navy);color:white;padding:28px 40px 22px;}
+.taller-header h2{font-family:var(--serif);font-size:20pt;font-weight:300;color:white;margin-bottom:6px;}
+.taller-header h2 em{font-style:italic;color:#FFB74D;}
+.taller-meta{font-family:var(--sans);font-size:8.5pt;color:rgba(255,255,255,.55);}
+.alert-yellow{background:#fffbeb;border:1.5px solid #f59e0b;border-radius:6px;padding:10px 16px;margin-bottom:20px;font-family:var(--sans);font-size:9pt;color:#78350f;}
+.module{border:1px solid var(--border);border-radius:8px;overflow:hidden;margin-bottom:22px;page-break-inside:avoid;width:100%;box-sizing:border-box;}
+.module-header{padding:11px 16px;display:flex;align-items:center;gap:12px;flex-wrap:wrap;}
+.module-tag{font-family:var(--mono);font-size:8pt;color:#FFB74D;font-weight:500;}
+.module-title{font-family:var(--sans);font-size:9.5pt;color:white;font-weight:500;flex:1;}
+.module-pts{font-family:var(--mono);font-size:8.5pt;color:white;background:rgba(255,255,255,.2);padding:3px 9px;border-radius:4px;border:1px solid rgba(255,255,255,.35);white-space:nowrap;}
+.module-body{padding:16px 18px;background:white;}
+.ex-item{margin-bottom:18px;padding-bottom:18px;border-bottom:1px dashed var(--border);}
+.ex-item:last-child{border-bottom:none;margin-bottom:0;padding-bottom:0;}
+.ex-label{font-family:var(--sans);font-size:9pt;font-weight:600;color:var(--navy-mid);margin-bottom:8px;display:flex;align-items:flex-start;gap:8px;flex-wrap:wrap;}
+.ex-num{font-family:var(--mono);font-size:7.5pt;color:white;background:var(--navy-mid);padding:2px 7px;border-radius:3px;flex-shrink:0;margin-top:1px;}
+.ex-pts-auto{font-family:var(--mono);font-size:7pt;color:white;background:var(--teal);padding:2px 6px;border-radius:3px;flex-shrink:0;margin-top:1px;}
+.ex-pts-manual{font-family:var(--mono);font-size:7pt;color:white;background:var(--amber);padding:2px 6px;border-radius:3px;flex-shrink:0;margin-top:1px;}
+.ex-context{font-family:var(--sans);font-size:9pt;color:var(--gray-600);background:var(--gray-50);border:1px solid var(--border);border-radius:5px;padding:8px 12px;margin-bottom:10px;line-height:1.55;}
+.ex-context strong{color:var(--navy);}
+.mc-row{display:flex;align-items:center;gap:10px;margin:7px 0;font-family:var(--sans);font-size:9.5pt;flex-wrap:wrap;}
+.mc-label{font-weight:600;color:var(--navy-mid);min-width:200px;font-size:9pt;}
+select.mc-select{font-family:var(--sans);font-size:9pt;padding:5px 10px;border:1.5px solid var(--border);border-radius:5px;background:white;color:#212529;cursor:pointer;max-width:100%;}
+.fb{font-family:var(--sans);font-size:9pt;font-weight:600;margin-left:4px;}
+.fb.ok{color:var(--teal);}.fb.err{color:var(--red);}
+.manual-block{border:1.5px dashed var(--amber);border-radius:6px;background:var(--amber-light);padding:11px 14px;margin-top:10px;}
+.manual-block-label{font-family:var(--sans);font-size:7.5pt;font-weight:700;color:var(--amber);text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px;}
+.open-question{font-family:var(--sans);font-size:9.5pt;color:#212529;line-height:1.65;margin-bottom:8px;font-weight:500;}
+.open-question-part{font-family:var(--sans);font-size:9.5pt;color:var(--navy-mid);line-height:1.65;margin-bottom:6px;display:flex;gap:8px;}
+.open-question-part-letter{font-family:var(--mono);font-size:8.5pt;color:white;background:var(--navy-mid);padding:1px 6px;border-radius:3px;flex-shrink:0;margin-top:3px;height:fit-content;}
+.open-area{width:100%;min-height:80px;font-family:var(--sans);font-size:9.5pt;padding:8px 10px;border:1.5px solid var(--border);border-radius:5px;resize:vertical;color:#212529;line-height:1.6;}
+.open-area:focus{border-color:var(--amber);outline:none;}
+.correct-btn{font-family:var(--sans);font-size:8.5pt;font-weight:600;padding:7px 18px;background:var(--teal);color:white;border:none;border-radius:5px;cursor:pointer;margin-top:12px;transition:background .2s;}
+.correct-btn:hover{background:var(--navy);}
+.nota-bar{background:var(--teal-light);border:2px solid var(--teal);border-radius:8px;padding:14px 18px;margin-top:16px;display:flex;align-items:center;gap:20px;flex-wrap:wrap;}
+.nota-bar-label{font-family:var(--sans);font-size:9pt;font-weight:600;color:var(--teal);text-transform:uppercase;letter-spacing:.05em;}
+.nota-bar-val{font-family:var(--mono);font-size:20pt;font-weight:500;color:var(--navy);line-height:1;}
+.download-box{background:var(--teal-light);border:2px solid var(--teal);border-radius:8px;padding:20px 24px;margin:24px 0;}
+.download-box h3{color:var(--teal);font-family:var(--sans);font-size:10pt;margin-bottom:12px;}
+.input-row{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:10px;}
+.id-input{flex:1;min-width:200px;font-family:var(--sans);font-size:9.5pt;padding:9px 12px;border:1.5px solid var(--border);border-radius:5px;color:#212529;}
+.dl-btn{font-family:var(--sans);font-size:9pt;font-weight:600;padding:10px 22px;background:var(--navy);color:white;border:none;border-radius:5px;cursor:pointer;transition:background .2s;white-space:nowrap;}
+.dl-btn:hover{background:var(--teal);}
+.dl-error{color:var(--red);font-family:var(--sans);font-size:9pt;margin-top:6px;display:none;}
+
+footer{border-top:2px solid var(--navy);padding:18px 40px 24px;display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:14px;}
+.footer-name{font-family:var(--sans);font-size:9.5pt;font-weight:600;color:var(--navy);}
+.footer-title{font-family:var(--sans);font-size:8pt;color:var(--gray-400);}
+.footer-copy{font-family:var(--sans);font-size:7.5pt;color:var(--gray-400);text-align:right;line-height:1.5;}
+
+/* ── PRINT ── */
+@media print{
+  .tab-nav,.palette-btn,.palette-panel,.design-switcher,.correct-btn,.download-box,.nota-bar{display:none!important;}
+  .tab-content{display:none!important;}
+  #taller-tab{display:block!important;}
+  body{font-size:10pt;}
+  .cover,.sec-h,.module-header,.fc-h{-webkit-print-color-adjust:exact;print-color-adjust:exact;}
+  .module{page-break-inside:avoid;}
+  .page-print-header{display:block!important;font-family:var(--sans);font-size:8pt;color:var(--gray-600);padding:8px 40px;border-bottom:1px solid var(--border);background:var(--gray-50);}
+  .print-footer-fixed{display:flex!important;position:fixed;bottom:0;left:0;right:0;background:var(--gray-50);border-top:1px solid var(--border);padding:5px 40px;font-family:var(--sans);font-size:7.5pt;color:var(--gray-600);justify-content:space-between;}
+  textarea.open-area{display:none!important;}
+  .print-answer{display:block!important;font-family:'DM Sans',system-ui,sans-serif;font-size:9.5pt;color:#212529;line-height:1.6;border:1.5px solid #dee2e6;border-radius:5px;padding:8px 12px;min-height:60px;overflow:visible!important;white-space:pre-wrap;word-break:break-word;page-break-inside:avoid;}
+  .print-answer:empty::after{content:'(sin respuesta)';color:#adb5bd;font-style:italic;}
+}
+@media screen{
+  .page-print-header{display:none;}
+  .print-footer-fixed{display:none;}
+  .print-answer{display:none!important;}
+}
+
+
+/* ══════════════════════════════════════════════════════════════
+   OVERRIDE · TEMA PORTAL ANESTESIOLOGÍA — DOLOR (NARANJA/ÁMBAR)
+   ══════════════════════════════════════════════════════════════ */
+:root{
+  --navy:#E65100; --navy-mid:#F57C00;
+  --teal:#EF6C00; --teal-light:#FFF3E0;
+  --serif:'Bebas Neue','DM Sans',sans-serif;
+  --sans:'DM Sans','Nunito',system-ui,sans-serif;
+  --hero-grad:linear-gradient(135deg,#3E1200,#E65100,#FB8C00);
+  --gold-grad:linear-gradient(90deg,#FFEA00,#FFC400,#FF9100);
+  --gold:#FFE082;
+}
+
+body{ background:#F8F0E6 !important; font-family:var(--sans); }
+.design-switcher,.palette-btn,.palette-panel{ display:none !important; }
+
+.page{ max-width:960px; margin:22px auto 60px; background:#fff; border-radius:22px;
+  box-shadow:0 8px 40px rgba(62,18,0,.12); overflow:hidden; border:1px solid rgba(0,0,0,.10); }
+.cont{ max-width:none; padding:42px 56px 56px; }
+
+/* ── HERO ── */
+.cover{ background:var(--hero-grad) !important; color:#fff !important; padding:52px 56px 44px !important;
+  position:relative; overflow:hidden; border-bottom:none !important; }
+.cover::before{ content:''; position:absolute; top:-80px; right:-80px; width:340px; height:340px;
+  border-radius:50%; background:rgba(255,255,255,.06); pointer-events:none; }
+.cover::after{ content:''; position:absolute; bottom:-60px; left:-60px; width:240px; height:240px;
+  border-radius:50%; background:rgba(255,255,255,.05); pointer-events:none; }
+.cover-tag{ position:relative; z-index:1; display:inline-flex; align-items:center; gap:8px;
+  background:rgba(255,255,255,.15); border:1px solid rgba(255,255,255,.4); border-radius:100px;
+  padding:6px 16px; font-family:var(--sans); font-size:10px; font-weight:700; letter-spacing:2px;
+  text-transform:uppercase; color:#fff !important; margin-bottom:22px; }
+.cover-rule{ display:none !important; }
+.cover h1{ font-family:'Bebas Neue',sans-serif !important; font-size:clamp(34px,5.5vw,54px) !important;
+  font-weight:400 !important; line-height:1.02 !important; color:#fff !important; letter-spacing:2px;
+  margin-bottom:14px !important; max-width:640px; position:relative; z-index:1; }
+.cover h1 span{ background:var(--gold-grad); -webkit-background-clip:text; -webkit-text-fill-color:transparent;
+  background-clip:text; color:transparent !important; }
+.cover-subtitle{ position:relative; z-index:1; font-family:var(--sans) !important; font-size:12.5px !important;
+  color:rgba(255,255,255,.85) !important; font-weight:500 !important; line-height:1.7 !important; max-width:620px; margin-bottom:34px !important; }
+.cover-meta{ position:relative; z-index:1; gap:12px !important; padding-top:0 !important; border-top:none !important; }
+.cover-meta > div{ background:rgba(255,255,255,.18); border:1px solid rgba(255,255,255,.35);
+  border-radius:12px; padding:9px 16px; }
+.cover-meta-label{ font-size:9px !important; letter-spacing:1.5px !important; color:rgba(255,255,255,.7) !important; font-weight:700 !important; }
+.cover-meta-value{ font-size:12px !important; color:#fff !important; font-weight:700 !important; }
+
+/* ── ÍNDICE ── */
+.indice{ background:var(--gray-50); border:1px solid rgba(0,0,0,.10); border-radius:16px; }
+.indice h2{ font-family:'Bebas Neue',sans-serif; letter-spacing:1.5px; color:var(--navy); }
+.indice a{ color:var(--navy-mid); }
+
+/* ── SECCIONES ── */
+.seccion{ border:1px solid rgba(0,0,0,.10); border-radius:16px; overflow:hidden; box-shadow:0 3px 14px rgba(0,0,0,.05); }
+.sec-h{ background:linear-gradient(135deg,#E65100,#F57C00) !important; padding:16px 26px !important; border-bottom:none !important; }
+.sec-num{ background:rgba(255,255,255,.24) !important; font-family:var(--mono); width:30px; height:30px; }
+.sec-titulo{ font-family:'Bebas Neue',sans-serif !important; font-size:19pt !important; font-weight:400 !important; letter-spacing:1.2px; }
+.subsec h3, .subsec > strong{ color:var(--navy); }
+
+/* ── TALLER ── */
+.taller-header{ background:var(--hero-grad) !important; }
+.taller-header h2{ font-family:'Bebas Neue',sans-serif !important; letter-spacing:2px; }
+
+/* ── MÓDULOS TALLER ── */
+.module{ border-radius:16px !important; box-shadow:0 3px 14px rgba(0,0,0,.06); border:1px solid rgba(0,0,0,.14) !important; }
+.module-header{ background:linear-gradient(135deg,#E65100,#F57C00) !important; }
+.module-tag{ color:var(--gold) !important; }
+.ex-num{ background:var(--navy) !important; border-radius:6px !important; }
+.ex-pts-auto{ background:var(--teal) !important; border-radius:6px !important; }
+
+/* ── BOTONES ── */
+.correct-btn,.dl-btn{ background:var(--navy) !important; border-radius:10px !important;
+  box-shadow:0 3px 12px rgba(230,81,0,.3); font-weight:800; }
+.correct-btn:hover,.dl-btn:hover{ background:var(--navy-mid) !important; }
+.nota-bar,.download-box{ border-color:var(--teal) !important; background:var(--teal-light) !important; border-radius:16px !important; }
+.nota-bar-label,.download-box h3{ color:var(--teal) !important; }
+.nota-bar-val{ color:var(--navy) !important; }
+
+@media(max-width:720px){
+  .page{ margin:0; border-radius:0; }
+  .cont{ padding:28px 22px 40px; }
+  .cover{ padding:36px 22px 30px !important; }
+}
+
+</style>
+</head>
+<body>
+<div class="page">
+
+<div class="page-print-header"><span id="phNombre"></span> · <span id="phUniversidad"></span> · <span id="phGuia"></span> · <span id="phFecha"></span></div>
+<div class="print-footer-fixed">
+  <span><strong id="pfNombre"></strong> · <span id="pfUniversidad"></span></span>
+  <span>Guía: <span id="pfGuia"></span> · Dr. Andrés Robayo C.</span>
+  <span id="pfFecha"></span>
+</div>
+
+<!-- TABS -->
+<div class="tab-nav">
+  <button class="tab-btn active" onclick="showTab('teoria',this)">📖 Teoría</button>
+  <button class="tab-btn" onclick="showTab('taller',this)">📝 Taller — 5.0 pts</button>
+</div>
+
+<!-- ═══ TEORÍA ═══ -->
+<div class="tab-content active" id="teoria-tab">
+<div class="cover">
+  <div class="cover-tag">Hospital de Kennedy · Hospital de Bosa · Subred Suroccidente E.S.E. · Bogotá D.C.</div>
+  <div class="cover-rule"></div>
+  <h1>Manejo Farmacológico <span>del Dolor</span><br>Perioperatorio</h1>
+  <p class="cover-subtitle">Mecanismos de acción, presentaciones, dosis, escalas de evaluación, analgesia multimodal y protocolos basados en evidencia para el manejo del dolor agudo perioperatorio en anestesiología.</p>
+  <div class="cover-meta">
+    <div><span class="cover-meta-label">Autor y Docente</span><span class="cover-meta-value">Dr. Andrés Robayo C.<br>Anestesiología y Reanimación</span></div>
+    <div><span class="cover-meta-label">Institución</span><span class="cover-meta-value">Hospital de Kennedy · Hospital de Bosa<br>Subred Suroccidente – Bogotá, Colombia</span></div>
+    <div><span class="cover-meta-label">Dirigida a</span><span class="cover-meta-value">Estudiantes de medicina<br>Rotación de Anestesiología</span></div>
+    <div><span class="cover-meta-label">Versión</span><span class="cover-meta-value">2025 · Evidencia actualizada<br>(IASP, ASRA, ESA, ERAS 2023)</span></div>
+  </div>
+</div>
+<div class="cont">
+
+<div class="indice">
+  <h2>Contenido</h2>
+  <ol>
+    <li><a href="#s1">Fisiopatología del dolor agudo perioperatorio</a></li>
+    <li><a href="#s2">Escalas de evaluación del dolor</a></li>
+    <li><a href="#s3">Principio de analgesia multimodal</a></li>
+    <li><a href="#s4">Opioides — mecanismo, dosis y presentaciones</a></li>
+    <li><a href="#s5">AINEs y paracetamol perioperatorios</a></li>
+    <li><a href="#s6">Anestésicos locales sistémicos — lidocaína IV</a></li>
+    <li><a href="#s7">Ketamina subanestésica — analgesia disociativa</a></li>
+    <li><a href="#s8">Dexmedetomidina — analgesia adrenérgica α2</a></li>
+    <li><a href="#s9">Gabapentinoides — pregabalina y gabapentina</a></li>
+    <li><a href="#s10">Corticoides perioperatorios — dexametasona</a></li>
+    <li><a href="#s11">Sulfato de magnesio analgésico</a></li>
+    <li><a href="#s12">Manejo del dolor en la UCPA — protocolos</a></li>
+    <li><a href="#s13">Situaciones especiales — opiofobia, tolerancia, OIVI</a></li>
+    <li><a href="#s14">Ejercicios calificados para el estudiante</a></li>
+  </ol>
+</div>
+
+<!-- ══════════════════════════════════════════ S1 -->
+<div class="seccion" id="s1">
+  <div class="sec-h azul"><div class="sec-num">1</div><div class="sec-titulo">Fisiopatología del Dolor Agudo Perioperatorio</div></div>
+  <div class="sec-b">
+    <div class="subsec">
+      <h3>1.1 Definición y Vías del Dolor</h3>
+      <p class="p">El <strong>dolor agudo perioperatorio</strong> es una experiencia sensorial y emocional desagradable, generada por daño tisular real o potencial asociado a la cirugía, que si no se controla adecuadamente puede progresar a dolor crónico (en 10–50% de los casos según el tipo de cirugía).</p>
+      <div class="tw"><table>
+        <thead><tr><th>Proceso</th><th>Localización</th><th>Mediadores</th><th>Relevancia farmacológica</th></tr></thead>
+        <tbody>
+          <tr><td>Transducción</td><td>Nociceptores periféricos (Aδ y C)</td><td>Prostaglandinas (PGE2), bradicinina, sustancia P, H⁺, K⁺, ATP, TNF-α, IL-1β, IL-6, NGF, TRPV1</td><td>Blanco de AINEs (PG), AL (bloqueo canal Na⁺), capsaicina (TRPV1)</td></tr>
+          <tr><td>Transmisión periférica</td><td>Fibras Aδ (dolor agudo, punzante) y C (dolor sordo, quemante)</td><td>Glutamato (AMPA), sustancia P (NK1), CGRP</td><td>Blanco de AL, gabapentinoides (↓ tráfico de canales Ca²⁺ Cav2.2)</td></tr>
+          <tr><td>Modulación espinal</td><td>Asta dorsal (láminas I, II, V de Rexed)</td><td>Glutamato (NMDA), sustancia P, dinorfina, encefalinas, serotonina, NA</td><td>Blanco de opioides (µ), ketamina (NMDA), α2-agonistas, neuroaxiales</td></tr>
+          <tr><td>Percepción</td><td>Tálamo, corteza somatosensorial, sistema límbico</td><td>Serotonina, dopamina, GABA, opioides endógenos</td><td>Blanco de opioides sistémicos, anestesia general</td></tr>
+          <tr><td>Sensibilización periférica</td><td>Nociceptores inflamados</td><td>↓ Umbral de activación nociceptiva por sopa inflamatoria</td><td>Premedicación analgésica (preventive analgesia) para evitar este proceso</td></tr>
+          <tr><td>Sensibilización central (wind-up)</td><td>NMDA espinal — Lámina V</td><td>↑ Excitabilidad neuronal espinal, ↑ campo receptivo</td><td>Blanco de ketamina (antagonista NMDA), MgSO4 (bloqueo Mg²⁺ de NMDA)</td></tr>
+        </tbody>
+      </table></div>
+    </div>
+    <div class="subsec">
+      <h3>1.2 Consecuencias del Dolor No Tratado</h3>
+      <div class="res-grid">
+        <div class="res-card azul"><strong>Cardiovasculares</strong>Taquicardia, HTA, ↑ demanda O₂ miocárdico, ↑ riesgo de isquemia perioperatoria, aumento de catecolaminas</div>
+        <div class="res-card rojo" style="background:var(--rojo-t);border-color:var(--rojo);"><strong style="color:var(--rojo);">Respiratorias</strong>Hipoventilación por splinting abdominal, atelectasias, hipoxemia, retención de CO₂, ↑ riesgo de NAC</div>
+        <div class="res-card naranja"><strong>Endocrinas</strong>↑ Cortisol, ↑ glucagón, ↑ glucosa, ↑ aldosterona, ↑ ADH → retención de Na⁺/H₂O, catabolismo</div>
+        <div class="res-card lila"><strong>Psicológicas</strong>Ansiedad, insomnio, ↑ riesgo de TEPT, ↑ tiempo de rehabilitación, insatisfacción del paciente</div>
+        <div class="res-card teal"><strong>Cronicidad</strong>Wind-up → sensibilización central → dolor crónico postoperatorio (CPSP) en 10–50% según cirugía</div>
+        <div class="res-card verde"><strong>Inmunológicas</strong>↓ Función NK y linfocitos T, ↑ susceptibilidad a infección postoperatoria</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════ S2 -->
+<div class="seccion" id="s2">
+  <div class="sec-h verde"><div class="sec-num">2</div><div class="sec-titulo">Escalas de Evaluación del Dolor Perioperatorio</div></div>
+  <div class="sec-b">
+    <div class="tw"><table class="th-verde">
+      <thead><tr><th>Escala</th><th>Descripción</th><th>Rango</th><th>Indicación</th><th>Meta terapéutica</th></tr></thead>
+      <tbody>
+        <tr><td>EVA (Escala Visual Análoga)</td><td>Línea horizontal de 100 mm: 0 = sin dolor, 100 = peor dolor imaginable. Paciente marca su dolor.</td><td>0–100 mm</td><td>Adultos cooperadores, educación básica. Gold standard en investigación.</td><td>EVA ≤ 30 mm en reposo; ≤ 40 mm en movimiento</td></tr>
+        <tr><td>EN (Escala Numérica)</td><td>Paciente verbaliza número del 0 al 10. Más práctica en UCPA y piso.</td><td>0–10</td><td>Adultos cooperadores. Más rápida que EVA. Equivalente en validez.</td><td>EN ≤ 3 en reposo; ≤ 4 en movimiento</td></tr>
+        <tr><td>EVR (Escala Verbal de Rossier)</td><td>0 = sin dolor, 1 = leve, 2 = moderado, 3 = intenso, 4 = insoportable</td><td>0–4</td><td>Adultos mayores, baja escolaridad, alteración leve de consciencia.</td><td>EVR ≤ 1</td></tr>
+        <tr><td>Faces Pain Scale – Revised (FPS-R)</td><td>6 caras que van de neutral a llanto. Versión revisada validada desde los 4 años.</td><td>0–10</td><td>Niños 4–12 años, adultos con discapacidad cognitiva leve.</td><td>FPS-R ≤ 2</td></tr>
+        <tr><td>FLACC</td><td>Face, Legs, Activity, Cry, Consolability. Observacional. Puntuación 0–2 en cada ítem.</td><td>0–10</td><td>Lactantes y niños &lt; 4 años, pacientes intubados o no cooperadores.</td><td>FLACC ≤ 3</td></tr>
+        <tr><td>CPOT (Critical-Care Pain Observation Tool)</td><td>4 ítems: expresión facial, movimientos corporales, tensión muscular, vocalización/cumplimiento ventilador. 0–2 cada ítem.</td><td>0–8</td><td>Pacientes en UCI, intubados, bajo sedación. Evidencia clase A (SCCM 2018).</td><td>CPOT ≤ 2</td></tr>
+        <tr><td>BPS (Behavioral Pain Scale)</td><td>3 ítems: expresión facial, movimiento MMSS, cumplimiento ventilador. 1–4 por ítem.</td><td>3–12</td><td>Pacientes en UCI intubados. Validada internacionalmente.</td><td>BPS ≤ 5</td></tr>
+        <tr><td>Algoplus</td><td>5 ítems observacionales para dolor en demencia avanzada. Validada en Francia y Colombia.</td><td>0–5</td><td>Adultos mayores con demencia severa.</td><td>Algoplus ≤ 2</td></tr>
+      </tbody>
+    </table></div>
+    <div class="caja c-warn"><strong>⚠ Principio fundamental:</strong> El dolor es lo que el paciente dice que es, no lo que el clínico cree que es. La evaluación debe hacerse en reposo Y en movimiento (al toser, al deambular). El dolor en movimiento predice mejor la función respiratoria y la recuperación funcional. Registrar la escala en la historia clínica como "quinto signo vital".</div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════ S3 -->
+<div class="seccion" id="s3">
+  <div class="sec-h teal"><div class="sec-num">3</div><div class="sec-titulo">Principio de Analgesia Multimodal — La Base de la Práctica Actual</div></div>
+  <div class="sec-b">
+    <p class="p">La <strong>analgesia multimodal</strong> combina fármacos con diferentes mecanismos de acción para lograr efecto aditivo o sinérgico, reduciendo la dosis de cada agente individual y minimizando sus efectos adversos (especialmente el consumo de opioides = "opioid-sparing effect"). Es el estándar de cuidado según ERAS Society (2023), ASA y ASRA.</p>
+    <div class="caja c-teal"><strong>🔬 Concepto: Analgesia Preventiva (Preemptive Analgesia)</strong><br>
+      Administrar analgésicos <em>antes</em> del estímulo nociceptivo quirúrgico para prevenir la sensibilización central (wind-up). Reduce la intensidad del dolor postoperatorio y el consumo de rescates analgésicos. Incluye: gabapentinoides pre-inducción, paracetamol IV antes de incisión, bloqueos neuroaxiales y de planos fasciales antes del inicio quirúrgico.</div>
+    <div class="tw"><table class="th-teal">
+      <thead><tr><th>Nivel de analgesia</th><th>Fármacos</th><th>Mecanismo</th><th>Fase perioperatoria</th></tr></thead>
+      <tbody>
+        <tr><td>Periférico</td><td>AINEs, paracetamol, AL locales/regionais, corticoides</td><td>↓ Síntesis PG, bloqueo Nav, ↓ mediadores inflamatorios</td><td>Pre, intra y postoperatorio</td></tr>
+        <tr><td>Espinal ascendente</td><td>Ketamina, MgSO₄, gabapentinoides</td><td>Antagonismo NMDA, bloqueo canales Ca²⁺ Cav2.2, modulación de wind-up</td><td>Pre e intraoperatorio</td></tr>
+        <tr><td>Supraspinal</td><td>Opioides sistémicos, dexmedetomidina</td><td>Agonismo µ-opioide, agonismo α2-adrenérgico</td><td>Intra y postoperatorio (rescate)</td></tr>
+        <tr><td>Regional/neuroaxial</td><td>AL espinales/epidurales, bloqueos de planos (TAP, PECS, ERECTOR, serrato, etc.)</td><td>Bloqueo de conducción nerviosa periférica y espinal</td><td>Pre, intra y postoperatorio</td></tr>
+        <tr><td>No farmacológico</td><td>Crioterapia, TENS, posicionamiento, técnicas cognitivas</td><td>Modulación descendente, puerta de control espinal</td><td>Postoperatorio</td></tr>
+      </tbody>
+    </table></div>
+    <div class="caja c-ok"><strong>✔ ERAS (Enhanced Recovery After Surgery) 2023 — Recomendaciones Analgésicas:</strong><br>
+      1. Premedicación con gabapentinoide (evidencia moderada, uso selectivo).<br>
+      2. Paracetamol IV programado (no como rescate) desde el intraoperatorio.<br>
+      3. AINEs salvo contraindicación.<br>
+      4. Técnica de anestesia regional cuando sea posible (neuroaxial, bloqueos periféricos).<br>
+      5. Ketamina subanestésica en cirugías dolorosas (evidencia fuerte en cirugía abdominal mayor, espinal).<br>
+      6. Lidocaína IV en cirugía abdominal laparoscópica y abierta.<br>
+      7. <strong>Minimizar opioides perioperatorios</strong> — meta: zero opioid anesthesia (ZOA) cuando factible.</div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════ S4 -->
+<div class="seccion" id="s4">
+  <div class="sec-h rojo"><div class="sec-num">4</div><div class="sec-titulo">Opioides — Mecanismo, Presentaciones y Dosis</div></div>
+  <div class="sec-b">
+    <div class="subsec">
+      <h3>4.1 Mecanismo de Acción Común</h3>
+      <p class="p">Los opioides actúan sobre receptores acoplados a proteína Gi/o (µ, δ, κ). El receptor <strong>µ (mu/MOP)</strong> es el principal mediador de analgesia, euforia, depresión respiratoria y constipación. La activación Gi → ↓ AMPc, ↓ Ca²⁺ presináptico (↓ liberación de glutamato y sustancia P), ↑ K⁺ postsináptico → hiperpolarización → ↓ transmisión nociceptiva en asta dorsal y modulación supraespinal. El <strong>receptor κ (kappa/KOP)</strong> produce analgesia espinal + disforia + sedación. El <strong>receptor δ (delta/DOP)</strong> modula la analgesia µ y tiene propiedades ansiolíticas.</p>
+      <div class="caja c-rojo"><strong>⚠ Efectos adversos de clase (todos los opioides µ):</strong> Depresión respiratoria (grave, dosis-dependiente, reversible con naloxona) · Náuseas y vómito (NVPO — vía zona gatillo quimiorreceptora) · Constipación · Sedación · Prurito (especialmente espinal — vía µ central, no histaminérgico) · Rigidez torácica (fentanilo a dosis altas) · Retención urinaria · Inmunodepresión · Hiperalgesia inducida por opioides (HIO) con uso crónico · Dependencia física.</div>
+    </div>
+
+    <div class="farmaco-grid">
+      <!-- MORFINA -->
+      <div class="farmaco-card">
+        <div class="fc-h azul">Morfina</div>
+        <div class="fc-b">
+          <div class="fila"><span class="lbl">Presentación</span><span class="val">Ampollas 10 mg/mL (1 mL) · 2 mg/mL (10 mL) · Tabletas LP 10/30/60 mg</span></div>
+          <div class="fila"><span class="lbl">Dosis IV aguda</span><span class="val"><span class="dosis">0.05–0.1 mg/kg</span> titulado en bolo lento</span></div>
+          <div class="fila"><span class="lbl">Inicio/Pico/D.</span><span class="val">5–10 min / 20 min / 3–5 h</span></div>
+          <div class="fila"><span class="lbl">Mecanismo</span><span class="val">Agonista µ puro + δ parcial. Metabolito activo: morfina-6-glucurónido (M6G) — potente, acumulación en IRC.</span></div>
+          <div class="fila"><span class="lbl">Uso intraop.</span><span class="val">Analgesia de base en cirugías largas. Dar 30 min antes del cierre (inicio tardío). Preferir fentanilo para efecto rápido.</span></div>
+          <div class="fila"><span class="lbl">UCPA / PO</span><span class="val">Bolos IV titulados 1–2 mg c/5 min hasta EN ≤ 3. PCA: bolo 1–2 mg, lockout 5–8 min.</span></div>
+          <div class="fila"><span class="lbl">Precaución</span><span class="val">IRC (acum. M6G) · Asma (↑ histamina) · Hipotensión · Adulto mayor (↓ 50% dosis)</span></div>
+        </div>
+      </div>
+
+      <!-- FENTANILO -->
+      <div class="farmaco-card">
+        <div class="fc-h rojo">Fentanilo</div>
+        <div class="fc-b">
+          <div class="fila"><span class="lbl">Presentación</span><span class="val">Ampollas 50 mcg/mL (2 mL, 5 mL, 10 mL) · Parche TD 12/25/50/75/100 mcg/h · OTFC (actiq) · Nasal</span></div>
+          <div class="fila"><span class="lbl">Potencia</span><span class="val">100× más potente que morfina</span></div>
+          <div class="fila"><span class="lbl">Dosis intraop.</span><span class="val"><span class="dosis">1–3 mcg/kg</span> bolo; infusión <span class="dosis">0.5–2 mcg/kg/h</span></span></div>
+          <div class="fila"><span class="lbl">Dosis UCPA</span><span class="val"><span class="dosis">0.5–1 mcg/kg</span> IV lento c/5 min hasta analgesia</span></div>
+          <div class="fila"><span class="lbl">Inicio/Pico/D.</span><span class="val">2–3 min / 5–7 min / 30–60 min (bolo)</span></div>
+          <div class="fila"><span class="lbl">Mecanismo</span><span class="val">Agonista µ puro. Alta liposolubilidad → rápida penetración SNC. Sin metabolito activo.</span></div>
+          <div class="fila"><span class="lbl">Rigidez</span><span class="val">Dosis ≥ 5 mcg/kg IV rápida → rigidez torácica → manejar con succinilcolina o rocuronio + intubación</span></div>
+          <div class="fila"><span class="lbl">CSHT</span><span class="val">Después de 2–3 h de infusión, CSHT &gt; 1 h → preferir remifentanilo en cirugías muy largas</span></div>
+        </div>
+      </div>
+
+      <!-- REMIFENTANILO -->
+      <div class="farmaco-card">
+        <div class="fc-h naranja">Remifentanilo</div>
+        <div class="fc-b">
+          <div class="fila"><span class="lbl">Presentación</span><span class="val">Viales 1 mg, 2 mg, 5 mg en polvo para reconstituir (reconstituir en SS 0.9%, SG 5%). Solo IV.</span></div>
+          <div class="fila"><span class="lbl">Potencia</span><span class="val">100–200× morfina. CSHT: 3–5 min (independiente de duración de infusión) — ultra short-acting</span></div>
+          <div class="fila"><span class="lbl">Dosis intraop.</span><span class="val">Inducción: <span class="dosis">0.5–1 mcg/kg</span> IV lento. Mantenimiento: <span class="dosis">0.05–0.5 mcg/kg/min</span></span></div>
+          <div class="fila"><span class="lbl">Mecanismo</span><span class="val">Agonista µ puro. Metabolizado por esterasas plasmáticas inespecíficas (independiente de hepatorrenal).</span></div>
+          <div class="fila"><span class="lbl">⚠ HIO</span><span class="val">Riesgo alto de hiperalgesia postoperatoria por sensibilización de receptores NMDA. Dar analgesia de transición 30 min antes del cierre (morfina, ketorolaco, paracetamol). Ketamina reduce este riesgo.</span></div>
+          <div class="fila"><span class="lbl">Contraindicado</span><span class="val">Epidural o espinal (contiene glicina — neurotóxico)</span></div>
+        </div>
+      </div>
+
+      <!-- SUFENTANILO -->
+      <div class="farmaco-card">
+        <div class="fc-h lila">Sufentanilo</div>
+        <div class="fc-b">
+          <div class="fila"><span class="lbl">Presentación</span><span class="val">Ampollas 50 mcg/mL (1 mL, 2 mL, 5 mL). Neuroaxial: diluido sin conservantes.</span></div>
+          <div class="fila"><span class="lbl">Potencia</span><span class="val">1000× morfina · 5–10× fentanilo</span></div>
+          <div class="fila"><span class="lbl">Dosis IV intraop.</span><span class="val"><span class="dosis">0.1–0.3 mcg/kg</span> bolo; infusión <span class="dosis">0.01–0.05 mcg/kg/h</span></span></div>
+          <div class="fila"><span class="lbl">Dosis espinal</span><span class="val"><span class="dosis">2.5–5 mcg</span> en mezcla hiperbárica (raquídea)</span></div>
+          <div class="fila"><span class="lbl">Dosis epidural</span><span class="val"><span class="dosis">10–20 mcg</span> en bolo; infusión <span class="dosis">0.2–0.4 mcg/mL</span> en bupivacaína</span></div>
+          <div class="fila"><span class="lbl">Mecanismo</span><span class="val">Agonista µ de alta afinidad. Muy liposoluble → alta penetración dural. Larga duración neuroaxial (4–6 h espinal).</span></div>
+          <div class="fila"><span class="lbl">Uso</span><span class="val">Cirugías cardíacas (dosis alta), neuroaxial (analgesia obstétrica, espinal), cirugías muy largas.</span></div>
+        </div>
+      </div>
+
+      <!-- TRAMADOL -->
+      <div class="farmaco-card">
+        <div class="fc-h teal">Tramadol</div>
+        <div class="fc-b">
+          <div class="fila"><span class="lbl">Presentación</span><span class="val">Ampollas 100 mg/2 mL · Tabletas 50/100 mg · Tabletas LP 100/200 mg · Gotas 100 mg/mL</span></div>
+          <div class="fila"><span class="lbl">Dosis IV</span><span class="val"><span class="dosis">50–100 mg</span> IV lento en 15 min (infusión) c/6 h. Máx: 400 mg/día. Nunca en bolo rápido.</span></div>
+          <div class="fila"><span class="lbl">Mecanismo</span><span class="val">Doble: agonismo µ débil (10× menos que morfina) + inhibición recaptación de 5-HT y NA (componente antidepresivo). Requiere CYP2D6 para metabolito activo M1 (O-desmetiltramadol) — 7× más potente µ.</span></div>
+          <div class="fila"><span class="lbl">⚠ Metabolizadores</span><span class="val">Metabolizadores ultra-rápidos (EM+): riesgo toxicidad opioidea. Metabolizadores pobres (PM, ~7–10% caucásicos): escasa analgesia por falta de M1.</span></div>
+          <div class="fila"><span class="lbl">Interacciones</span><span class="val">Síndrome serotoninérgico con ISRS, IMAO, litio. Convulsiones en pacientes con umbral ↓.</span></div>
+          <div class="fila"><span class="lbl">UCPA</span><span class="val">Útil en dolor moderado. Menor depresión respiratoria que morfina. Causa NVPO.</span></div>
+        </div>
+      </div>
+
+      <!-- HIDROMORFONA -->
+      <div class="farmaco-card">
+        <div class="fc-h verde">Hidromorfona (Dilaudid)</div>
+        <div class="fc-b">
+          <div class="fila"><span class="lbl">Presentación</span><span class="val">Ampollas 2 mg/mL · Tabletas 2/4/8 mg · LP 8/12/16 mg</span></div>
+          <div class="fila"><span class="lbl">Potencia</span><span class="val">5–7× morfina IV</span></div>
+          <div class="fila"><span class="lbl">Dosis IV UCPA</span><span class="val"><span class="dosis">0.2–0.4 mg</span> IV c/3–5 min titulado. PCA: bolo 0.2 mg, lockout 6 min.</span></div>
+          <div class="fila"><span class="lbl">Mecanismo</span><span class="val">Agonista µ/δ puro. Semisintético de morfina. Sin metabolito activo acumulable en IRC (a diferencia de morfina). Sin liberación de histamina.</span></div>
+          <div class="fila"><span class="lbl">Ventaja</span><span class="val">Preferible a morfina en IRC, enfermedad hepática, alergia a morfina. Menor prurito que morfina.</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="subsec">
+      <h3>4.2 Naloxona — Antídoto de Opioides</h3>
+      <div class="tw"><table>
+        <thead><tr><th>Parámetro</th><th>Detalle</th></tr></thead>
+        <tbody>
+          <tr><td>Presentación</td><td>Ampollas 0.4 mg/mL (1 mL) · 1 mg/mL (2 mL) · Nasal 4 mg/0.1 mL (Narcan)</td></tr>
+          <tr><td>Mecanismo</td><td>Antagonista competitivo puro de receptores µ, δ, κ (mayor afinidad por µ). Desplaza al opioide del receptor.</td></tr>
+          <tr><td>Dosis depresión respiratoria</td><td><span style="font-family:'Courier New';font-weight:700;color:var(--rojo);">0.04–0.08 mg IV</span> c/2–3 min hasta FR adecuada. Evitar dosis altas (0.4 mg bolo) → edema pulmonar, HTA severa, paro cardíaco por dolor y estimulación simpática masiva.</td></tr>
+          <tr><td>Duración de acción</td><td>30–90 min → más corta que la mayoría de opioides → riesgo de re-narcotización. Monitoreo mínimo 2 h post-naloxona.</td></tr>
+          <tr><td>Infusión</td><td>En intoxicaciones graves: infusión continua 2/3 de la dosis de rescate/hora en SG5%</td></tr>
+          <tr><td>Naloxegol / Metilnaltrexona</td><td>Antagonistas µ de acción periférica (no cruzan BHE) → revierten constipación inducida por opioides sin afectar analgesia central</td></tr>
+        </tbody>
+      </table></div>
+    </div>
+
+    <div class="subsec">
+      <h3>4.3 Equianalgesia entre Opioides</h3>
+      <div class="tw"><table>
+        <thead><tr><th>Opioide</th><th>Dosis equianalgésica IV</th><th>Dosis equianalgésica VO</th><th>Factor respecto a morfina IV</th></tr></thead>
+        <tbody>
+          <tr><td>Morfina</td><td>10 mg</td><td>30 mg</td><td>1×</td></tr>
+          <tr><td>Hidromorfona</td><td>1.5 mg</td><td>7.5 mg</td><td>6.7× (IV)</td></tr>
+          <tr><td>Fentanilo</td><td>0.1 mg (100 mcg)</td><td>No aplica IV</td><td>100×</td></tr>
+          <tr><td>Sufentanilo</td><td>0.01 mg (10 mcg)</td><td>No aplica</td><td>1000×</td></tr>
+          <tr><td>Tramadol</td><td>100 mg</td><td>120 mg</td><td>0.1×</td></tr>
+          <tr><td>Oxicodona</td><td>No disponible IV en Colombia</td><td>20 mg</td><td>1.5× oral</td></tr>
+          <tr><td>Buprenorfina</td><td>0.3 mg SL/TM</td><td>0.4–0.8 mg SL</td><td>25–30× morfina</td></tr>
+        </tbody>
+      </table></div>
+      <div class="caja c-warn"><strong>⚠ Rotación de opioides:</strong> Al rotar entre opioides, usar el 50–75% de la dosis equianalgésica calculada (tolerancia cruzada incompleta). Ajustar según tolerancia previa, edad, función orgánica y tolerabilidad individual.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════ S5 -->
+<div class="seccion" id="s5">
+  <div class="sec-h verde"><div class="sec-num">5</div><div class="sec-titulo">AINEs y Paracetamol Perioperatorios</div></div>
+  <div class="sec-b">
+    <div class="subsec">
+      <h3>5.1 Mecanismo de los AINEs</h3>
+      <p class="p">Los AINEs inhiben la ciclooxigenasa (COX-1 y COX-2) → ↓ síntesis de prostaglandinas (PGE2, PGI2) a partir de ácido araquidónico. PGE2 sensibiliza a los nociceptores Aδ y C, reduciendo su umbral de activación. Al inhibir PG → analgesia + antiinflamatorio + antipirético.</p>
+      <div class="tw"><table class="th-verde">
+        <thead><tr><th>Fármaco</th><th>Presentación</th><th>Dosis</th><th>Selectividad COX</th><th>Comentarios / precauciones</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Ketorolaco</strong></td><td>Ampollas 30 mg/mL · 60 mg/mL. Tabletas 10 mg.</td><td>IV: <span style="font-family:'Courier New';font-weight:700;">15–30 mg</span> c/6 h. IM: 60 mg dosis única. Máx 5 días IV.</td><td>COX-1 = COX-2 (no selectivo)</td><td>AINE IV de referencia en el perioperatorio. Potente analgésico (equipotente a 10 mg de morfina para analgesia aguda). No en IRC, úlcera activa, sangrado, post-CRM. Uso ≤ 5 días para evitar toxicidad renal.</td></tr>
+          <tr><td><strong>Dipirona (metamizol)</strong></td><td>Ampollas 500 mg/mL (2 mL, 10 mL). Tabletas 500 mg.</td><td>IV: <span style="font-family:'Courier New';font-weight:700;">1–2 g</span> IV lento en 15 min c/6–8 h. Máx 6 g/día.</td><td>COX periférica + central (mecanismo parcialmente independiente COX — también actúa en sistema endocannabinoide y en canales TRP)</td><td>Excelente analgésico y antipirético. Riesgo raro de agranulocitosis (&lt;1/million). Prohibido en algunos países (EE.UU., Alemania). Ampliamente usado en Colombia y Latinoamérica. Hipotensión si se infunde rápido.</td></tr>
+          <tr><td><strong>Celecoxib</strong></td><td>Cápsulas 100/200 mg.</td><td>VO: <span style="font-family:'Courier New';font-weight:700;">200–400 mg</span> pre-inducción (ERAS), luego 200 mg c/12 h.</td><td>COX-2 selectivo (coxib)</td><td>Menor riesgo GI que AINEs no selectivos. Útil en pacientes con úlcera o anticoagulación (menor efecto antiagregante). No exento de riesgo cardiovascular (↑ TxA2 relativo por inhibición PGI2 vascular). Contraindicado en alergia a sulfonamidas.</td></tr>
+          <tr><td><strong>Ibuprofeno IV</strong></td><td>Vial 400 mg/200 mL · 800 mg/200 mL.</td><td>IV: <span style="font-family:'Courier New';font-weight:700;">400–800 mg</span> c/6–8 h en infusión 30 min.</td><td>COX-1 = COX-2</td><td>Disponible IV en algunos centros. Útil en manejo multimodal hospitalario cuando VO no es posible y ketorolaco contraindicado.</td></tr>
+          <tr><td><strong>Naproxeno</strong></td><td>Tabletas 250/500 mg · Suspensión.</td><td>VO: <span style="font-family:'Courier New';font-weight:700;">500 mg</span> c/12 h. Máx 1000 mg/día.</td><td>COX-1 = COX-2</td><td>Larga vida media (12–17 h) → mayor conveniencia posología. Riesgo GI moderado. Menor riesgo cardiovascular relativo vs. otros AINEs.</td></tr>
+        </tbody>
+      </table></div>
+    </div>
+
+    <div class="subsec">
+      <h3>5.2 Paracetamol (Acetaminofén)</h3>
+      <div class="caja c-info"><strong>ℹ Mecanismo (actualizado 2024):</strong> Aunque históricamente clasificado como AINE débil, el paracetamol tiene mecanismo distinto: (1) Inhibición de COX-3 (variante de COX-1) central — debate activo. (2) Activación del sistema endocannabinoide (inhibe recaptación de anandamida → ↑ AEA → CB1 espinal). (3) Modulación del sistema serotoninérgico descendente (5-HT₃ espinal). NO tiene efecto antiinflamatorio periférico significativo ni antiagregante.</div>
+      <div class="tw"><table class="th-verde">
+        <thead><tr><th>Parámetro</th><th>Detalle</th></tr></thead>
+        <tbody>
+          <tr><td>Presentaciones</td><td>IV (Paracetamol Fresenius): vial 1000 mg/100 mL (10 mg/mL). Tabletas 500/1000 mg. Jarabe 120/250 mg/5 mL. Supositorios 125/250/500 mg.</td></tr>
+          <tr><td>Dosis adulto IV</td><td><strong>1000 mg</strong> IV en 15 min c/6–8 h. Máx 4 g/día. En hepatopatía o peso &lt; 50 kg: 500 mg c/6 h (máx 2 g/día).</td></tr>
+          <tr><td>Dosis pediátrica</td><td>15 mg/kg c/4–6 h. IV/VO/PR. Máx 60–75 mg/kg/día. Neonatos: 10–12.5 mg/kg c/6–8 h.</td></tr>
+          <tr><td>Inicio / duración</td><td>IV: inicio 5–10 min, pico 60 min, duración 4–6 h. VO: inicio 30–60 min.</td></tr>
+          <tr><td>Ventajas periop.</td><td>Sin efecto sobre función plaquetaria · Sin nefrotoxicidad · Compatible con anticoagulación · Seguro en asma, úlcera, IRC leve-moderada · "Opioid-sparing" demostrado (↓ 20–30% consumo de morfina)</td></tr>
+          <tr><td>Toxicidad hepática</td><td>Por N-acetil-p-benzo-quinoneimina (NAPQI) — acumulada por sobredosis o hepatopatía → necrosis centrolobulillar. Antídoto: N-acetilcisteína (NAC).</td></tr>
+          <tr><td>Estrategia ERAS</td><td>Dar 30 min ANTES de incisión IV (no esperar al dolor postoperatorio). Programado alrededor del reloj (not PRN) mejora control del dolor vs. uso a demanda.</td></tr>
+        </tbody>
+      </table></div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════ S6 -->
+<div class="seccion" id="s6">
+  <div class="sec-h lila"><div class="sec-num">6</div><div class="sec-titulo">Lidocaína IV Sistémica — Analgesia sin Bloqueo Neural</div></div>
+  <div class="sec-b">
+    <p class="p">La <strong>infusión sistémica de lidocaína</strong> a dosis subanestésicas produce analgesia intraoperatoria y postoperatoria mediante mecanismos que van más allá del simple bloqueo de canales Nav: inhibe receptores NMDA, GABA-A, canales de K⁺, glicina, señalización inflamatoria y la liberación de mediadores pronociceptivos.</p>
+    <div class="tw"><table class="th-lila">
+      <thead><tr><th>Parámetro</th><th>Detalle</th></tr></thead>
+      <tbody>
+        <tr><td>Presentación</td><td>Lidocaína sin epinefrina al 2% (20 mg/mL) en ampollas de 5/10/20 mL. Diluir en 100 mL SF para infusión.</td></tr>
+        <tr><td>Dosis bolo inducción</td><td><strong>1.5 mg/kg</strong> IV lento (2–3 min) antes de laringoscopía (atenúa respuesta hemodinámica + analgesia inicial)</td></tr>
+        <tr><td>Dosis infusión</td><td><strong>1–2 mg/kg/h</strong> durante cirugía y hasta 1–2 h en UCPA. Evidencia más fuerte en cirugía abdominal abierta y laparoscópica.</td></tr>
+        <tr><td>Mecanismo</td><td>Nav periférico y central (↓ transmisión nociceptiva) · Anti-NMDA · Anti-inflamatorio (↓ IL-6, TNF-α, NF-κB) · ↓ Hiperalgesia espinal · ↓ Consumo de anestésicos (↓ CAM ~20%)</td></tr>
+        <tr><td>Beneficios demostrados</td><td>↓ Dolor postop. 24–48 h · ↓ NVPO · ↓ íleo paralítico postquirúrgico · Retorno más rápido de función intestinal · ↓ Consumo opioides 20–30%</td></tr>
+        <tr><td>Toxicidad por AL sistémica (LAST)</td><td>Leve: acúfenos, parestesias perioral, mareo, sabor metálico. Moderada: hipotensión, bradiarritmias. Grave: convulsiones → PCR. Manejo: DETENER infusión, Intralipid 20% (emulsión lipídica) 1.5 mL/kg bolo → 0.25 mL/kg/min. Soporte ACLS.</td></tr>
+        <tr><td>Contraindicaciones</td><td>Bloqueo AV de 2°-3° grado · Alergia confirmada a AL tipo amida · IC grave · Pacientes con lidocaína neuroaxial simultánea (↑ riesgo LAST)</td></tr>
+        <tr><td>Monitoreo</td><td>ECG continuo durante infusión. Niveles plasmáticos tóxicos: > 5 µg/mL (terapéutico: 1.5–3 µg/mL)</td></tr>
+      </tbody>
+    </table></div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════ S7 -->
+<div class="seccion" id="s7">
+  <div class="sec-h naranja"><div class="sec-num">7</div><div class="sec-titulo">Ketamina Subanestésica — Analgesia Disociativa Anti-NMDA</div></div>
+  <div class="sec-b">
+    <p class="p">La <strong>ketamina</strong> en dosis subanestésicas (≤ 0.5 mg/kg bolo o ≤ 0.3 mg/kg/h en infusión) es uno de los agentes más versátiles y con mayor respaldo en la evidencia actual para la analgesia perioperatoria. Bloquea el canal iónico del receptor NMDA de manera no competitiva (por canal abierto), previniendo el wind-up espinal.</p>
+    <div class="tw"><table class="th-naranja">
+      <thead><tr><th>Parámetro</th><th>Detalle</th></tr></thead>
+      <tbody>
+        <tr><td>Presentación</td><td>Viales 10 mg/mL (20 mL) · 50 mg/mL (10 mL) · 500 mg/10 mL. Racémico (S+R) o S-ketamina (Ketanest S, 2× más potente)</td></tr>
+        <tr><td>Dosis subanestésica (bolo)</td><td><strong>0.1–0.5 mg/kg</strong> IV (racémica) · S-ketamina: 0.1–0.25 mg/kg</td></tr>
+        <tr><td>Dosis infusión intraop.</td><td><strong>0.1–0.3 mg/kg/h</strong> durante cirugía. Suspender 30–60 min antes del cierre para evitar disforia emergence.</td></tr>
+        <tr><td>Dosis UCPA</td><td><strong>0.1–0.2 mg/kg</strong> IV bolo para dolor severo. Infusión: 0.1–0.2 mg/kg/h máx 2 h.</td></tr>
+        <tr><td>Mecanismos múltiples</td><td>Anti-NMDA (principal) · Agonismo µ opioide · Bloqueo de canales Na⁺ y Ca²⁺ · Antagonismo muscarínico · Interacción con receptores monoaminérgicos · Propiedades antidepresivas (relevante en dolor crónico postoperatorio)</td></tr>
+        <tr><td>Beneficios</td><td>↓ Hiperalgesia inducida por opioides (especialmente post-remifentanilo) · ↓ Consumo opioides 30–50% · Prevención del CPSP (dolor crónico postoperatorio) · Analgesia en dolor resistente a opioides · Preservación del drive respiratorio · Broncodilatación (útil en asmático)</td></tr>
+        <tr><td>Indicaciones prioritarias</td><td>Cirugía espinal · Cirugía oncológica mayor · Uso crónico de opioides o adicción · Paciente con dolor preoperatorio ≥ 3 meses · Cirugía de tórax · Post-remifentanilo</td></tr>
+        <tr><td>Efectos adversos subanestésico</td><td>Disforia, alucinaciones (↓ con benzodiazepinas premedic.) · Sialorrea · ↑ secreciones · Nistagmus · ↑ PIC leve (controversia: NUEVAS evidencias sugieren que NO aumenta PIC en pacientes con VM y normocapnia)</td></tr>
+        <tr><td>Contraindicaciones relativas</td><td>Psicosis activa · Esquizofrenia · HTA severa no controlada · Trauma ocular abierto</td></tr>
+      </tbody>
+    </table></div>
+    <div class="caja c-ok"><strong>✔ Evidencia 2023-2024 — Metaanálisis Cochrane (Bell 2023):</strong> La ketamina subanestésica reduce significativamente el dolor a las 24 y 48 h postoperatorias, reduce el consumo de morfina (NNT ≈ 4) y la incidencia de náuseas/vómito perioperatorias. La evidencia es más fuerte en cirugías dolorosas (espinal, torácica, abdominal mayor). No aumenta significativamente los efectos psicodélicos a dosis ≤ 0.3 mg/kg/h.</div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════ S8 -->
+<div class="seccion" id="s8">
+  <div class="sec-h teal"><div class="sec-num">8</div><div class="sec-titulo">Dexmedetomidina — Analgesia y Sedación Adrenérgica α2</div></div>
+  <div class="sec-b">
+    <div class="tw"><table class="th-teal">
+      <thead><tr><th>Parámetro</th><th>Detalle</th></tr></thead>
+      <tbody>
+        <tr><td>Presentación</td><td>Vial 200 mcg/2 mL (100 mcg/mL) → diluir en SF a 4 mcg/mL o 8 mcg/mL para infusión.</td></tr>
+        <tr><td>Mecanismo</td><td>Agonista altamente selectivo α2-adrenérgico (α2:α1 = 1620:1). Actúa en: locus coeruleus (sedación y ansiólisis), asta dorsal espinal (analgesia), periferia (vasoconstricción local, reducción de inflamación). ↓ Liberación de noradrenalina.</td></tr>
+        <tr><td>Dosis carga (intraop.)</td><td><strong>0.5–1 mcg/kg</strong> IV en 10 min (bolo lento — evitar bolo rápido: hipertensión transitoria por α2 periférico antes del efecto central)</td></tr>
+        <tr><td>Dosis mantenimiento</td><td><strong>0.2–0.7 mcg/kg/h</strong> IV durante cirugía</td></tr>
+        <tr><td>Dosis UCPA</td><td><strong>0.2–0.4 mcg/kg/h</strong> o bolos de <strong>0.5 mcg/kg</strong> en 10 min para tratamiento de agitación o dolor + agitación</td></tr>
+        <tr><td>Propiedades únicas</td><td>Sedación "cooperativa" (el paciente se despierta con el estímulo verbal) · Sin depresión respiratoria clínicamente significativa · Analgesia sinérgica con opioides (↓ requerimiento 30–40%) · Previene delirio postoperatorio (evidencia fuerte en UCI) · Propiedades antisialorrágicas útiles con ketamina</td></tr>
+        <tr><td>Efectos adversos</td><td>Bradicardia (hasta bloqueo AV transitorio) · Hipotensión · Sequedad de boca · Hipertensión transitoria con carga rápida</td></tr>
+        <tr><td>Usos perioperatorios</td><td>Cirugía con hipotensión controlada · Paciente con HTA refractaria intraoperatoria · Procedimientos en vigilia (fibrobroncoscopía, traqueotomía) · Prevención de delirio · Adjunto en cirugías pediátricas</td></tr>
+      </tbody>
+    </table></div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════ S9 -->
+<div class="seccion" id="s9">
+  <div class="sec-h lila"><div class="sec-num">9</div><div class="sec-titulo">Gabapentinoides — Pregabalina y Gabapentina</div></div>
+  <div class="sec-b">
+    <p class="p">Los gabapentinoides actúan sobre la subunidad auxiliar <strong>α2δ-1 y α2δ-2</strong> de los canales de Ca²⁺ dependientes de voltaje tipo Cav2.1 (N) y Cav2.2 (P/Q) en terminaciones sinápticas espinales. Al unirse → ↓ tráfico de estos canales a la membrana presináptica → ↓ liberación de glutamato, sustancia P y CGRP en el asta dorsal → ↓ transmisión nociceptiva central. <strong>NO actúan sobre GABA directamente</strong> (a pesar del nombre).</p>
+    <div class="tw"><table class="th-lila">
+      <thead><tr><th>Parámetro</th><th>Pregabalina</th><th>Gabapentina</th></tr></thead>
+      <tbody>
+        <tr><td>Presentación</td><td>Cápsulas 25/75/150/300 mg · Solución oral 20 mg/mL</td><td>Cápsulas 100/300/400 mg · Tabletas 600/800 mg · Solución 250 mg/5 mL</td></tr>
+        <tr><td>Dosis preoperatoria</td><td><strong>75–150 mg</strong> VO 1–2 h antes de inducción (analgesia preventiva)</td><td><strong>300–1200 mg</strong> VO 1–2 h antes de inducción</td></tr>
+        <tr><td>Dosis postoperatoria</td><td><strong>75–150 mg</strong> VO c/12 h por 1–5 días (según tipo de cirugía)</td><td><strong>300–600 mg</strong> VO c/8 h por 1–5 días</td></tr>
+        <tr><td>Farmacocinética</td><td>Biodisponibilidad VO: 90% (lineal, independiente de dosis). Tmáx: 1 h. No metabolizado. Excreción renal.</td><td>Biodisponibilidad VO: 27–60% (no lineal, satura con dosis altas). Tmáx: 2–3 h. No metabolizado. Excreción renal.</td></tr>
+        <tr><td>Beneficios</td><td colspan="2">↓ Dolor postoperatorio agudo · ↓ Consumo de opioides · ↓ Incidencia de dolor crónico postoperatorio (CPSP) · ↓ Ansiedad preoperatoria (pregabalina &gt; gabapentina) · ↓ NVPO</td></tr>
+        <tr><td>Efectos adversos</td><td colspan="2">Sedación (sinérgica con opioides → riesgo OIVI) · Mareo y ataxia · Visión borrosa · Edema periférico (pregabalina) · Potencial de abuso (clase V DEA en EE.UU.)</td></tr>
+        <tr><td>Contraindicaciones</td><td colspan="2">IRC severa (ajuste de dosis) · Embarazo (teratogenicidad en animales) · Combinación con depresores SNC sin monitoreo</td></tr>
+        <tr><td>Posición en guías 2023</td><td colspan="2">ASA 2023: uso selectivo en pacientes de alto riesgo de dolor severo o con dolor preoperatorio crónico. Evidencia insuficiente para uso rutinario en todas las cirugías (metaanálisis recientes sugieren beneficio modesto con riesgo de sedación).</td></tr>
+      </tbody>
+    </table></div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════ S10 -->
+<div class="seccion" id="s10">
+  <div class="sec-h verde"><div class="sec-num">10</div><div class="sec-titulo">Dexametasona — Corticoide Analgésico y Anti-NVPO</div></div>
+  <div class="sec-b">
+    <div class="tw"><table class="th-verde">
+      <thead><tr><th>Parámetro</th><th>Detalle</th></tr></thead>
+      <tbody>
+        <tr><td>Presentación</td><td>Ampollas 4 mg/mL (1 mL) · 8 mg/2 mL. Tabletas 0.5/0.75/4 mg.</td></tr>
+        <tr><td>Mecanismo analgésico</td><td>↓ Fosfolipasa A2 → ↓ síntesis de ALL los eicosanoides (PG, leucotrienos, tromboxanos) · ↓ Citocinas proinflamatorias (IL-1, IL-6, TNF-α) · Estabilización de membranas · ↓ Permeabilidad capilar en tejido quirúrgico · Efecto central (↓ sensibilización espinal por inflamación sistémica)</td></tr>
+        <tr><td>Mecanismo anti-NVPO</td><td>↓ Inflamación en zona gatillo quimiorreceptora (área postrema) · ↓ PGE2 (estimulante emetogénico) · Posible antagonismo 5-HT3 periférico</td></tr>
+        <tr><td>Dosis analgésica + anti-NVPO</td><td><strong>4–8 mg</strong> IV antes de inducción o al inicio de la cirugía (dosis única — mayor eficacia anti-NVPO que al cierre)</td></tr>
+        <tr><td>Dosis para analgesia intensa</td><td><strong>0.1–0.2 mg/kg</strong> IV (máx 16 mg) en cirugías muy dolorosas (amigdalectomía, cirugía de columna). Reduce dolor 24 h.</td></tr>
+        <tr><td>Beneficios demostrados</td><td>↓ Dolor postoperatorio 24–48 h · ↓ NVPO (NNT ≈ 4) · ↓ Consumo opioides · ↓ Tiempo en UCPA · Sinérgico con ondansetrón (NVPO)</td></tr>
+        <tr><td>Efecto adverso principal</td><td>Hiperglucemia postoperatoria transitoria (+1–3 mmol/L, 4–12 h). En diabéticos: monitoreo de glucemia. Dosis única: riesgo infeccioso mínimo (evidencia 2024: no aumenta IHQ en dosis única de 8 mg).</td></tr>
+        <tr><td>Contraindicaciones relativas</td><td>DM no controlada · Infección activa · Inmunodeprimidos graves · Evitar en analgesia multimodal si HTA crónica severa no controlada</td></tr>
+      </tbody>
+    </table></div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════ S11 -->
+<div class="seccion" id="s11">
+  <div class="sec-h azul"><div class="sec-num">11</div><div class="sec-titulo">Sulfato de Magnesio (MgSO₄) — Antagonismo NMDA y Analgesia</div></div>
+  <div class="sec-b">
+    <div class="tw"><table>
+      <thead><tr><th>Parámetro</th><th>Detalle</th></tr></thead>
+      <tbody>
+        <tr><td>Presentación</td><td>Ampollas 500 mg/mL (10 mL = 5 g) · 250 mg/mL · Diluir siempre antes de IV.</td></tr>
+        <tr><td>Mecanismo analgésico</td><td>El Mg²⁺ bloquea el canal iónico del receptor NMDA de forma dependiente del voltaje (bloqueo similar a ketamina, pero más débil) → previene wind-up espinal. También: bloqueo de canales Ca²⁺ dependientes de voltaje (↓ Ca²⁺ intracelular en terminaciones nociceptivas) · Vasodilatación · Bloqueo neuromuscular parcial.</td></tr>
+        <tr><td>Dosis bolo intraop.</td><td><strong>30–50 mg/kg</strong> IV en 15 min antes de incisión o al inicio de la inducción</td></tr>
+        <tr><td>Dosis infusión</td><td><strong>6–10 mg/kg/h</strong> IV durante cirugía</td></tr>
+        <tr><td>Beneficios</td><td>↓ Consumo de opioides 20–30% · ↓ Dolor 24–48 h · Sinérgico con ketamina y opioides · Muy bajo costo · ↓ Incidencia de HIO · Prevención de hiperalgesia post-remifentanilo</td></tr>
+        <tr><td>Toxicidad (dosis dependiente)</td><td>Mg sérico 2–4 mEq/L (terapéutico) → pérdida de reflejos osteotendinosos (4–5 mEq/L) → depresión respiratoria (5–6 mEq/L) → paro cardíaco (&gt;12 mEq/L). Antídoto: gluconato de Ca²⁺ 1 g IV.</td></tr>
+        <tr><td>Monitoreo</td><td>Reflejo patelar (señal más temprana de toxicidad) · FR · Niveles séricos si infusión prolongada · Diuresis (excreción renal exclusiva)</td></tr>
+        <tr><td>Contraindicaciones</td><td>IRC con Cr &gt; 3 mg/dL (riesgo acumulación) · Bloqueo AV · Miastenia gravis · Hipocalcemia</td></tr>
+      </tbody>
+    </table></div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════ S12 -->
+<div class="seccion" id="s12">
+  <div class="sec-h teal"><div class="sec-num">12</div><div class="sec-titulo">Manejo del Dolor en la UCPA — Protocolos y Algoritmos</div></div>
+  <div class="sec-b">
+    <div class="subsec">
+      <h3>12.1 Evaluación al Ingreso y Clasificación</h3>
+      <div class="tw"><table class="th-teal">
+        <thead><tr><th>Nivel de dolor (EN)</th><th>Clasificación</th><th>Conducta inicial</th></tr></thead>
+        <tbody>
+          <tr><td>EN 0–3</td><td>Leve</td><td>Continuar analgesia de base (paracetamol + AINE). Reevaluar c/30 min. No requiere opioide de rescate.</td></tr>
+          <tr><td>EN 4–6</td><td>Moderado</td><td>Rescate con tramadol 50–100 mg IV lento O morfina 2–4 mg IV titulado. Añadir AINE si no recibido. Reevaluar a los 15 min.</td></tr>
+          <tr><td>EN 7–10</td><td>Severo</td><td>Morfina 1–2 mg IV c/5 min hasta EN ≤ 4 (máx 0.1 mg/kg). O fentanilo 25–50 mcg IV c/5 min. Monitoreo SatO₂, FR. Considerar ketamina 0.1–0.2 mg/kg. Llamar médico.</td></tr>
+        </tbody>
+      </table></div>
+    </div>
+
+    <div class="subsec">
+      <h3>12.2 Escalera Analgésica Adaptada al Perioperatorio (OMS modificada)</h3>
+      <div class="caja c-teal"><strong>🔬 Escalera OMS perioperatoria (adaptada):</strong><br>
+        <strong>Peldaño 1 — Analgesia basal no opioide:</strong> Paracetamol IV regular + AINE (ketorolaco, dipirona) + técnica regional si aplica. Meta: EN ≤ 3.<br>
+        <strong>Peldaño 2 — Opioide débil + no opioide:</strong> Tramadol IV (si no hay síndrome serotoninérgico) o codeína VO. Agregar cuando peldaño 1 falla. Meta: EN ≤ 4.<br>
+        <strong>Peldaño 3 — Opioide fuerte + no opioide:</strong> Morfina/fentanilo/hidromorfona IV titulado. PCA si disponible. Peldaño 1 siempre continúa (efecto opioid-sparing). Meta: EN ≤ 4 en reposo, ≤ 5 en movimiento.<br>
+        <strong>Peldaño 4 — Analgesia intervencionista:</strong> Epidural, bloqueos periféricos continuos, técnicas neuromoduladoras. Cuando peldaños 1–3 son insuficientes.</div>
+    </div>
+
+    <div class="subsec">
+      <h3>12.3 Analgesia Controlada por el Paciente (PCA)</h3>
+      <div class="tw"><table class="th-teal">
+        <thead><tr><th>Parámetro</th><th>Morfina PCA</th><th>Fentanilo PCA</th><th>Hidromorfona PCA</th></tr></thead>
+        <tbody>
+          <tr><td>Concentración</td><td>1 mg/mL</td><td>10 mcg/mL</td><td>0.2 mg/mL</td></tr>
+          <tr><td>Bolo PCA (demanda)</td><td>1–2 mg</td><td>10–20 mcg</td><td>0.2–0.4 mg</td></tr>
+          <tr><td>Período de bloqueo (lockout)</td><td>6–10 min</td><td>5–8 min</td><td>6–10 min</td></tr>
+          <tr><td>Dosis basal (infusión continua)</td><td>0–1 mg/h (evitar en opioides naïve)</td><td>0–10 mcg/h</td><td>0–0.2 mg/h</td></tr>
+          <tr><td>Máximo 4 h</td><td>20–30 mg</td><td>200–300 mcg</td><td>4–6 mg</td></tr>
+          <tr><td>Indicación infusión basal</td><td colspan="3">Solo en pacientes con uso crónico de opioides o dolor severo persistente. Aumenta OIVI en opioides naïve sin beneficio analgésico adicional.</td></tr>
+        </tbody>
+      </table></div>
+    </div>
+
+    <div class="subsec">
+      <h3>12.4 Analgesia Epidural en UCPA</h3>
+      <div class="tw"><table class="th-teal">
+        <thead><tr><th>Componente</th><th>Fármaco</th><th>Concentración habitual</th><th>Dosis infusión</th></tr></thead>
+        <tbody>
+          <tr><td>Anestésico local</td><td>Bupivacaína o levobupivacaína (menor cardiotoxicidad)</td><td>0.0625%–0.125%</td><td>5–15 mL/h PCEA o infusión continua</td></tr>
+          <tr><td>Opioide espinal</td><td>Fentanilo epidural</td><td>2 mcg/mL</td><td>En mezcla con AL</td></tr>
+          <tr><td>Opioide espinal (alternativa)</td><td>Sufentanilo epidural</td><td>0.2–0.5 mcg/mL</td><td>En mezcla con AL</td></tr>
+          <tr><td>Coadyuvante</td><td>Clonidina epidural (α2-agonista)</td><td>1–2 mcg/mL</td><td>Mejora analgesia, permite ↓ dosis de AL y opioide</td></tr>
+          <tr><td>Monitoreo</td><td colspan="3">Escala de bloqueo motor (Bromage) c/4 h · PA c/1 h · SatO₂ · FR · Dermatomos de bloqueo sensitivo · Revisar sitio de punción epidural c/turno</td></tr>
+        </tbody>
+      </table></div>
+    </div>
+
+    <div class="subsec">
+      <h3>12.5 Criterios de Alta de UCPA (Score de Aldrete Modificado)</h3>
+      <div class="tw"><table>
+        <thead><tr><th>Parámetro</th><th>2 puntos</th><th>1 punto</th><th>0 puntos</th></tr></thead>
+        <tbody>
+          <tr><td>Actividad motora</td><td>Mueve 4 extremidades</td><td>Mueve 2 extremidades</td><td>No mueve</td></tr>
+          <tr><td>Respiración</td><td>Respira profundo y tose libremente</td><td>Disnea o respiración limitada</td><td>Apnea</td></tr>
+          <tr><td>Circulación</td><td>PA ± 20% del preoperatorio</td><td>PA ± 20–49% del preoperatorio</td><td>PA ± ≥ 50% del preoperatorio</td></tr>
+          <tr><td>Consciencia</td><td>Completamente despierto</td><td>Despertable al llamado</td><td>No responde</td></tr>
+          <tr><td>SatO₂</td><td>≥ 95% con aire ambiente</td><td>≥ 90% con O₂ suplementario</td><td>&lt; 90% con O₂</td></tr>
+          <tr><td>Dolor</td><td>Sin dolor o dolor mínimo (EN ≤ 3)</td><td>Dolor moderado (EN 4–6)</td><td>Dolor severo (EN ≥ 7)</td></tr>
+          <tr><td>NVPO</td><td>Sin NVPO o NVPO mínimo</td><td>NVPO moderado</td><td>NVPO severo</td></tr>
+        </tbody>
+      </table></div>
+      <div class="caja c-ok"><strong>✔ Criterio de alta UCPA:</strong> Puntaje Aldrete modificado ≥ 13/14. Dolor EN ≤ 3 en reposo Y tolerando analgesia oral. No NVPO activo. FR ≥ 10/min, SatO₂ ≥ 94% con FiO₂ que continuará en piso.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════ S13 -->
+<div class="seccion" id="s13">
+  <div class="sec-h naranja"><div class="sec-num">13</div><div class="sec-titulo">Situaciones Especiales — Tolerancia, HIO, OIVI y Poblaciones</div></div>
+  <div class="sec-b">
+    <div class="tw"><table class="th-naranja">
+      <thead><tr><th>Situación</th><th>Definición / Problema</th><th>Manejo perioperatorio</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Tolerancia a opioides</strong></td><td>Necesidad de ↑ dosis para el mismo efecto. Frecuente en uso crónico &gt; 4 semanas o dosis equivalentes ≥ 60 mg/día de morfina oral.</td><td>Continuar opioide basal del paciente (no suspender abruptamente). ↑ Dosis intraoperatoria 30–50%. Maximizar analgesia no opioide. Metadona perioperatoria (consultar especialista). Ketamina esencial.</td></tr>
+        <tr><td><strong>Hiperalgesia inducida por opioides (HIO)</strong></td><td>Paradójicamente el opioide ↑ la sensibilidad al dolor por sensibilización central de receptores NMDA. Más frecuente con remifentanilo y dosis altas de otros opioides. Dolor difuso, alodinia, no localizado en sitio quirúrgico.</td><td>Ketamina subanestésica (prevención y tratamiento). MgSO₄. Lidocaína IV. Reducir la infusión de remifentanilo lo antes posible. Rotar a otro opioide si persiste.</td></tr>
+        <tr><td><strong>Depresión respiratoria por opioides (OIVI)</strong></td><td>Complicación más temida. FR &lt; 10/min + sedación nivel 3 (Ramsay) + SatO₂ &lt; 90%. Riesgo ↑: apnea del sueño (SAHOS), obesidad, IRC, uso de benzodiazepinas, gabapentinoides + opioides.</td><td>STOP opioide. O₂ suplementario. Estimulación verbal. Naloxona 0.04 mg IV c/2 min. Monitor oximetría continua en piso si SAHOS. Protocolo de sedación analgesia integrado (SAI).</td></tr>
+        <tr><td><strong>Adicción / trastorno uso de opioides</strong></td><td>Paciente en tratamiento con metadona o buprenorfina. Riesgo de abstinencia intraoperatoria y subdesarrollo analgésico.</td><td>NO suspender metadona/buprenorfina preoperatoria. Consultar con medicina del dolor/adicciones. Maximizar analgesia multimodal. Opioides adicionales necesarios (buprenorfina parcialmente bloquea otros µ — usar dosis muy altas o ajustar). Metadona preferible en este contexto.</td></tr>
+        <tr><td><strong>Adulto mayor (&gt;70 años)</strong></td><td>↓ Metabolismo hepático/renal · ↑ Sensibilidad SNC · ↑ Riesgo OIVI y delirio.</td><td>↓ Dosis inicial 25–50% de opioides. Preferir paracetamol + AL regional. Evitar tramadol (convulsiones, síndrome serotoninérgico). Evitar ketorolaco &gt; 5 días. Dexmedetomidina para prevención de delirio.</td></tr>
+        <tr><td><strong>Embarazo y obstetricia</strong></td><td>Riesgo de depresión neonatal con opioides sistémicos. Seguridad fetal de AL neuroaxiales.</td><td>Analgesia epidural como primera línea (trabajo de parto y parto). Opioides sistémicos con precaución (morfina cruce placentario → tener naloxona neonatal disponible). Paracetamol: seguro. AINEs: evitar &gt; 30 sem (cierre prematuro ductus).</td></tr>
+        <tr><td><strong>IRC (ERC estadio 4-5)</strong></td><td>Acumulación de metabolitos activos (M6G de morfina, norpetidina). ↓ Excreción de opioides y sus metabolitos.</td><td>Fentanilo o hidromorfona (metabolitos menos activos y acumulables). Evitar morfina (M6G) y tramadol (norpetidina — convulsiones). ↓ Dosis y ↑ intervalo. Ketorolaco contraindicado. MgSO₄ contraindicado con Cr &gt; 3 mg/dL.</td></tr>
+      </tbody>
+    </table></div>
+  </div>
+</div>
+
+</div><!-- /cont -->
+<footer>
+  <div>
+    <div class="footer-name">Dr. Andrés Robayo C.</div>
+    <div class="footer-title">Médico Especialista en Anestesiología · Docente de Pregrado – Rotación de Anestesiología<br>Hospital de Kennedy · Hospital de Bosa · Subred Suroccidente – Bogotá, D.C., Colombia</div>
+  </div>
+  <div class="footer-copy">IASP · ERAS Society 2023 · ASA 2023 · ASRA 2021<br>Cochrane: Bell RF (Ketamina 2022) · Kranke P (Lidocaína IV 2023)<br>© 2025 – Uso exclusivo académico/docente</div>
+</footer>
+</div><!-- /teoria-tab -->
+
+<!-- ═══ TALLER ═══ -->
+<div class="tab-content" id="taller-tab">
+<div class="taller-header">
+  <h2>Taller Calificado – <em>Dolor Perioperatorio</em></h2>
+  <div class="taller-meta">5.0 puntos · Analgesia multimodal, opioides, mecanismos y casos clínicos · Dr. Andrés Robayo C.</div>
+</div>
+
+<!-- SAME .cont wrapper as teoría → same width -->
+<div class="cont">
+
+<div class="alert-yellow">
+  🤖 <strong>Módulo A</strong> (2.5 pts) — Selección múltiple autocorregible · Presione <em>Corregir Módulo A</em> al terminar. &nbsp;|&nbsp; ✏️ <strong>Módulo B</strong> (2.5 pts) — Casos clínicos razonados calificados por el docente.
+</div>
+
+<!-- MÓDULO A -->
+<div class="module">
+  <div class="module-header" style="background:var(--navy);">
+    <span class="module-tag">🤖 AUTOCORREGIBLE</span>
+    <span class="module-title">Módulo A — 8 ejercicios de farmacología del dolor</span>
+    <span class="module-pts">2.5 pts</span>
+  </div>
+  <div class="module-body">
+
+    <!-- A1 -->
+    <div class="ex-item">
+      <div class="ex-label"><span class="ex-num">A1</span> Analgesia multimodal — selección de fármacos <span class="ex-pts-auto">2 preg · 0.625 pts</span></div>
+      <div class="ex-context"><strong>Paciente:</strong> Mujer 48 años, 65 kg, laparoscopia ginecológica 60 min, sin alergias, sin uso previo de opioides. Plan ERAS. No hay contraindicaciones.</div>
+      <div class="mc-row"><span class="mc-label">Fármaco de primera línea para analgesia preventiva (pre-inducción):</span>
+        <select class="mc-select" onchange="chk(this,'Paracetamol 1000 mg IV + celecoxib 400 mg VO antes de inducción','fbA1a')">
+          <option value="">— elegir —</option>
+          <option>Paracetamol 1000 mg IV + celecoxib 400 mg VO antes de inducción</option>
+          <option>Morfina 0.1 mg/kg IV antes de incisión</option>
+          <option>Fentanilo 2 mcg/kg IV a la inducción como único analgésico</option>
+          <option>Diazepam 5 mg VO para reducir la percepción de dolor</option>
+        </select><span class="fb" id="fbA1a"></span>
+      </div>
+      <div class="mc-row"><span class="mc-label">Estrategia que mejor cumple "opioid-sparing" en cirugía laparoscópica:</span>
+        <select class="mc-select" onchange="chk(this,'Lidocaína IV 1.5 mg/kg/h + ketamina 0.2 mg/kg/h + ketorolaco 30 mg al cierre','fbA1b')">
+          <option value="">— elegir —</option>
+          <option>Lidocaína IV 1.5 mg/kg/h + ketamina 0.2 mg/kg/h + ketorolaco 30 mg al cierre</option>
+          <option>Fentanilo 3 mcg/kg IV + morfina 0.1 mg/kg IV al cierre</option>
+          <option>Remifentanilo infusión sola sin analgesia de transición</option>
+          <option>Tramadol 100 mg IV al inicio + dipirona 2 g al cierre</option>
+        </select><span class="fb" id="fbA1b"></span>
+      </div>
+    </div>
+
+    <!-- A2 -->
+    <div class="ex-item">
+      <div class="ex-label"><span class="ex-num">A2</span> Opioides — mecanismo y equianalgesia <span class="ex-pts-auto">2 preg · 0.625 pts</span></div>
+      <div class="ex-context"><strong>Paciente:</strong> Hombre 70 kg en UCPA con EN 8/10. Intraoperatorio recibió remifentanilo 0.2 mcg/kg/min durante 3 h y no recibió analgesia de transición. No tiene IRC.</div>
+      <div class="mc-row"><span class="mc-label">¿Por qué hay dolor severo pese al remifentanilo intraoperatorio?</span>
+        <select class="mc-select" onchange="chk(this,'CSHT de 3–5 min → caída rápida + riesgo de HIO por NMDA; no hubo analgesia de transición','fbA2a')">
+          <option value="">— elegir —</option>
+          <option>CSHT de 3–5 min → caída rápida + riesgo de HIO por NMDA; no hubo analgesia de transición</option>
+          <option>Tolerancia aguda a opioides en solo 3 horas de infusión</option>
+          <option>El remifentanilo no tiene efecto analgésico postoperatorio por ser muy liposoluble</option>
+          <option>CSHT largo del remifentanilo causó acumulación que bloquea el dolor pero pasó</option>
+        </select><span class="fb" id="fbA2a"></span>
+      </div>
+      <div class="mc-row"><span class="mc-label">Dosis de rescate de morfina IV para EN 8/10 en UCPA (70 kg):</span>
+        <select class="mc-select" onchange="chk(this,'2 mg IV c/5 min hasta EN ≤ 4, máximo 0.1 mg/kg (7 mg) titulado con monitoreo','fbA2b')">
+          <option value="">— elegir —</option>
+          <option>2 mg IV c/5 min hasta EN ≤ 4, máximo 0.1 mg/kg (7 mg) titulado con monitoreo</option>
+          <option>10 mg IV en bolo único rápido para control inmediato</option>
+          <option>0.04 mg/kg IV bolo único sin repetición</option>
+          <option>Morfina está contraindicada en UCPA; usar solo tramadol</option>
+        </select><span class="fb" id="fbA2b"></span>
+      </div>
+    </div>
+
+    <!-- A3 -->
+    <div class="ex-item">
+      <div class="ex-label"><span class="ex-num">A3</span> Ketamina subanestésica — dosis y mecanismo <span class="ex-pts-auto">2 preg · 0.625 pts</span></div>
+      <div class="ex-context"><strong>Paciente:</strong> Hombre 65 kg, cirugía de columna L4–L5 (fusión). Se prepara ketamina al 2% (20 mg/mL) en infusión. La infusión corre a 2 mL/h.</div>
+      <div class="mc-row"><span class="mc-label">Dosis que recibe el paciente en mg/kg/h:</span>
+        <select class="mc-select" onchange="chk(this,'2 mL/h × 20 mg/mL = 40 mg/h ÷ 65 kg = 0.615 mg/kg/h → dentro del rango subanestésico (≤ 0.3–0.5 mg/kg/h es lo ideal; 0.6 limítrofe)','fbA3a')">
+          <option value="">— elegir —</option>
+          <option>2 mL/h × 20 mg/mL = 40 mg/h ÷ 65 kg = 0.615 mg/kg/h → dentro del rango subanestésico (≤ 0.3–0.5 mg/kg/h es lo ideal; 0.6 limítrofe)</option>
+          <option>2 mL/h × 20 mg/mL = 40 mg/h ÷ 65 kg = 0.615 mg/kg/h → rango anestésico pleno, reducir</option>
+          <option>2 mL/h × 10 mg/mL = 20 mg/h ÷ 65 kg = 0.31 mg/kg/h</option>
+          <option>2 mL/h × 20 mg/mL = 40 mg/h → se divide por peso solo si es &gt;80 kg</option>
+        </select><span class="fb" id="fbA3a"></span>
+      </div>
+      <div class="mc-row"><span class="mc-label">Tipo de antagonismo de la ketamina sobre el receptor NMDA:</span>
+        <select class="mc-select" onchange="chk(this,'Antagonista no competitivo de canal abierto (open-channel blocker), uso-dependiente','fbA3b')">
+          <option value="">— elegir —</option>
+          <option>Antagonista no competitivo de canal abierto (open-channel blocker), uso-dependiente</option>
+          <option>Antagonista competitivo que desplaza al glutamato del sitio activo</option>
+          <option>Antagonista alostérico que bloquea el receptor desde el exterior del canal</option>
+          <option>Agonista parcial del receptor NMDA con efecto inhibidor neto</option>
+        </select><span class="fb" id="fbA3b"></span>
+      </div>
+    </div>
+
+    <!-- A4 -->
+    <div class="ex-item">
+      <div class="ex-label"><span class="ex-num">A4</span> Lidocaína IV sistémica — toxicidad LAST <span class="ex-pts-auto">2 preg · 0.625 pts</span></div>
+      <div class="ex-context"><strong>Paciente:</strong> Hombre 80 kg. Infusión de lidocaína 2% a 2 mg/kg/h (160 mg/h). A los 45 min refiere acúfenos, sabor metálico, mareo y empieza a convulsionar.</div>
+      <div class="mc-row"><span class="mc-label">Diagnóstico y primera medida inmediata:</span>
+        <select class="mc-select" onchange="chk(this,'LAST (toxicidad sistémica por AL); DETENER infusión de lidocaína + Intralipid 20% 1.5 mL/kg IV bolo','fbA4a')">
+          <option value="">— elegir —</option>
+          <option>LAST (toxicidad sistémica por AL); DETENER infusión de lidocaína + Intralipid 20% 1.5 mL/kg IV bolo</option>
+          <option>Convulsión febril; administrar diazepam 10 mg IV y continuar la infusión</option>
+          <option>Hipoglucemia; glucosa al 50% IV y observar</option>
+          <option>LAST; naloxona 0.4 mg IV bolo inmediato</option>
+        </select><span class="fb" id="fbA4a"></span>
+      </div>
+      <div class="mc-row"><span class="mc-label">Rango terapéutico plasmático de lidocaína (infusión analgésica):</span>
+        <select class="mc-select" onchange="chk(this,'1.5–3 µg/mL; toxicidad empieza con &gt;5 µg/mL','fbA4b')">
+          <option value="">— elegir —</option>
+          <option>1.5–3 µg/mL; toxicidad empieza con &gt;5 µg/mL</option>
+          <option>5–10 µg/mL es el rango terapéutico analgésico</option>
+          <option>0.5–1 µg/mL; cualquier nivel mayor es tóxico</option>
+          <option>No existe rango terapéutico; la dosis se titula solo por peso</option>
+        </select><span class="fb" id="fbA4b"></span>
+      </div>
+    </div>
+
+    <!-- A5 -->
+    <div class="ex-item">
+      <div class="ex-label"><span class="ex-num">A5</span> AINEs y paracetamol — diferencias clave <span class="ex-pts-auto">2 preg · 0.625 pts</span></div>
+      <div class="ex-context"><strong>Paciente:</strong> Mujer 55 años, IRC estadio 3 (TFG 38 mL/min), colecistectomía laparoscópica. EN 5/10 en UCPA. Ha recibido morfina 4 mg IV.</div>
+      <div class="mc-row"><span class="mc-label">¿Puede usar ketorolaco 30 mg IV como complemento analgésico?</span>
+        <select class="mc-select" onchange="chk(this,'No; los AINEs están contraindicados en IRC (↓ PGE2 renal → vasoconstricción aferente → ↓ TFG ya comprometida)','fbA5a')">
+          <option value="">— elegir —</option>
+          <option>No; los AINEs están contraindicados en IRC (↓ PGE2 renal → vasoconstricción aferente → ↓ TFG ya comprometida)</option>
+          <option>Sí; una sola dosis de 15 mg es segura en IRC leve-moderada</option>
+          <option>Sí; el ketorolaco no afecta la función renal porque es solo analgésico</option>
+          <option>Solo contraindicado en IRC estadio 5 (diálisis)</option>
+        </select><span class="fb" id="fbA5a"></span>
+      </div>
+      <div class="mc-row"><span class="mc-label">Alternativa analgésica no opioide segura en IRC estadio 3:</span>
+        <select class="mc-select" onchange="chk(this,'Paracetamol 1000 mg IV; no nefrotóxico ni afecta TFG','fbA5b')">
+          <option value="">— elegir —</option>
+          <option>Paracetamol 1000 mg IV; no nefrotóxico ni afecta TFG</option>
+          <option>Ibuprofeno 400 mg IV; más seguro que ketorolaco en IRC</option>
+          <option>Dipirona 2 g IV; mecanismo diferente a AINEs, sin riesgo renal</option>
+          <option>Naproxeno 500 mg VO; vida media larga da mayor cobertura</option>
+        </select><span class="fb" id="fbA5b"></span>
+      </div>
+    </div>
+
+    <!-- A6 -->
+    <div class="ex-item">
+      <div class="ex-label"><span class="ex-num">A6</span> Naloxona — dosis correcta y complicaciones <span class="ex-pts-auto">2 preg · 0.625 pts</span></div>
+      <div class="ex-context"><strong>Paciente:</strong> Hombre 75 kg, postoperatorio de hernioplastia. FR 6 rpm, SatO₂ 85%, profundamente somnoliento. Recibió morfina 12 mg IV total en UCPA.</div>
+      <div class="mc-row"><span class="mc-label">Dosis correcta de naloxona para depresión respiratoria:</span>
+        <select class="mc-select" onchange="chk(this,'0.04–0.08 mg IV c/2–3 min, titulado hasta FR ≥ 12 rpm; nunca bolo único de 0.4 mg','fbA6a')">
+          <option value="">— elegir —</option>
+          <option>0.04–0.08 mg IV c/2–3 min, titulado hasta FR ≥ 12 rpm; nunca bolo único de 0.4 mg</option>
+          <option>0.4 mg IV en bolo rápido único para reversión completa e inmediata</option>
+          <option>1 mg IV en bolo; dosis usual de antídoto completo</option>
+          <option>0.1 mg/kg IV bolo, repetir cada 10 min si no hay respuesta</option>
+        </select><span class="fb" id="fbA6a"></span>
+      </div>
+      <div class="mc-row"><span class="mc-label">¿Qué ocurre si se da 0.4 mg IV en bolo rápido a este paciente?</span>
+        <select class="mc-select" onchange="chk(this,'Descarga simpática masiva (dolor agudo + catecolaminas) → HTA severa + edema pulmonar agudo potencial','fbA6b')">
+          <option value="">— elegir —</option>
+          <option>Descarga simpática masiva (dolor agudo + catecolaminas) → HTA severa + edema pulmonar agudo potencial</option>
+          <option>Reversión perfecta sin complicaciones; 0.4 mg es la dosis de ficha técnica</option>
+          <option>Hipotensión severa porque la naloxona tiene efecto vasodilatador</option>
+          <option>Convulsiones por acción directa de la naloxona sobre el SNC</option>
+        </select><span class="fb" id="fbA6b"></span>
+      </div>
+    </div>
+
+    <!-- A7 -->
+    <div class="ex-item">
+      <div class="ex-label"><span class="ex-num">A7</span> Dexmedetomidina y dexametasona perioperatoria <span class="ex-pts-auto">2 preg · 0.625 pts</span></div>
+      <div class="ex-context"><strong>Paciente:</strong> Mujer 66 años, DM tipo 2 (HbA1c 7.8%), cirugía de columna cervical bajo AG. Muy ansiosa. Antecedente de NVPO severo en cirugía previa.</div>
+      <div class="mc-row"><span class="mc-label">Fármaco que combina sedación cooperativa + analgesia + prevención de delirio SIN depresión respiratoria:</span>
+        <select class="mc-select" onchange="chk(this,'Dexmedetomidina 0.5 mcg/kg carga en 10 min + infusión 0.2–0.4 mcg/kg/h','fbA7a')">
+          <option value="">— elegir —</option>
+          <option>Dexmedetomidina 0.5 mcg/kg carga en 10 min + infusión 0.2–0.4 mcg/kg/h</option>
+          <option>Midazolam 0.05 mg/kg IV; sedación sin depresión respiratoria significativa</option>
+          <option>Propofol 1 mg/kg IV bolo; sedación cooperativa de corta duración</option>
+          <option>Lorazepam 2 mg IV; ansiolítico sin efecto sobre la respiración</option>
+        </select><span class="fb" id="fbA7a"></span>
+      </div>
+      <div class="mc-row"><span class="mc-label">Dexametasona 8 mg IV en esta paciente diabética — conducta correcta:</span>
+        <select class="mc-select" onchange="chk(this,'Administrar a la inducción + monitoreo glucemia en UCPA; dosis única no contraindica su uso','fbA7b')">
+          <option value="">— elegir —</option>
+          <option>Administrar a la inducción + monitoreo glucemia en UCPA; dosis única no contraindica su uso</option>
+          <option>Contraindicada absolutamente en DM tipo 2; usar ondansetrón solo</option>
+          <option>Dar al cierre de la herida para mayor efecto anti-NVPO</option>
+          <option>Solo usar si HbA1c &lt;7%; con 7.8% el riesgo supera el beneficio</option>
+        </select><span class="fb" id="fbA7b"></span>
+      </div>
+    </div>
+
+    <!-- A8 -->
+    <div class="ex-item">
+      <div class="ex-label"><span class="ex-num">A8</span> Situaciones especiales — opioides y poblaciones <span class="ex-pts-auto">2 preg · 0.625 pts</span></div>
+      <div class="ex-context"><strong>Paciente:</strong> Hombre 58 años con IRC avanzada (TFG 22 mL/min) y dolor postoperatorio severo (EN 8/10) tras nefrectomía. Necesita opioide fuerte.</div>
+      <div class="mc-row"><span class="mc-label">¿Por qué la morfina es problemática en IRC y cuál opioide es preferible?</span>
+        <select class="mc-select" onchange="chk(this,'Morfina acumula M6G (metabolito activo) en IRC → depresión respiratoria tardía; preferir fentanilo o hidromorfona','fbA8a')">
+          <option value="">— elegir —</option>
+          <option>Morfina acumula M6G (metabolito activo) en IRC → depresión respiratoria tardía; preferir fentanilo o hidromorfona</option>
+          <option>La morfina es segura en IRC; el problema es el tramadol (norpetidina)</option>
+          <option>En IRC se prefiere tramadol porque no depende del riñón</option>
+          <option>La morfina en IRC causa solo constipación; no hay riesgo de depresión respiratoria</option>
+        </select><span class="fb" id="fbA8a"></span>
+      </div>
+      <div class="mc-row"><span class="mc-label">¿Está el MgSO₄ indicado como coadyuvante en este paciente con TFG 22 mL/min?</span>
+        <select class="mc-select" onchange="chk(this,'No; el MgSO₄ tiene excreción renal exclusiva → riesgo de hipermagnesemia y toxicidad (paro cardíaco)','fbA8b')">
+          <option value="">— elegir —</option>
+          <option>No; el MgSO₄ tiene excreción renal exclusiva → riesgo de hipermagnesemia y toxicidad (paro cardíaco)</option>
+          <option>Sí; el magnesio es seguro en IRC porque el riñón regula su absorción intestinal</option>
+          <option>Solo contraindicado en diálisis; TFG 22 mL/min es seguro con dosis reducida</option>
+          <option>Sí; el MgSO₄ es seguro porque se metaboliza en el hígado</option>
+        </select><span class="fb" id="fbA8b"></span>
+      </div>
+    </div>
+
+    <button class="correct-btn" onclick="corregir('A',16,['fbA1a','fbA1b','fbA2a','fbA2b','fbA3a','fbA3b','fbA4a','fbA4b','fbA5a','fbA5b','fbA6a','fbA6b','fbA7a','fbA7b','fbA8a','fbA8b'],2.5)">Corregir Módulo A (2.5 pts)</button>
+    <div class="nota-bar">
+      <span class="nota-bar-label">Nota autocorregible</span>
+      <span class="nota-bar-val" id="notaDolor">0.00 / 2.50</span>
+      <span style="font-family:var(--sans);font-size:9pt;color:var(--gray-400);">pts · Módulo A</span>
+    </div>
+  </div>
+</div>
+
+<!-- MÓDULO B -->
+<div class="module">
+  <div class="module-header" style="background:var(--amber);">
+    <span class="module-tag">✏️ DOCENTE</span>
+    <span class="module-title">Módulo B — Casos clínicos integradores con análisis razonado</span>
+    <span class="module-pts">2.5 pts</span>
+  </div>
+  <div class="module-body">
+
+    <div class="ex-item">
+      <div class="ex-label"><span class="ex-num">B1</span> Protocolo multimodal completo — colecistectomía laparoscópica en DM2 <span class="ex-pts-manual">0.5 pts · docente</span></div>
+      <div class="manual-block">
+        <div class="manual-block-label">✏️ Caso clínico</div>
+        <div class="open-question">Mujer 52 años, 70 kg, DM tipo 2 (HbA1c 7.2%), colecistectomía laparoscópica 90 min, sin alergias, sin uso previo de opioides. AG balanceada con sevoflurano.</div>
+        <div class="open-question-part"><span class="open-question-part-letter">a</span><span>Diseñe el plan de analgesia multimodal completo (premedicación, inducción, intraoperatorio, cierre, UCPA): nombre, dosis calculada, vía y momento de cada fármaco.</span></div>
+        <div class="open-question-part"><span class="open-question-part-letter">b</span><span>¿Qué consideración especial tiene la dexametasona en esta paciente? ¿La usaría? ¿A qué dosis y en qué momento?</span></div>
+        <div class="open-question-part"><span class="open-question-part-letter">c</span><span>Al despertar en UCPA tiene EN 7/10. Describa el manejo farmacológico paso a paso.</span></div>
+        <textarea class="open-area" placeholder="Escriba su respuesta aquí..."></textarea>
+        <div class="print-answer"></div>
+      </div>
+    </div>
+
+    <div class="ex-item">
+      <div class="ex-label"><span class="ex-num">B2</span> Cirugía espinal — tolerancia, remifentanilo e HIO <span class="ex-pts-manual">0.5 pts · docente</span></div>
+      <div class="manual-block">
+        <div class="manual-block-label">✏️ Caso clínico</div>
+        <div class="open-question">Hombre 35 años, 80 kg, fusión lumbar L4–L5. Uso crónico de tramadol 200 mg/día por 8 meses por lumbalgia. Buena función renal y hepática.</div>
+        <div class="open-question-part"><span class="open-question-part-letter">a</span><span>¿Por qué el tramadol puede ser menos efectivo como analgésico en este paciente? ¿Qué opioide intraoperatorio elegiría y por qué?</span></div>
+        <div class="open-question-part"><span class="open-question-part-letter">b</span><span>Se decide remifentanilo intraoperatorio. Calcule la dosis de mantenimiento y explique por qué debe planificar analgesia de transición antes del cierre. ¿Qué fármacos específicos usaría?</span></div>
+        <div class="open-question-part"><span class="open-question-part-letter">c</span><span>Al día siguiente: dolor EN 8 difuso, quemante, NO en sitio de incisión, sin respuesta a morfina 8 mg IV. ¿Qué síndrome sospecha y cómo lo trataría?</span></div>
+        <textarea class="open-area" placeholder="Escriba su respuesta aquí..."></textarea>
+        <div class="print-answer"></div>
+      </div>
+    </div>
+
+    <div class="ex-item">
+      <div class="ex-label"><span class="ex-num">B3</span> Mecanismos farmacológicos — ketamina, lidocaína y MgSO₄ <span class="ex-pts-manual">0.5 pts · docente</span></div>
+      <div class="manual-block">
+        <div class="manual-block-label">✏️ Pregunta abierta</div>
+        <div class="open-question-part"><span class="open-question-part-letter">a</span><span>Explique a nivel molecular cómo la ketamina previene el wind-up espinal. ¿Qué receptor? ¿Qué tipo de antagonismo? ¿Por qué es uso-dependiente?</span></div>
+        <div class="open-question-part"><span class="open-question-part-letter">b</span><span>Mencione al menos 3 mecanismos analgésicos de la lidocaína IV más allá del bloqueo de canal de sodio, respaldados por evidencia.</span></div>
+        <div class="open-question-part"><span class="open-question-part-letter">c</span><span>Explique cómo el MgSO₄ reduce el consumo de opioides postoperatorio. ¿Cuál es el signo clínico más temprano de toxicidad y cómo se revierte?</span></div>
+        <textarea class="open-area" placeholder="Escriba su respuesta aquí..."></textarea>
+        <div class="print-answer"></div>
+      </div>
+    </div>
+
+    <div class="ex-item">
+      <div class="ex-label"><span class="ex-num">B4</span> Dolor resistente en UCPA — IRC y limitaciones farmacológicas <span class="ex-pts-manual">0.5 pts · docente</span></div>
+      <div class="manual-block">
+        <div class="manual-block-label">✏️ Caso clínico integrador</div>
+        <div class="ex-context" style="margin-bottom:10px;"><strong>Paciente:</strong> Mujer 45 años, 60 kg, IRC estadio 3 (TFG 38 mL/min), nefrectomía laparoscópica izquierda. UCPA: EN 9/10, agitada, SatO₂ 96%, FR 18 rpm, PA 155/95. Intraoperatorio recibió morfina 10 mg IV + ketorolaco 30 mg.</div>
+        <div class="open-question-part"><span class="open-question-part-letter">a</span><span>¿Qué problema tiene la morfina en esta paciente con IRC estadio 3? ¿Cuál opioide elegiría para el rescate? Calcule la dosis.</span></div>
+        <div class="open-question-part"><span class="open-question-part-letter">b</span><span>¿Puede usar ketorolaco adicional? Justifique. Proponga dos alternativas analgésicas no opioides.</span></div>
+        <div class="open-question-part"><span class="open-question-part-letter">c</span><span>Diseñe el plan analgésico para las primeras 24 h, señalando explícitamente qué fármacos están contraindicados y por qué.</span></div>
+        <textarea class="open-area" placeholder="Escriba su respuesta aquí..."></textarea>
+        <div class="print-answer"></div>
+      </div>
+    </div>
+
+    <div class="ex-item">
+      <div class="ex-label"><span class="ex-num">B5</span> Conceptos clave — escalas, preemptive analgesia y paracetamol <span class="ex-pts-manual">0.5 pts · docente</span></div>
+      <div class="manual-block">
+        <div class="manual-block-label">✏️ Preguntas conceptuales</div>
+        <div class="open-question-part"><span class="open-question-part-letter">a</span><span>Paciente postoperado de laparotomía: EN 4/10 en reposo, EN 8/10 al toser. ¿Cuál es la meta terapéutica en movimiento según las guías? ¿Qué consecuencia pulmonar puede tener el dolor no controlado al toser?</span></div>
+        <div class="open-question-part"><span class="open-question-part-letter">b</span><span>Explique la diferencia entre analgesia preemptive y preventive analgesia. Dé un ejemplo clínico de cada una.</span></div>
+        <div class="open-question-part"><span class="open-question-part-letter">c</span><span>¿Por qué el paracetamol no tiene efecto antiagregante plaquetario y los AINEs sí? ¿Cuál es el mecanismo analgésico central más aceptado del paracetamol en 2024?</span></div>
+        <textarea class="open-area" placeholder="Escriba su respuesta aquí..."></textarea>
+        <div class="print-answer"></div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- DESCARGA -->
+<div class="download-box">
+  <h3>⬇ Descargar PDF del Taller</h3>
+  <div class="input-row">
+    <input class="id-input" id="nomD" type="text" placeholder="Nombre completo del estudiante">
+    <input class="id-input" id="univD" type="text" placeholder="Universidad / Institución">
+  </div>
+  <button class="dl-btn" onclick="dlPDF()">⬇ Descargar PDF</button>
+  <div class="dl-error" id="errD">Complete nombre y universidad antes de descargar.</div>
+</div>
+
+</div><!-- /cont (taller) -->
+</div><!-- /taller-tab -->
+</div><!-- /page -->
+
+<script>
+function showTab(id,btn){
+  document.querySelectorAll('.tab-content').forEach(t=>t.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+  document.getElementById(id+'-tab').classList.add('active');
+  btn.classList.add('active');
+}
+var answers={};
+function chk(sel,correct,fbId){
+  answers[fbId]={val:sel.value.trim(),correct:correct.trim()};
+  var fb=document.getElementById(fbId);
+  if(fb){fb.textContent='';fb.className='fb';}
+}
+var pts={A:0};
+function corregir(mod,total,fbIds,maxPts){
+  var ok=0;
+  fbIds.forEach(function(fbId){
+    var fb=document.getElementById(fbId);
+    var ans=answers[fbId];
+    if(!fb)return;
+    if(!ans||!ans.val){fb.textContent='— sin respuesta';fb.className='fb';return;}
+    if(ans.val===ans.correct){ok++;fb.textContent='✓ correcto';fb.className='fb ok';}
+    else{fb.textContent='✗ incorrecto';fb.className='fb err';}
+  });
+  var p=(ok/total)*maxPts;
+  pts[mod]=p;
+  actualizarNotas();
+  alert('Módulo '+mod+' corregido: '+ok+'/'+total+' correctas = '+p.toFixed(2)+' pts');
+}
+function actualizarNotas(){
+  var nt=document.getElementById('notaDolor');
+  if(nt)nt.textContent=(pts.A||0).toFixed(2)+' / 2.50';
+}
+function setupPrintAnswers(){
+  document.querySelectorAll('textarea.open-area').forEach(function(ta){
+    var clone=ta.nextElementSibling;
+    if(!clone||!clone.classList.contains('print-answer')){
+      clone=document.createElement('div');clone.className='print-answer';
+      ta.parentNode.insertBefore(clone,ta.nextSibling);
+    }
+    ta.addEventListener('input',function(){clone.textContent=ta.value;});
+  });
+}
+document.addEventListener('DOMContentLoaded',setupPrintAnswers);
+window.addEventListener('beforeprint',function(){
+  document.querySelectorAll('textarea.open-area').forEach(function(ta){
+    var clone=ta.nextElementSibling;
+    if(clone&&clone.classList.contains('print-answer'))clone.textContent=ta.value;
+  });
+});
+function dlPDF(){
+  var nom=document.getElementById('nomD').value.trim();
+  var univ=document.getElementById('univD').value.trim();
+  if(!nom||!univ){document.getElementById('errD').style.display='block';return;}
+  document.getElementById('errD').style.display='none';
+  var ahora=new Date();
+  var f=ahora.toLocaleDateString('es-CO',{day:'2-digit',month:'long',year:'numeric'})+' '+ahora.toLocaleTimeString('es-CO',{hour:'2-digit',minute:'2-digit'});
+  ['phNombre','pfNombre'].forEach(id=>{var el=document.getElementById(id);if(el)el.textContent=nom;});
+  ['phUniversidad','pfUniversidad'].forEach(id=>{var el=document.getElementById(id);if(el)el.textContent=univ;});
+  ['phGuia','pfGuia'].forEach(id=>{var el=document.getElementById(id);if(el)el.textContent='Taller — Manejo del Dolor · Dr. Andrés Robayo C.';});
+  ['phFecha','pfFecha'].forEach(id=>{var el=document.getElementById(id);if(el)el.textContent=f;});
+  document.querySelectorAll('.tab-content').forEach(t=>t.classList.remove('active'));
+  document.getElementById('taller-tab').classList.add('active');
+  setTimeout(function(){window.print();},300);
+}
+</script>
+</body>
+</html>

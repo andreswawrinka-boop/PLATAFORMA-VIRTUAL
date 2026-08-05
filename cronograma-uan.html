@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="es"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Universidad Antonio Nariño — Anestesiología · Hospital de Bosa</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600;700;800&display=swap');
+:root{
+  --pri:#3D1880;--sec:#280D56;--l:#7C3AED;--t:#F3EEFF;
+  --rojo:#C62828;--rojo-t:#FFEBEE;
+  --verde:#1B5E20;--verde-t:#E8F5E9;
+  --naranja:#E65100;--naranja-t:#FFF3E0;
+  --azul:#0D47A1;--azul-t:#E3F2FD;
+  --borde:#CBD5E1;--bg:#EEF2F7;--txt:#0D1B2A;--sub:#374151;--dim:#6B7280;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'DM Sans',sans-serif;font-size:14px;line-height:1.65;color:var(--txt);background:var(--bg);}
+
+/* ── PORTADA ── */
+.portada{
+  background:linear-gradient(160deg,#150830 0%,#3D1880 55%,#5023A8 100%);color:#fff;
+  padding:52px 52px 44px;position:relative;overflow:hidden;
+}
+.portada::before{
+  content:'';position:absolute;top:-80px;right:-80px;
+  width:340px;height:340px;border-radius:50%;background:rgba(255,255,255,.06);pointer-events:none;
+}
+.portada::after{
+  content:'';position:absolute;bottom:-60px;left:-60px;
+  width:240px;height:240px;border-radius:50%;background:rgba(255,255,255,.04);pointer-events:none;
+}
+.portada>*{position:relative;z-index:1;}
+.p-badge{
+  display:inline-flex;align-items:center;gap:8px;
+  background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.35);
+  border-radius:100px;padding:5px 16px;
+  font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;
+  color:rgba(255,255,255,.9);margin-bottom:18px;
+}
+.p-dot{width:7px;height:7px;border-radius:50%;background:#7C3AED;display:inline-block;}
+.p-eyebrow{font-family:'DM Sans',sans-serif;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.6);margin-bottom:10px;font-weight:700;}
+.p-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(32px,5vw,58px);letter-spacing:2px;line-height:.95;margin-bottom:8px;}
+.p-title em{font-style:normal;color:#7C3AED;}
+.p-sub{font-size:13px;color:rgba(255,255,255,.75);margin-bottom:28px;max-width:640px;line-height:1.65;font-weight:500;}
+.p-meta{display:flex;gap:0;flex-wrap:wrap;border-top:1px solid rgba(255,255,255,.18);padding-top:18px;margin-top:4px;}
+.pm{font-size:12px;color:rgba(255,255,255,.8);line-height:1.6;padding:0 32px 0 0;}
+.pm strong{display:block;font-family:'Bebas Neue',sans-serif;font-size:13px;letter-spacing:1.5px;color:#7C3AED;margin-bottom:2px;}
+
+/* ── HOSPITAL BADGE ── */
+.hosp-badge{display:flex;align-items:center;gap:14px;padding:16px 22px;border-radius:16px;margin-bottom:20px;box-shadow:0 6px 24px rgba(0,0,0,.15);}
+.hosp-badge.kennedy{background:linear-gradient(135deg,#0D47A1,#1976D2);}
+.hosp-badge.bosa{background:linear-gradient(135deg,#C62828,#E53935);}
+.hosp-icon{font-size:26px;background:rgba(255,255,255,.18);width:48px;height:48px;border-radius:12px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.hosp-name{font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:1.5px;color:#fff;}
+.hosp-sub{font-size:12px;color:rgba(255,255,255,.75);margin-top:2px;font-weight:500;}
+
+/* ── CONTENIDO ── */
+.cont{max-width:1040px;margin:0 auto;padding:28px 20px 80px;}
+
+/* ── ALERTAS ── */
+.alert{border-radius:12px;padding:12px 16px;margin-bottom:10px;border-left:4px solid;font-size:12.5px;line-height:1.65;}
+.alert strong{font-weight:800;}
+.alert-warn{background:#FFFBEB;border-color:#F59E0B;color:#78350F;}.alert-warn strong{color:#92400E;}
+.alert-red{background:#FEF2F2;border-color:#DC2626;color:#7F1D1D;}.alert-red strong{color:#991B1B;}
+.alert-blue{background:#EFF6FF;border-color:#2563EB;color:#1E40AF;}.alert-blue strong{color:#1D4ED8;}
+.alert-green{background:#F0FDF4;border-color:#16A34A;color:#14532D;}.alert-green strong{color:#166534;}
+.alert-univ{border-color:#7C3AED;background:#F3EEFF;color:#280D56;}.alert-univ strong{color:#3D1880;}
+
+/* ── TARJETA UNIVERSIDAD ── */
+.ucard{background:#fff;border-radius:16px;border:2px solid #7C3AED;overflow:hidden;margin-bottom:20px;box-shadow:0 4px 20px rgba(0,0,0,.08);}
+.ucard-h{padding:14px 22px;color:#fff;font-family:'Bebas Neue',sans-serif;font-size:18px;letter-spacing:1.5px;background:linear-gradient(90deg,#2D1057,#4A1E8B);display:flex;align-items:center;gap:10px;}
+.ucard-b{padding:16px 22px;display:grid;grid-template-columns:1fr 1fr;gap:2px 20px;font-size:13px;}
+.urow{display:flex;gap:8px;padding:6px 0;border-bottom:1px solid #F1F5F9;}.urow:last-child{border:none;}
+.ulbl{font-weight:800;color:var(--dim);font-size:10px;text-transform:uppercase;letter-spacing:.8px;min-width:90px;flex-shrink:0;padding-top:2px;font-family:'DM Sans',sans-serif;}
+.uval{color:var(--txt);font-weight:600;}
+
+/* ── SECCIÓN ── */
+.seccion{background:#fff;border-radius:18px;border:1.5px solid var(--borde);margin-bottom:22px;overflow:hidden;box-shadow:0 4px 20px rgba(0,0,0,.07);}
+.sec-hdr{padding:16px 24px;display:flex;align-items:center;gap:12px;color:#fff;background:linear-gradient(90deg,#2D1057,#4A1E8B);flex-wrap:wrap;}
+.sec-num{width:30px;height:30px;border-radius:50%;background:rgba(255,255,255,.2);display:flex;align-items:center;justify-content:center;font-family:'Bebas Neue',sans-serif;font-size:16px;letter-spacing:1px;flex-shrink:0;}
+.sec-title{font-family:'Bebas Neue',sans-serif;font-size:19px;letter-spacing:1.5px;}
+.sec-chip{margin-left:auto;background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.3);padding:4px 14px;border-radius:20px;font-size:11px;font-weight:700;}
+.sec-b{padding:24px;}
+
+/* ── ESTUDIANTES ── */
+.est-box{background:#F3EEFF;border-radius:12px;padding:14px 18px;margin-bottom:20px;border:2px solid #7C3AED40;}
+.est-lbl{font-family:'Bebas Neue',sans-serif;font-size:14px;letter-spacing:1.5px;color:#3D1880;display:block;margin-bottom:4px;}
+.est-names{font-size:14px;font-weight:700;color:var(--txt);}
+
+/* ── PONDERACIÓN ── */
+.pond-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px;margin-bottom:12px;}
+.pond-card{border-radius:12px;padding:14px;border:2px solid var(--borde);background:#fff;text-align:center;box-shadow:0 2px 8px rgba(0,0,0,.05);transition:transform .15s;}
+.pond-card:hover{transform:translateY(-2px);}
+.pond-card.pond-special{border-color:#7C3AED;background:#F3EEFF;}
+.pond-card.pond-seminario{border-color:#0D47A1;background:#E3F2FD;}
+.pond-card.pond-examen{border-color:#C62828;background:#FFEBEE;}
+.pond-pct{font-family:'Bebas Neue',sans-serif;font-size:32px;letter-spacing:1px;display:block;line-height:1;color:#3D1880;}
+.pond-card.pond-seminario .pond-pct{color:#0D47A1;}
+.pond-card.pond-examen .pond-pct{color:#C62828;}
+.pond-lbl{font-size:10px;color:var(--dim);display:block;margin-top:5px;font-weight:800;text-transform:uppercase;letter-spacing:.8px;}
+.pond-det{font-size:10px;color:var(--dim);display:block;margin-top:3px;line-height:1.4;}
+.total-bar{border-radius:12px;padding:13px 20px;display:flex;align-items:center;justify-content:space-between;font-family:'Bebas Neue',sans-serif;font-size:18px;letter-spacing:1.5px;color:#fff;margin-top:10px;background:linear-gradient(90deg,#2D1057,#4A1E8B);box-shadow:0 4px 16px rgba(0,0,0,.15);}
+
+/* ── SEMANAS ── */
+.semana{margin-bottom:18px;border-radius:14px;overflow:hidden;box-shadow:0 4px 18px rgba(0,0,0,.08);}
+
+/* Gradientes por semana */
+.sem-h-1{background:linear-gradient(135deg,#0D47A1,#1976D2);}
+.sem-h-2{background:linear-gradient(135deg,#1B5E20,#2E7D32);}
+.sem-h-3{background:linear-gradient(135deg,#E65100,#FF8F00);}
+.sem-h-4{background:linear-gradient(135deg,#4A148C,#7B1FA2);}
+.sem-h-5{background:linear-gradient(135deg,#C62828,#E53935);}
+.sem-h-def{background:linear-gradient(90deg,#2D1057,#4A1E8B);}
+.sem-h-adicional{background:linear-gradient(135deg,#37474F,#546E7A);}
+.sem-h-seminario{background:linear-gradient(135deg,#0D47A1,#01579B);}
+
+.sem-h{padding:12px 20px;color:#fff;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:6px;}
+.sem-titulo{font-family:'Bebas Neue',sans-serif;font-size:17px;letter-spacing:1.5px;}
+.sem-fecha{font-size:11.5px;color:rgba(255,255,255,.75);font-weight:500;background:rgba(0,0,0,.15);border-radius:6px;padding:2px 10px;}
+.sem-b{border:2px solid var(--borde);border-top:none;border-radius:0 0 14px 14px;overflow:hidden;background:#fff;}
+
+/* ── TABLA DE ACTIVIDADES ── */
+.act-table{width:100%;border-collapse:collapse;font-size:13px;}
+.act-table thead th{
+  background:#3D1880;color:#fff;
+  padding:10px 16px;text-align:left;
+  font-family:'Bebas Neue',sans-serif;font-size:13px;letter-spacing:1px;
+}
+.act-table tbody tr:nth-child(even){background:#F8FAFC;}
+.act-table tbody tr:hover{background:#F3EEFF80;}
+.act-table td{padding:11px 16px;border-bottom:1px solid var(--borde);vertical-align:top;line-height:1.55;}
+.act-table td:first-child{font-weight:700;color:#3D1880;min-width:120px;font-size:12px;font-family:'DM Sans',sans-serif;}
+.act-table tbody tr:last-child td{border-bottom:none;}
+
+/* ── BADGES ── */
+.badge{display:inline-block;padding:4px 11px;border-radius:20px;font-size:11px;font-weight:800;white-space:nowrap;}
+.badge-taller{background:#F3EEFF;color:#3D1880;border:1.5px solid #7C3AED60;}
+.badge-examen{background:#FFEBEE;color:#C62828;border:1.5px solid #FFCDD2;}
+.badge-entrega{background:#E8F5E9;color:#1B5E20;border:1.5px solid #A5D6A7;}
+.badge-adicional{background:#ECEFF1;color:#37474F;border:1.5px solid #B0BEC5;}
+.badge-seminario{background:#E3F2FD;color:#0D47A1;border:1.5px solid #90CAF9;}
+.badge-pct{background:#3D1880;color:#fff;font-weight:800;font-family:'Bebas Neue',sans-serif;font-size:12px;letter-spacing:.5px;}
+
+/* ── SUBTÍTULOS ── */
+.sub-sec-title{
+  font-family:'Bebas Neue',sans-serif;font-size:16px;letter-spacing:1.5px;
+  margin:24px 0 12px;color:#3D1880;
+  display:flex;align-items:center;gap:12px;
+}
+.sub-sec-title::after{content:'';flex:1;height:2px;background:#7C3AED40;border-radius:1px;}
+
+/* ── EXAMEN ── */
+.exam-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:12px;margin-bottom:16px;}
+.exam-box{border-radius:12px;border:2px solid #FFCDD2;background:#FFEBEE;padding:16px 18px;}
+.exam-title{font-family:'Bebas Neue',sans-serif;font-size:16px;letter-spacing:1px;color:#C62828;margin-bottom:10px;}
+.exam-items{list-style:none;padding:0;}
+.exam-items li{padding:4px 0;font-size:12px;border-bottom:1px solid rgba(198,40,40,.1);display:flex;gap:8px;line-height:1.5;color:#7F1D1D;}
+.exam-items li:last-child{border-bottom:none;}
+.exam-items li::before{content:"▸";color:#E53935;flex-shrink:0;margin-top:1px;}
+
+/* ── FOOTER ── */
+.footer{
+  background:linear-gradient(135deg,#050F2C,#0D47A1);
+  color:rgba(255,255,255,.75);padding:28px 52px;font-size:12px;line-height:1.75;
+}
+.footer-g{display:grid;grid-template-columns:1fr 1fr;gap:32px;max-width:1040px;margin:0 auto;}
+.footer strong{
+  font-family:'Bebas Neue',sans-serif;font-size:14px;letter-spacing:1.5px;
+  color:#fff;display:block;margin-bottom:4px;
+}
+.copyright{
+  background:#050F2C;color:rgba(255,255,255,.3);
+  text-align:center;padding:12px;font-size:11px;letter-spacing:.5px;
+}
+@media(max-width:680px){
+  .portada{padding:32px 20px 28px;}
+  .p-title{font-size:34px;}
+  .cont{padding:16px 12px 60px;}
+  .ucard-b,.footer-g{grid-template-columns:1fr;}
+  .footer{padding:20px;}
+  .p-meta{flex-direction:column;gap:12px;}
+}
+@media print{
+  body{background:#fff;}
+  .semana,.seccion{break-inside:avoid;}
+  .portada,.sem-h,.sec-hdr,.footer{-webkit-print-color-adjust:exact;print-color-adjust:exact;}
+}
+</style></head><body>
+<div class="portada">
+  <div class="p-badge"><span class="p-dot"></span>Rotación de Anestesiología · Subred Suroccidente · Bogotá D.C.</div>
+  <div class="p-eyebrow">Hospital de Bosa · Universidad Antonio Nariño</div>
+  <h1 class="p-title">Cronograma de <em>Actividades Académicas</em></h1>
+  <p class="p-sub">Programa oficial de talleres teórico-prácticos, examen final y seminario de integración clínica — Hospital de Bosa · 2026.</p>
+  <div class="p-meta">
+    <div class="pm"><strong>Docente</strong>Dr. Andrés Robayo C.<br>Anestesiología y Reanimación</div>
+    <div class="pm"><strong>Hospital</strong>Hospital de Bosa<br>Subred Suroccidente · Bogotá</div>
+    <div class="pm"><strong>Grupo</strong>Grupo 2<br>Laura Sofía Lopez Moreno · María Alejandra Hilarion Borja</div>
+    <div class="pm"><strong>Período</strong>03/08/2026 – 19/08/2026<br>3 semana(s)</div>
+  </div>
+</div>
+<div class="cont">
+<div class="alert alert-warn"><strong>⏰ Entrega de talleres:</strong> Todos los talleres se entregan <strong>máximo el domingo de cada semana a las 23:59 h</strong> vía Google Classroom. No se aceptan entregas tardías sin justificación médica. <strong>El último día de la rotación (19/08/2026) deben entregar el formato de calificación diaria</strong> — si no está el Dr. Robayo, entregárselo al <strong>Dr. Geovanny Rodríguez</strong>.</div>
+<div class="alert alert-green"><strong>📋 Taller Transversal — Valoración Preanestésica:</strong> Se desarrolla a lo largo de <strong>toda la rotación</strong>, registrando valoraciones realizadas durante los turnos. Entrega obligatoria: <strong>19/08/2026</strong>.</div>
+<div class="alert alert-red"><strong>📋 Examen y Seminario de Integración Clínica:</strong><br>• Ambas actividades se realizan <strong>a lo largo del día</strong>, tanto en Kennedy como en Bosa.<br>• <strong>Examen:</strong> Calculadora obligatoria · Sin celulares ni tablets.<br>• <strong>Seminario:</strong> Presencial o virtual según indicación del coordinador.</div>
+<div class="alert alert-blue"><strong>📚 Material:</strong> Todos los artículos, guías y talleres están en <strong>Google Classroom</strong>.</div>
+<div class="alert alert-univ"><strong>📅 Días académicos — Universidad Antonio Nariño:</strong> <strong>Día(s) académico(s) sin rotación en hospital:</strong> Jueves.</div>
+<div class="hosp-badge bosa"><div class="hosp-icon">🏥</div><div><div class="hosp-name">Hospital de Bosa</div><div class="hosp-sub">Universidad Antonio Nariño · Grupo 2</div></div></div>
+<div class="ucard"><div class="ucard-h">🏛 Universidad Antonio Nariño</div><div class="ucard-b">
+  <div class="urow"><span class="ulbl">Período</span><span class="uval">03/08/2026 – 19/08/2026 · 3 sem.</span></div>
+  <div class="urow"><span class="ulbl">Grupo</span><span class="uval"><strong>Grupo 2</strong></span></div>
+  <div class="urow"><span class="ulbl">Día académico</span><span class="uval">Jueves</span></div>
+  <div class="urow"><span class="ulbl">Talleres</span><span class="uval">40% total · entrega domingos 23:59 h</span></div>
+  <div class="urow"><span class="ulbl">Seminario</span><span class="uval">30% · 18/08/2026</span></div>
+  <div class="urow"><span class="ulbl">Examen final</span><span class="uval">30%</span></div>
+  <div class="urow"><span class="ulbl">Estudiantes</span><span class="uval">Laura Sofía Lopez Moreno · María Alejandra Hilarion Borja</span></div>
+</div></div>
+<div class="seccion"><div class="sec-hdr"><div class="sec-num">1</div><div class="sec-title">Universidad Antonio Nariño — Cronograma Detallado</div><div class="sec-chip">Bosa · 3 sem. · 03/08/2026 – 19/08/2026</div></div>
+<div class="sec-b">
+  <div class="est-box"><span class="est-lbl">Estudiantes</span><span class="est-names">Laura Sofía Lopez Moreno &nbsp;·&nbsp; María Alejandra Hilarion Borja</span></div>
+  <p class="sub-sec-title">Ponderación de la Nota Final</p><div class="pond-grid"><div class="pond-card"><span class="pond-pct">5%</span><span class="pond-lbl">Taller Sem.1 A</span><span class="pond-det">Vía Aérea</span></div><div class="pond-card"><span class="pond-pct">5%</span><span class="pond-lbl">Taller Sem.1 B</span><span class="pond-det">Manejo del Ventilador</span></div><div class="pond-card"><span class="pond-pct">5%</span><span class="pond-lbl">Taller Sem.1 C</span><span class="pond-det">Farmacología Clínica</span></div><div class="pond-card"><span class="pond-pct">5%</span><span class="pond-lbl">Taller Sem.2 A</span><span class="pond-det">Anestésicos Locales</span></div><div class="pond-card"><span class="pond-pct">5%</span><span class="pond-lbl">Taller Sem.2 B</span><span class="pond-det">Hipnóticos</span></div><div class="pond-card"><span class="pond-pct">5%</span><span class="pond-lbl">Taller Sem.2 C</span><span class="pond-det">Opioides</span></div><div class="pond-card"><span class="pond-pct">5%</span><span class="pond-lbl">Taller Sem.3</span><span class="pond-det">Bloqueantes Neuromusculares</span></div><div class="pond-card pond-examen"><span class="pond-pct">30%</span><span class="pond-lbl">Examen Final</span><span class="pond-det">Examen · 19/08/2026</span></div><div class="pond-card pond-special"><span class="pond-pct">5%</span><span class="pond-lbl">Taller Transversal</span><span class="pond-det">Valoración Preanestésica<br>Entrega: 19/08/2026</span></div><div class="pond-card pond-seminario"><span class="pond-pct">30%</span><span class="pond-lbl">Seminario</span><span class="pond-det">Integración Clínica<br>18/08/2026</span></div></div><div class="total-bar"><span>TOTAL CALCULADO</span><span>100%</span></div><div style="height:20px;"></div>
+  <div class="semana"><div class="sem-h sem-h-1"><span class="sem-titulo">📅 Semana 1</span><span class="sem-fecha">03/08/2026 → 09/08/2026</span></div><div class="sem-b"><table class="act-table"><thead><tr><th>Fecha</th><th>Actividad</th><th>Descripción</th><th>Valor</th></tr></thead><tbody><tr><td>Durante la semana (03/08/2026 → 09/08/2026)</td><td><span class="badge badge-taller">📗 Taller A</span></td><td><strong>Vía Aérea</strong> — Desarrollar el taller teórico-práctico, descargar el PDF y subir a Google Classroom antes del cierre de la semana.</td><td><span class="badge badge-pct">5%</span></td></tr><tr><td>Durante la semana (03/08/2026 → 09/08/2026)</td><td><span class="badge badge-taller">📗 Taller B</span></td><td><strong>Manejo del Ventilador</strong> — Desarrollar el taller teórico-práctico, descargar el PDF y subir a Google Classroom antes del cierre de la semana.</td><td><span class="badge badge-pct">5%</span></td></tr><tr><td>Durante la semana (03/08/2026 → 09/08/2026)</td><td><span class="badge badge-taller">📗 Taller C</span></td><td><strong>Farmacología Clínica</strong> — Desarrollar el taller teórico-práctico, descargar el PDF y subir a Google Classroom antes del cierre de la semana.</td><td><span class="badge badge-pct">5%</span></td></tr><tr><td>Dom 09/08/2026 · 23:59</td><td><span class="badge badge-entrega">⚑ Entrega</span></td><td>Fecha límite de entrega: Vía Aérea · Manejo del Ventilador · Farmacología Clínica</td><td>—</td></tr></tbody></table></div></div><div class="semana"><div class="sem-h sem-h-2"><span class="sem-titulo">📅 Semana 2</span><span class="sem-fecha">10/08/2026 → 16/08/2026</span></div><div class="sem-b"><table class="act-table"><thead><tr><th>Fecha</th><th>Actividad</th><th>Descripción</th><th>Valor</th></tr></thead><tbody><tr><td>Durante la semana (10/08/2026 → 16/08/2026)</td><td><span class="badge badge-taller">📗 Taller A</span></td><td><strong>Anestésicos Locales</strong> — Desarrollar el taller teórico-práctico, descargar el PDF y subir a Google Classroom antes del cierre de la semana.</td><td><span class="badge badge-pct">5%</span></td></tr><tr><td>Durante la semana (10/08/2026 → 16/08/2026)</td><td><span class="badge badge-taller">📗 Taller B</span></td><td><strong>Hipnóticos</strong> — Desarrollar el taller teórico-práctico, descargar el PDF y subir a Google Classroom antes del cierre de la semana.</td><td><span class="badge badge-pct">5%</span></td></tr><tr><td>Durante la semana (10/08/2026 → 16/08/2026)</td><td><span class="badge badge-taller">📗 Taller C</span></td><td><strong>Opioides</strong> — Desarrollar el taller teórico-práctico, descargar el PDF y subir a Google Classroom antes del cierre de la semana.</td><td><span class="badge badge-pct">5%</span></td></tr><tr><td>Dom 16/08/2026 · 23:59</td><td><span class="badge badge-entrega">⚑ Entrega</span></td><td>Fecha límite de entrega: Anestésicos Locales · Hipnóticos · Opioides</td><td>—</td></tr></tbody></table></div></div><div class="semana"><div class="sem-h sem-h-3"><span class="sem-titulo">📅 Semana 3</span><span class="sem-fecha">17/08/2026 → 19/08/2026</span></div><div class="sem-b"><table class="act-table"><thead><tr><th>Fecha</th><th>Actividad</th><th>Descripción</th><th>Valor</th></tr></thead><tbody><tr><td>Durante la semana (17/08/2026 → 19/08/2026)</td><td><span class="badge badge-taller">📗 Taller</span></td><td><strong>Bloqueantes Neuromusculares</strong> — Desarrollar el taller teórico-práctico, descargar el PDF y subir a Google Classroom antes del cierre de la semana.</td><td><span class="badge badge-pct">5%</span></td></tr><tr><td>19/08/2026</td><td><span class="badge badge-examen">📝 EXAMEN FINAL</span></td><td><strong>Ver contenidos más abajo.</strong> Se realiza a lo largo del día. Calculadora obligatoria. Sin celulares ni tablets.</td><td><span class="badge badge-pct">30%</span></td></tr><tr><td>Dom 19/08/2026 · 23:59</td><td><span class="badge badge-entrega">⚑ Entrega</span></td><td>Fecha límite de entrega: Bloqueantes Neuromusculares</td><td>—</td></tr></tbody></table></div></div><div class="semana"><div class="sem-h sem-h-adicional"><span class="sem-titulo">📋 Taller Transversal — Toda la rotación</span></div><div class="sem-b"><table class="act-table"><thead><tr><th>Entrega</th><th>Actividad</th><th>Descripción</th><th>Valor</th></tr></thead><tbody><tr><td>19/08/2026</td><td><span class="badge badge-adicional">Taller Continuo</span></td><td><strong>Valoración Preanestésica</strong> — Desarrollar el taller teórico-práctico a lo largo de toda la rotación, registrando las valoraciones realizadas en los turnos. Descargar el PDF y subir a Google Classroom. Entrega obligatoria: <strong>19/08/2026</strong>.</td><td><span class="badge badge-pct">5%</span></td></tr></tbody></table></div></div><div class="semana"><div class="sem-h sem-h-seminario"><span class="sem-titulo">🎓 Seminario de Integración Clínica</span><span class="sem-fecha">18/08/2026</span></div><div class="sem-b"><table class="act-table"><thead><tr><th>Fecha</th><th>Actividad</th><th>Descripción</th><th>Valor</th></tr></thead><tbody><tr><td>18/08/2026</td><td><span class="badge badge-seminario">🎓 Seminario</span></td><td><strong>Seminario de Integración Clínica</strong> — Integración de los contenidos teórico-prácticos de la rotación de Anestesiología.</td><td><span class="badge badge-pct">30%</span></td></tr></tbody></table></div></div><p class="sub-sec-title">Contenidos del Examen Final</p><div class="exam-grid"><div class="exam-box"><div class="exam-title">📝 Examen Final — 19/08/2026</div><ul class="exam-items"><li>Vía Aérea</li><li>Manejo del Ventilador</li><li>Farmacología Clínica</li><li>Anestésicos Locales</li><li>Hipnóticos</li><li>Opioides</li><li>Bloqueantes Neuromusculares</li></ul></div></div>
+</div></div>
+</div>
+<div class="footer"><div class="footer-g">
+  <div><strong>Docente Responsable</strong>Dr. Andrés Robayo C. · Médico Especialista en Anestesiología y Reanimación<br>Coordinador Académico de Pregrado · Hospital de Kennedy · Hospital de Bosa<br>Subred Integrada de Servicios de Salud Suroccidente · Bogotá D.C.</div>
+  <div><strong>Material y Entregas</strong>Hospital de Bosa · Universidad Antonio Nariño<br>Material: Google Classroom · Entregas: Domingos 23:59 h<br><strong>Formato calificación diaria:</strong> Último día al Dr. Robayo o al Dr. Geovanny Rodríguez.<br>© 2026 Dr. Andrés Robayo · Uso académico interno exclusivo</div>
+</div></div>
+<div class="copyright">Cronograma oficial · Rotación de Anestesiología · Hospital de Bosa · Bogotá · 2026</div>
+</body></html>

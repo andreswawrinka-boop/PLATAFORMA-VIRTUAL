@@ -1,0 +1,1460 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Manejo de Líquidos en Anestesiología · Dr. Andrés Robayo</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&family=Nunito:wght@400;600;700;800&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --navy:#0f2744; --navy-mid:#1a3a5c;
+  --teal:#0d7a6e; --teal-light:#e6f4f2;
+  --amber:#b85c00; --amber-light:#fdf3e7;
+  --red:#991b1b; --red-light:#fef2f2;
+  --purple:#5b21b6; --purple-light:#ede9fe;
+  --green:#166534; --green-light:#dcfce7;
+  --gray-50:#f8f9fa; --gray-100:#f1f3f5;
+  --gray-400:#868e96; --gray-600:#495057; --gray-800:#212529;
+  --border:#dee2e6;
+  --serif:'Source Serif 4',Georgia,serif;
+  --sans:'DM Sans',system-ui,sans-serif;
+  --mono:'DM Mono',monospace;
+}
+[data-design="B"] .cover { background:linear-gradient(135deg,#f0f9ff 0%,#e6f4f2 55%,#fdf3e7 100%) !important; border-bottom:4px solid var(--teal); }
+[data-design="B"] .cover h1 { color:var(--navy) !important; }
+[data-design="B"] .cover-tag { color:var(--teal) !important; opacity:1; }
+[data-design="B"] .cover-subtitle { color:var(--gray-600) !important; }
+[data-design="B"] .cover-meta-label { color:var(--gray-400) !important; }
+[data-design="B"] .cover-meta-value { color:var(--navy) !important; }
+[data-design="B"] .cover-rule { background:var(--teal) !important; }
+[data-design="B"] .cover::before,[data-design="B"] .cover::after { display:none; }
+[data-design="B"] .section-header { border-bottom:3px solid var(--teal); }
+[data-design="B"] .section-number { background:var(--navy); color:white; }
+[data-design="B"] .section-title { color:var(--teal); }
+[data-design="B"] .tab-btn.active { background:var(--teal); }
+[data-design="B"] thead th { background:var(--teal); }
+[data-design="B"] .module-header { background:var(--teal); }
+[data-design="B"] body { background:#fafbfc; }
+[data-design="B"] .page { box-shadow:0 0 40px rgba(0,0,0,.06); }
+[data-design="B"] .taller-header { background:linear-gradient(135deg,#0f2744,#0d7a6e) !important; }
+
+[data-palette="bosque"]   { --navy:#1a3d2b; --navy-mid:#2d5a3d; --teal:#3a7d44; --teal-light:#e8f5e9; --amber:#8d6e1a; --amber-light:#fffde7; }
+[data-palette="atardecer"]{ --navy:#4a1942; --navy-mid:#6b2d5e; --teal:#c0392b; --teal-light:#fde8e8; --amber:#e67e22; --amber-light:#fff3e0; }
+[data-palette="pizarra"]  { --navy:#2d3748; --navy-mid:#4a5568; --teal:#4a90a4; --teal-light:#e6f3f8; --amber:#c09040; --amber-light:#fdf8ee; }
+[data-palette="cereza"]   { --navy:#5c1a2e; --navy-mid:#7d2a42; --teal:#c0394f; --teal-light:#fde8ee; --amber:#d4822a; --amber-light:#fff3e6; }
+[data-palette="indigo"]   { --navy:#1e2460; --navy-mid:#2d3580; --teal:#4a67d4; --teal-light:#eaedfa; --amber:#a05c00; --amber-light:#fff8e6; }
+
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:var(--serif);font-size:10.5pt;color:#212529;background:white;line-height:1.75;}
+.page{max-width:840px;margin:0 auto;overflow-x:hidden;}
+
+/* TAB NAV */
+.tab-nav{display:flex;gap:0;border-bottom:2px solid var(--navy);position:sticky;top:0;z-index:100;background:white;}
+.tab-btn{font-family:var(--sans);font-size:8.5pt;font-weight:600;padding:11px 20px;border:none;background:var(--gray-100);color:var(--gray-600);cursor:pointer;letter-spacing:.06em;text-transform:uppercase;border-right:1px solid var(--border);transition:all .2s;}
+.tab-btn:hover{background:var(--teal-light);color:var(--teal);}
+.tab-btn.active{background:var(--navy);color:white;}
+.tab-content{display:none;width:100%;}
+.tab-content.active{display:block;width:100%;max-width:100%;}
+
+/* PALETTE */
+.palette-btn{position:fixed;top:14px;right:18px;z-index:9999;background:var(--navy);color:white;border:none;border-radius:50%;width:40px;height:40px;font-size:18px;cursor:pointer;box-shadow:0 2px 12px rgba(0,0,0,.25);transition:transform .2s;}
+.palette-btn:hover{transform:scale(1.1);}
+.palette-panel{position:fixed;top:62px;right:18px;z-index:9998;background:white;border:1px solid var(--border);border-radius:10px;padding:14px;box-shadow:0 8px 32px rgba(0,0,0,.15);display:none;flex-direction:column;gap:8px;}
+.palette-panel.open{display:flex;}
+.palette-panel-title{font-family:var(--sans);font-size:8pt;color:var(--gray-400);letter-spacing:.1em;text-transform:uppercase;}
+.palette-options{display:grid;grid-template-columns:1fr 1fr;gap:6px;}
+.palette-opt{font-family:var(--sans);font-size:8.5pt;font-weight:500;padding:7px 12px;border-radius:6px;cursor:pointer;border:2px solid transparent;transition:all .15s;}
+.palette-opt:hover,.palette-opt.sel{border-color:var(--teal);}
+.po-oceano{background:#0f2744;color:white;}
+.po-bosque{background:#1a3d2b;color:white;}
+.po-atardecer{background:#4a1942;color:white;}
+.po-pizarra{background:#2d3748;color:white;}
+.po-cereza{background:#5c1a2e;color:white;}
+.po-indigo{background:#1e2460;color:white;}
+
+/* DESIGN SWITCHER */
+.design-switcher{position:fixed;top:60px;right:18px;z-index:9999;display:flex;flex-direction:column;gap:6px;}
+.ds-label{font-family:var(--sans);font-size:7pt;color:var(--gray-400);text-transform:uppercase;letter-spacing:.1em;text-align:center;}
+.ds-btns{display:flex;gap:4px;}
+.ds-btn{font-family:var(--sans);font-size:8pt;font-weight:600;padding:6px 10px;border:2px solid var(--border);border-radius:5px;cursor:pointer;background:white;color:var(--navy);transition:all .2s;}
+.ds-btn.active,.ds-btn:hover{background:var(--navy);color:white;border-color:var(--navy);}
+
+/* COVER */
+.cover{background:var(--navy);color:white;padding:50px 56px 42px;position:relative;overflow:hidden;}
+.cover::before{content:'';position:absolute;top:-80px;right:-80px;width:380px;height:380px;border-radius:50%;background:rgba(255,255,255,.03);}
+.cover::after{content:'';position:absolute;bottom:-50px;left:250px;width:220px;height:220px;border-radius:50%;background:rgba(255,255,255,.025);}
+.cover-tag{font-family:var(--sans);font-size:8pt;font-weight:500;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.5);margin-bottom:20px;}
+.cover h1{font-family:var(--serif);font-size:28pt;font-weight:300;line-height:1.15;color:white;margin-bottom:12px;max-width:600px;}
+.cover h1 em{font-style:italic;font-weight:600;color:#AED581;}
+.cover-subtitle{font-family:var(--sans);font-size:9.5pt;color:rgba(255,255,255,.6);margin-bottom:38px;font-weight:300;line-height:1.5;}
+.cover-meta{display:flex;gap:30px;padding-top:28px;border-top:1px solid rgba(255,255,255,.14);flex-wrap:wrap;}
+.cover-meta-label{font-family:var(--sans);font-size:7pt;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.4);display:block;margin-bottom:2px;}
+.cover-meta-value{font-family:var(--sans);font-size:9pt;color:rgba(255,255,255,.88);}
+.cover-rule{width:52px;height:3px;background:#AED581;margin-bottom:22px;border-radius:2px;}
+
+/* CONTENT */
+.content{padding:40px 56px;width:100%;box-sizing:border-box;}
+.section{margin-bottom:40px;}
+.section-header{display:flex;align-items:baseline;gap:14px;margin-bottom:18px;padding-bottom:10px;border-bottom:2px solid var(--navy);}
+.section-number{font-family:var(--mono);font-size:7.5pt;font-weight:500;color:var(--teal);background:var(--teal-light);padding:2px 8px;border-radius:3px;flex-shrink:0;}
+.section-title{font-family:var(--serif);font-size:15pt;font-weight:600;color:var(--navy);line-height:1.2;}
+
+h3{font-family:var(--sans);font-size:9pt;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--navy-mid);margin:20px 0 10px;}
+h3::before{content:'▸ ';color:var(--teal);}
+p{font-size:10.5pt;line-height:1.75;color:#212529;margin-bottom:10px;}
+
+.definition{background:var(--navy);padding:16px 20px;border-radius:6px;margin:14px 0;}
+.definition-label{font-family:var(--sans);font-size:7pt;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:#AED581;margin-bottom:5px;}
+.definition p{color:rgba(255,255,255,.88);font-size:10.5pt;margin:0;line-height:1.65;}
+
+.callout{padding:12px 16px;border-radius:5px;margin:12px 0;border-left:4px solid;}
+.callout-title{font-family:var(--sans);font-size:7.5pt;font-weight:600;letter-spacing:.1em;text-transform:uppercase;margin-bottom:4px;}
+.callout p{margin:0;font-size:10pt;line-height:1.65;}
+.callout.clinical{background:var(--teal-light);border-color:var(--teal);}
+.callout.clinical .callout-title{color:var(--teal);}
+.callout.clinical p{color:#1a4a47;}
+.callout.warning{background:var(--amber-light);border-color:var(--amber);}
+.callout.warning .callout-title{color:var(--amber);}
+.callout.warning p{color:#5c3000;}
+.callout.danger{background:var(--red-light);border-color:var(--red);}
+.callout.danger .callout-title{color:var(--red);}
+.callout.danger p{color:#5c1a1a;}
+.callout.evidence{background:var(--purple-light);border-color:var(--purple);}
+.callout.evidence .callout-title{color:var(--purple);}
+.callout.evidence p{color:#3b1a7a;}
+
+.table-wrap{margin:14px 0;border-radius:6px;overflow:hidden;border:1px solid var(--border);}
+.table-caption{font-family:var(--sans);font-size:7pt;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--gray-400);padding:7px 13px;background:var(--gray-50);border-bottom:1px solid var(--border);}
+table{width:100%;border-collapse:collapse;font-family:var(--sans);font-size:9.5pt;}
+thead th{background:var(--navy);color:white;font-weight:500;font-size:8.5pt;padding:9px 12px;text-align:left;}
+tbody tr{border-bottom:1px solid var(--border);}
+tbody tr:last-child{border-bottom:none;}
+tbody tr:nth-child(even){background:var(--gray-50);}
+tbody td{padding:8px 12px;color:#212529;vertical-align:top;line-height:1.5;}
+td.hl{font-weight:600;color:var(--navy);}
+td.ok{font-weight:600;color:var(--teal);}
+td.warn{font-weight:600;color:var(--red);}
+td.amber{font-weight:600;color:var(--amber);}
+
+.formula-block{background:var(--gray-100);border:1px solid var(--border);border-radius:6px;padding:16px 20px;margin:14px 0;text-align:center;}
+.formula-label{font-family:var(--sans);font-size:8pt;color:var(--gray-400);text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px;}
+.formula{font-family:var(--mono);font-size:12pt;font-weight:500;color:var(--navy);line-height:1.5;}
+.formula-example{font-family:var(--sans);font-size:9pt;color:var(--gray-400);margin-top:8px;}
+
+.worked{background:var(--green-light);border:1px solid #86efac;border-radius:6px;padding:14px 18px;margin:12px 0;}
+.worked-title{font-family:var(--sans);font-size:7.5pt;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--green);margin-bottom:8px;}
+.worked-step{font-family:var(--sans);font-size:9.5pt;color:#14532d;margin-bottom:5px;display:flex;gap:10px;align-items:flex-start;line-height:1.55;}
+.step-n{font-family:var(--mono);font-size:8pt;color:white;background:var(--green);padding:1px 6px;border-radius:3px;flex-shrink:0;margin-top:2px;}
+.worked-result{font-family:var(--mono);font-size:10.5pt;font-weight:500;color:var(--navy);background:white;border:1px solid #86efac;border-radius:4px;padding:6px 12px;margin-top:10px;text-align:center;}
+
+.drug-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:14px 0;}
+.drug-card{border:1px solid var(--border);border-radius:7px;overflow:hidden;}
+.drug-header{padding:9px 14px;display:flex;align-items:center;gap:10px;}
+.drug-name{font-family:var(--sans);font-size:10pt;font-weight:600;color:white;}
+.drug-class{font-family:var(--sans);font-size:7.5pt;color:rgba(255,255,255,.75);margin-top:1px;}
+.drug-body{padding:11px 13px;background:white;font-family:var(--sans);font-size:9pt;}
+.drug-row{display:flex;gap:6px;margin-bottom:5px;align-items:flex-start;line-height:1.4;}
+.drug-row-label{color:var(--gray-400);min-width:100px;flex-shrink:0;font-size:8pt;text-transform:uppercase;letter-spacing:.04em;margin-top:1px;}
+.drug-row-val{color:#212529;}
+.drug-conc{display:inline-block;background:var(--navy);color:#AED581;font-family:var(--mono);font-size:9pt;padding:3px 8px;border-radius:4px;margin-top:6px;}
+
+.unit-chain{display:flex;align-items:center;gap:0;margin:14px 0;flex-wrap:wrap;}
+.unit-box{background:var(--navy);color:white;font-family:var(--mono);font-size:10pt;padding:8px 14px;border-radius:5px;font-weight:500;}
+.unit-arrow{font-family:var(--sans);font-size:8.5pt;color:var(--teal);padding:0 10px;text-align:center;}
+.unit-arrow span{display:block;font-size:7.5pt;color:var(--gray-400);}
+
+ul.content-list{list-style:none;padding:0;margin:8px 0;}
+ul.content-list li{padding-left:17px;position:relative;font-size:10pt;color:#212529;line-height:1.65;margin-bottom:5px;}
+ul.content-list li::before{content:'';position:absolute;left:0;top:9px;width:6px;height:6px;border-radius:50%;background:var(--teal);}
+
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:14px 0;}
+.col-card{background:var(--gray-50);border:1px solid var(--border);border-radius:6px;padding:13px 15px;}
+.col-card-title{font-family:var(--sans);font-size:9pt;font-weight:600;color:var(--navy);margin-bottom:7px;padding-bottom:6px;border-bottom:2px solid var(--teal);}
+.col-card p{font-size:9.5pt;color:#212529;margin-bottom:4px;}
+
+.diagram-wrap{margin:16px 0;background:var(--gray-50);border:1px solid var(--border);border-radius:8px;padding:14px;}
+.diagram-title{font-family:var(--sans);font-size:7pt;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--gray-400);margin-bottom:10px;}
+.divider{border:none;border-top:1px solid var(--border);margin:28px 0;}
+
+/* TALLER */
+.taller-header{background:var(--navy);color:white;padding:28px 56px 22px;}
+.taller-header h2{font-family:var(--serif);font-size:20pt;font-weight:300;color:white;margin-bottom:6px;}
+.taller-header h2 em{font-style:italic;color:#AED581;}
+.taller-meta{font-family:var(--sans);font-size:8.5pt;color:rgba(255,255,255,.55);}
+.taller-content{padding:30px 56px;width:100%;box-sizing:border-box;}
+
+.alert-yellow{background:#fffbeb;border:1.5px solid #f59e0b;border-radius:6px;padding:10px 16px;margin-bottom:20px;font-family:var(--sans);font-size:9pt;color:#78350f;}
+
+/* MODULES */
+.module{border:1px solid var(--border);border-radius:8px;overflow:hidden;margin-bottom:22px;page-break-inside:avoid;width:100%;box-sizing:border-box;}
+.module-header{background:var(--navy-mid);padding:11px 16px;display:flex;align-items:center;gap:12px;flex-wrap:wrap;}
+.module-tag{font-family:var(--mono);font-size:8pt;color:#AED581;font-weight:500;}
+.module-title{font-family:var(--sans);font-size:9.5pt;color:white;font-weight:500;flex:1;}
+.module-pts{font-family:var(--mono);font-size:8.5pt;color:white;background:var(--amber);padding:3px 9px;border-radius:4px;white-space:nowrap;}
+.module-body{padding:16px 18px;background:white;overflow-x:auto;}
+
+.ex-item{margin-bottom:18px;padding-bottom:18px;border-bottom:1px dashed var(--border);}
+.ex-item:last-child{border-bottom:none;margin-bottom:0;padding-bottom:0;}
+.ex-label{font-family:var(--sans);font-size:9pt;font-weight:600;color:var(--navy-mid);margin-bottom:8px;display:flex;align-items:flex-start;gap:8px;flex-wrap:wrap;}
+.ex-num{font-family:var(--mono);font-size:7.5pt;color:white;background:var(--navy-mid);padding:2px 7px;border-radius:3px;flex-shrink:0;margin-top:1px;}
+.ex-pts{font-family:var(--mono);font-size:7pt;color:white;background:var(--teal);padding:2px 6px;border-radius:3px;flex-shrink:0;margin-top:1px;}
+.ex-context{font-family:var(--sans);font-size:9pt;color:#212529;background:var(--gray-50);border:1px solid var(--border);border-radius:5px;padding:9px 12px;margin-bottom:10px;line-height:1.55;}
+.ex-context strong{color:var(--navy);}
+
+/* MC */
+.mc-row{display:flex;align-items:center;gap:10px;margin:7px 0;font-family:var(--sans);font-size:9.5pt;flex-wrap:wrap;}
+.mc-label{font-weight:600;color:var(--navy-mid);min-width:200px;}
+select.mc-select{font-family:var(--sans);font-size:9pt;padding:5px 10px;border:1.5px solid var(--border);border-radius:5px;background:white;color:#212529;cursor:pointer;}
+.fb{font-family:var(--sans);font-size:9pt;font-weight:600;margin-left:6px;}
+.fb.ok{color:var(--teal);}
+.fb.err{color:var(--red);}
+
+/* CALC BOXES */
+.calc-box{background:#f8faff;border:2px solid #c8d6e8;border-radius:8px;padding:14px 18px;margin:10px 0;}
+.calc-box-title{font-family:var(--sans);font-size:8pt;font-weight:600;color:var(--navy);letter-spacing:.06em;text-transform:uppercase;margin-bottom:10px;border-bottom:1px solid #c8d6e8;padding-bottom:5px;}
+.calc-step{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin:8px 0;font-family:var(--mono);font-size:11pt;}
+.calc-step-label{font-family:var(--sans);font-size:8.5pt;color:var(--gray-400);min-width:120px;}
+.ci{font-family:var(--mono);font-size:11pt;border:none;border-bottom:2px solid var(--navy);background:transparent;color:#212529;text-align:center;outline:none;padding:2px 4px;}
+.ci.sm{width:70px;}
+.ci.md{width:90px;}
+.ci.lg{width:120px;}
+.ci-result{font-family:var(--mono);font-size:11pt;font-weight:600;border:2px solid var(--teal);border-radius:5px;background:var(--teal-light);color:var(--navy);text-align:center;padding:4px 8px;width:110px;outline:none;}
+.ci-op{color:var(--gray-400);font-size:14pt;padding:0 4px;font-family:var(--sans);}
+.calc-hint{font-family:var(--sans);font-size:8pt;color:var(--gray-400);margin-top:6px;font-style:italic;}
+.calc-sub{font-family:var(--sans);font-size:8.5pt;color:var(--gray-600);margin:4px 0;}
+
+/* OPEN AREAS */
+.open-area{width:100%;min-height:80px;font-family:var(--sans);font-size:9.5pt;padding:10px 12px;border:1.5px solid var(--border);border-radius:5px;resize:vertical;color:#212529;line-height:1.6;}
+.open-label{font-family:var(--sans);font-size:8pt;color:var(--gray-400);text-transform:uppercase;letter-spacing:.05em;margin-bottom:4px;display:block;}
+
+/* ══ CANCELACIÓN ALGEBRAICA ══ */
+.frac-chain {
+  display:flex; flex-wrap:wrap; align-items:center;
+  background:#f8f9fa; border:1.5px solid #dee2e6; border-radius:8px;
+  padding:12px 16px; margin:10px 0;
+  box-sizing:border-box;
+}
+.frac-chain-label {
+  font-family:var(--sans); font-size:8pt; font-weight:600;
+  color:var(--navy); text-transform:uppercase; letter-spacing:.06em;
+  width:100%; flex-basis:100%; /* ocupa toda la línea */
+  margin-bottom:8px; border-bottom:1px solid #dee2e6; padding-bottom:5px;
+}
+.cancel-hint {
+  font-family:var(--sans); font-size:7.5pt; color:var(--gray-400);
+  font-style:italic; width:100%; flex-basis:100%; /* ocupa toda la línea */
+  margin-top:8px; padding-top:6px; border-top:1px dashed #dee2e6;
+}
+.frac {
+  display:inline-flex; flex-direction:column; align-items:center;
+  margin:0 4px; vertical-align:middle; min-width:0; flex-shrink:1;
+}
+.frac-top, .frac-bot {
+  display:flex; align-items:center; justify-content:center; gap:2px;
+  padding:2px 2px; min-height:24px; flex-wrap:wrap;
+}
+/* Una sola línea negra — la línea de fracción, sin líneas extra */
+.frac-line { width:100%; height:2px; background:#212529; margin:1px 0; }
+/* Input sin borde propio — no agrega líneas */
+.fi {
+  font-family:var(--mono); font-size:10pt; font-weight:500;
+  border:none; background:transparent; color:#212529;
+  text-align:center; outline:none; padding:1px 2px;
+  width:46px; min-width:0; flex-shrink:1;
+}
+.fi:focus { background:#fffbeb; border-radius:3px; }
+.fi.w-sm { width:36px; }
+.fi.w-md { width:56px; }
+.fi.w-lg { width:80px; }
+.fi.w-xl { width:100px; }
+.fu { font-family:var(--mono); font-size:10pt; font-weight:600; color:var(--navy-mid); padding:1px 3px; }
+.fu-cancel { font-family:var(--mono); font-size:10pt; font-weight:600; color:var(--red); text-decoration:line-through; opacity:.6; padding:1px 3px; }
+.fop { font-family:var(--sans); font-size:16pt; color:var(--gray-400); padding:0 6px; align-self:center; line-height:1; }
+.fop-eq { font-family:var(--sans); font-size:14pt; color:var(--navy); padding:0 8px; align-self:center; font-weight:600; }
+.frac-result {
+  display:inline-flex; flex-direction:column; align-items:center;
+  background:var(--navy); border-radius:6px; padding:4px 10px;
+  margin:0 4px; align-self:center; min-width:80px;
+}
+.frac-result input {
+  font-family:var(--mono); font-size:11pt; font-weight:600;
+  border:none; background:transparent; color:#AED581;
+  text-align:center; outline:none; padding:2px 4px; width:72px; min-width:0;
+}
+.frac-result input:focus { background:rgba(255,255,255,.1); border-radius:3px; }
+.frac-result .fu { color:rgba(255,255,255,.7); font-size:9pt; }
+.cancel-hint {
+  font-family:var(--sans); font-size:7.5pt; color:var(--gray-400);
+  font-style:italic; width:100%; margin-top:6px; padding-top:5px;
+  border-top:1px dashed #dee2e6;
+}
+.cancel-btn {
+  font-family:var(--sans); font-size:7pt; font-weight:600;
+  padding:3px 10px; border:1.5px solid var(--navy); border-radius:4px;
+  background:white; color:var(--navy); cursor:pointer; margin-left:8px;
+  transition:all .15s;
+}
+.cancel-btn:hover { background:var(--navy); color:white; }
+.frac-step-sep { width:100%; border-top:1px dashed #dee2e6; margin:10px 0 6px; display:flex; align-items:center; gap:8px; }
+.frac-step-label { font-family:var(--sans); font-size:7.5pt; font-weight:600; color:var(--navy); text-transform:uppercase; letter-spacing:.05em; white-space:nowrap; background:#f8f9fa; padding:0 6px; }
+@media print {
+  .frac-chain { background:#f8f9fa !important; -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+  .cancel-btn { display:none !important; }
+}
+
+/* MANUAL BLOCK */
+.manual-block{border:2px dashed var(--amber);border-radius:8px;background:var(--amber-light);padding:14px 18px;margin:20px 0;}
+.manual-block-header{display:flex;align-items:center;gap:10px;margin-bottom:10px;flex-wrap:wrap;}
+.manual-badge{font-family:var(--sans);font-size:7.5pt;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:white;background:var(--amber);padding:4px 10px;border-radius:4px;white-space:nowrap;}
+.manual-pts-badge{font-family:var(--mono);font-size:8pt;font-weight:600;color:var(--amber);border:1.5px solid var(--amber);border-radius:4px;padding:2px 8px;white-space:nowrap;}
+.manual-title{font-family:var(--sans);font-size:9pt;font-weight:600;color:var(--amber);flex:1;}
+.manual-note{font-family:var(--sans);font-size:7.5pt;color:#7a3d00;font-style:italic;margin-bottom:8px;}
+.manual-ex-item{margin-bottom:14px;}
+.manual-ex-item:last-child{margin-bottom:0;}
+.manual-ex-label{font-family:var(--sans);font-size:9pt;font-weight:600;color:#7a3d00;margin-bottom:6px;display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
+.manual-ex-num{font-family:var(--mono);font-size:7.5pt;color:white;background:#7a3d00;padding:2px 7px;border-radius:3px;}
+.manual-ex-pts{font-family:var(--mono);font-size:7pt;color:white;background:var(--amber);padding:2px 6px;border-radius:3px;}
+
+.correct-btn{font-family:var(--sans);font-size:8.5pt;font-weight:600;padding:7px 18px;background:var(--teal);color:white;border:none;border-radius:5px;cursor:pointer;margin-top:10px;transition:background .2s;}
+.correct-btn:hover{background:var(--navy);}
+
+/* NOTA BAR */
+.nota-bar{background:var(--teal-light);border:2px solid var(--teal);border-radius:8px;padding:16px 20px;margin-top:16px;display:flex;align-items:center;gap:20px;flex-wrap:wrap;}
+.nota-bar-label{font-family:var(--sans);font-size:9pt;font-weight:600;color:var(--teal);text-transform:uppercase;letter-spacing:.05em;}
+.nota-bar-val{font-family:var(--mono);font-size:20pt;font-weight:500;color:var(--navy);line-height:1;}
+
+/* DOWNLOAD */
+.download-box{background:var(--teal-light);border:2px solid var(--teal);border-radius:8px;padding:20px 24px;margin:24px 0;}
+.download-box h3{color:var(--teal);font-family:var(--sans);font-size:10pt;margin-bottom:12px;}
+.download-box h3::before{content:none;}
+.input-row{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:10px;}
+.id-input{flex:1;min-width:200px;font-family:var(--sans);font-size:9.5pt;padding:9px 12px;border:1.5px solid var(--border);border-radius:5px;color:#212529;}
+.dl-btn{font-family:var(--sans);font-size:9pt;font-weight:600;padding:10px 22px;background:var(--navy);color:white;border:none;border-radius:5px;cursor:pointer;transition:background .2s;white-space:nowrap;}
+.dl-btn:hover{background:var(--teal);}
+.dl-error{color:var(--red);font-family:var(--sans);font-size:9pt;margin-top:6px;display:none;}
+
+footer{border-top:2px solid var(--navy);padding:20px 56px 26px;display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:14px;}
+.footer-name{font-family:var(--sans);font-size:9.5pt;font-weight:600;color:var(--navy);}
+.footer-title{font-family:var(--sans);font-size:8pt;color:var(--gray-400);}
+.footer-copy{font-family:var(--sans);font-size:7.5pt;color:var(--gray-400);text-align:right;line-height:1.5;}
+
+/* PRINT */
+@media print {
+  .tab-nav,.palette-btn,.palette-panel,.design-switcher,.correct-btn,.download-box,.nota-bar{display:none !important;}
+  .tab-content{display:none !important;}
+  #taller-tab{display:block !important;}
+  #teoria-tab{display:none !important;}
+  body{font-size:10pt;}
+  .cover,.module-header,.drug-header,.worked{-webkit-print-color-adjust:exact;print-color-adjust:exact;}
+  .module{page-break-inside:avoid;}
+  .taller-content{padding:20px 40px;}
+  .page-print-header{display:block !important;font-family:var(--sans);font-size:8pt;color:var(--gray-600);padding:8px 40px;border-bottom:1px solid var(--border);background:var(--gray-50);}
+  .print-footer-fixed{display:flex !important;position:fixed;bottom:0;left:0;right:0;background:var(--gray-50);border-top:1px solid var(--border);padding:5px 40px;font-family:var(--sans);font-size:7.5pt;color:var(--gray-600);justify-content:space-between;}
+  textarea.open-area{display:none !important;}
+  .print-answer{display:block !important;font-family:'DM Sans',system-ui,sans-serif;font-size:9.5pt;color:#212529;line-height:1.6;border:1.5px solid #dee2e6;border-radius:5px;padding:8px 12px;min-height:60px;height:auto !important;overflow:visible !important;white-space:pre-wrap;word-break:break-word;page-break-inside:avoid;}
+  .print-answer:empty::after{content:'(sin respuesta)';color:#adb5bd;font-style:italic;}
+}
+@media screen {
+  .page-print-header{display:none;}
+  .print-footer-fixed{display:none;}
+  .print-answer{display:none !important;}
+}
+
+
+/* ══════════════════════════════════════════════════════════════
+   OVERRIDE · TEMA PORTAL ANESTESIOLOGÍA — FARMACOLOGÍA (VERDE LIMA)
+   ══════════════════════════════════════════════════════════════ */
+:root{
+  --navy:#33691E; --navy-mid:#558B2F;
+  --teal:#689F38; --teal-light:#F1F8E9;
+  --serif:'Bebas Neue','DM Sans',sans-serif;
+  --sans:'DM Sans','Nunito',system-ui,sans-serif;
+  --hero-grad:linear-gradient(135deg,#14260A,#33691E,#558B2F);
+  --gold-grad:linear-gradient(90deg,#FFEA00,#FFC400,#FF9100);
+  --gold:#F0F4C3;
+}
+
+body{ background:#EEF3E6 !important; font-family:var(--sans); }
+.design-switcher,.palette-btn,.palette-panel{ display:none !important; }
+
+.page{ max-width:960px; margin:22px auto 60px; background:#fff; border-radius:22px;
+  box-shadow:0 8px 40px rgba(20,38,10,.12); overflow:hidden; border:1px solid rgba(0,0,0,.10); }
+.content{ padding:42px 56px !important; }
+
+/* ── TABS ── */
+.tab-nav{ gap:6px !important; border-bottom:1px solid rgba(0,0,0,.10) !important; background:rgba(255,255,255,.96) !important;
+  backdrop-filter:blur(14px); padding:10px 20px !important; box-shadow:0 1px 8px rgba(0,0,0,.06); }
+.tab-btn{ font-size:11.5px !important; font-weight:800 !important; padding:8px 16px !important; background:transparent !important;
+  color:#1E293B !important; border:none !important; border-right:none !important; border-radius:9px !important;
+  letter-spacing:.3px !important; transition:background .16s,color .16s,transform .12s !important; }
+.tab-btn:hover{ background:var(--navy) !important; color:#fff !important; transform:translateY(-1px); }
+.tab-btn.active{ background:var(--navy) !important; color:#fff !important; box-shadow:0 2px 8px rgba(51,105,30,.35); }
+
+/* ── HERO ── */
+.cover{ background:var(--hero-grad) !important; color:#fff !important; padding:52px 56px 44px !important;
+  position:relative; overflow:hidden; border-bottom:none !important; }
+.cover::before{ content:''; position:absolute; top:-80px; right:-80px; width:340px; height:340px;
+  border-radius:50%; background:rgba(255,255,255,.06); pointer-events:none; }
+.cover::after{ content:''; position:absolute; bottom:-60px; left:-60px; width:240px; height:240px;
+  border-radius:50%; background:rgba(255,255,255,.05); pointer-events:none; }
+.cover-tag{ position:relative; z-index:1; display:inline-flex; align-items:center; gap:8px;
+  background:rgba(255,255,255,.15); border:1px solid rgba(255,255,255,.4); border-radius:100px;
+  padding:6px 16px; font-family:var(--sans); font-size:10px; font-weight:700; letter-spacing:2px;
+  text-transform:uppercase; color:#fff !important; margin-bottom:22px; }
+.cover-rule{ display:none !important; }
+.cover h1{ font-family:'Bebas Neue',sans-serif !important; font-size:clamp(34px,5.5vw,54px) !important;
+  font-weight:400 !important; line-height:1.02 !important; color:#fff !important; letter-spacing:2px;
+  margin-bottom:14px !important; max-width:640px; position:relative; z-index:1; }
+.cover h1 em{ font-style:normal !important; background:var(--gold-grad); -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent; background-clip:text; color:transparent !important; }
+.cover-subtitle{ position:relative; z-index:1; font-family:var(--sans) !important; font-size:12.5px !important;
+  color:rgba(255,255,255,.85) !important; font-weight:500 !important; line-height:1.7 !important; max-width:620px; margin-bottom:34px !important; }
+.cover-meta{ position:relative; z-index:1; gap:12px !important; padding-top:0 !important; border-top:none !important; }
+.cover-meta > div{ background:rgba(255,255,255,.18); border:1px solid rgba(255,255,255,.35);
+  border-radius:12px; padding:9px 16px; }
+.cover-meta-label{ font-size:9px !important; letter-spacing:1.5px !important; color:rgba(255,255,255,.7) !important; font-weight:700 !important; }
+.cover-meta-value{ font-size:12px !important; color:#fff !important; font-weight:700 !important; }
+
+/* ── SECCIONES ── */
+.section-header{ border-bottom:2px solid rgba(0,0,0,.08) !important; padding-bottom:14px !important; margin-bottom:18px !important; align-items:center !important; }
+.section-number{ background:var(--navy) !important; color:#fff !important; font-family:var(--mono);
+  padding:4px 11px !important; border-radius:8px !important; box-shadow:0 2px 8px rgba(51,105,30,.3); }
+.section-title{ font-family:'Bebas Neue',sans-serif !important; font-size:22px !important; font-weight:400 !important;
+  color:#0D1B0A !important; letter-spacing:1.5px; line-height:1.1; }
+
+/* ── TALLER ── */
+.taller-header{ background:var(--hero-grad) !important; }
+.taller-header h2{ font-family:'Bebas Neue',sans-serif !important; letter-spacing:2px; }
+.taller-header h2 em{ font-style:normal; background:var(--gold-grad); -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent; background-clip:text; color:transparent; }
+
+/* ── MÓDULOS / EXERCISE ── */
+.module{ border-radius:16px !important; box-shadow:0 3px 14px rgba(0,0,0,.06); border:1px solid rgba(0,0,0,.14) !important; }
+.module-header{ background:linear-gradient(135deg,#33691E,#558B2F) !important; }
+.module-tag{ color:var(--gold) !important; }
+.exercise{ border-radius:16px !important; box-shadow:0 3px 14px rgba(0,0,0,.06); border:1px solid rgba(0,0,0,.14) !important; overflow:hidden; }
+.exercise-header{ background:linear-gradient(135deg,#33691E,#558B2F) !important; }
+.exercise-num{ color:var(--gold) !important; }
+.ex-num,.q-num{ background:var(--navy) !important; border-radius:6px !important; }
+.ex-pts-auto,.q-pts-auto{ background:var(--teal) !important; border-radius:6px !important; }
+
+/* ── DRUG BADGES ── */
+.drug-conc{ background:var(--navy) !important; color:#F0F4C3 !important; }
+.definition-label{ color:var(--gold) !important; }
+
+/* ── BOTONES ── */
+.correct-btn,.dl-btn{ background:var(--navy) !important; border-radius:10px !important;
+  box-shadow:0 3px 12px rgba(51,105,30,.3); font-weight:800; }
+.correct-btn:hover,.dl-btn:hover{ background:var(--teal) !important; }
+.nota-bar,.download-box{ border-color:var(--teal) !important; background:var(--teal-light) !important; border-radius:16px !important; }
+.nota-bar-label,.download-box h3{ color:var(--teal) !important; }
+.nota-bar-val{ color:var(--navy) !important; }
+
+@media(max-width:720px){
+  .page{ margin:0; border-radius:0; }
+  .content{ padding:28px 22px !important; }
+  .cover{ padding:36px 22px 30px !important; }
+}
+
+
+
+/* ══ VARIABLES ADICIONALES DE ESTA GUÍA ══ */
+:root{--indigo:#1e3a8a;--indigo-light:#dbeafe;}
+
+/* ══ COMPONENTES PROPIOS — MANEJO DE LÍQUIDOS ══ */
+[data-design="B"] .cover h1,[data-design="B"] .cover h1 em,[data-design="B"] .cover h1 em.ac2{color:var(--navy) !important;}
+[data-design="B"] .cover-subtitle,[data-design="B"] .cover-meta-value{color:var(--gray-600) !important;}
+.cover h1 em.ac2{color:#7ae5b8;}
+.callout.success{background:var(--green-light);border-color:var(--green);}
+.callout.success .callout-title{color:var(--green);}
+.callout.success p{color:#14532d;}
+.yes{color:var(--teal);font-weight:700;}
+.no{color:var(--red);font-weight:700;}
+.parcial{color:var(--amber);font-weight:700;}
+.formula-eq{font-family:var(--mono);font-size:12pt;color:#d8c870;display:block;margin-bottom:7px;line-height:1.5;}
+.formula-vars{font-size:9.5pt;color:rgba(255,255,255,.62);line-height:1.8;}
+.formula-vars span{display:block;}
+.formula-vars b{color:#90d8a8;}
+.fluid-grid{display:grid;grid-template-columns:1fr 1fr;gap:11px;margin:11px 0;}
+.fluid-card{border-radius:8px;overflow:hidden;border:1.5px solid var(--border);}
+.fluid-card-header{padding:9px 13px;font-family:var(--sans);font-size:9pt;font-weight:700;color:white;}
+.fluid-card-body{padding:10px 13px;background:white;font-family:var(--sans);}
+.fc-row{display:flex;gap:6px;margin-bottom:4px;}
+.fc-lbl{font-family:var(--mono);font-size:8.5pt;text-transform:uppercase;color:var(--gray-400);min-width:74px;flex-shrink:0;margin-top:1px;}
+.fc-val{color:#212529;line-height:1.5;font-size:9pt;}
+.mini-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;margin:10px 0;}
+.mini-card{border-radius:7px;padding:10px 12px;border:1px solid var(--border);background:var(--gray-50);}
+.mini-card strong{display:block;font-family:var(--sans);font-size:9pt;color:var(--navy);margin-bottom:4px;}
+.mini-card p{font-size:8.5pt;color:var(--gray-600);line-height:1.5;margin:0;}
+.algo-step{display:flex;gap:13px;margin-bottom:11px;position:relative;}
+.algo-step::before{content:"";position:absolute;left:18px;top:38px;bottom:-11px;width:2px;background:var(--border);}
+.algo-step:last-child::before{display:none;}
+.algo-n{width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:11pt;font-weight:600;color:white;flex-shrink:0;}
+.algo-body{flex:1;padding-bottom:3px;}
+.algo-title{font-family:var(--sans);font-size:9.5pt;font-weight:700;color:var(--navy);margin-bottom:3px;}
+.algo-desc{font-size:9.5pt;color:var(--gray-600);line-height:1.65;}
+.exercise-title{font-family:var(--sans);font-size:10pt;color:white;font-weight:500;flex:1;}
+.exercise-pts{font-family:var(--mono);font-size:9pt;color:white;background:var(--amber);padding:3px 10px;border-radius:4px;white-space:nowrap;}
+.exercise-body{padding:15px 17px;background:white;}
+.patient-card{background:var(--gray-50);border:1px solid var(--border);border-radius:6px;padding:11px 14px;margin-bottom:13px;}
+.patient-title{font-family:var(--sans);font-size:8pt;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--gray-400);margin-bottom:8px;}
+.patient-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:7px;}
+.patient-item{font-family:var(--sans);font-size:9pt;}
+.patient-label{font-size:7.5pt;color:var(--gray-400);text-transform:uppercase;letter-spacing:.05em;display:block;}
+.patient-value{font-weight:600;color:var(--navy);}
+.patient-section{font-family:var(--sans);font-size:8pt;font-weight:600;color:var(--navy-mid);margin:7px 0 3px;text-transform:uppercase;letter-spacing:.05em;}
+.patient-list{font-family:var(--sans);font-size:9pt;color:var(--gray-600);padding-left:13px;}
+.patient-list li{margin-bottom:2px;}
+.question{margin-bottom:13px;}
+.question-label{font-family:var(--sans);font-size:9pt;font-weight:600;color:var(--navy-mid);margin-bottom:7px;display:flex;align-items:flex-start;gap:8px;flex-wrap:wrap;}
+.q-num{font-family:var(--mono);font-size:8pt;color:white;background:var(--navy-mid);padding:2px 7px;border-radius:3px;flex-shrink:0;margin-top:1px;}
+.q-pts-auto{font-family:var(--mono);font-size:7.5pt;color:white;background:var(--teal);padding:2px 6px;border-radius:3px;flex-shrink:0;margin-top:1px;}
+.q-pts-manual{font-family:var(--mono);font-size:7.5pt;color:white;background:var(--amber);padding:2px 6px;border-radius:3px;flex-shrink:0;margin-top:1px;}
+.answer-line{display:flex;align-items:center;gap:8px;margin:6px 0;font-family:var(--sans);font-size:9.5pt;color:var(--gray-600);flex-wrap:wrap;}
+.ans-input{font-family:var(--mono);font-size:10pt;border:none;border-bottom:2px solid var(--navy);background:transparent;color:#212529;text-align:center;outline:none;padding:1px 4px;}
+.ans-input:focus{background:#fffbeb;}
+.ans-sm{width:68px;}
+.ans-md{width:100px;}
+.ans-lg{width:145px;}
+.manual-block-label{font-family:var(--sans);font-size:7.5pt;font-weight:700;color:var(--amber);text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px;}
+.open-question{font-family:var(--sans);font-size:9.5pt;color:#212529;line-height:1.65;margin-bottom:8px;font-weight:500;}
+.open-question-part{font-family:var(--sans);font-size:9.5pt;color:var(--navy-mid);line-height:1.65;margin-bottom:6px;display:flex;gap:8px;}
+.open-question-part-letter{font-family:var(--mono);font-size:8.5pt;color:white;background:var(--navy-mid);padding:1px 6px;border-radius:3px;flex-shrink:0;margin-top:3px;}
+.open-area:focus{border-color:var(--amber);outline:none;}
+.score-note{background:var(--navy);border-radius:8px;padding:12px 18px;margin-bottom:20px;display:flex;align-items:center;gap:16px;flex-wrap:wrap;}
+.exercise{border:1px solid var(--border);border-radius:8px;overflow:hidden;margin-bottom:22px;page-break-inside:avoid;width:100%;}
+.exercise-header{padding:11px 16px;display:flex;align-items:center;gap:14px;flex-wrap:wrap;}
+.exercise-num{font-family:var(--mono);font-size:8.5pt;color:#7dd3c8;font-weight:500;}
+
+@media print{
+  .score-note{display:none !important;}
+  .exercise-header,.formula-block,.fluid-card-header{-webkit-print-color-adjust:exact;print-color-adjust:exact;}
+  .exercise{page-break-inside:avoid;}
+}
+
+/* ══ CAJAS DE FÓRMULA — contraste sobre fondo claro ══ */
+.formula-block{background:var(--gray-50);border:1px solid var(--border);border-left:4px solid var(--navy);border-radius:8px;padding:14px 18px;margin:14px 0;text-align:left;}
+.formula-label{display:block;font-family:var(--sans);font-size:8pt;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--teal);margin-bottom:8px;}
+.formula-eq{display:block;font-family:var(--mono);font-size:11.5pt;font-weight:500;color:var(--navy);background:#fff;border:1px solid var(--border);border-radius:6px;padding:10px 14px;margin-bottom:10px;line-height:1.55;}
+.formula-vars{display:block;font-family:var(--sans);font-size:9.5pt;color:var(--gray-600);line-height:1.7;}
+.formula-vars span{display:block;margin-bottom:4px;}
+.formula-vars span:last-child{margin-bottom:0;}
+.formula-vars b{color:var(--navy);font-weight:700;}
+.formula{color:var(--navy);}
+@media print{
+  .formula-block,.formula-eq{-webkit-print-color-adjust:exact;print-color-adjust:exact;}
+}
+</style>
+</head>
+<body>
+<div class="page">
+<button class="palette-btn" onclick="togglePalette()">&#127912;</button>
+<div class="palette-panel" id="palettePanel">
+  <div class="palette-panel-title">Paleta de colores</div>
+  <div class="palette-options">
+    <div class="palette-opt po-oceano sel" onclick="setPalette('oceano',this)">Oc&#233;ano</div>
+    <div class="palette-opt po-bosque" onclick="setPalette('bosque',this)">Bosque</div>
+    <div class="palette-opt po-atardecer" onclick="setPalette('atardecer',this)">Atardecer</div>
+    <div class="palette-opt po-pizarra" onclick="setPalette('pizarra',this)">Pizarra</div>
+    <div class="palette-opt po-cereza" onclick="setPalette('cereza',this)">Cereza</div>
+    <div class="palette-opt po-indigo" onclick="setPalette('indigo',this)">&#205;ndigo</div>
+  </div>
+</div>
+<div class="design-switcher">
+  <div class="ds-label">Dise&#241;o</div>
+  <div class="ds-btns">
+    <button class="ds-btn active" onclick="setDesign('A',this)">A &#183; Cl&#225;sico</button>
+    <button class="ds-btn" onclick="setDesign('B',this)">B &#183; Editorial</button>
+  </div>
+</div>
+<div class="page-print-header"><span id="phNombre"></span> &#183; <span id="phUniversidad"></span> &#183; <span id="phGuia"></span> &#183; <span id="phFecha"></span></div>
+<div class="print-footer-fixed">
+  <span><strong id="pfNombre"></strong> &#183; <span id="pfUniversidad"></span></span>
+  <span>Gu&#237;a: <span id="pfGuia"></span> &#183; Dr. Andr&#233;s Robayo C.</span>
+  <span id="pfFecha"></span>
+</div>
+<div class="tab-nav">
+  <button class="tab-btn active" onclick="showTab('teoria',this)">&#128216; Teor&#237;a</button>
+  <button class="tab-btn" onclick="showTab('taller',this)">&#128221; Taller &#8212; 5.0 pts</button>
+</div>
+
+<!-- TEORIA TAB -->
+<div class="tab-content active" id="teoria-tab">
+<div class="cover">
+  <div class="cover-tag">Gu&#237;a de estudio &#183; Anestesiolog&#237;a Perioperatoria &#183; Estudiantes de Medicina</div>
+  <div class="cover-rule"></div>
+  <h1>Manejo de <em>L&#237;quidos</em><br>en <em class="ac2">Anestesiolog&#237;a</em></h1>
+  <div class="cover-subtitle">Fisiopatolog&#237;a de los compartimentos h&#237;dricos &#183; Cristaloides &#183; Coloides &#183; Estrategias restrictiva, liberal y GDT &#183; Monitoreo de respuesta al volumen &#183; Reanimaci&#243;n en shock &#183; ERAS 2023 &#183; ESICM 2024</div>
+  <div class="cover-meta">
+    <div><span class="cover-meta-label">Autor</span><span class="cover-meta-value">Dr. Andr&#233;s Robayo C.</span></div>
+    <div><span class="cover-meta-label">Instituci&#243;n</span><span class="cover-meta-value">Hospital de Kennedy &#183; Hospital de Bosa &#183; Subred Suroccidente</span></div>
+    <div><span class="cover-meta-label">Evidencia</span><span class="cover-meta-value">ERAS 2023 &#183; ESICM 2024 &#183; SMART trial &#183; RELIEF &#183; CLOVERS</span></div>
+    <div><span class="cover-meta-label">Nivel</span><span class="cover-meta-value">Estudiantes de Medicina &#8212; Rotaci&#243;n Anestesiolog&#237;a</span></div>
+  </div>
+</div>
+<div class="content">
+
+<!-- S1: COMPARTIMENTOS -->
+<div class="section">
+  <div class="section-header"><span class="section-number">SECCI&#211;N 1</span><span class="section-title">Fisiolog&#237;a de los Compartimentos H&#237;dricos</span></div>
+  <p>El agua es el componente m&#225;s abundante del cuerpo humano. Su distribuci&#243;n depende de la edad, el sexo y la composici&#243;n corporal. La grasa es pr&#225;cticamente anhidra, de ah&#237; que las mujeres y los obesos tengan menor porcentaje de ACT.</p>
+  <div class="table-wrap"><div class="table-caption">Compartimentos h&#237;dricos &#8212; Distribuci&#243;n y relevancia anest&#233;sica</div>
+  <table><thead><tr><th>Compartimento</th><th>% Peso corporal</th><th>Volumen (70 kg)</th><th>Iones dominantes</th><th>Relevancia anest&#233;sica</th></tr></thead>
+  <tbody>
+    <tr><td class="hl">Agua corporal total (ACT)</td><td>60% &#9794; / 50% &#9792;</td><td>~42 L</td><td>&#8212;</td><td>Base para c&#225;lculo de d&#233;ficit h&#237;drico y distribuci&#243;n de fluidos IV</td></tr>
+    <tr><td class="hl">Intracelular (LIC)</td><td>40%</td><td>~28 L (67% ACT)</td><td>K&#8314;, Mg&#178;&#8314;, PO&#8324;&#179;&#8315;, prote&#237;nas</td><td>No accesible directamente. Cambia por cambios osmolares (hiponatremia &#8594; edema celular)</td></tr>
+    <tr><td class="hl">Extracelular (LEC)</td><td>20%</td><td>~14 L (33% ACT)</td><td>Na&#8314;, Cl&#8315;, HCO&#8323;&#8315;</td><td>El compartimento diana de la fluidoterapia IV</td></tr>
+    <tr><td class="hl">&#8594; Intravascular (plasma)</td><td>~5%</td><td>~3.5 L (&#188; LEC)</td><td>Na&#8314;, Cl&#8315;, alb&#250;mina</td><td>El volumen que mantenemos durante la cirug&#237;a. Monitoreado por PA, FC, GC</td></tr>
+    <tr><td class="hl">&#8594; Intersticial</td><td>~15%</td><td>~10.5 L (&#190; LEC)</td><td>Na&#8314;, Cl&#8315;, HCO&#8323;&#8315; (sin prote&#237;nas)</td><td>Expandible &#8212; el exceso de cristaloides se deposita aqu&#237; &#8594; edema tisular, edema pulmonar</td></tr>
+    <tr><td class="hl">&#8594; Transcelular</td><td>&lt;1%</td><td>~1&#8211;2 L</td><td>Variable</td><td>LCR, humor acuoso, pleural, peritoneal, sinovial. El &#171;tercer espacio&#187; perioperatorio.</td></tr>
+  </tbody></table></div>
+
+  <h3>1.2 Regulaci&#243;n de la Osmolaridad y el Volumen</h3>
+  <div class="formula-block">
+    <span class="formula-label">Osmolaridad Plasm&#225;tica Calculada</span>
+    <span class="formula-eq">Osm_p = 2[Na&#8314;] + Glucosa/18 + BUN/2.8 &nbsp;&nbsp;(mOsm/kg H&#8322;O)</span>
+    <span class="formula-vars">
+      <span><b>Valor normal:</b> 280&#8211;295 mOsm/kg H&#8322;O</span>
+      <span><b>Tonicidad efectiva:</b> = 2[Na&#8314;] + Glucosa/18 (excluye urea &#8212; cruza libremente membranas)</span>
+      <span><b>Brecha osmolar:</b> Osm_medida &#8722; Osm_calculada. Normal &#8804;10. &#8593; sugiere alcohol, metanol, etilenglicol, manitol</span>
+      <span><b>Na&#8314; corregido en hiperglucemia:</b> Na&#8314;_corr = Na&#8314;_medido + 1.6 &#215; [(Glucosa &#8722; 100)/100]</span>
+    </span>
+  </div>
+  <div class="table-wrap"><div class="table-caption">Sistemas reguladores del volumen y su implicaci&#243;n perioperatoria</div>
+  <table><thead><tr><th>Sistema regulador</th><th>Sensor</th><th>Efecto sobre volumen</th><th>Implicaci&#243;n perioperatoria</th></tr></thead>
+  <tbody>
+    <tr><td class="hl">ADH/Vasopresina</td><td>Osmorreceptores hipotal&#225;micos + barorreceptores</td><td>&#8593; AQP2 en colector &#8594; reabsorci&#243;n H&#8322;O &#8594; &#8595; Osm / &#8593; volumen</td><td>Estr&#233;s quir&#250;rgico &#8594; &#8593; ADH &#8594; retenci&#243;n H&#8322;O postop. Explica hiponatremia dilucional con exceso de dextrosa</td></tr>
+    <tr><td class="hl">SRAA (aldosterona)</td><td>Macula densa + c&#233;lulas JG + simp&#225;tico</td><td>&#8593; Na&#8314; y H&#8322;O en colector &#8594; &#8593; volemia</td><td>Cirug&#237;a &#8594; SRAA activado &#8594; retenci&#243;n Na&#8314;/H&#8322;O postop. IECAs/ARA-II pueden atenuar la respuesta</td></tr>
+    <tr><td class="hl">ANP/BNP</td><td>Distensi&#243;n auricular/ventricular por sobrecarga</td><td>&#8593; excreci&#243;n Na&#8314; y H&#8322;O &#8594; &#8595; volemia</td><td>BNP &#8593; en IC &#8594; marcador de sobrecarga de volumen postoperatoria</td></tr>
+    <tr><td class="hl">Glioc&#225;lix endotelial</td><td>Capa de proteoglicanos del endotelio capilar</td><td>Regula permeabilidad capilar y onc&#243;tica efectiva</td><td>Trauma, sepsis, cirug&#237;a &#8594; degradaci&#243;n del glioc&#225;lix &#8594; &#8593; permeabilidad &#8594; edema con exceso de cristaloides</td></tr>
+  </tbody></table></div>
+</div>
+
+<hr class="divider">
+
+<!-- S2: DISTRIBUCION FLUIDOS -->
+<div class="section">
+  <div class="section-header"><span class="section-number">SECCI&#211;N 2</span><span class="section-title">Distribuci&#243;n de Fluidos IV &#8212; Principio de Starling Vascular y Glioc&#225;lix</span></div>
+  <div class="table-wrap"><div class="table-caption">Distribuci&#243;n de 1 litro de diferentes fluidos IV por compartimentos</div>
+  <table><thead><tr><th>Fluido</th><th>Intravascular inmediato</th><th>Intersticio</th><th>Intracelular</th><th>Duraci&#243;n efecto volemizante</th></tr></thead>
+  <tbody>
+    <tr><td class="hl">Dextrosa 5% (DAD5%)</td><td>~83 mL (8.3%)</td><td>~250 mL (25%)</td><td>~667 mL (66.7%)</td><td>&lt;15 min</td></tr>
+    <tr><td class="hl">SS 0.9%</td><td>~250 mL (25%)</td><td>~750 mL (75%)</td><td>0 mL</td><td>30&#8211;60 min</td></tr>
+    <tr><td class="hl">Ringer Lactato (RL)</td><td>~250 mL (25%)</td><td>~750 mL (75%)</td><td>0 mL</td><td>30&#8211;60 min</td></tr>
+    <tr><td class="hl">Alb&#250;mina 5%</td><td>~700&#8211;800 mL (70&#8211;80%)</td><td>~200&#8211;300 mL</td><td>0 mL</td><td>4&#8211;6 h</td></tr>
+    <tr><td class="hl">Alb&#250;mina 20&#8211;25%</td><td>&gt;1000 mL (atrae H&#8322;O del intersticio)</td><td>&#8595; (moviliza del intersticio)</td><td>0 mL</td><td>6&#8211;8 h</td></tr>
+    <tr><td class="hl">HES 6% (almid&#243;n)</td><td>~800 mL (80%)</td><td>~200 mL</td><td>0 mL</td><td>4&#8211;6 h</td></tr>
+    <tr><td class="hl">Gelatinas (Gelofusine&#174;)</td><td>~500&#8211;600 mL (50&#8211;60%)</td><td>~400&#8211;500 mL</td><td>0 mL</td><td>2&#8211;3 h</td></tr>
+  </tbody></table></div>
+  <div class="callout clinical"><div class="callout-title">Implicaci&#243;n cl&#237;nica clave</div><p>Para expandir el volumen intravascular en 1 litro efectivo, se necesitan <strong>4&#8211;5 litros de cristaloide isot&#243;nico</strong> (el 75% va al intersticio) vs. ~1.3 litros de coloide o alb&#250;mina. Esto explica el edema masivo con reanimaci&#243;n agresiva de cristaloides.</p></div>
+
+  <div class="formula-block">
+    <span class="formula-label">Ecuaci&#243;n de Starling Revisada (Modelo Glioc&#225;lix)</span>
+    <span class="formula-eq">Jv = Kf &#215; [(Pc &#8722; Pi) &#8722; &#963;(&#960;p &#8722; &#960;sg)]</span>
+    <span class="formula-vars">
+      <span><b>&#960;sg</b> = presi&#243;n onc&#243;tica sub-glioc&#225;lix (&#8776;0 en condiciones normales, NO la del intersticio general)</span>
+      <span><b>&#963;</b> = coeficiente de reflexi&#243;n del glioc&#225;lix (0.9 para alb&#250;mina &#8594; casi impermeable)</span>
+      <span><b>Sepsis/trauma/cirug&#237;a:</b> degradaci&#243;n del glioc&#225;lix &#8594; &#963; cae &#8594; fluidos y prote&#237;nas escapan al intersticio &#8594; edema refractario con cristaloides</span>
+    </span>
+  </div>
+  <div class="callout danger"><div class="callout-title">Consecuencia pr&#225;ctica &#8212; Glioc&#225;lix da&#241;ado</div><p>Administrar exceso de cristaloides en pacientes con glioc&#225;lix da&#241;ado (sepsis, inflamaci&#243;n, cirug&#237;a mayor) agrava el edema intersticial en lugar de expandir el volumen intravascular. Esto sustenta la estrategia de m&#237;nima exposici&#243;n a cristaloides en el postoperatorio inmediato (ERAS 2023).</p></div>
+</div>
+
+<hr class="divider">
+
+<!-- S3: CRISTALOIDES -->
+<div class="section">
+  <div class="section-header"><span class="section-number">SECCI&#211;N 3</span><span class="section-title">Cristaloides &#8212; Clasificaci&#243;n, Composici&#243;n y Efectos Cl&#237;nicos</span></div>
+  <div class="table-wrap"><div class="table-caption">Composici&#243;n i&#243;nica de los cristaloides vs. plasma &#8212; valores en mEq/L</div>
+  <table><thead><tr><th>Par&#225;metro</th><th>Plasma</th><th>SS 0.9%</th><th>Ringer Lactato</th><th>PlasmaLyte A</th><th>DAD 5%</th><th>SS 0.45%</th></tr></thead>
+  <tbody>
+    <tr><td class="hl">Na&#8314; (mEq/L)</td><td>140</td><td>154</td><td>130</td><td>140</td><td>0</td><td>77</td></tr>
+    <tr><td class="hl">Cl&#8315; (mEq/L)</td><td>103</td><td>154</td><td>109</td><td>98</td><td>0</td><td>77</td></tr>
+    <tr><td class="hl">K&#8314; (mEq/L)</td><td>4.5</td><td>0</td><td>4</td><td>5</td><td>0</td><td>0</td></tr>
+    <tr><td class="hl">Ca&#178;&#8314; (mEq/L)</td><td>5</td><td>0</td><td>3</td><td>0</td><td>0</td><td>0</td></tr>
+    <tr><td class="hl">Mg&#178;&#8314; (mEq/L)</td><td>1.5</td><td>0</td><td>0</td><td>3</td><td>0</td><td>0</td></tr>
+    <tr><td class="hl">Buffer</td><td>HCO&#8323;&#8315; 25</td><td>Ninguno</td><td>Lactato 28</td><td>Gluconato 23 + Acetato 27</td><td>Ninguno</td><td>Ninguno</td></tr>
+    <tr><td class="hl">Osmolaridad (mOsm/L)</td><td>289</td><td>308</td><td>273</td><td>294</td><td>253</td><td>154</td></tr>
+    <tr><td class="hl">pH</td><td>7.4</td><td>5.0</td><td>6.5</td><td>7.4</td><td>4.0</td><td>5.0</td></tr>
+  </tbody></table></div>
+
+  <div class="fluid-grid">
+    <div class="fluid-card">
+      <div class="fluid-card-header" style="background:#1a3a5c;">SS 0.9% &#8212; &#171;Suero Fisiol&#243;gico&#187;</div>
+      <div class="fluid-card-body">
+        <div class="fc-row"><span class="fc-lbl">Cl&#8315; exceso</span><span class="fc-val">154 mEq/L de Cl&#8315; (plasma: 103 mEq/L) &#8594; <strong>hipercloremia</strong></span></div>
+        <div class="fc-row"><span class="fc-lbl">Acidosis</span><span class="fc-val">Acidosis metab&#243;lica hiperclorh&#233;mica (AMHC) por efecto SID. No ideal en cirug&#237;a mayor.</span></div>
+        <div class="fc-row"><span class="fc-lbl">Ri&#241;&#243;n</span><span class="fc-val">Hipercloremia &#8594; vasoconstriccion aferente &#8594; &#8595; TFG &#8594; &#8593; riesgo IRA</span></div>
+        <div class="fc-row"><span class="fc-lbl">Uso actual</span><span class="fc-val">Alcalosis hipoclorh&#233;mica, hiponatremia severa, emergencia corta. <strong>Compatible con hemoderivados</strong>.</span></div>
+      </div>
+    </div>
+    <div class="fluid-card">
+      <div class="fluid-card-header" style="background:var(--teal);">Ringer Lactato &#8212; Soluci&#243;n de Hartmann</div>
+      <div class="fluid-card-body">
+        <div class="fc-row"><span class="fc-lbl">Buffer</span><span class="fc-val">Lactato 28 mEq/L &#8594; metabolizado en h&#237;gado a HCO&#8323;&#8315;. pH fisiol&#243;gico conservado.</span></div>
+        <div class="fc-row"><span class="fc-lbl">Contiene K&#8314;</span><span class="fc-val">4 mEq/L &#8594; <strong>contraindicado en hiperkalemia</strong> (&gt;5.5 mEq/L)</span></div>
+        <div class="fc-row"><span class="fc-lbl">Contiene Ca&#178;&#8314;</span><span class="fc-val">3 mEq/L &#8594; <strong>incompatible con transfusi&#243;n de GRE</strong> (precipita el citrato)</span></div>
+        <div class="fc-row"><span class="fc-lbl">Evidencia</span><span class="fc-val">SMART trial (NEJM 2018): superior a SS en preservar funci&#243;n renal en cirug&#237;a abdominal mayor.</span></div>
+      </div>
+    </div>
+    <div class="fluid-card">
+      <div class="fluid-card-header" style="background:#0e4a4a;">PlasmaLyte A / Normosol-R</div>
+      <div class="fluid-card-body">
+        <div class="fc-row"><span class="fc-lbl">Composici&#243;n</span><span class="fc-val">Na&#8314; 140, Cl&#8315; 98, K&#8314; 5, Mg&#178;&#8314; 3, acetato 27 + gluconato 23 mEq/L. pH 7.4 id&#233;ntico al plasma.</span></div>
+        <div class="fc-row"><span class="fc-lbl">Buffer</span><span class="fc-val">Acetato + gluconato: metabolizados extrahepaticamente &#8594; &#250;til en insuficiencia hep&#225;tica</span></div>
+        <div class="fc-row"><span class="fc-lbl">Ventajas</span><span class="fc-val">Sin hipercloremia &#183; Sin acidosis &#183; Compatible con hemoderivados (sin Ca&#178;&#8314;)</span></div>
+        <div class="fc-row"><span class="fc-lbl">Evidencia</span><span class="fc-val">SMART trial (2018): PlasmaLyte/RL &gt; SS en &#8595; MAKE30. Recomendado ESICM 2024.</span></div>
+      </div>
+    </div>
+    <div class="fluid-card">
+      <div class="fluid-card-header" style="background:var(--purple);">DAD 5% / Dextrosa al 5%</div>
+      <div class="fluid-card-body">
+        <div class="fc-row"><span class="fc-lbl">Contenido</span><span class="fc-val">50 g glucosa/L &#8594; tras metabolizaci&#243;n = agua libre pura. Hipot&#243;nica efectiva.</span></div>
+        <div class="fc-row"><span class="fc-lbl">Distribuci&#243;n</span><span class="fc-val">~67% intracelular &#183; ~25% intersticio &#183; solo ~8% intravascular &#8594; p&#233;simo expansor</span></div>
+        <div class="fc-row"><span class="fc-lbl">Usos v&#225;lidos</span><span class="fc-val">Hipernatremia &#183; Veh&#237;culo de f&#225;rmacos &#183; Hipoglucemia en ayuno pedi&#225;trico</span></div>
+        <div class="fc-row"><span class="fc-lbl">&#9888; Riesgos</span><span class="fc-val">Hiponatremia dilucional &#183; Edema cerebral &#183; Hiperglucemia &#183; <strong>NO expansor de volumen</strong></span></div>
+      </div>
+    </div>
+  </div>
+  <div class="callout evidence"><div class="callout-title">SS Hipert&#243;nico 3&#8211;7.5% &#8212; Usos espec&#237;ficos</div><p><strong>SS 3%</strong> (513 mEq/L Na&#8314;): reanimaci&#243;n de bajo volumen, edema cerebral, hiponatremia severa. <strong>SS 7.5%</strong> (1280 mEq/L Na&#8314;): 4 mL/kg IV en reanimaci&#243;n de bajo volumen (trauma). Mecanismo: &#8593; osmolaridad &#8594; agua sale del intracelular al intravascular &#8594; expansi&#243;n r&#225;pida con vol&#250;menes peque&#241;os.</p></div>
+</div>
+
+<hr class="divider">
+
+<!-- S4: COLOIDES -->
+<div class="section">
+  <div class="section-header"><span class="section-number">SECCI&#211;N 4</span><span class="section-title">Coloides &#8212; Alb&#250;mina, Gelatinas y Almidones</span></div>
+  <p>Los coloides contienen mol&#233;culas de alto peso molecular que generan presi&#243;n onc&#243;tica &#8594; permanecen m&#225;s tiempo en el espacio intravascular. Sin embargo, en condiciones de glioc&#225;lix da&#241;ado, la diferencia con los cristaloides disminuye significativamente.</p>
+  <div class="fluid-grid">
+    <div class="fluid-card">
+      <div class="fluid-card-header" style="background:#0e4a4a;">Alb&#250;mina Humana 4&#8211;5%</div>
+      <div class="fluid-card-body">
+        <div class="fc-row"><span class="fc-lbl">Origen</span><span class="fc-val">Prote&#237;na humana derivada de plasma (pasteurizada 60&#176;C, 10 h). PM ~66.5 kDa. &#218;nica prote&#237;na aprobada.</span></div>
+        <div class="fc-row"><span class="fc-lbl">Mecanismo</span><span class="fc-val">&#8593; Presi&#243;n onc&#243;tica intravascular. Puede regenerar el glioc&#225;lix endotelial.</span></div>
+        <div class="fc-row"><span class="fc-lbl">Dosis</span><span class="fc-val">5%: 250&#8211;500 mL para expansi&#243;n &#183; 20&#8211;25%: 50&#8211;100 mL para movilizar l&#237;quido del intersticio</span></div>
+        <div class="fc-row"><span class="fc-lbl">Evidencia</span><span class="fc-val">SAFE trial (NEJM 2004): Alb&#250;mina 4% = SS en UCI (excepto TCE: alb&#250;mina inferior). &#218;til en alb&#250;mina &lt;2 g/dL. Indicaciones: PBE, s&#237;ndrome hepatorrenal, paracentesis de gran volumen.</span></div>
+      </div>
+    </div>
+    <div class="fluid-card">
+      <div class="fluid-card-header" style="background:var(--red);">Almidones HES &#8212; Voluven&#174;, Volulyte&#174;</div>
+      <div class="fluid-card-body">
+        <div class="fc-row"><span class="fc-lbl">Tipos</span><span class="fc-val">HES 6% 130/0.4 (Voluven&#174;): PM 130 kDa. HES 6% 130/0.42 balanceado (Volulyte&#174;).</span></div>
+        <div class="fc-row"><span class="fc-lbl">&#9888; Controversia</span><span class="fc-val">VISEP, CHEST, 6S trials: HES &#8594; &#8593; mortalidad, &#8593; IRA, &#8593; di&#225;lisis en sepsis. FDA/EMA: <strong>CONTRAINDICADOS en sepsis, quemaduras, paciente cr&#237;tico</strong> desde 2013.</span></div>
+        <div class="fc-row"><span class="fc-lbl">Uso actual</span><span class="fc-val">Debatido en cirug&#237;a electiva sin sepsis. Tendencia global a desplazarlos por balanceados o alb&#250;mina.</span></div>
+      </div>
+    </div>
+    <div class="fluid-card">
+      <div class="fluid-card-header" style="background:var(--amber);">Gelatinas &#8212; Gelofusine&#174;, Haemaccel&#174;</div>
+      <div class="fluid-card-body">
+        <div class="fc-row"><span class="fc-lbl">Composici&#243;n</span><span class="fc-val">Gelatina bovina succinilada (Gelofusine&#174;): PM ~30 kDa. Haemaccel&#174; contiene Ca&#178;&#8314; y K&#8314;.</span></div>
+        <div class="fc-row"><span class="fc-lbl">Efecto</span><span class="fc-val">Efecto volemizante corto 2&#8211;3 h. Capacidad expansora 50&#8211;60% del volumen infundido.</span></div>
+        <div class="fc-row"><span class="fc-lbl">Riesgos</span><span class="fc-val">Anafilaxis hasta 0.35% &#183; Coagulopatia &#183; &#8593; mortalidad en sepsis (Cochrane 2023). ESICM 2024: desaconsejados en sepsis.</span></div>
+      </div>
+    </div>
+    <div class="fluid-card">
+      <div class="fluid-card-header" style="background:var(--indigo);">Dextranos &#8212; D40, D70</div>
+      <div class="fluid-card-body">
+        <div class="fc-row"><span class="fc-lbl">Tipos</span><span class="fc-val">Dextrano 40 (PM 40 kDa, 10%) &#183; Dextrano 70 (PM 70 kDa, 6%)</span></div>
+        <div class="fc-row"><span class="fc-lbl">Riesgos</span><span class="fc-val">Anafilaxis grave (hasta 1%) &#183; Interferencia con coagulaci&#243;n y tipificaci&#243;n &#183; Uso pr&#225;cticamente abandonado.</span></div>
+      </div>
+    </div>
+  </div>
+  <div class="table-wrap"><div class="table-caption">Comparaci&#243;n de fluidos &#8212; Criterios clave (ESICM 2024 / ERAS 2023)</div>
+  <table><thead><tr><th>Criterio</th><th>SS 0.9%</th><th>Ringer Lactato</th><th>PlasmaLyte A</th><th>Alb&#250;mina 5%</th><th>HES 6%</th><th>Gelatinas</th></tr></thead>
+  <tbody>
+    <tr><td class="hl">Expansi&#243;n intravascular</td><td>25%</td><td>25%</td><td>25%</td><td>70&#8211;80%</td><td>80%</td><td>50&#8211;60%</td></tr>
+    <tr><td class="hl">Duraci&#243;n efecto</td><td>30&#8211;60 min</td><td>30&#8211;60 min</td><td>30&#8211;60 min</td><td>4&#8211;6 h</td><td>4&#8211;6 h</td><td>2&#8211;3 h</td></tr>
+    <tr><td class="hl">&#191;Balanceado?</td><td class="no">No</td><td class="yes">S&#237;</td><td class="yes">S&#237;</td><td class="yes">S&#237;</td><td class="parcial">Parcial</td><td class="no">No</td></tr>
+    <tr><td class="hl">Riesgo acidosis hiperclorh&#233;mica</td><td class="no">Alto</td><td class="yes">Bajo</td><td class="yes">Muy bajo</td><td class="yes">Bajo</td><td class="parcial">Bajo (Vol.)</td><td class="parcial">Moderado</td></tr>
+    <tr><td class="hl">Compatible con hemoderivados</td><td class="yes">S&#237;</td><td class="no">No (Ca&#178;&#8314;)</td><td class="yes">S&#237;</td><td class="yes">S&#237;</td><td class="yes">S&#237;</td><td class="parcial">Solo Gelo.</td></tr>
+    <tr><td class="hl">Riesgo de IRA</td><td class="no">&#8593;&#8593; con vol.</td><td class="yes">Bajo</td><td class="yes">Muy bajo</td><td class="yes">Bajo</td><td class="no">&#8593;&#8593; en sepsis</td><td class="no">&#8593; en sepsis</td></tr>
+    <tr><td class="hl">Uso en sepsis</td><td class="parcial">Tolerable</td><td class="yes">Recomendado</td><td class="yes">Recomendado</td><td class="parcial">Selectivo</td><td class="no">Contraindicado</td><td class="no">No recom.</td></tr>
+  </tbody></table></div>
+  <div class="callout success"><div class="callout-title">Recomendaci&#243;n ESICM 2024 y ERAS 2023</div><p>Para la mayor&#237;a de cirug&#237;as electivas: <strong>cristaloides balanceados (RL o PlasmaLyte A) como fluido de base</strong>. Evitar SS 0.9% en vol&#250;menes &gt;1 L. Coloides solo cuando cristaloides no logran objetivos hemodin&#225;micos. HES: evitar en sepsis y pacientes cr&#237;ticos.</p></div>
+</div>
+
+<hr class="divider">
+
+<!-- S5: REQUERIMIENTOS BASALES -->
+<div class="section">
+  <div class="section-header"><span class="section-number">SECCI&#211;N 5</span><span class="section-title">Requerimientos Basales, D&#233;ficit Preoperatorio y Efecto de la Anestesia</span></div>
+  <div class="formula-block">
+    <span class="formula-label">Regla de Holliday-Segar &#8212; Requerimiento Basal</span>
+    <span class="formula-eq">4 mL/kg/h (primeros 10 kg) + 2 mL/kg/h (10&#8211;20 kg) + 1 mL/kg/h (&gt;20 kg)</span>
+    <span class="formula-vars">
+      <span><b>Adulto est&#225;ndar (70 kg):</b> (4&#215;10) + (2&#215;10) + (1&#215;50) = 40+20+50 = <b>110 mL/h</b></span>
+      <span><b>En pr&#225;ctica intraoperatoria (ERAS):</b> aproximadamente 1&#8211;2 mL/kg/h durante la cirug&#237;a</span>
+      <span><b>F&#243;rmula simplificada adulto (ERAS 2023):</b> 1.5 mL/kg/h para cirug&#237;as &#8804;4 h sin p&#233;rdidas significativas</span>
+    </span>
+  </div>
+  <div class="callout success"><div class="callout-title">Actualizaci&#243;n ERAS 2023 &#8212; Fin del &#171;d&#233;ficit de 8 horas&#187;</div><p>La pr&#225;ctica hist&#243;rica de calcular un d&#233;ficit preoperatorio de 8 horas de ayuno y administrarlo durante la cirug&#237;a ha sido <strong>abandonada por las gu&#237;as actuales</strong>. Las directrices ERAS permiten l&#237;quidos claros hasta 2 h antes de la anestesia &#8212; el paciente llega con m&#237;nimo d&#233;ficit. Reponer un &#171;d&#233;ficit calculado&#187; rutinariamente genera sobrecarga &#8594; mayor morbilidad postoperatoria. <strong>Excepci&#243;n:</strong> Pacientes con verdadera hipovolemia (v&#243;mitos prolongados, diarrea, fiebre) s&#237; requieren reposici&#243;n guiada por par&#225;metros cl&#237;nicos.</p></div>
+
+  <div class="table-wrap"><div class="table-caption">T&#233;cnica anest&#233;sica y efecto hemodin&#225;mico &#8212; estrategia de fluidos</div>
+  <table><thead><tr><th>T&#233;cnica</th><th>Efecto sobre RVS y volumen</th><th>Estrategia de fluidos</th></tr></thead>
+  <tbody>
+    <tr><td class="hl">Anestesia general inhalatoria</td><td>&#8595; RVS 20&#8211;35% dosis-dependiente &#183; &#8595; inotropismo &#183; Vasodilataci&#243;n &#8594; hipovolemia relativa</td><td>Priming 250&#8211;500 mL cristaloide balanceado antes de inducci&#243;n (opcional en ERAS)</td></tr>
+    <tr><td class="hl">Anestesia general IV (propofol-remifentanilo)</td><td>&#8595; RVS 15&#8211;30% &#183; Propofol: &#8595; inotropismo + vasodilataci&#243;n &#183; Remifentanilo: bradicardia vagal</td><td>Vasopresores (norepinefrina) preferidos sobre fluidos en hipotesi&#243;n por vasodilataci&#243;n</td></tr>
+    <tr><td class="hl">Bloqueo espinal</td><td>Simpatiectom&#237;a farmacol&#243;gica &#8594; &#8595; RVS 30&#8211;60% &#183; Hipotesi&#243;n en 30&#8211;70%</td><td>Cocarga 500&#8211;1000 mL cristaloide O coloides. Vasopresores (fenilefrina, norepinefrina) son primera l&#237;nea</td></tr>
+    <tr><td class="hl">Bloqueo epidural</td><td>Simpatiectom&#237;a gradual, m&#225;s controlable &#183; &#8595; PA proporcional al nivel</td><td>Fluidos de mantenimiento est&#225;ndar. Vasopresores si PA cae &gt;20% del basal</td></tr>
+  </tbody></table></div>
+</div>
+
+<hr class="divider">
+
+<!-- S6: PSP Y PERDIDAS -->
+<div class="section">
+  <div class="section-header"><span class="section-number">SECCI&#211;N 6</span><span class="section-title">Evaluaci&#243;n del D&#233;ficit y P&#233;rdidas Quir&#250;rgicas</span></div>
+  <div class="formula-block">
+    <span class="formula-label">P&#233;rdida Sangu&#237;nea Permisible (PSP)</span>
+    <span class="formula-eq">PSP = VSE &#215; (Hto_inicial &#8722; Hto_m&#237;nimo) / Hto_promedio</span>
+    <span class="formula-vars">
+      <span><b>VSE:</b> Hombre 70 mL/kg &#183; Mujer 65 mL/kg &#183; Neonato 85&#8211;90 mL/kg &#183; Lactante 75&#8211;80 mL/kg</span>
+      <span><b>Hto m&#237;nimo aceptable:</b> Adulto sano 21&#8211;24% (Hb 7 g/dL) &#183; Cardiopat&#237;a: 28&#8211;30% (Hb 9&#8211;10 g/dL) &#183; Neonato: 30%</span>
+      <span><b>Ejemplo:</b> Mujer 60 kg, Hto inicial 40%, Hto m&#237;nimo 24%: VSE = 60&#215;65 = 3900 mL &#183; PSP = 3900&#215;(40&#8211;24)/32 = <b>1950 mL</b></span>
+      <span><b>Umbral transfusi&#243;n (ASA 2021):</b> Hb &lt;7 g/dL sano &#183; Hb &lt;8 g/dL cardiopat&#237;a &#183; Hb &lt;10 g/dL EC activa</span>
+    </span>
+  </div>
+  <div class="table-wrap"><div class="table-caption">Tipo de p&#233;rdida, fluido de reposici&#243;n y consideraciones cl&#237;nicas</div>
+  <table><thead><tr><th>Tipo de p&#233;rdida</th><th>Fluido de reposici&#243;n</th><th>Volumen</th><th>Consideraciones</th></tr></thead>
+  <tbody>
+    <tr><td class="hl">Sangre (hasta PSP)</td><td>Cristaloide balanceado O coloide</td><td>Cristaloide: 3 mL/mL perdido &#183; Coloide: 1&#8211;1.5 mL/mL perdido</td><td>Respetar PSP. Si p&#233;rdida &gt;PSP &#8594; transfusi&#243;n de GRE</td></tr>
+    <tr><td class="hl">Sangre (&gt;PSP o Hb &lt;7)</td><td>GRE (concentrado de gl&#243;bulos rojos)</td><td>1 U de GRE &#8593; Hb ~1 g/dL en adulto est&#225;ndar</td><td>Calentador de sangre &#8805;37&#176;C. Monitoreo postransfusional Hb/Hto</td></tr>
+    <tr><td class="hl">Coagulopat&#237;a dilucional</td><td>PFC + plaquetas + concentrado de fibrin&#243;geno</td><td>PFC: 10&#8211;15 mL/kg &#183; Fibrin&#243;geno: 30&#8211;50 mg/kg</td><td>TEG/ROTEM gu&#237;a el uso &#243;ptimo en tiempo real</td></tr>
+    <tr><td class="hl">Fibrin&#243;geno &#8804;150 mg/dL</td><td>Concentrado de fibrin&#243;geno (Haemocomplettan&#174;)</td><td>30&#8211;50 mg/kg IV hasta Fbg &gt;200 mg/dL</td><td>Gu&#237;ar con TEG/ROTEM. Superior al PFC para hipofibrinogenemia pura.</td></tr>
+    <tr><td class="hl">P&#233;rdidas GI / tercer espacio</td><td>Cristaloide balanceado (RL/PlasmaLyte)</td><td>Variable. ERAS: NO reponer tercer espacio de rutina</td><td>La noci&#243;n de &#171;p&#233;rdida al tercer espacio&#187; en cirug&#237;a electiva est&#225; siendo cuestionada.</td></tr>
+  </tbody></table></div>
+
+  <h3>Transfusi&#243;n Masiva &#8212; Protocolo Actual (PROPPR trial 2015)</h3>
+  <div class="callout danger"><div class="callout-title">Definici&#243;n de Transfusi&#243;n Masiva</div><p>&gt;10 U de GRE en 24 h O &gt;4 U en 1 h O reposici&#243;n &gt;50% de la volemia en 3 h. Activa la coagulopatia aguda del trauma (ACoT).</p></div>
+  <div class="table-wrap"><div class="table-caption">Protocolo de transfusi&#243;n masiva (PTM) &#8212; PROPPR 2015</div>
+  <table><thead><tr><th>Componente</th><th>Ratio / Dosis</th><th>Objetivo</th></tr></thead>
+  <tbody>
+    <tr><td class="hl">GRE : PFC : Plaquetas</td><td class="ok">1 : 1 : 1</td><td>Prevenir coagulopat&#237;a dilucional, mantener factores y plaquetas mientras se controla el sangrado</td></tr>
+    <tr><td class="hl">&#193;cido tranex&#225;mico (TXA)</td><td>1 g IV en 10 min + 1 g en 8 h (dentro de las primeras 3 h del trauma)</td><td>&#8595; mortalidad por sangrado en trauma (CRASH-2). En cirug&#237;a electiva: 15&#8211;20 mg/kg antes de incisi&#243;n</td></tr>
+    <tr><td class="hl">Concentrado fibrin&#243;geno</td><td>3&#8211;4 g IV si fibrin&#243;geno &lt;150 mg/dL</td><td>Mantener fibrin&#243;geno &gt;200 mg/dL durante transfusi&#243;n masiva</td></tr>
+    <tr><td class="hl">TEG/ROTEM guiado</td><td>Personalizado seg&#250;n clot formation</td><td>&#8595; transfusiones innecesarias. Mejor opci&#243;n cuando disponible.</td></tr>
+  </tbody></table></div>
+</div>
+
+<hr class="divider">
+
+<!-- S7: ESTRATEGIAS -->
+<div class="section">
+  <div class="section-header"><span class="section-number">SECCI&#211;N 7</span><span class="section-title">Estrategias de Fluidoterapia &#8212; Liberal vs. Restrictiva vs. GDT</span></div>
+  <div class="table-wrap"><div class="table-caption">Comparaci&#243;n de estrategias de fluidoterapia perioperatoria &#8212; evidencia 2024</div>
+  <table><thead><tr><th>Estrategia</th><th>Definici&#243;n</th><th>Volumen t&#237;pico</th><th>Evidencia clave</th><th>Recomendaci&#243;n actual</th></tr></thead>
+  <tbody>
+    <tr><td class="hl">Liberal</td><td>Reposici&#243;n generosa: d&#233;ficit + mantenimiento + p&#233;rdidas estimadas + &#171;extra&#187;</td><td>5&#8211;10 mL/kg/h &#183; 3&#8211;5 L en cirug&#237;a abdominal</td><td>RELIEF trial (NEJM 2018): Liberal &#8594; &#8593; complicaciones (IRA, &#237;leo, infecci&#243;n de herida) vs. restrictiva</td><td class="warn">No recomendada para cirug&#237;a electiva. Solo en shock verdadero agudo.</td></tr>
+    <tr><td class="hl">Restrictiva</td><td>Solo mantenimiento + cubrir p&#233;rdidas demostradas. Sin &#171;carga de rutina&#187;.</td><td>1&#8211;3 mL/kg/h &#183; 500 mL&#8211;1.5 L en cirug&#237;a abdominal</td><td>RELIEF trial: Restrictiva &#8594; &#8595; IRA, &#8595; complicaciones vs. liberal. Pero &#8593; IRA en deshidratados si muy restrictiva.</td><td class="ok">Recomendada en cirug&#237;a electiva de bajo-mediano riesgo con buena hidrataci&#243;n preop.</td></tr>
+    <tr><td class="hl">Zero-Balance / ERAS</td><td>Meta: balance h&#237;drico neto cero en las primeras 24 h postop. IV solo cuando VO no posible.</td><td>M&#237;nimo necesario</td><td>ERAS 2023: balance cero o levemente negativo al d&#237;a 1 postop &#8594; menos complicaciones, m&#225;s r&#225;pida recuperaci&#243;n GI.</td><td class="ok">Est&#225;ndar en ERAS para cirug&#237;a colorrectal y abdominal mayor electiva.</td></tr>
+    <tr><td class="hl">GDT (Goal-Directed Therapy)</td><td>Fluidos solo cuando hay respuesta demostrada al volumen. Vasopresores si hipotesi&#243;n es por vasoplejia.</td><td>Variable, individualizado. Generalmente &lt;2 L en cirug&#237;a electiva.</td><td>Meta-an&#225;lisis (Pearse 2014, Hamilton 2011): GDT &#8594; &#8595; morbilidad, &#8595; complicaciones GI, &#8595; estancia. CLOVERS 2023: fluidos restrictivos + norepinefrina temprana = no inferior a liberal en sepsis.</td><td class="ok">Est&#225;ndar en cirug&#237;a de alto riesgo (ASA III&#8211;IV, p&#233;rdidas &gt;500 mL, cardiopat&#237;a, nefropat&#237;a).</td></tr>
+  </tbody></table></div>
+  <div class="callout evidence"><div class="callout-title">S&#237;ntesis de evidencia 2024</div><p>No existe un volumen &#171;correcto&#187; universal. La fluidoterapia debe ser <strong>individualizada</strong>. En la mayor&#237;a de cirug&#237;as electivas de bajo riesgo &#8594; estrategia restrictiva (1&#8211;3 mL/kg/h de cristaloide balanceado). En cirug&#237;as de alto riesgo &#8594; GDT guiado por par&#225;metros din&#225;micos con vasopresores como primera l&#237;nea para la hipotesi&#243;n vasodilatadora.</p></div>
+</div>
+
+<hr class="divider">
+
+<!-- S8: MONITOREO -->
+<div class="section">
+  <div class="section-header"><span class="section-number">SECCI&#211;N 8</span><span class="section-title">Monitoreo de la Respuesta al Volumen</span></div>
+  <div class="callout danger"><div class="callout-title">Los par&#225;metros est&#225;ticos son POBRES predictores de respuesta al volumen</div><p>La PVC no predice respuesta al volumen en &gt;60% de los casos (Marik CHEST 2008). PAP y PCWP tampoco son confiables aisladamente. No deben usarse como &#250;nico criterio para decidir si administrar un bolo de fluidos.</p></div>
+
+  <div class="table-wrap"><div class="table-caption">Par&#225;metros din&#225;micos de respuesta al volumen &#8212; sensibilidad, especificidad y requisitos</div>
+  <table><thead><tr><th>Par&#225;metro</th><th>Valor de respuesta</th><th>Sens / Esp</th><th>Requisitos</th><th>Limitaciones</th></tr></thead>
+  <tbody>
+    <tr><td class="hl">VPP (Variaci&#243;n Presi&#243;n de Pulso)</td><td class="ok">VPP &gt;13%</td><td>72&#8211;94% / 66&#8211;93%</td><td>VM controlada &#183; Ritmo sinusal &#183; Vt &#8805;8 mL/kg</td><td>Falla en FA, ventilaci&#243;n espont&#225;nea, PEEP alto, t&#243;rax abierto</td></tr>
+    <tr><td class="hl">SVV (Variaci&#243;n Volumen Sist&#243;lico)</td><td class="ok">SVV &gt;10&#8211;13%</td><td>79% / 83%</td><td>VM controlada &#183; Ritmo sinusal &#183; GC continuo</td><td>Mismas que VPP + requiere dispositivo de GC continuo (PiCCO, FloTrac)</td></tr>
+    <tr><td class="hl">PLR (Elevaci&#243;n Pasiva de Piernas)</td><td class="ok">GC &#8593; &gt;10% en 1 min</td><td>86% / 92%</td><td>Monitoreo continuo de GC o PP</td><td>Limitada en prono, fractura de pelvis, hipertensi&#243;n intraabdominal</td></tr>
+    <tr><td class="hl">EEOPB (Oclusi&#243;n espiratoria)</td><td class="ok">PP o GC &#8593; &gt;5% en 15 seg</td><td>87% / 93%</td><td>VM controlada &#183; Sincronia total</td><td>Solo en VM. Inc&#243;moda si paciente despierto.</td></tr>
+    <tr><td class="hl">Mini-bolo 100&#8211;250 mL</td><td class="ok">GC &#8593; &gt;10%</td><td>83% / 88%</td><td>Monitoreo continuo de GC</td><td>Puede ser excesivo en IC severa</td></tr>
+    <tr><td class="hl">VCI por ecocardiograf&#237;a (POCUS)</td><td class="ok">ICT &gt;18% (espont&#225;nea)</td><td>Moderada (operador-dependiente)</td><td>Ecocard&#237;ografo &#183; Ventana ac&#250;stica</td><td>HTP severa. Obesidad. Ventana pobre.</td></tr>
+  </tbody></table></div>
+
+  <h3>Monitoreo Avanzado del Gasto Card&#237;aco</h3>
+  <div class="mini-grid">
+    <div class="mini-card"><strong>PiCCO (Picco2&#174;)</strong><p>Termodiluc&#243;n transpulmonar + contorno de pulso. Mide GC, SVV, GEDV, ELWI (agua pulmonar extravascular). Requiere CVC + l&#237;nea arterial femoral.</p></div>
+    <div class="mini-card"><strong>FloTrac-Vigileo&#174;</strong><p>An&#225;lisis de contorno de pulso menos invasivo. Solo l&#237;nea arterial est&#225;ndar. Mide GC, SVV, VPP en tiempo real.</p></div>
+    <div class="mini-card"><strong>Ecocardiograf&#237;a TEE/POCUS</strong><p>Medici&#243;n en tiempo real de funci&#243;n biventricular, precarga, poscarga, VS. Gold standard en cirug&#237;a card&#237;aca. Recomendado ESICM 2024.</p></div>
+    <div class="mini-card"><strong>NIRS cerebral</strong><p>SatO&#8322; tisular regional (cerebral, renal). &#218;til en CEC y cirug&#237;a vascular. No invasivo.</p></div>
+    <div class="mini-card"><strong>Lactato s&#233;rico</strong><p>Marcador de hipoperfusi&#243;n tisular global. Lactato &gt;2 mEq/L = hipoperfusi&#243;n. Aclaramiento &gt;10%/2h indica respuesta. Gasometr&#237;a c/60&#8211;90 min en cirug&#237;as complejas.</p></div>
+    <div class="mini-card"><strong>Diuresis (&gt;0.5 mL/kg/h)</strong><p>Objetivo de perfusi&#243;n renal global. No predice respuesta al volumen aislado, pero &#250;til como meta de perfusi&#243;n en GDT.</p></div>
+  </div>
+</div>
+
+<hr class="divider">
+
+<!-- S9: ALGORITMO GDT Y SHOCK -->
+<div class="section">
+  <div class="section-header"><span class="section-number">SECCI&#211;N 9</span><span class="section-title">Algoritmo GDT y Reanimaci&#243;n en Shock</span></div>
+  <div class="callout success"><div class="callout-title">Objetivos hemodin&#225;micos GDT</div><p>PAM &#8805;65 mmHg (&#8805;70 en cardiopat&#237;a, &#8805;80 en neurotrauma) &#183; GC/IC &#8805;2.2 L/min/m&#178; &#183; SVV o VPP &lt;13% &#183; SvO&#8322; &#8805;65% &#183; Lactato &lt;2 mEq/L &#183; Diuresis &#8805;0.5 mL/kg/h</p></div>
+  <div style="margin:13px 0;">
+    <div class="algo-step"><div class="algo-n" style="background:var(--teal);">1</div><div class="algo-body"><div class="algo-title">Fluido de base intraoperatorio</div><div class="algo-desc">Cristaloide balanceado (RL o PlasmaLyte A) a <strong>1&#8211;3 mL/kg/h</strong> seg&#250;n tipo de cirug&#237;a. NO aplicar d&#233;ficit de 8 horas rutinariamente.</div></div></div>
+    <div class="algo-step"><div class="algo-n" style="background:var(--amber);">2</div><div class="algo-body"><div class="algo-title">Detecci&#243;n de hipotesi&#243;n (PAM &lt;65 mmHg)</div><div class="algo-desc">A) &#8595; precarga &#8594; GC &#8595;, SVV/VPP &#8593;: evaluar respuesta al volumen &#8594; bolo si respondedor.<br>B) &#8595; RVS (vasodilataci&#243;n) &#8594; GC normal/&#8593;, SVV &lt;13%: <strong>VASOPRESORES primera l&#237;nea</strong> (norepinefrina, fenilefrina).<br>C) &#8595; inotropismo &#8594; GC &#8595;, FC &#8595;: inotropicos (dobutamina, adrenalina).</div></div></div>
+    <div class="algo-step"><div class="algo-n" style="background:var(--purple);">3</div><div class="algo-body"><div class="algo-title">Prueba de respuesta al volumen (antes de dar fluidos)</div><div class="algo-desc">PLR: GC &#8593; &gt;10% = respondedor &#183; VPP &gt;13% en VM = respondedor &#183; Mini-bolo 100&#8211;250 mL &#8594; GC &#8593; &gt;10% = respondedor.<br>Si NO respondedor &#8594; NO dar fluidos &#8594; buscar causa no volumen-dependiente.</div></div></div>
+    <div class="algo-step"><div class="algo-n" style="background:var(--green);">4</div><div class="algo-body"><div class="algo-title">Bolo de fluidos (solo si respondedor)</div><div class="algo-desc">Cristaloide balanceado: 250&#8211;500 mL IV en 10&#8211;15 min. Coloide si alb&#250;mina baja: Alb&#250;mina 5% 250 mL. Reevaluar GC y VPP/SVV a los 5 min.</div></div></div>
+    <div class="algo-step"><div class="algo-n" style="background:var(--navy);">5</div><div class="algo-body"><div class="algo-title">Meta balance h&#237;drico &#8212; Evaluaci&#243;n continua</div><div class="algo-desc">Meta ERAS: balance entre 0 y +500 mL al cierre en cirug&#237;as &lt;4 horas. Si balance &gt;+1 L en cirug&#237;a electiva &#8594; reducir o pausar fluidos.</div></div></div>
+  </div>
+
+  <h3>Reanimaci&#243;n en Shock &#8212; Los 4 Tipos</h3>
+  <div class="table-wrap"><div class="table-caption">Tipos de shock y estrategia h&#237;drica espec&#237;fica</div>
+  <table><thead><tr><th>Tipo de shock</th><th>GC</th><th>RVS</th><th>Fluidos</th><th>Vasopresores</th><th>Inotr&#243;picos</th></tr></thead>
+  <tbody>
+    <tr><td class="hl">Hipovol&#233;mico</td><td>&#8595;&#8595;</td><td>&#8593;&#8593;</td><td>Primera l&#237;nea: RL/PlasmaLyte &#8594; GRE si hemorr&#225;gico</td><td>Solo si fluidos insuficientes (norepinefrina puente)</td><td>No</td></tr>
+    <tr><td class="hl">Distributivo (sepsis, anafilaxia)</td><td>&#8593; o N</td><td>&#8595;&#8595;</td><td>Cristaloide balanceado 30 mL/kg en primera hora (sepsis) &#8212; evitar sobrecarga</td><td><strong>Primera l&#237;nea</strong>: norepinefrina 0.01&#8211;1 mcg/kg/min. Vasopresina 0.03 UI/min si requiere &gt;0.25 mcg/kg/min</td><td>Dobutamina si IC &lt;2.2 L/min/m&#178;</td></tr>
+    <tr><td class="hl">Cardiog&#233;nico</td><td>&#8595;&#8595;</td><td>&#8593;&#8593;</td><td>MUY restrictivo: solo si PVC &lt;8 y sin signos de congesti&#243;n</td><td>Norepinefrina para PAM</td><td><strong>Primera l&#237;nea</strong>: dobutamina, adrenalina, levosimend&#225;n. ECMO si refractario.</td></tr>
+    <tr><td class="hl">Obstructivo (TEP, taponamiento)</td><td>&#8595;&#8595;</td><td>&#8593;&#8593;</td><td>Moderado para mantener precarga del VD</td><td>Norepinefrina para soporte de PA</td><td>Solo si falla VD asociada. Tratar causa primero.</td></tr>
+  </tbody></table></div>
+
+  <h3>Modelo ROSE &#8212; 4 Fases de la Reanimaci&#243;n en Sepsis (Surviving Sepsis 2021)</h3>
+  <div class="two-col">
+    <div class="col-card"><div class="col-card-title">R &#8212; Resuscitation (0&#8211;6 h)</div><p>Reanimaci&#243;n aguda. Fluidos de emergencia (30 mL/kg cristaloide). Norepinefrina si PAM &lt;65. Hemocultivos + antibi&#243;ticos en primera hora.</p></div>
+    <div class="col-card"><div class="col-card-title">O &#8212; Optimization (6&#8211;24 h)</div><p>Balance neutro. Ajustar vasopresores seg&#250;n par&#225;metros din&#225;micos. Evaluar respuesta al volumen antes de cada bolo adicional.</p></div>
+    <div class="col-card"><div class="col-card-title">S &#8212; Stabilization (1&#8211;3 d&#237;as)</div><p>Sin nuevos fluidos. Eliminar exceso acumulado. Balance neutro a ligeramente negativo. Diu&#233;ticos si balance positivo &gt;+2 L.</p></div>
+    <div class="col-card"><div class="col-card-title">E &#8212; Evacuation (3&#8211;7 d&#237;as)</div><p>Balance negativo activo con diur&#233;ticos (furosemida). Descongesti&#243;n tisular. REVERSE-AKI 2023: desescalada temprana &#8594; &#8595; IRA, &#8595; VM prolongada.</p></div>
+  </div>
+</div>
+
+<hr class="divider">
+
+<!-- S10: COMPLICACIONES Y SITUACIONES ESPECIALES -->
+<div class="section">
+  <div class="section-header"><span class="section-number">SECCI&#211;N 10</span><span class="section-title">Complicaciones de la Fluidoterapia y Situaciones Especiales</span></div>
+  <div class="callout danger"><div class="callout-title">&#171;Fluid overload kills patients&#187; &#8212; Malbrain 2020</div><p>La sobrecarga h&#237;drica (balance positivo &gt;+10% del peso corporal) se asocia a &#8593; mortalidad en UCI, &#8593; IRA, &#8593; complicaciones de anastomosis, &#8593; infecciones de herida, &#8593; &#237;leo, &#8593; VM prolongada y &#8593; edema cerebral. El fluido IV es un F&#193;RMACO con efectos adversos dosis-dependientes.</p></div>
+  <div class="table-wrap"><div class="table-caption">Complicaciones de la fluidoterapia &#8212; mecanismo, factores de riesgo y manejo</div>
+  <table><thead><tr><th>Complicaci&#243;n</th><th>Mecanismo</th><th>Factores de riesgo</th><th>Prevenci&#243;n / Tratamiento</th></tr></thead>
+  <tbody>
+    <tr><td class="hl">Edema pulmonar</td><td>&#8593; Pc capilar pulmonar &#8594; filtraci&#243;n &gt; drenaje linf&#225;tico &#8594; &#8595; CRF &#8594; hipoxemia</td><td>IC, SDRA, hipoalbuminemia, sepsis, gran volumen de cristaloides</td><td>Balance neutro/negativo &#183; Furosemida IV &#183; PLR antes de cada bolo &#183; VMNI/CPAP si hipoxemia</td></tr>
+    <tr><td class="hl">Acidosis hiperclorh&#233;mica (AMHC)</td><td>&#8593; Cl&#8315; relativo &#8594; &#8595; SID (diferencia de iones fuertes) &#8594; &#8595; HCO&#8323;&#8315; &#8594; acidosis metab&#243;lica</td><td>SS 0.9% en grandes vol&#250;menes</td><td>Usar cristaloides balanceados &#183; Si ya presente: NaHCO&#8323; peque&#241;as dosis</td></tr>
+    <tr><td class="hl">IRA olig&#250;rica</td><td>Hipercloremia &#8594; vasoconstricci&#243;n renal aferente &#8594; &#8595; TFG. Edema intersticial renal.</td><td>SS vol&#250;menes altos, sepsis, cirug&#237;a abdominal mayor</td><td>Cristaloides balanceados &#183; GDT &#183; Monitoreo diuresis y Cr</td></tr>
+    <tr><td class="hl">Coagulopat&#237;a dilucional</td><td>Diluci&#243;n de factores de coagulaci&#243;n y plaquetas &#8594; TP&#8593;, TTPa&#8593;, fibrin&#243;geno&#8595;</td><td>Transfusi&#243;n masiva con cristaloides &#183; Cirug&#237;as &gt;4 h &#183; P&#233;rdidas &gt;1.5 L</td><td>Protocolo TM 1:1:1 &#183; TEG/ROTEM &#183; Fibrin&#243;geno concentrado &#183; TXA</td></tr>
+    <tr><td class="hl">Edema cerebral / &#8593; PIC</td><td>Hiponatremia dilucional (DAD5% o hipot&#243;nicas) &#8594; agua entra al intracelular &#8594; edema astrocit&#237;co</td><td>DAD5% excesivo &#183; Neurotrauma &#183; Paciente pedi&#225;trico</td><td>Cristaloides isot&#243;nicos &#183; Monitoreo Na&#8314; &#183; SS hipert&#243;nico si edema cerebral</td></tr>
+    <tr><td class="hl">S&#237;ndrome compartimental abdominal</td><td>PIA &gt;20 mmHg + nueva disfunci&#243;n org&#225;nica. Edema visceral masivo &#8594; compresi&#243;n renal, diafragm&#225;tica, vascular.</td><td>Reanimaci&#243;n agresiva (&gt;6&#8211;10 L) &#183; Trauma &#183; Peritonitis &#183; Pancreatitis</td><td>Medici&#243;n de PIA (sonda vesical) &#183; Descompresi&#243;n si PIA &gt;20 + fallo org&#225;nico</td></tr>
+  </tbody></table></div>
+
+  <h3>Situaciones Especiales Perioperatorias</h3>
+  <div class="table-wrap"><div class="table-caption">Manejo de fluidos en situaciones cl&#237;nicas especiales</div>
+  <table><thead><tr><th>Situaci&#243;n</th><th>Problema h&#237;drico espec&#237;fico</th><th>Estrategia de fluidos</th></tr></thead>
+  <tbody>
+    <tr><td class="hl">Neurocirug&#237;a / TCE</td><td>&#8593; PIC por hiperhidrataci&#243;n &#183; Hiponatremia agrava edema cerebral</td><td>SS 0.9% O SS hipert&#243;nico (NO RL &#8594; ligeramente hipot&#243;nico &#8594; &#8593; edema). Meta Na&#8314; 135&#8211;150. PAM &#8805;70 para PPC. SS 3% o manitol para &#8595; PIC.</td></tr>
+    <tr><td class="hl">Ces&#225;rea electiva bajo espinal</td><td>Hipotesi&#243;n en 70&#8211;80% &#183; S&#237;ndrome aortocavo &#183; Riesgo edema pulmonar en preeclampsia</td><td>Cocarga cristaloide balanceado 500&#8211;1000 mL + fenilefrina infusi&#243;n preventiva. En preeclampsia: restricci&#243;n h&#237;drica estricta (1&#8211;1.5 mL/kg/h).</td></tr>
+    <tr><td class="hl">Quemaduras (&gt;20% SCT)</td><td>P&#233;rdida masiva de plasma a trav&#233;s de la piel y al tercer espacio</td><td>F&#243;rmula Parkland: 4 mL/kg &#215; %SCT de RL en 24 h (50% en primeras 8 h, 50% en siguientes 16 h). Actualizaci&#243;n 2023: 2 mL/kg/%SCT para evitar sobrecarga. Coloides a las 8&#8211;12 h.</td></tr>
+    <tr><td class="hl">Hepatectom&#237;a mayor</td><td>PVC baja &#8594; &#8595; sangrado del par&#233;nquima hep&#225;tico durante resec&#227;o</td><td>T&#233;cnica &#171;low CVP&#187;: PVC &lt;5 cmH&#8322;O durante resec&#227;o &#8594; &#8595; sangrado venoso. Luego reposici&#243;n posresec&#227;o con RL/alb&#250;mina.</td></tr>
+    <tr><td class="hl">Trasplante renal</td><td>Ri&#241;&#243;n requiere perfusi&#243;n adecuada al reperfundir para evitar NTA. Hiperkalemia del receptor.</td><td>PlasmaLyte A (sin K&#8314;). Meta PAM &#8805;70 + PVC 10&#8211;15 cmH&#8322;O al desclampe. Furosemida 40&#8211;80 mg + manitol 0.25&#8211;0.5 g/kg al reperfundir.</td></tr>
+    <tr><td class="hl">Laparoscopia</td><td>&#8593; PIA por CO&#8322; &#8594; &#8595; retorno venoso y GC. Posici&#243;n de Trendelenburg.</td><td>Cristaloide balanceado restrictivo 1&#8211;2 mL/kg/h. Vasopresores para hipotesi&#243;n posicional antes de fluidos.</td></tr>
+  </tbody></table></div>
+</div>
+
+</div><!-- /content -->
+<footer>
+  <div><div class="footer-name">Dr. Andr&#233;s Robayo C.</div><div class="footer-title">M&#233;dico Anestesi&#243;logo &#183; Hospital de Kennedy &#183; Hospital de Bosa &#183; Subred Suroccidente &#183; Material de uso acad&#233;mico</div></div>
+  <div class="footer-copy">&#169; Dr. Andr&#233;s Robayo C. &#183; Todos los derechos reservados<br>Reproducci&#243;n permitida exclusivamente con fines educativos y con atribuci&#243;n al autor.</div>
+</footer>
+</div><!-- /teoria-tab -->
+
+<!-- TALLER TAB -->
+<div class="tab-content" id="taller-tab">
+<div class="taller-header">
+  <h2>Taller &#8212; <em>Manejo de L&#237;quidos en Anestesiolog&#237;a</em></h2>
+  <div class="taller-meta">Dr. Andr&#233;s Robayo C. &#183; 4 ejercicios &#183; 5.0 puntos totales &#183; Hospital de Kennedy</div>
+</div>
+<div class="taller-content">
+<div class="alert-yellow">&#9888; <strong>Instrucciones:</strong> El feedback de selecci&#243;n m&#250;ltiple aparece solo al oprimir &#171;Corregir Ejercicio&#187;. Las cajas &#225;mbar son preguntas abiertas calificadas por el docente. En los c&#225;lculos muestre todos los pasos con unidades.</div>
+
+<div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:15px;">
+  <div style="background:#e6f4f2;border:2px solid var(--teal);border-radius:8px;padding:10px 8px;text-align:center;"><div style="font-family:var(--mono);font-size:13pt;font-weight:600;color:var(--teal);">1.25 pts</div><div style="font-family:var(--sans);font-size:7.5pt;color:var(--gray-600);margin-top:3px;">Ejercicio 1<br>Distribuci&#243;n y selecci&#243;n</div></div>
+  <div style="background:#e6f4f2;border:2px solid var(--teal);border-radius:8px;padding:10px 8px;text-align:center;"><div style="font-family:var(--mono);font-size:13pt;font-weight:600;color:var(--teal);">1.25 pts</div><div style="font-family:var(--sans);font-size:7.5pt;color:var(--gray-600);margin-top:3px;">Ejercicio 2<br>PSP y transfusi&#243;n</div></div>
+  <div style="background:#e6f4f2;border:2px solid var(--teal);border-radius:8px;padding:10px 8px;text-align:center;"><div style="font-family:var(--mono);font-size:13pt;font-weight:600;color:var(--teal);">1.25 pts</div><div style="font-family:var(--sans);font-size:7.5pt;color:var(--gray-600);margin-top:3px;">Ejercicio 3<br>GDT y shock</div></div>
+  <div style="background:#e6f4f2;border:2px solid var(--teal);border-radius:8px;padding:10px 8px;text-align:center;"><div style="font-family:var(--mono);font-size:13pt;font-weight:600;color:var(--teal);">1.25 pts</div><div style="font-family:var(--sans);font-size:7.5pt;color:var(--gray-600);margin-top:3px;">Ejercicio 4<br>Complicaciones y casos especiales</div></div>
+</div>
+<div class="score-note">
+  <span style="font-family:var(--mono);font-size:16pt;font-weight:600;color:#7dd3c8;">5.0 pts</span>
+  <span style="font-family:var(--sans);font-size:9pt;color:rgba(255,255,255,.8);">Cada ejercicio combina selecci&#243;n m&#250;ltiple &#127744; autocorregible + c&#225;lculos + preguntas abiertas &#9999;&#65039; calificadas por docente.</span>
+</div>
+
+<!-- EJERCICIO 1 -->
+<div class="exercise">
+  <div class="exercise-header" style="background:var(--navy-mid);">
+    <span class="exercise-num">EJERCICIO 1</span>
+    <span class="exercise-title">Distribuci&#243;n de fluidos y selecci&#243;n del cristaloide &#8212; Gastrectom&#237;a en manga</span>
+    <span class="exercise-pts">1.25 pts</span>
+  </div>
+  <div class="exercise-body">
+    <div class="patient-card">
+      <div class="patient-title">Historia cl&#237;nica</div>
+      <div class="patient-grid">
+        <div class="patient-item"><span class="patient-label">Sexo / Edad</span><span class="patient-value">Masculino &#183; 42 a&#241;os</span></div>
+        <div class="patient-item"><span class="patient-label">Procedimiento</span><span class="patient-value">Gastrectom&#237;a en manga (laparosc&#243;pica)</span></div>
+        <div class="patient-item"><span class="patient-label">Peso / IMC</span><span class="patient-value">110 kg &#183; IMC 37</span></div>
+      </div>
+      <div class="patient-section">Laboratorios preoperatorios</div>
+      <ul class="patient-list">
+        <li>K&#8314;: <strong>5.7 mEq/L</strong> &#183; Na&#8314;: 138 mEq/L &#183; Creatinina: 0.9 mg/dL</li>
+        <li>Hb: 14.2 g/dL &#183; Hto: 43% &#183; pH: 7.39 &#183; Cl&#8315;: 104 mEq/L</li>
+        <li>L&#237;quidos claros hasta 2 h antes (protocolo ERAS). Cirug&#237;a estimada: 120 minutos.</li>
+      </ul>
+    </div>
+
+    <div class="question">
+      <div class="question-label"><span class="q-num">1&#183;P1</span> Selecci&#243;n del cristaloide basada en composici&#243;n <span class="q-pts-auto">&#127744; 0.20 pts</span></div>
+      <div class="mc-row"><span class="mc-label">&#191;Qu&#233; cristaloide est&#225; contraindicado por el K&#8314; = 5.7 mEq/L?</span>
+        <select class="mc-select" onchange="chk(this,'Ringer Lactato &#8212; contiene 4 mEq/L de K&#8314;, contraindicado en hiperkalemia >5.5 mEq/L','fb1p1')">
+          <option value="">&#8212; elegir &#8212;</option>
+          <option>SS 0.9% &#8212; tiene alto contenido de Cl&#8315;</option>
+          <option>Ringer Lactato &#8212; contiene 4 mEq/L de K&#8314;, contraindicado en hiperkalemia >5.5 mEq/L</option>
+          <option>PlasmaLyte A &#8212; tiene Mg&#178;&#8314; que empeora la hiperkalemia</option>
+          <option>DAD 5% &#8212; la glucosa eleva el K&#8314; s&#233;rico</option>
+        </select>
+        <span class="fb" id="fb1p1"></span>
+      </div>
+      <div class="mc-row"><span class="mc-label">&#191;Cu&#225;l es el fluido de elecci&#243;n para este paciente?</span>
+        <select class="mc-select" onchange="chk(this,'PlasmaLyte A &#8212; balanceado, sin K&#8314;, sin Ca&#178;&#8314;, pH 7.4, compatible con hemoderivados','fb1p2')">
+          <option value="">&#8212; elegir &#8212;</option>
+          <option>SS 0.9% &#8212; el &#250;nico sin contraindicaciones en este caso</option>
+          <option>PlasmaLyte A &#8212; balanceado, sin K&#8314;, sin Ca&#178;&#8314;, pH 7.4, compatible con hemoderivados</option>
+          <option>Alb&#250;mina 5% &#8212; el mejor expansor de volumen disponible</option>
+          <option>DAD 5% &#8212; necesita glucosa por el ayuno</option>
+        </select>
+        <span class="fb" id="fb1p2"></span>
+      </div>
+    </div>
+
+    <div class="question">
+      <div class="question-label"><span class="q-num">1&#183;P2</span> Volumen de mantenimiento intraoperatorio (ERAS) <span class="q-pts-auto">&#127744; 0.20 pts</span></div>
+      <div class="answer-line">Tasa ERAS 1.5 mL/kg/h &#215; <input class="ans-input ans-sm" inputmode="decimal" placeholder="kg"> kg &#215; <input class="ans-input ans-sm" inputmode="decimal" placeholder="h"> h = <input class="ans-input ans-md" inputmode="decimal" placeholder="? mL"> mL</div>
+      <div class="mc-row"><span class="mc-label">Volumen correcto de mantenimiento (120 min, 110 kg):</span>
+        <select class="mc-select" onchange="chk(this,'330 mL (1.5 mL/kg/h x 110 kg x 2 h)','fb1p3')">
+          <option value="">&#8212; elegir &#8212;</option>
+          <option>110 mL (1 mL/kg x 110 kg x 1 h)</option>
+          <option>330 mL (1.5 mL/kg/h x 110 kg x 2 h)</option>
+          <option>880 mL (4 mL/kg/h x 110 kg x 2 h &#8212; f&#243;rmula cl&#225;sica)</option>
+          <option>1320 mL (6 mL/kg/h x 110 kg x 2 h)</option>
+        </select>
+        <span class="fb" id="fb1p3"></span>
+      </div>
+    </div>
+
+    <div class="question">
+      <div class="question-label"><span class="q-num">1&#183;P3</span> Distribuci&#243;n intravascular de 500 mL de PlasmaLyte A <span class="q-pts-auto">&#127744; 0.20 pts</span></div>
+      <div class="mc-row"><span class="mc-label">&#191;Cu&#225;ntos mL permanecen en el espacio intravascular a los 30 min?</span>
+        <select class="mc-select" onchange="chk(this,'~125 mL (25%) &#8212; el 75% restante (375 mL) va al espacio intersticial','fb1p4')">
+          <option value="">&#8212; elegir &#8212;</option>
+          <option>~400 mL (80%) &#8212; igual que un coloide</option>
+          <option>~250 mL (50%) &#8212; la mitad permanece intravascular</option>
+          <option>~125 mL (25%) &#8212; el 75% restante (375 mL) va al espacio intersticial</option>
+          <option>~500 mL (100%) &#8212; todo permanece si se da r&#225;pido</option>
+        </select>
+        <span class="fb" id="fb1p4"></span>
+      </div>
+    </div>
+
+    <div class="question">
+      <div class="question-label"><span class="q-num">1&#183;P4</span> Respuesta al volumen e hipotesi&#243;n &#8212; Razonamiento cl&#237;nico <span class="q-pts-manual">&#9999;&#65039; 0.65 pts &#183; docente</span></div>
+      <div class="manual-block">
+        <div class="manual-block-label">&#9999;&#65039; Calificaci&#243;n docente &#8212; 0.65 pts</div>
+        <div class="open-question-part"><span class="open-question-part-letter">a</span><span>A los 45 min de cirug&#237;a la PA cae a 82/50 mmHg, FC 92 lpm, SVV 10%, GC 4.8 L/min (FloTrac). &#191;Esta hipotesi&#243;n requiere un bolo de fluidos? Justifique usando los par&#225;metros din&#225;micos disponibles y proponga el tratamiento correcto con nombre del f&#225;rmaco y dosis.</span></div>
+        <div class="open-question-part"><span class="open-question-part-letter">b</span><span>&#191;Por qu&#233; el concepto de &#171;reponer el d&#233;ficit de ayuno de 8 horas&#187; ya no se recomienda seg&#250;n las gu&#237;as ERAS 2023? &#191;Cu&#225;l es la excepci&#243;n en la que s&#237; est&#225; justificado hacerlo?</span></div>
+        <textarea class="open-area" style="min-height:108px;" placeholder="Escriba su respuesta aqu&#237;..."></textarea>
+      </div>
+      <button class="correct-btn" onclick="corregir('E1',4,['fb1p1','fb1p2','fb1p3','fb1p4'],0.6)">Corregir Ejercicio 1 &#8212; Selecci&#243;n m&#250;ltiple (0.60 pts autocorregibles)</button>
+      <div style="font-family:var(--sans);font-size:8pt;color:var(--gray-400);margin-top:6px;font-style:italic;">Pregunta 1&#183;P4 calificada por el docente (0.65 pts) &#8594; Total Ejercicio 1: 1.25 pts</div>
+    </div>
+  </div>
+</div>
+
+<!-- EJERCICIO 2 -->
+<div class="exercise">
+  <div class="exercise-header" style="background:#166534;">
+    <span class="exercise-num">EJERCICIO 2</span>
+    <span class="exercise-title">PSP, Transfusi&#243;n y Manejo del Sangrado &#8212; Cirug&#237;a de columna lumbar</span>
+    <span class="exercise-pts">1.25 pts</span>
+  </div>
+  <div class="exercise-body">
+    <div class="patient-card">
+      <div class="patient-title">Historia cl&#237;nica</div>
+      <div class="patient-grid">
+        <div class="patient-item"><span class="patient-label">Sexo / Edad</span><span class="patient-value">Femenino &#183; 64 a&#241;os</span></div>
+        <div class="patient-item"><span class="patient-label">Procedimiento</span><span class="patient-value">Fusi&#243;n lumbar L3&#8211;S1 con instrumentaci&#243;n</span></div>
+        <div class="patient-item"><span class="patient-label">Peso</span><span class="patient-value">68 kg &#183; Sin cardiopat&#237;a</span></div>
+      </div>
+      <div class="patient-section">Laboratorios</div>
+      <ul class="patient-list">
+        <li>Hb: <strong>11.0 g/dL</strong> &#183; Hto: <strong>33%</strong> &#183; Plaquetas: 190,000/&#956;L</li>
+        <li>TP: 13.0 s (INR 1.0) &#183; Fibrin&#243;geno: 310 mg/dL &#183; Creatinina: 0.9 mg/dL</li>
+      </ul>
+    </div>
+
+    <div class="question">
+      <div class="question-label"><span class="q-num">2&#183;P1</span> C&#225;lculo del VSE y la P&#233;rdida Sangu&#237;nea Permisible (PSP) <span class="q-pts-auto">&#127744; 0.30 pts</span></div>
+      <div class="answer-line">VSE (mujer 65 mL/kg): <input class="ans-input ans-sm" inputmode="decimal" placeholder="65"> &#215; <input class="ans-input ans-sm" inputmode="decimal" placeholder="68"> = <input class="ans-input ans-md" inputmode="decimal" placeholder="? mL"> mL</div>
+      <div class="answer-line">Hto promedio = (33 + <input class="ans-input ans-sm" inputmode="decimal" placeholder="Hto m&#237;n">)/2 = <input class="ans-input ans-sm" inputmode="decimal" placeholder="?"> %</div>
+      <div class="answer-line">PSP = VSE &#215; (33 &#8722; <input class="ans-input ans-sm" inputmode="decimal" placeholder="Hto m&#237;n">) / <input class="ans-input ans-sm" inputmode="decimal" placeholder="prom"> = <input class="ans-input ans-md" inputmode="decimal" placeholder="? mL"> mL</div>
+      <div class="mc-row"><span class="mc-label">VSE correcto (68 kg, mujer):</span>
+        <select class="mc-select" onchange="chk(this,'4420 mL (65 mL/kg x 68 kg)','fb2p1')">
+          <option value="">&#8212; elegir &#8212;</option>
+          <option>4760 mL (70 mL/kg x 68 kg)</option>
+          <option>4420 mL (65 mL/kg x 68 kg)</option>
+          <option>5100 mL (75 mL/kg x 68 kg)</option>
+          <option>3400 mL (50 mL/kg x 68 kg)</option>
+        </select>
+        <span class="fb" id="fb2p1"></span>
+      </div>
+      <div class="mc-row"><span class="mc-label">PSP correcta (Hto m&#237;nimo 24%, Hto promedio 28.5%):</span>
+        <select class="mc-select" onchange="chk(this,'~1390 mL &#8212; PSP = 4420 x (33-24)/28.5','fb2p2')">
+          <option value="">&#8212; elegir &#8212;</option>
+          <option>~800 mL &#8212; solo p&#233;rdida hasta Hb 10 g/dL</option>
+          <option>~1390 mL &#8212; PSP = 4420 x (33-24)/28.5</option>
+          <option>~2200 mL &#8212; PSP = 50% del VSE</option>
+          <option>~600 mL &#8212; margen muy conservador</option>
+        </select>
+        <span class="fb" id="fb2p2"></span>
+      </div>
+    </div>
+
+    <div class="question">
+      <div class="question-label"><span class="q-num">2&#183;P2</span> Reposici&#243;n del sangrado con cristaloide (ratio 3:1) <span class="q-pts-auto">&#127744; 0.15 pts</span></div>
+      <div class="ex-context">A los 90 minutos el sangrado acumulado es <strong>700 mL</strong>. Se repone con cristaloide balanceado (ratio 3:1).</div>
+      <div class="answer-line">Volumen cristaloide = <input class="ans-input ans-sm" inputmode="decimal" placeholder="700"> &#215; <input class="ans-input ans-sm" inputmode="decimal" placeholder="3"> = <input class="ans-input ans-md" inputmode="decimal" placeholder="? mL"> mL</div>
+      <div class="mc-row"><span class="mc-label">Volumen de cristaloide correcto para 700 mL de sangre:</span>
+        <select class="mc-select" onchange="chk(this,'2100 mL de cristaloide balanceado (ratio 3:1)','fb2p3')">
+          <option value="">&#8212; elegir &#8212;</option>
+          <option>700 mL &#8212; reposici&#243;n 1:1</option>
+          <option>1400 mL &#8212; ratio 2:1</option>
+          <option>2100 mL de cristaloide balanceado (ratio 3:1)</option>
+          <option>350 mL &#8212; ratio 0.5:1 con coloide</option>
+        </select>
+        <span class="fb" id="fb2p3"></span>
+      </div>
+    </div>
+
+    <div class="question">
+      <div class="question-label"><span class="q-num">2&#183;P3</span> Umbral de transfusi&#243;n <span class="q-pts-auto">&#127744; 0.15 pts</span></div>
+      <div class="ex-context">La p&#233;rdida total llega a <strong>1500 mL</strong> (supera la PSP). Hb intraoperatoria: <strong>6.4 g/dL</strong>.</div>
+      <div class="mc-row"><span class="mc-label">&#191;Est&#225; indicada la transfusi&#243;n? Seg&#250;n ASA 2021:</span>
+        <select class="mc-select" onchange="chk(this,'S&#237; &#8212; Hb <7 g/dL en paciente sano indica transfusi&#243;n de GRE (umbral ASA 2021)','fb2p4')">
+          <option value="">&#8212; elegir &#8212;</option>
+          <option>No &#8212; es una cirug&#237;a electiva y la paciente est&#225; compensada</option>
+          <option>S&#237; &#8212; Hb <7 g/dL en paciente sano indica transfusi&#243;n de GRE (umbral ASA 2021)</option>
+          <option>Solo si la FC supera 120 lpm o hay hipotesi&#243;n</option>
+          <option>El umbral es Hb <8 g/dL para cualquier adulto</option>
+        </select>
+        <span class="fb" id="fb2p4"></span>
+      </div>
+    </div>
+
+    <div class="question">
+      <div class="question-label"><span class="q-num">2&#183;P4</span> &#193;cido tranex&#225;mico y manejo de coagulopat&#237;a <span class="q-pts-manual">&#9999;&#65039; 0.65 pts &#183; docente</span></div>
+      <div class="manual-block">
+        <div class="manual-block-label">&#9999;&#65039; Calificaci&#243;n docente &#8212; 0.65 pts</div>
+        <div class="open-question-part"><span class="open-question-part-letter">a</span><span>&#191;Cu&#225;ndo debi&#243; administrarse el &#225;cido tranex&#225;mico en esta cirug&#237;a, cu&#225;l es la dosis, y cu&#225;l es su mecanismo de acci&#243;n antihemorr&#225;gico?</span></div>
+        <div class="open-question-part"><span class="open-question-part-letter">b</span><span>Tras transfundir 2 unidades de GRE, el laboratorio muestra: TP 19 s, fibrin&#243;geno 95 mg/dL, plaquetas 58,000/&#956;L. &#191;Cu&#225;les hemoderivados adicionales indica, con qu&#233; dosis, y qu&#233; herramienta de punto de cuidado (POC) usar&#237;a para guiar la decisi&#243;n en tiempo real?</span></div>
+        <textarea class="open-area" style="min-height:108px;" placeholder="Escriba su respuesta aqu&#237;..."></textarea>
+      </div>
+      <button class="correct-btn" onclick="corregir('E2',4,['fb2p1','fb2p2','fb2p3','fb2p4'],0.6)">Corregir Ejercicio 2 &#8212; Selecci&#243;n m&#250;ltiple (0.60 pts autocorregibles)</button>
+      <div style="font-family:var(--sans);font-size:8pt;color:var(--gray-400);margin-top:6px;font-style:italic;">Pregunta 2&#183;P4 calificada por el docente (0.65 pts) &#8594; Total Ejercicio 2: 1.25 pts</div>
+    </div>
+  </div>
+</div>
+
+<!-- EJERCICIO 3 -->
+<div class="exercise">
+  <div class="exercise-header" style="background:var(--red);">
+    <span class="exercise-num">EJERCICIO 3</span>
+    <span class="exercise-title">Respuesta al volumen y GDT &#8212; Hipotesi&#243;n intraoperatoria en pancreatectom&#237;a (Whipple)</span>
+    <span class="exercise-pts">1.25 pts</span>
+  </div>
+  <div class="exercise-body">
+    <div class="patient-card">
+      <div class="patient-title">Historia cl&#237;nica</div>
+      <div class="patient-grid">
+        <div class="patient-item"><span class="patient-label">Sexo / Edad</span><span class="patient-value">Femenino &#183; 71 a&#241;os</span></div>
+        <div class="patient-item"><span class="patient-label">Procedimiento</span><span class="patient-value">Whipple (pancreatoduodenectom&#237;a)</span></div>
+        <div class="patient-item"><span class="patient-label">Peso</span><span class="patient-value">62 kg &#183; ASA III</span></div>
+      </div>
+      <div class="patient-section">Situaci&#243;n a las 2 horas de cirug&#237;a</div>
+      <ul class="patient-list">
+        <li>PA: <strong>75/45 mmHg</strong> &#183; FC: <strong>118 lpm</strong> &#183; SatO&#8322;: 95%</li>
+        <li>Monitor FloTrac: GC: <strong>2.8 L/min</strong> &#183; IC: <strong>1.7 L/min/m&#178;</strong> &#183; SVV: <strong>24%</strong> &#183; VPP: <strong>28%</strong></li>
+        <li>Diuresis &#250;ltima hora: <strong>12 mL</strong> &#183; Lactato: <strong>2.9 mEq/L</strong></li>
+        <li>Ha recibido 1800 mL de PlasmaLyte A en las 2 h previas &#183; Hb: 9.2 g/dL</li>
+      </ul>
+    </div>
+
+    <div class="question">
+      <div class="question-label"><span class="q-num">3&#183;P1</span> Interpretaci&#243;n hemodin&#225;mica &#8212; &#191;Qu&#233; tipo de shock? <span class="q-pts-auto">&#127744; 0.25 pts</span></div>
+      <div class="mc-row"><span class="mc-label">Clasifique el tipo de shock seg&#250;n GC, SVV y VPP:</span>
+        <select class="mc-select" onchange="chk(this,'Shock hipovol&#233;mico &#8212; GC baja + IC baja + SVV 24% + VPP 28% (ambos &gt;13%): respondedor evidente al volumen','fb3p1')">
+          <option value="">&#8212; elegir &#8212;</option>
+          <option>Shock distributivo &#8212; GC bajo y vasodilataci&#243;n</option>
+          <option>Shock hipovol&#233;mico &#8212; GC baja + IC baja + SVV 24% + VPP 28% (ambos &gt;13%): respondedor evidente al volumen</option>
+          <option>Shock cardiog&#233;nico &#8212; GC baja con RVS elevada</option>
+          <option>Shock obstructivo &#8212; presi&#243;n diferencial reducida</option>
+        </select>
+        <span class="fb" id="fb3p1"></span>
+      </div>
+      <div class="mc-row"><span class="mc-label">&#191;Se debe administrar un bolo de fluidos?</span>
+        <select class="mc-select" onchange="chk(this,'S&#237; &#8212; SVV y VPP ambos &gt;13% confirman que es respondedor al volumen: bolo inmediato est&#225; indicado','fb3p2')">
+          <option value="">&#8212; elegir &#8212;</option>
+          <option>No &#8212; la paciente ya recibi&#243; 1800 mL, no se deben dar m&#225;s fluidos</option>
+          <option>S&#237; &#8212; SVV y VPP ambos &gt;13% confirman que es respondedor al volumen: bolo inmediato est&#225; indicado</option>
+          <option>Primero hacer PLR para confirmar antes de cualquier decisi&#243;n</option>
+          <option>No &#8212; usar vasopresores primero, los fluidos son peligrosos</option>
+        </select>
+        <span class="fb" id="fb3p2"></span>
+      </div>
+    </div>
+
+    <div class="question">
+      <div class="question-label"><span class="q-num">3&#183;P2</span> Evaluaci&#243;n del lactato y aclaramiento <span class="q-pts-auto">&#127744; 0.20 pts</span></div>
+      <div class="mc-row"><span class="mc-label">Lactato 2.9 mEq/L &#8212; interpretaci&#243;n correcta:</span>
+        <select class="mc-select" onchange="chk(this,'Hipoperfusi&#243;n tisular global &#8212; lactato &gt;2 mEq/L indica metabolismo anaer&#243;bico; requiere tratamiento de la causa y monitoreo de aclaramiento','fb3p3')">
+          <option value="">&#8212; elegir &#8212;</option>
+          <option>Normal &#8212; el lactato puede estar elevado por estr&#233;s quir&#250;rgico sin implicaci&#243;n cl&#237;nica</option>
+          <option>Hipoperfusi&#243;n tisular global &#8212; lactato &gt;2 mEq/L indica metabolismo anaer&#243;bico; requiere tratamiento de la causa y monitoreo de aclaramiento</option>
+          <option>Sepsis establecida &#8212; lactato &gt;2 mEq/L siempre indica infecci&#243;n</option>
+          <option>Falla hep&#225;tica &#8212; el h&#237;gado no metaboliza el lactato intraoperatoriamente</option>
+        </select>
+        <span class="fb" id="fb3p3"></span>
+      </div>
+      <div class="mc-row"><span class="mc-label">&#191;Cu&#225;l es el criterio de aclaramiento de lactato que indica respuesta al tratamiento?</span>
+        <select class="mc-select" onchange="chk(this,'Reducci&#243;n mayor o igual al 10% del lactato en 2 horas respecto al valor basal','fb3p4')">
+          <option value="">&#8212; elegir &#8212;</option>
+          <option>Lactato menor o igual a 1 mEq/L en la siguiente gasometr&#237;a</option>
+          <option>Reducci&#243;n mayor o igual al 10% del lactato en 2 horas respecto al valor basal</option>
+          <option>Reducci&#243;n mayor o igual al 50% del lactato en 6 horas</option>
+          <option>Cualquier descenso del lactato sin criterio porcentual definido</option>
+        </select>
+        <span class="fb" id="fb3p4"></span>
+      </div>
+    </div>
+
+    <div class="question">
+      <div class="question-label"><span class="q-num">3&#183;P3</span> Plan de manejo inmediato &#8212; Razonamiento integrado <span class="q-pts-manual">&#9999;&#65039; 0.80 pts &#183; docente</span></div>
+      <div class="manual-block">
+        <div class="manual-block-label">&#9999;&#65039; Calificaci&#243;n docente &#8212; 0.80 pts</div>
+        <div class="open-question-part"><span class="open-question-part-letter">a</span><span>Dise&#241;e el plan de tratamiento de los pr&#243;ximos 15 minutos: qu&#233; fluido, cu&#225;nto, a qu&#233; velocidad, y si agregar&#237;a vasopresores o inotropicos simult&#225;neamente. Especifique nombre del f&#225;rmaco, dosis inicial y meta hemodin&#225;mica para reevaluar.</span></div>
+        <div class="open-question-part"><span class="open-question-part-letter">b</span><span>Despu&#233;s del bolo, el GC sube a 3.8 L/min pero la PA solo mejora a 88/58 mmHg con SVV 8%. &#191;Qu&#233; interpreta y qu&#233; ajuste hace? &#191;Cu&#225;l es la causa residual m&#225;s probable de hipotesi&#243;n?</span></div>
+        <div class="open-question-part"><span class="open-question-part-letter">c</span><span>&#191;Cu&#225;l debe ser el balance h&#237;drico meta al cierre de esta cirug&#237;a (Whipple) seg&#250;n las gu&#237;as ERAS 2023? &#191;Por qu&#233; es importante no excederlo en cirug&#237;a abdominal mayor?</span></div>
+        <textarea class="open-area" style="min-height:118px;" placeholder="Escriba su respuesta aqu&#237;..."></textarea>
+      </div>
+      <button class="correct-btn" onclick="corregir('E3',4,['fb3p1','fb3p2','fb3p3','fb3p4'],0.45)">Corregir Ejercicio 3 &#8212; Selecci&#243;n m&#250;ltiple (0.45 pts autocorregibles)</button>
+      <div style="font-family:var(--sans);font-size:8pt;color:var(--gray-400);margin-top:6px;font-style:italic;">Pregunta 3&#183;P3 calificada por el docente (0.80 pts) &#8594; Total Ejercicio 3: 1.25 pts</div>
+    </div>
+  </div>
+</div>
+
+<!-- EJERCICIO 4 -->
+<div class="exercise">
+  <div class="exercise-header" style="background:var(--purple);">
+    <span class="exercise-num">EJERCICIO 4</span>
+    <span class="exercise-title">Complicaciones de la fluidoterapia y casos especiales &#8212; Neurocirug&#237;a y quemados</span>
+    <span class="exercise-pts">1.25 pts</span>
+  </div>
+  <div class="exercise-body">
+    <div style="font-family:var(--sans);font-size:9pt;font-weight:600;color:var(--navy);margin-bottom:10px;padding:8px 12px;background:var(--gray-50);border-radius:5px;border:1px solid var(--border);">Dos casos independientes &#8212; Responda ambos</div>
+
+    <!-- CASO A -->
+    <div style="border:1.5px solid var(--indigo);border-radius:6px;padding:11px 13px;margin-bottom:13px;">
+      <div style="font-family:var(--sans);font-size:8pt;font-weight:700;color:var(--indigo);text-transform:uppercase;letter-spacing:.06em;margin-bottom:8px;">CASO A &#8212; Neurocirug&#237;a &#183; TCE grave</div>
+      <div class="patient-card" style="margin-bottom:10px;">
+        <div class="patient-grid">
+          <div class="patient-item"><span class="patient-label">Sexo / Edad</span><span class="patient-value">Masculino &#183; 33 a&#241;os</span></div>
+          <div class="patient-item"><span class="patient-label">Diagn&#243;stico</span><span class="patient-value">TCE grave GCS 7, hematoma epidural</span></div>
+          <div class="patient-item"><span class="patient-label">Laboratorio</span><span class="patient-value">Na&#8314; 136 &#183; PIC 30 mmHg &#183; PA 95/60</span></div>
+        </div>
+      </div>
+
+      <div class="question">
+        <div class="question-label"><span class="q-num">4A&#183;P1</span> Selecci&#243;n del cristaloide en TCE <span class="q-pts-auto">&#127744; 0.15 pts</span></div>
+        <div class="mc-row"><span class="mc-label">&#191;Por qu&#233; NO se usa Ringer Lactato en TCE?</span>
+          <select class="mc-select" onchange="chk(this,'RL es ligeramente hipot&#243;nico (273 mOsm/L) &#8594; puede agravar el edema cerebral por entrada de agua libre al intracelular neuronal','fb4ap1')">
+            <option value="">&#8212; elegir &#8212;</option>
+            <option>Porque contiene K&#8314; que empeora la hipertensi&#243;n intracraneal</option>
+            <option>RL es ligeramente hipot&#243;nico (273 mOsm/L) &#8594; puede agravar el edema cerebral por entrada de agua libre al intracelular neuronal</option>
+            <option>Porque el lactato se acumula en el cerebro lesionado</option>
+            <option>Porque el Ca&#178;&#8314; del RL activa cascadas de muerte neuronal</option>
+          </select>
+          <span class="fb" id="fb4ap1"></span>
+        </div>
+        <div class="mc-row"><span class="mc-label">Fluido de elecci&#243;n y meta de Na&#8314; en TCE:</span>
+          <select class="mc-select" onchange="chk(this,'SS 0.9% (isot&#243;nico) &#8212; meta Na&#8314; 135&#8211;150 mEq/L para evitar edema cerebral','fb4ap2')">
+            <option value="">&#8212; elegir &#8212;</option>
+            <option>PlasmaLyte A &#8212; es el m&#225;s fisiol&#243;gico</option>
+            <option>SS 0.9% (isot&#243;nico) &#8212; meta Na&#8314; 135&#8211;150 mEq/L para evitar edema cerebral</option>
+            <option>DAD 5% &#8212; provee glucosa para las neuronas</option>
+            <option>SS 0.45% &#8212; para hidrataci&#243;n suave sin sobrecargar</option>
+          </select>
+          <span class="fb" id="fb4ap2"></span>
+        </div>
+      </div>
+
+      <div class="question">
+        <div class="question-label"><span class="q-num">4A&#183;P2</span> Agentes osm&#243;ticos para reducir la PIC &#8212; Comparaci&#243;n <span class="q-pts-manual">&#9999;&#65039; 0.30 pts &#183; docente</span></div>
+        <div class="manual-block">
+          <div class="manual-block-label">&#9999;&#65039; Calificaci&#243;n docente &#8212; 0.30 pts</div>
+          <div class="open-question">Compare Manitol 20% y SS hipert&#243;nico 3%: mecanismo de acci&#243;n, dosis, duraci&#243;n del efecto y en cu&#225;l situaci&#243;n cl&#237;nica espec&#237;fica prefiere cada uno.</div>
+          <textarea class="open-area" style="min-height:78px;" placeholder="Escriba su respuesta aqu&#237;..."></textarea>
+        </div>
+      </div>
+    </div>
+
+    <!-- CASO B -->
+    <div style="border:1.5px solid var(--amber);border-radius:6px;padding:11px 13px;margin-bottom:13px;">
+      <div style="font-family:var(--sans);font-size:8pt;font-weight:700;color:var(--amber);text-transform:uppercase;letter-spacing:.06em;margin-bottom:8px;">CASO B &#8212; Quemaduras &#183; F&#243;rmula de Parkland</div>
+      <div class="patient-card" style="margin-bottom:10px;">
+        <div class="patient-grid">
+          <div class="patient-item"><span class="patient-label">Sexo / Edad</span><span class="patient-value">Femenino &#183; 28 a&#241;os</span></div>
+          <div class="patient-item"><span class="patient-label">Diagn&#243;stico</span><span class="patient-value">Quemaduras 2&#176;&#8211;3&#176; grado, 40% SCT</span></div>
+          <div class="patient-item"><span class="patient-label">Peso</span><span class="patient-value">58 kg &#183; Ingresa 1 h post-accidente</span></div>
+        </div>
+      </div>
+
+      <div class="question">
+        <div class="question-label"><span class="q-num">4B&#183;P1</span> C&#225;lculo de la f&#243;rmula de Parkland <span class="q-pts-auto">&#127744; 0.25 pts</span></div>
+        <div class="answer-line">Parkland cl&#225;sico: 4 mL &#215; <input class="ans-input ans-sm" inputmode="decimal" placeholder="kg"> &#215; <input class="ans-input ans-sm" inputmode="decimal" placeholder="%SCT"> = <input class="ans-input ans-md" inputmode="decimal" placeholder="? mL 24h"> mL en 24 h</div>
+        <div class="answer-line">Primeras 8 h desde quemadura (50%): <input class="ans-input ans-md" inputmode="decimal" placeholder="? mL"> mL &#183; Siguientes 16 h: <input class="ans-input ans-md" inputmode="decimal" placeholder="? mL"> mL</div>
+        <div class="mc-row"><span class="mc-label">Volumen total Parkland cl&#225;sico (58 kg, 40% SCT):</span>
+          <select class="mc-select" onchange="chk(this,'9280 mL en 24 h &#8212; 4 mL x 58 kg x 40% SCT','fb4bp1')">
+            <option value="">&#8212; elegir &#8212;</option>
+            <option>4640 mL &#8212; 2 mL x 58 kg x 40%</option>
+            <option>9280 mL en 24 h &#8212; 4 mL x 58 kg x 40% SCT</option>
+            <option>6960 mL &#8212; 3 mL x 58 kg x 40%</option>
+            <option>11600 mL &#8212; 5 mL x 58 kg x 40%</option>
+          </select>
+          <span class="fb" id="fb4bp1"></span>
+        </div>
+        <div class="mc-row"><span class="mc-label">Volumen para las primeras 8 h desde la quemadura (50%):</span>
+          <select class="mc-select" onchange="chk(this,'4640 mL en las primeras 8 h desde el accidente (ya pas&#243; 1 h: quedan 7 h para dar esos 4640 mL)','fb4bp2')">
+            <option value="">&#8212; elegir &#8212;</option>
+            <option>2320 mL (25% del total)</option>
+            <option>4640 mL en las primeras 8 h desde el accidente (ya pas&#243; 1 h: quedan 7 h para dar esos 4640 mL)</option>
+            <option>9280 mL (todo en las primeras 8 h)</option>
+            <option>3088 mL (un tercio del total)</option>
+          </select>
+          <span class="fb" id="fb4bp2"></span>
+        </div>
+      </div>
+
+      <div class="question">
+        <div class="question-label"><span class="q-num">4B&#183;P2</span> Actualizaci&#243;n 2023 y complicaciones de Parkland <span class="q-pts-manual">&#9999;&#65039; 0.55 pts &#183; docente</span></div>
+        <div class="manual-block">
+          <div class="manual-block-label">&#9999;&#65039; Calificaci&#243;n docente &#8212; 0.55 pts</div>
+          <div class="open-question-part"><span class="open-question-part-letter">a</span><span>&#191;Por qu&#233; la actualizaci&#243;n 2023 recomienda usar 2 mL/kg/%SCT en lugar de 4 mL/kg/%SCT? &#191;Qu&#233; complicaci&#243;n espec&#237;fica se reduce con esta modificaci&#243;n?</span></div>
+          <div class="open-question-part"><span class="open-question-part-letter">b</span><span>&#191;Qu&#233; par&#225;metro cl&#237;nico simple se usa para ajustar la velocidad de infusi&#243;n en tiempo real durante la reanimaci&#243;n del quemado? &#191;A partir de qu&#233; momento se pueden introducir coloides y cu&#225;l es el objetivo?</span></div>
+          <textarea class="open-area" style="min-height:90px;" placeholder="Escriba su respuesta aqu&#237;..."></textarea>
+        </div>
+      </div>
+    </div>
+
+    <button class="correct-btn" onclick="corregir('E4',6,['fb4ap1','fb4ap2','fb4bp1','fb4bp2'],0.55)">Corregir Ejercicio 4 &#8212; Selecci&#243;n m&#250;ltiple (0.55 pts autocorregibles)</button>
+    <div style="font-family:var(--sans);font-size:8pt;color:var(--gray-400);margin-top:6px;font-style:italic;">Preguntas 4A&#183;P2 y 4B&#183;P2 calificadas por el docente (0.70 pts) &#8594; Total Ejercicio 4: 1.25 pts</div>
+  </div>
+</div>
+
+<div class="download-box">
+  <h3>&#8600; Descargar Taller</h3>
+  <p style="font-family:var(--sans);font-size:9pt;color:#212529;margin-bottom:11px;">Complete su nombre y universidad antes de descargar.</p>
+  <div class="input-row">
+    <input class="id-input" id="nomL" type="text" placeholder="Nombre completo del estudiante">
+    <input class="id-input" id="univL" type="text" placeholder="Universidad / Instituci&#243;n">
+    <button class="dl-btn" onclick="dlPDF()">&#8595; Descargar PDF</button>
+  </div>
+  <div class="dl-error" id="errL">&#9888; Por favor complete nombre y universidad antes de descargar.</div>
+</div>
+<div class="nota-bar">
+  <span class="nota-bar-label">Nota acumulada</span>
+  <span class="nota-bar-val" id="notaLiq">0.00 / 2.10</span>
+  <span style="font-family:var(--sans);font-size:8.5pt;color:var(--gray-600);">Autocorregible (Ejercicios 1&#8211;4) &nbsp;|&nbsp; <span style="color:var(--amber);font-weight:600;">&#9999;&#65039; 2.90 pts &#183; Preguntas abiertas calificadas por docente</span></span>
+</div>
+</div>
+</div><!-- /taller-tab -->
+
+</div><!-- /page -->
+
+<script>
+function showTab(id,btn){
+  document.querySelectorAll('.tab-content').forEach(t=>t.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+  document.getElementById(id+'-tab').classList.add('active');
+  btn.classList.add('active');
+}
+function setDesign(d,btn){
+  document.querySelector('.page').dataset.design=d;
+  document.querySelectorAll('.ds-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+}
+function togglePalette(){document.getElementById('palettePanel').classList.toggle('open');}
+function setPalette(p,el){
+  var pg=document.querySelector('.page');
+  pg.dataset.palette=(p==='oceano'?'':p);
+  document.querySelectorAll('.palette-opt').forEach(o=>o.classList.remove('sel'));
+  el.classList.add('sel');
+  document.getElementById('palettePanel').classList.remove('open');
+}
+document.addEventListener('click',function(e){
+  if(!e.target.closest('.palette-btn')&&!e.target.closest('.palette-panel'))
+    document.getElementById('palettePanel').classList.remove('open');
+});
+var answers={};
+function chk(sel,correct,fbId){
+  answers[fbId]={val:sel.value.trim(),correct:correct.trim()};
+  var fb=document.getElementById(fbId);
+  if(fb){fb.textContent='';fb.className='fb';}
+}
+var pts={E1:0,E2:0,E3:0,E4:0};
+function corregir(ex,total,fbIds,maxPts){
+  var ok=0;
+  fbIds.forEach(function(fbId){
+    var fb=document.getElementById(fbId);
+    var ans=answers[fbId];
+    if(!fb)return;
+    if(!ans||!ans.val){fb.textContent='&#8212; sin respuesta';fb.className='fb';return;}
+    var correct=ans.val===ans.correct;
+    if(correct){ok++;fb.textContent='&#10003; correcto';fb.className='fb ok';}
+    else{fb.textContent='&#10007; incorrecto';fb.className='fb err';}
+  });
+  var p=(ok/total)*maxPts;
+  pts[ex]=p;
+  actualizarNotas();
+  alert(ex+' corregido: '+ok+'/'+total+' correctas = '+p.toFixed(2)+' pts autocorregibles');
+}
+function actualizarNotas(){
+  var total=(pts.E1||0)+(pts.E2||0)+(pts.E3||0)+(pts.E4||0);
+  var nt=document.getElementById('notaLiq');
+  if(nt)nt.textContent=total.toFixed(2)+' / 2.10';
+}
+function setupPrintAnswers(){
+  document.querySelectorAll('textarea.open-area').forEach(function(ta){
+    var clone=ta.nextElementSibling;
+    if(!clone||!clone.classList.contains('print-answer')){
+      clone=document.createElement('div');
+      clone.className='print-answer';
+      ta.parentNode.insertBefore(clone,ta.nextSibling);
+    }
+    ta.addEventListener('input',function(){clone.textContent=ta.value;});
+  });
+}
+document.addEventListener('DOMContentLoaded',setupPrintAnswers);
+window.addEventListener('beforeprint',function(){
+  document.querySelectorAll('textarea.open-area').forEach(function(ta){
+    var clone=ta.nextElementSibling;
+    if(clone&&clone.classList.contains('print-answer'))clone.textContent=ta.value;
+  });
+});
+function dlPDF(){
+  var nom=document.getElementById('nomL').value.trim();
+  var univ=document.getElementById('univL').value.trim();
+  if(!nom||!univ){document.getElementById('errL').style.display='block';return;}
+  document.getElementById('errL').style.display='none';
+  var ahora=new Date();
+  var f=ahora.toLocaleDateString('es-CO',{day:'2-digit',month:'long',year:'numeric'})+' '+ahora.toLocaleTimeString('es-CO',{hour:'2-digit',minute:'2-digit'});
+  ['phNombre','pfNombre'].forEach(function(id){var el=document.getElementById(id);if(el)el.textContent=nom;});
+  ['phUniversidad','pfUniversidad'].forEach(function(id){var el=document.getElementById(id);if(el)el.textContent=univ;});
+  ['phGuia','pfGuia'].forEach(function(id){var el=document.getElementById(id);if(el)el.textContent='Taller &#8212; Manejo de L&#237;quidos en Anestesiolog&#237;a';});
+  ['phFecha','pfFecha'].forEach(function(id){var el=document.getElementById(id);if(el)el.textContent=f;});
+  document.querySelectorAll('.tab-content').forEach(t=>t.classList.remove('active'));
+  document.getElementById('taller-tab').classList.add('active');
+  setTimeout(function(){window.print();},300);
+}
+</script>
+</body>
+</html>

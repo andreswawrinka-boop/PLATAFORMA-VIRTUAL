@@ -1,0 +1,1365 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gases Arteriales en Anestesiología · Dr. Andrés Robayo</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&family=Nunito:wght@400;600;700;800&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#0f2744;--navy-mid:#1a3a5c;
+  --teal:#0d7a6e;--teal-light:#e6f4f2;
+  --amber:#b85c00;--amber-light:#fdf3e7;
+  --red:#991b1b;--red-light:#fef2f2;
+  --purple:#5b21b6;--purple-light:#ede9fe;
+  --green:#166534;--green-light:#dcfce7;
+  --gray-50:#f8f9fa;--gray-100:#f1f3f5;
+  --gray-400:#868e96;--gray-600:#495057;
+  --border:#dee2e6;
+  --serif:'Source Serif 4',Georgia,serif;
+  --sans:'DM Sans',system-ui,sans-serif;
+  --mono:'DM Mono',monospace;
+  /* originals for embedded components */
+  --azul-oscuro:#0B2545;--azul-medio:#1B4F8A;--azul-claro:#2E86C1;--azul-tenue:#D6EAF8;
+  --rojo:#C0392B;--rojo-tenue:#FADBD8;--verde:#1A7A4A;--verde-tenue:#D5F5E3;
+  --naranja:#D35400;--naranja-tenue:#FAE5D3;--gris-claro:#F4F6F7;--gris-borde:#D5D8DC;
+  --texto:#1C2833;--texto-suave:#566573;--blanco:#FFFFFF;
+  --amarillo-tenue:#FEF9E7;--lila-tenue:#F4ECF7;--lila:#7D3C98;
+}
+[data-design="B"] .cover{background:linear-gradient(135deg,#f0f9ff 0%,#e6f4f2 55%,#fdf3e7 100%) !important;border-bottom:4px solid var(--teal);}
+[data-design="B"] .cover h1{color:var(--navy) !important;}
+[data-design="B"] .tab-btn.active{background:var(--teal);}
+[data-design="B"] thead th{background:var(--teal);}
+[data-design="B"] body{background:#fafbfc;}
+[data-design="B"] .taller-header{background:linear-gradient(135deg,#0f2744,#0d7a6e) !important;}
+[data-palette="bosque"]{--navy:#1a3d2b;--navy-mid:#2d5a3d;--teal:#3a7d44;--teal-light:#e8f5e9;--amber:#8d6e1a;--amber-light:#fffde7;}
+[data-palette="atardecer"]{--navy:#4a1942;--navy-mid:#6b2d5e;--teal:#c0392b;--teal-light:#fde8e8;--amber:#e67e22;--amber-light:#fff3e0;}
+[data-palette="pizarra"]{--navy:#2d3748;--navy-mid:#4a5568;--teal:#4a90a4;--teal-light:#e6f3f8;--amber:#c09040;--amber-light:#fdf8ee;}
+[data-palette="cereza"]{--navy:#5c1a2e;--navy-mid:#7d2a42;--teal:#c0394f;--teal-light:#fde8ee;--amber:#d4822a;--amber-light:#fff3e6;}
+[data-palette="indigo"]{--navy:#1e2460;--navy-mid:#2d3580;--teal:#4a67d4;--teal-light:#eaedfa;--amber:#a05c00;--amber-light:#fff8e6;}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:var(--serif);font-size:10.5pt;color:#212529;background:white;line-height:1.75;}
+.page{max-width:860px;margin:0 auto;width:100%;}
+
+/* TABS */
+.tab-nav{display:flex;gap:0;border-bottom:2px solid var(--navy);position:sticky;top:0;z-index:100;background:white;}
+.tab-btn{font-family:var(--sans);font-size:8.5pt;font-weight:600;padding:11px 20px;border:none;background:var(--gray-100);color:var(--gray-600);cursor:pointer;letter-spacing:.06em;text-transform:uppercase;border-right:1px solid var(--border);transition:all .2s;}
+.tab-btn:hover{background:var(--teal-light);color:var(--teal);}
+.tab-btn.active{background:var(--navy);color:white;}
+.tab-content{display:none;width:100%;box-sizing:border-box;}
+.tab-content.active{display:block;width:100%;box-sizing:border-box;}
+
+/* PALETTE + DESIGN */
+.palette-btn{position:fixed;top:14px;right:18px;z-index:9999;background:var(--navy);color:white;border:none;border-radius:50%;width:40px;height:40px;font-size:18px;cursor:pointer;box-shadow:0 2px 12px rgba(0,0,0,.25);transition:transform .2s;}
+.palette-btn:hover{transform:scale(1.1);}
+.palette-panel{position:fixed;top:62px;right:18px;z-index:9998;background:white;border:1px solid var(--border);border-radius:10px;padding:14px;box-shadow:0 8px 32px rgba(0,0,0,.15);display:none;flex-direction:column;gap:8px;}
+.palette-panel.open{display:flex;}
+.palette-panel-title{font-family:var(--sans);font-size:8pt;color:var(--gray-400);letter-spacing:.1em;text-transform:uppercase;}
+.palette-options{display:grid;grid-template-columns:1fr 1fr;gap:6px;}
+.palette-opt{font-family:var(--sans);font-size:8.5pt;font-weight:500;padding:7px 12px;border-radius:6px;cursor:pointer;border:2px solid transparent;transition:all .15s;}
+.palette-opt:hover,.palette-opt.sel{border-color:var(--teal);}
+.po-oceano{background:#0f2744;color:white;}.po-bosque{background:#1a3d2b;color:white;}
+.po-atardecer{background:#4a1942;color:white;}.po-pizarra{background:#2d3748;color:white;}
+.po-cereza{background:#5c1a2e;color:white;}.po-indigo{background:#1e2460;color:white;}
+.design-switcher{position:fixed;top:60px;right:66px;z-index:9999;display:flex;flex-direction:column;gap:4px;}
+.ds-label{font-family:var(--sans);font-size:7pt;color:var(--gray-400);text-transform:uppercase;letter-spacing:.1em;text-align:center;}
+.ds-btns{display:flex;gap:4px;}
+.ds-btn{font-family:var(--sans);font-size:8pt;font-weight:600;padding:5px 9px;border:2px solid var(--border);border-radius:5px;cursor:pointer;background:white;color:var(--navy);transition:all .2s;}
+.ds-btn.active,.ds-btn:hover{background:var(--navy);color:white;border-color:var(--navy);}
+
+/* COVER */
+.cover{background:var(--navy);color:white;padding:50px 56px 42px;position:relative;overflow:hidden;}
+.cover::before{content:'';position:absolute;top:-80px;right:-80px;width:380px;height:380px;border-radius:50%;background:rgba(255,255,255,.03);}
+.cover::after{content:'';position:absolute;bottom:-50px;left:240px;width:220px;height:220px;border-radius:50%;background:rgba(255,255,255,.025);}
+.cover-tag{font-family:var(--sans);font-size:8pt;font-weight:500;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.5);margin-bottom:20px;}
+.cover h1{font-family:var(--serif);font-size:27pt;font-weight:600;line-height:1.15;color:white;margin-bottom:12px;max-width:570px;}
+.cover h1 span{color:#F06292;}
+.cover-subtitle{font-family:var(--sans);font-size:9.5pt;color:rgba(255,255,255,.6);margin-bottom:36px;font-weight:300;line-height:1.5;}
+.cover-meta{display:flex;gap:28px;padding-top:26px;border-top:1px solid rgba(255,255,255,.14);flex-wrap:wrap;}
+.cover-meta-label{font-family:var(--sans);font-size:7pt;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.4);display:block;margin-bottom:2px;}
+.cover-meta-value{font-family:var(--sans);font-size:9pt;color:rgba(255,255,255,.88);}
+.cover-rule{width:52px;height:3px;background:#F06292;margin-bottom:22px;border-radius:2px;}
+
+/* CONTENT WRAPPER */
+.contenedor{max-width:820px;margin:0 auto;padding:36px 56px 60px;box-sizing:border-box;}
+
+/* INDEX */
+.indice{background:white;border:1px solid var(--border);border-radius:10px;padding:28px 32px;margin-bottom:40px;}
+.indice h2{font-family:var(--sans);font-size:9pt;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--navy);margin-bottom:16px;border-bottom:2px solid var(--teal);padding-bottom:8px;}
+.indice ol{columns:2;column-gap:32px;padding-left:20px;}
+.indice li{font-family:var(--sans);font-size:8.5pt;color:var(--navy-mid);margin-bottom:6px;line-height:1.4;}
+.indice li a{color:var(--navy-mid);text-decoration:none;}
+.indice li a:hover{text-decoration:underline;}
+
+/* SECTIONS */
+.seccion{background:white;border-radius:10px;border:1px solid var(--border);margin-bottom:32px;overflow:hidden;}
+.seccion-header{background:var(--navy);color:white;padding:18px 28px;display:flex;align-items:center;gap:14px;}
+.seccion-numero{width:32px;height:32px;border-radius:50%;background:rgba(255,255,255,.2);display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:9pt;font-weight:700;flex-shrink:0;}
+.seccion-titulo{font-family:var(--serif);font-size:14pt;font-weight:600;}
+.seccion-body{padding:28px;}
+.subseccion{margin-bottom:28px;}
+.subseccion h3{font-family:var(--sans);font-size:8.5pt;font-weight:700;color:var(--navy-mid);text-transform:uppercase;letter-spacing:.8px;margin-bottom:12px;padding-bottom:6px;border-bottom:1.5px solid var(--teal-light);}
+p.parrafo{font-family:var(--sans);font-size:9.5pt;margin-bottom:12px;line-height:1.65;color:var(--gray-600);}
+
+/* TABLES */
+.tabla-wrap{overflow-x:auto;margin-bottom:16px;border-radius:6px;overflow:hidden;border:1px solid var(--border);}
+table{width:100%;border-collapse:collapse;font-family:var(--sans);font-size:9pt;}
+thead th{background:var(--navy);color:white;padding:9px 12px;text-align:left;font-weight:600;font-size:8.5pt;}
+tbody tr:nth-child(even){background:var(--gray-50);}
+tbody tr:hover{background:var(--teal-light);}
+tbody td{padding:8px 12px;border-bottom:1px solid var(--border);vertical-align:top;line-height:1.5;color:var(--gray-600);}
+tbody td:first-child{font-weight:600;color:var(--navy);}
+
+/* CALLOUTS */
+.caja{border-radius:8px;padding:14px 16px;margin-bottom:14px;border-left:4px solid;font-family:var(--sans);font-size:9.5pt;line-height:1.6;}
+.caja-alerta{background:var(--rojo-tenue);border-color:var(--rojo);}
+.caja-alerta strong{color:var(--rojo);}
+.caja-info{background:var(--azul-tenue);border-color:var(--azul-claro);}
+.caja-info strong{color:var(--azul-medio);}
+.caja-ok{background:var(--verde-tenue);border-color:var(--verde);}
+.caja-ok strong{color:var(--verde);}
+.caja-advertencia{background:var(--naranja-tenue);border-color:var(--naranja);}
+.caja-advertencia strong{color:var(--naranja);}
+.caja-evidencia{background:var(--amarillo-tenue);border-color:#F4D03F;}
+.caja-evidencia strong{color:#9A7D0A;}
+.caja-lila{background:var(--lila-tenue);border-color:var(--lila);}
+.caja-lila strong{color:var(--lila);}
+
+/* STEPS */
+.pasos{margin-bottom:16px;}
+.paso{display:flex;gap:14px;margin-bottom:12px;align-items:flex-start;}
+.paso-num{width:28px;height:28px;min-width:28px;border-radius:50%;background:var(--navy);color:white;font-family:var(--mono);font-size:9pt;font-weight:700;display:flex;align-items:center;justify-content:center;}
+.paso-texto{font-family:var(--sans);font-size:9.5pt;line-height:1.55;padding-top:4px;color:var(--gray-600);}
+
+/* FORMULA BOX */
+.formula-box{background:#EBF5FB;border:1.5px solid var(--azul-claro);border-radius:8px;padding:14px 18px;font-family:var(--mono);font-size:9pt;color:var(--navy);margin-bottom:14px;text-align:center;font-weight:600;line-height:1.8;}
+
+/* STEWART GRID */
+.stewart-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:16px;}
+.stewart-card{border-radius:8px;padding:16px;border:1px solid;text-align:center;}
+.sc-pco2{background:#EBF5FB;border-color:#2E86C1;}
+.sc-sid{background:#E9F7EF;border-color:#1E8449;}
+.sc-atot{background:#F4ECF7;border-color:#7D3C98;}
+.sc-nombre{font-family:var(--sans);font-size:13pt;font-weight:700;margin-bottom:6px;}
+.sc-pco2 .sc-nombre{color:#1A5276;}
+.sc-sid .sc-nombre{color:#145A32;}
+.sc-atot .sc-nombre{color:#4A235A;}
+.sc-desc{font-family:var(--sans);font-size:9pt;line-height:1.4;margin-bottom:8px;color:var(--gray-600);}
+.sc-efecto{font-family:var(--sans);font-size:9pt;font-weight:700;}
+.sc-pco2 .sc-efecto{color:#1A5276;}
+.sc-sid .sc-efecto{color:#145A32;}
+.sc-atot .sc-efecto{color:#4A235A;}
+
+/* PH SEMAPHORE */
+.semaforo{display:grid;grid-template-columns:repeat(5,1fr);border-radius:8px;overflow:hidden;border:1px solid var(--border);margin-bottom:16px;}
+.sem-cell{text-align:center;padding:12px 4px;border-right:1px solid var(--border);}
+.sem-cell:last-child{border-right:none;}
+.sem-val{font-family:var(--mono);font-size:9pt;font-weight:700;display:block;}
+.sem-lbl{font-family:var(--sans);font-size:8pt;display:block;margin-top:2px;}
+.sem-acid-grave{background:#FADBD8;}.sem-acid-grave .sem-val,.sem-acid-grave .sem-lbl{color:#922B21;}
+.sem-acid{background:#FDEBD0;}.sem-acid .sem-val,.sem-acid .sem-lbl{color:#784212;}
+.sem-normal{background:#D5F5E3;}.sem-normal .sem-val,.sem-normal .sem-lbl{color:#145A32;}
+.sem-alc{background:#D6EAF8;}.sem-alc .sem-val,.sem-alc .sem-lbl{color:#1A5276;}
+.sem-alc-grave{background:#D7BDE2;}.sem-alc-grave .sem-val,.sem-alc-grave .sem-lbl{color:#4A235A;}
+
+/* COMPENSATIONS */
+.comp-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:16px;}
+.comp-card{border-radius:8px;border:1px solid var(--border);overflow:hidden;}
+.comp-h{padding:9px 14px;font-family:var(--sans);font-size:9pt;font-weight:700;color:white;}
+.comp-acid-met{background:#C0392B;}.comp-alc-met{background:#2471A3;}
+.comp-acid-resp{background:#1E8449;}.comp-alc-resp{background:#7D3C98;}
+.comp-body{padding:12px 14px;background:white;}
+.comp-formula{font-family:var(--mono);font-size:9pt;font-weight:600;background:var(--gray-50);padding:5px 10px;border-radius:4px;margin-bottom:6px;display:block;}
+.comp-nota{font-family:var(--sans);font-size:9pt;color:var(--gray-600);line-height:1.4;}
+
+/* IV SOLUTIONS */
+.sol-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:16px;}
+.sol-card{border-radius:8px;padding:16px;border:1.5px solid;text-align:center;}
+.sol-ss{background:var(--rojo-tenue);border-color:var(--rojo);}
+.sol-rl{background:var(--amarillo-tenue);border-color:#D4AC0D;}
+.sol-pl{background:var(--verde-tenue);border-color:var(--verde);}
+.sol-nombre{font-family:var(--sans);font-size:10pt;font-weight:700;margin-bottom:8px;}
+.sol-ss .sol-nombre{color:var(--rojo);}.sol-rl .sol-nombre{color:#9A7D0A;}.sol-pl .sol-nombre{color:var(--verde);}
+.sol-dato{font-family:var(--mono);font-size:9pt;line-height:1.7;color:var(--gray-600);}
+.sol-efecto{margin-top:8px;font-family:var(--sans);font-size:9pt;font-weight:700;padding:3px 10px;border-radius:12px;display:inline-block;}
+.sol-ss .sol-efecto{background:var(--rojo-tenue);color:var(--rojo);border:1px solid var(--rojo);}
+.sol-rl .sol-efecto{background:var(--amarillo-tenue);color:#9A7D0A;border:1px solid #D4AC0D;}
+.sol-pl .sol-efecto{background:var(--verde-tenue);color:var(--verde);border:1px solid var(--verde);}
+
+/* ALTITUDE */
+.altitud-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:16px;}
+.altitud-card{border-radius:8px;border:1px solid var(--border);overflow:hidden;}
+.altitud-h{background:#17202A;color:white;padding:10px 14px;font-family:var(--sans);font-size:9pt;font-weight:700;}
+.altitud-body{padding:12px 14px;}
+.altitud-row{display:flex;justify-content:space-between;font-family:var(--sans);font-size:9pt;padding:5px 0;border-bottom:1px solid var(--border);gap:8px;}
+.altitud-row:last-child{border-bottom:none;}
+.alt-lbl{color:var(--gray-600);flex:1;}
+.alt-mar{font-weight:600;color:var(--navy);text-align:right;}
+.alt-bog{font-weight:700;color:var(--rojo);text-align:right;}
+
+/* PARAM CARDS */
+.param-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(185px,1fr));gap:10px;margin-bottom:16px;}
+.param-card{border-radius:8px;border:1px solid var(--border);padding:14px;text-align:center;background:white;}
+.pc-nombre{font-family:var(--sans);font-size:8pt;color:var(--gray-400);font-weight:600;text-transform:uppercase;letter-spacing:.5px;display:block;margin-bottom:5px;}
+.pc-valor{font-family:var(--mono);font-size:17pt;font-weight:700;color:var(--navy);display:block;margin-bottom:4px;}
+.pc-desc{font-family:var(--sans);font-size:8.5pt;color:var(--gray-600);line-height:1.4;display:block;}
+
+/* CLINICAL CASES */
+.caso{background:var(--gray-50);border-left:5px solid var(--teal);border-radius:0 8px 8px 0;padding:18px 20px;margin-bottom:20px;}
+.caso-titulo{font-family:var(--sans);font-size:9pt;font-weight:700;color:var(--navy);margin-bottom:12px;text-transform:uppercase;letter-spacing:.5px;}
+.caso-datos{display:grid;grid-template-columns:repeat(auto-fit,minmax(100px,1fr));gap:8px;margin-bottom:14px;}
+.caso-dato{background:white;border-radius:6px;padding:8px 10px;border:1px solid var(--border);text-align:center;}
+.cd-param{font-family:var(--sans);font-size:8pt;color:var(--gray-400);display:block;}
+.cd-valor{font-family:var(--mono);font-size:16pt;font-weight:700;color:var(--navy);display:block;}
+.cd-unidad{font-family:var(--sans);font-size:8pt;color:var(--gray-400);display:block;}
+.caso-dato.anormal{border-color:var(--rojo);}
+.caso-dato.anormal .cd-valor{color:var(--rojo);}
+.caso-interp{font-family:var(--sans);font-size:9.5pt;line-height:1.6;margin-bottom:10px;color:var(--gray-600);}
+.caso-dx{padding:10px 14px;background:var(--verde-tenue);border-radius:6px;font-family:var(--sans);font-size:9.5pt;font-weight:700;color:var(--verde);border:1px solid var(--verde);}
+
+/* LIST ALERTS */
+.lista-alert{list-style:none;padding:0;background:white;border:1px solid var(--border);border-radius:8px;}
+.lista-alert li{font-family:var(--sans);padding:9px 14px;font-size:9.5pt;border-bottom:1px solid var(--border);display:flex;gap:10px;align-items:baseline;line-height:1.5;color:var(--gray-600);}
+.lista-alert li:last-child{border-bottom:none;}
+.tag{font-family:var(--mono);font-size:8pt;font-weight:700;padding:2px 8px;border-radius:20px;white-space:nowrap;flex-shrink:0;}
+.tag-ok{background:var(--verde-tenue);color:var(--verde);}
+.tag-ojo{background:var(--naranja-tenue);color:var(--naranja);}
+.tag-mal{background:var(--rojo-tenue);color:var(--rojo);}
+
+/* TALLER */
+.taller-header{background:var(--navy);color:white;padding:28px 56px 22px;}
+.taller-header h2{font-family:var(--serif);font-size:20pt;font-weight:300;color:white;margin-bottom:6px;}
+.taller-header h2 em{font-style:italic;color:#F06292;}
+.taller-meta{font-family:var(--sans);font-size:8.5pt;color:rgba(255,255,255,.55);}
+.taller-content{padding:28px 56px;width:100%;box-sizing:border-box;}
+.alert-yellow{background:#fffbeb;border:1.5px solid #f59e0b;border-radius:6px;padding:10px 16px;margin-bottom:20px;font-family:var(--sans);font-size:9pt;color:#78350f;}
+.module{border:1px solid var(--border);border-radius:8px;overflow:hidden;margin-bottom:22px;page-break-inside:avoid;width:100%;box-sizing:border-box;}
+.module-header{padding:11px 16px;display:flex;align-items:center;gap:12px;flex-wrap:wrap;}
+.module-tag{font-family:var(--mono);font-size:8pt;color:#F06292;font-weight:500;}
+.module-title{font-family:var(--sans);font-size:9.5pt;color:white;font-weight:500;flex:1;}
+.module-pts{font-family:var(--mono);font-size:8.5pt;color:white;background:rgba(255,255,255,.2);padding:3px 9px;border-radius:4px;border:1px solid rgba(255,255,255,.35);white-space:nowrap;}
+.module-body{padding:16px 18px;background:white;}
+.ex-item{margin-bottom:18px;padding-bottom:18px;border-bottom:1px dashed var(--border);}
+.ex-item:last-child{border-bottom:none;margin-bottom:0;padding-bottom:0;}
+.ex-label{font-family:var(--sans);font-size:9pt;font-weight:600;color:var(--navy-mid);margin-bottom:8px;display:flex;align-items:flex-start;gap:8px;flex-wrap:wrap;}
+.ex-num{font-family:var(--mono);font-size:7.5pt;color:white;background:var(--navy-mid);padding:2px 7px;border-radius:3px;flex-shrink:0;margin-top:1px;}
+.ex-pts-auto{font-family:var(--mono);font-size:7pt;color:white;background:var(--teal);padding:2px 6px;border-radius:3px;flex-shrink:0;margin-top:1px;}
+.ex-pts-manual{font-family:var(--mono);font-size:7pt;color:white;background:var(--amber);padding:2px 6px;border-radius:3px;flex-shrink:0;margin-top:1px;}
+.ex-context{font-family:var(--sans);font-size:9pt;color:var(--gray-600);background:var(--gray-50);border:1px solid var(--border);border-radius:5px;padding:8px 12px;margin-bottom:10px;line-height:1.55;}
+.ex-context strong{color:var(--navy);}
+.gas-vals{display:grid;grid-template-columns:repeat(auto-fit,minmax(90px,1fr));gap:6px;margin:8px 0;padding:10px;background:white;border:1px solid var(--border);border-radius:6px;}
+.gv-item{text-align:center;}
+.gv-param{font-family:var(--mono);font-size:7.5pt;color:var(--gray-400);display:block;}
+.gv-val{font-family:var(--mono);font-size:13pt;font-weight:700;color:var(--navy);display:block;}
+.gv-val.anormal{color:var(--rojo);}
+.gv-unit{font-family:var(--sans);font-size:7.5pt;color:var(--gray-400);display:block;}
+.mc-row{display:flex;align-items:center;gap:10px;margin:7px 0;font-family:var(--sans);font-size:9.5pt;flex-wrap:wrap;}
+.mc-label{font-weight:600;color:var(--navy-mid);min-width:200px;}
+select.mc-select{font-family:var(--sans);font-size:9pt;padding:5px 10px;border:1.5px solid var(--border);border-radius:5px;background:white;color:#212529;cursor:pointer;max-width:100%;}
+.fb{font-family:var(--sans);font-size:9pt;font-weight:600;margin-left:4px;}
+.fb.ok{color:var(--teal);}.fb.err{color:var(--red);}
+.manual-block{border:1.5px dashed var(--amber);border-radius:6px;background:var(--amber-light);padding:11px 14px;margin-top:10px;}
+.manual-block-label{font-family:var(--sans);font-size:7.5pt;font-weight:700;color:var(--amber);text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px;}
+.open-question{font-family:var(--sans);font-size:9.5pt;color:#212529;line-height:1.65;margin-bottom:8px;font-weight:500;}
+.open-question-part{font-family:var(--sans);font-size:9.5pt;color:var(--navy-mid);line-height:1.65;margin-bottom:6px;display:flex;gap:8px;}
+.open-question-part-letter{font-family:var(--mono);font-size:8.5pt;color:white;background:var(--navy-mid);padding:1px 6px;border-radius:3px;flex-shrink:0;margin-top:3px;height:fit-content;}
+.open-area{width:100%;min-height:80px;font-family:var(--sans);font-size:9.5pt;padding:8px 10px;border:1.5px solid var(--border);border-radius:5px;resize:vertical;color:#212529;line-height:1.6;}
+.open-area:focus{border-color:var(--amber);outline:none;}
+.correct-btn{font-family:var(--sans);font-size:8.5pt;font-weight:600;padding:7px 18px;background:var(--teal);color:white;border:none;border-radius:5px;cursor:pointer;margin-top:12px;transition:background .2s;}
+.correct-btn:hover{background:var(--navy);}
+.nota-bar{background:var(--teal-light);border:2px solid var(--teal);border-radius:8px;padding:14px 18px;margin-top:16px;display:flex;align-items:center;gap:20px;flex-wrap:wrap;}
+.nota-bar-label{font-family:var(--sans);font-size:9pt;font-weight:600;color:var(--teal);text-transform:uppercase;letter-spacing:.05em;}
+.nota-bar-val{font-family:var(--mono);font-size:20pt;font-weight:500;color:var(--navy);line-height:1;}
+.download-box{background:var(--teal-light);border:2px solid var(--teal);border-radius:8px;padding:20px 24px;margin:24px 0;}
+.download-box h3{color:var(--teal);font-family:var(--sans);font-size:10pt;margin-bottom:12px;}
+.input-row{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:10px;}
+.id-input{flex:1;min-width:200px;font-family:var(--sans);font-size:9.5pt;padding:9px 12px;border:1.5px solid var(--border);border-radius:5px;color:#212529;}
+.dl-btn{font-family:var(--sans);font-size:9pt;font-weight:600;padding:10px 22px;background:var(--navy);color:white;border:none;border-radius:5px;cursor:pointer;transition:background .2s;white-space:nowrap;}
+.dl-btn:hover{background:var(--teal);}
+.dl-error{color:var(--red);font-family:var(--sans);font-size:9pt;margin-top:6px;display:none;}
+
+footer{border-top:2px solid var(--navy);padding:18px 56px 24px;display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:14px;}
+.footer-name{font-family:var(--sans);font-size:9.5pt;font-weight:600;color:var(--navy);}
+.footer-title{font-family:var(--sans);font-size:8pt;color:var(--gray-400);}
+.footer-copy{font-family:var(--sans);font-size:7.5pt;color:var(--gray-400);text-align:right;line-height:1.5;}
+
+@media print{
+  .tab-nav,.palette-btn,.palette-panel,.design-switcher,.correct-btn,.download-box,.nota-bar{display:none !important;}
+  .tab-content{display:none !important;}
+  #taller-tab{display:block !important;}
+  body{font-size:10pt;}
+  .cover,.seccion-header,.module-header{-webkit-print-color-adjust:exact;print-color-adjust:exact;}
+  .module{page-break-inside:avoid;}
+  .taller-content{padding:20px 40px;}
+  .page-print-header{display:block !important;font-family:var(--sans);font-size:8pt;color:var(--gray-600);padding:8px 40px;border-bottom:1px solid var(--border);background:var(--gray-50);}
+  .print-footer-fixed{display:flex !important;position:fixed;bottom:0;left:0;right:0;background:var(--gray-50);border-top:1px solid var(--border);padding:5px 40px;font-family:var(--sans);font-size:7.5pt;color:var(--gray-600);justify-content:space-between;}
+  textarea.open-area{display:none !important;}
+  .print-answer{display:block !important;font-family:'DM Sans',system-ui,sans-serif;font-size:9.5pt;color:#212529;line-height:1.6;border:1.5px solid #dee2e6;border-radius:5px;padding:8px 12px;min-height:60px;overflow:visible !important;white-space:pre-wrap;word-break:break-word;page-break-inside:avoid;}
+  .print-answer:empty::after{content:'(sin respuesta)';color:#adb5bd;font-style:italic;}
+}
+@media screen{
+  .page-print-header{display:none;}
+  .print-footer-fixed{display:none;}
+  .print-answer{display:none !important;}
+}
+
+
+/* ══════════════════════════════════════════════════════════════
+   OVERRIDE · TEMA PORTAL ANESTESIOLOGÍA — GASES (ROSA/MAGENTA)
+   ══════════════════════════════════════════════════════════════ */
+:root{
+  --navy:#AD1457; --navy-mid:#D81B60;
+  --teal:#C2185B; --teal-light:#FCE4EC;
+  --serif:'Bebas Neue','DM Sans',sans-serif;
+  --sans:'DM Sans','Nunito',system-ui,sans-serif;
+  --hero-grad:linear-gradient(135deg,#3A0322,#AD1457,#D81B60);
+  --gold-grad:linear-gradient(90deg,#FFD54F,#FF9100,#FFEA00);
+  --gold:#FFD54F;
+}
+
+body{ background:#F6EAF0 !important; font-family:var(--sans); }
+.design-switcher,.palette-btn,.palette-panel{ display:none !important; }
+
+.page{ max-width:960px; margin:22px auto 60px; background:#fff; border-radius:22px;
+  box-shadow:0 8px 40px rgba(58,3,34,.12); overflow:hidden; border:1px solid rgba(0,0,0,.10); }
+.contenedor{ max-width:none; padding:42px 56px 56px; }
+
+/* ── TABS ── */
+.tab-nav{ gap:6px !important; border-bottom:1px solid rgba(0,0,0,.10) !important; background:rgba(255,255,255,.96) !important;
+  backdrop-filter:blur(14px); padding:10px 20px !important; box-shadow:0 1px 8px rgba(0,0,0,.06); }
+.tab-btn{ font-size:11.5px !important; font-weight:800 !important; padding:8px 16px !important; background:transparent !important;
+  color:#1E293B !important; border:none !important; border-right:none !important; border-radius:9px !important;
+  letter-spacing:.3px !important; transition:background .16s,color .16s,transform .12s !important; }
+.tab-btn:hover{ background:var(--navy) !important; color:#fff !important; transform:translateY(-1px); }
+.tab-btn.active{ background:var(--navy) !important; color:#fff !important; box-shadow:0 2px 8px rgba(173,20,87,.35); }
+
+/* ── HERO ── */
+.cover{ background:var(--hero-grad) !important; color:#fff !important; padding:52px 56px 44px !important;
+  position:relative; overflow:hidden; border-bottom:none !important; }
+.cover::before{ content:''; position:absolute; top:-80px; right:-80px; width:340px; height:340px;
+  border-radius:50%; background:rgba(255,255,255,.06); pointer-events:none; }
+.cover::after{ content:''; position:absolute; bottom:-60px; left:-60px; width:240px; height:240px;
+  border-radius:50%; background:rgba(255,255,255,.05); pointer-events:none; }
+.cover-tag{ position:relative; z-index:1; display:inline-flex; align-items:center; gap:8px;
+  background:rgba(255,255,255,.15); border:1px solid rgba(255,255,255,.4); border-radius:100px;
+  padding:6px 16px; font-family:var(--sans); font-size:10px; font-weight:700; letter-spacing:2px;
+  text-transform:uppercase; color:#fff !important; margin-bottom:22px; }
+.cover-rule{ display:none !important; }
+.cover h1{ font-family:'Bebas Neue',sans-serif !important; font-size:clamp(34px,5.5vw,54px) !important;
+  font-weight:400 !important; line-height:1.02 !important; color:#fff !important; letter-spacing:2px;
+  margin-bottom:14px !important; max-width:640px; position:relative; z-index:1; }
+.cover h1 span{ background:var(--gold-grad); -webkit-background-clip:text; -webkit-text-fill-color:transparent;
+  background-clip:text; color:transparent !important; }
+.cover-subtitle{ position:relative; z-index:1; font-family:var(--sans) !important; font-size:12.5px !important;
+  color:rgba(255,255,255,.85) !important; font-weight:500 !important; line-height:1.7 !important; max-width:620px; margin-bottom:34px !important; }
+.cover-meta{ position:relative; z-index:1; gap:12px !important; padding-top:0 !important; border-top:none !important; }
+.cover-meta > div{ background:rgba(255,255,255,.18); border:1px solid rgba(255,255,255,.35);
+  border-radius:12px; padding:9px 16px; }
+.cover-meta-label{ font-size:9px !important; letter-spacing:1.5px !important; color:rgba(255,255,255,.7) !important; font-weight:700 !important; }
+.cover-meta-value{ font-size:12px !important; color:#fff !important; font-weight:700 !important; }
+
+/* ── SECCIONES ── */
+.seccion{ border:1px solid rgba(0,0,0,.10); border-radius:16px; overflow:hidden; box-shadow:0 3px 14px rgba(0,0,0,.05); }
+.seccion-header{ background:linear-gradient(135deg,#AD1457,#D81B60) !important; padding:16px 26px !important; }
+.seccion-numero{ background:rgba(255,255,255,.24) !important; font-family:var(--mono); }
+.seccion-titulo{ font-family:'Bebas Neue',sans-serif !important; font-size:19pt !important; font-weight:400 !important; letter-spacing:1.2px; }
+
+/* ── TALLER ── */
+.taller-header{ background:var(--hero-grad) !important; }
+.taller-header h2{ font-family:'Bebas Neue',sans-serif !important; letter-spacing:2px; }
+.taller-header h2 em{ font-style:normal; background:var(--gold-grad); -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent; background-clip:text; color:transparent; }
+
+/* ── MÓDULOS ── */
+.module{ border-radius:16px !important; box-shadow:0 3px 14px rgba(0,0,0,.06); border:1px solid rgba(0,0,0,.14) !important; }
+.module-header{ background:linear-gradient(135deg,#AD1457,#D81B60) !important; }
+.module-tag{ color:var(--gold) !important; }
+.ex-num, .paso-num{ background:var(--navy) !important; border-radius:6px !important; }
+.ex-pts-auto{ background:var(--teal) !important; border-radius:6px !important; }
+
+/* ── BOTONES ── */
+.correct-btn,.dl-btn{ background:var(--navy) !important; border-radius:10px !important;
+  box-shadow:0 3px 12px rgba(173,20,87,.3); font-weight:800; }
+.correct-btn:hover,.dl-btn:hover{ background:var(--navy-mid) !important; }
+.nota-bar,.download-box{ border-color:var(--teal) !important; background:var(--teal-light) !important; border-radius:16px !important; }
+.nota-bar-label,.download-box h3{ color:var(--teal) !important; }
+.nota-bar-val{ color:var(--navy) !important; }
+
+@media(max-width:720px){
+  .page{ margin:0; border-radius:0; }
+  .contenedor{ padding:28px 22px 40px; }
+  .cover{ padding:36px 22px 30px !important; }
+}
+
+</style>
+</head>
+<body>
+<div class="page">
+<div class="page-print-header"><span id="phNombre"></span> · <span id="phUniversidad"></span> · <span id="phGuia"></span> · <span id="phFecha"></span></div>
+<div class="print-footer-fixed">
+  <span><strong id="pfNombre"></strong> · <span id="pfUniversidad"></span></span>
+  <span>Guía: <span id="pfGuia"></span> · Dr. Andrés Robayo C.</span>
+  <span id="pfFecha"></span>
+</div>
+
+<!-- TABS -->
+<div class="tab-nav">
+  <button class="tab-btn active" onclick="showTab('teoria',this)">📖 Teoría</button>
+  <button class="tab-btn" onclick="showTab('taller',this)">📝 Taller — 5.0 pts</button>
+</div>
+
+<!-- ═══════ TEORÍA ═══════ -->
+<div class="tab-content active" id="teoria-tab">
+<div class="cover">
+  <div class="cover-tag">Subred Suroccidente · Hospital de Kennedy · Hospital de Bosa</div>
+  <div class="cover-rule"></div>
+  <h1>Gases Arteriales en <span>Anestesiología</span></h1>
+  <p class="cover-subtitle">Interpretación sistemática del equilibrio ácido-base y la oxigenación. Enfoque dual Henderson-Hasselbalch y Stewart, adaptado a la práctica perioperatoria y a las condiciones de altitud de Bogotá (2.640 msnm). Basado en la evidencia más actual.</p>
+  <div class="cover-meta">
+    <div><span class="cover-meta-label">Autor y Docente</span><span class="cover-meta-value">Dr. Andrés Robayo C.<br>Especialista en Anestesiología</span></div>
+    <div><span class="cover-meta-label">Institución</span><span class="cover-meta-value">Hospital de Kennedy · Hospital de Bosa<br>Subred Suroccidente – Bogotá, Colombia</span></div>
+    <div><span class="cover-meta-label">Versión</span><span class="cover-meta-value">2025 · Guías Sepsis-3, ARDS Berlín,<br>SMART, ESICM 2022</span></div>
+    <div><span class="cover-meta-label">Dirigida a</span><span class="cover-meta-value">Estudiantes de medicina en<br>rotación por Anestesiología</span></div>
+  </div>
+</div>
+<div class="contenedor">
+
+  <!-- ÍNDICE -->
+  <div class="indice">
+    <h2>Contenido</h2>
+    <ol>
+      <li><a href="#s1">Valores de referencia normales</a></li>
+      <li><a href="#s2">Teoría de Henderson-Hasselbalch</a></li>
+      <li><a href="#s3">Teoría de Stewart</a></li>
+      <li><a href="#s4">Compensaciones esperadas</a></li>
+      <li><a href="#s5">Anión gap y gap delta-delta</a></li>
+      <li><a href="#s6">Base exceso y lactato arterial</a></li>
+      <li><a href="#s7">Oxigenación: PaFi, SaFi y gradiente A–a</a></li>
+      <li><a href="#s8">Soluciones IV y equilibrio ácido-base</a></li>
+      <li><a href="#s9">Gases arteriales en Bogotá (2.640 msnm)</a></li>
+      <li><a href="#s10">Algoritmo sistemático de interpretación</a></li>
+      <li><a href="#s11">Casos clínicos resueltos</a></li>
+      <li><a href="#s12">Consideraciones perioperatorias específicas</a></li>
+    </ol>
+  </div>
+
+  <!-- S1 -->
+  <div class="seccion" id="s1">
+    <div class="seccion-header"><div class="seccion-numero">1</div><div class="seccion-titulo">Valores de Referencia Normales</div></div>
+    <div class="seccion-body">
+      <div class="subseccion">
+        <h3>Parámetros estándar (nivel del mar)</h3>
+        <div class="param-grid">
+          <div class="param-card"><span class="pc-nombre">pH</span><span class="pc-valor">7.35 – 7.45</span><span class="pc-desc">Rango de vida compatible: 6.8 – 7.8</span></div>
+          <div class="param-card"><span class="pc-nombre">PaCO₂</span><span class="pc-valor">35 – 45 mmHg</span><span class="pc-desc">Variable respiratoria; controlada por ventilación alveolar</span></div>
+          <div class="param-card"><span class="pc-nombre">PaO₂</span><span class="pc-valor">80 – 100 mmHg</span><span class="pc-desc">Disminuye con la edad: PaO₂ ≈ 109 − (0.43 × edad)</span></div>
+          <div class="param-card"><span class="pc-nombre">HCO₃⁻</span><span class="pc-valor">22 – 26 mEq/L</span><span class="pc-desc">Calculado por el gasómetro; no medido directamente</span></div>
+          <div class="param-card"><span class="pc-nombre">SaO₂</span><span class="pc-valor">95 – 100 %</span><span class="pc-desc">En Bogotá puede ser normal: 92–96%</span></div>
+          <div class="param-card"><span class="pc-nombre">Base Exceso (BE)</span><span class="pc-valor">−2 a +2 mEq/L</span><span class="pc-desc">Indicador puro del componente metabólico</span></div>
+          <div class="param-card"><span class="pc-nombre">Lactato</span><span class="pc-valor">0.5 – 1.6 mmol/L</span><span class="pc-desc">Marcador de hipoperfusión y metabolismo anaerobio</span></div>
+          <div class="param-card"><span class="pc-nombre">Anión Gap</span><span class="pc-valor">8 – 12 mEq/L</span><span class="pc-desc">Corregir por albúmina si &lt;3.5 g/dL</span></div>
+        </div>
+        <div class="semaforo">
+          <div class="sem-cell sem-acid-grave"><span class="sem-val">&lt;7.20</span><span class="sem-lbl">Acidosis grave</span></div>
+          <div class="sem-cell sem-acid"><span class="sem-val">7.20–7.35</span><span class="sem-lbl">Acidosis</span></div>
+          <div class="sem-cell sem-normal"><span class="sem-val">7.35–7.45</span><span class="sem-lbl">Normal</span></div>
+          <div class="sem-cell sem-alc"><span class="sem-val">7.45–7.60</span><span class="sem-lbl">Alcalosis</span></div>
+          <div class="sem-cell sem-alc-grave"><span class="sem-val">&gt;7.60</span><span class="sem-lbl">Alcalosis grave</span></div>
+        </div>
+        <div class="caja caja-evidencia"><strong>📚 Nota clave:</strong> El gasómetro calcula el HCO₃⁻ a partir de la ecuación de Henderson-Hasselbalch; no lo mide directamente. El HCO₃⁻ real más confiable se obtiene en el ionograma venoso. Compare siempre ambos para detectar errores de muestra o trastornos mixtos ocultos.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- S2 -->
+  <div class="seccion" id="s2">
+    <div class="seccion-header"><div class="seccion-numero">2</div><div class="seccion-titulo">Teoría de Henderson-Hasselbalch (Enfoque Clásico)</div></div>
+    <div class="seccion-body">
+      <p class="parrafo">Propuesta por Lawrence Henderson (1908) y refinada por Karl Hasselbalch (1916). Es el modelo tradicional, de uso clínico diario. Describe el equilibrio ácido-base mediante la relación entre el bicarbonato y el CO₂.</p>
+      <div class="formula-box">pH = 6.1 + log [ HCO₃⁻ / (0.03 × PaCO₂) ]</div>
+      <div class="subseccion">
+        <h3>Interpretación de la fórmula</h3>
+        <div class="tabla-wrap"><table>
+          <thead><tr><th>Variable</th><th>Cambio</th><th>Efecto sobre pH</th><th>Trastorno</th></tr></thead>
+          <tbody>
+            <tr><td>HCO₃⁻</td><td>↑ &gt;26 mEq/L</td><td>↑ pH</td><td>Alcalosis metabólica</td></tr>
+            <tr><td>HCO₃⁻</td><td>↓ &lt;22 mEq/L</td><td>↓ pH</td><td>Acidosis metabólica</td></tr>
+            <tr><td>PaCO₂</td><td>↑ &gt;45 mmHg</td><td>↓ pH</td><td>Acidosis respiratoria</td></tr>
+            <tr><td>PaCO₂</td><td>↓ &lt;35 mmHg</td><td>↑ pH</td><td>Alcalosis respiratoria</td></tr>
+          </tbody>
+        </table></div>
+      </div>
+      <div class="subseccion">
+        <h3>Análisis paso a paso (método HH)</h3>
+        <div class="pasos">
+          <div class="paso"><div class="paso-num">1</div><div class="paso-texto"><strong>pH:</strong> ¿Acidosis (&lt;7.35) o Alcalosis (&gt;7.45)? Define el trastorno primario.</div></div>
+          <div class="paso"><div class="paso-num">2</div><div class="paso-texto"><strong>PaCO₂:</strong> ¿Cambia en sentido opuesto al pH? → Trastorno respiratorio primario. ¿Mismo sentido? → Compensación respiratoria de trastorno metabólico.</div></div>
+          <div class="paso"><div class="paso-num">3</div><div class="paso-texto"><strong>HCO₃⁻:</strong> ¿Cambia en el mismo sentido del pH? → Componente metabólico primario. ¿Sentido opuesto? → Compensación metabólica de trastorno respiratorio.</div></div>
+          <div class="paso"><div class="paso-num">4</div><div class="paso-texto"><strong>Compensación:</strong> Use las fórmulas de la Sección 4. Si la compensación es mayor o menor de lo esperado → trastorno mixto.</div></div>
+          <div class="paso"><div class="paso-num">5</div><div class="paso-texto"><strong>Anión gap y BE:</strong> Confirme el componente metabólico. Clasifique la acidosis metabólica (AG alto vs. normal).</div></div>
+        </div>
+      </div>
+      <div class="caja caja-advertencia"><strong>⚠ Limitación importante:</strong> El modelo HH trata el HCO₃⁻ como variable independiente cuando fisicoquímicamente es dependiente. No explica la acidosis hiperclorémica por SS 0.9% ni el efecto de la albúmina sobre el pH. Para estas situaciones, incorpore la teoría de Stewart.</div>
+    </div>
+  </div>
+
+  <!-- S3 -->
+  <div class="seccion" id="s3">
+    <div class="seccion-header"><div class="seccion-numero">3</div><div class="seccion-titulo">Teoría de Stewart (Fisicoquímica Cuantitativa)</div></div>
+    <div class="seccion-body">
+      <p class="parrafo">Peter Stewart (fisiólogo canadiense, 1981) demostró que el pH depende de tres variables verdaderamente independientes. El bicarbonato y el pH son variables dependientes que cambian como consecuencia de estas tres.</p>
+      <div class="stewart-grid">
+        <div class="stewart-card sc-pco2">
+          <div class="sc-nombre">pCO₂</div>
+          <div class="sc-desc">Determina la cantidad de H₂CO₃ (ácido volátil). Controlada exclusivamente por la ventilación alveolar.</div>
+          <div class="sc-efecto">↑ pCO₂ → Acidosis · ↓ pCO₂ → Alcalosis</div>
+        </div>
+        <div class="stewart-card sc-sid">
+          <div class="sc-nombre">SID</div>
+          <div class="sc-desc">Strong Ion Difference. Diferencia entre cationes y aniones fuertes. Normal: 38–42 mEq/L. SIDa = Na⁺ − Cl⁻ (normal 36–40).</div>
+          <div class="sc-efecto">↓ SID → Acidosis · ↑ SID → Alcalosis</div>
+        </div>
+        <div class="stewart-card sc-atot">
+          <div class="sc-nombre">Atot</div>
+          <div class="sc-desc">Ácidos débiles no volátiles: albúmina y fosfatos. Atot ≈ (2.5 × albúmina g/dL) + (0.6 × fósforo mg/dL). Normal: 17–20 mEq/L.</div>
+          <div class="sc-efecto">↑ Atot → Acidosis · ↓ Atot → Alcalosis</div>
+        </div>
+      </div>
+
+      <div class="subseccion">
+        <h3>SID – Strong Ion Difference</h3>
+        <div class="formula-box">
+          SID completo = (Na⁺ + K⁺ + Ca²⁺ + Mg²⁺) − (Cl⁻ + lactato⁻ + otros aniones fuertes)<br>
+          SIDa simplificado = Na⁺ − Cl⁻ &nbsp;|&nbsp; Normal: 36–40 mEq/L
+        </div>
+        <div class="tabla-wrap"><table>
+          <thead><tr><th>Condición</th><th>Causa Común</th><th>Efecto pH</th><th>Mecanismo</th></tr></thead>
+          <tbody>
+            <tr><td>SID bajo (&lt;36)</td><td>SS 0.9% en grandes volúmenes, diarrea, sepsis</td><td>↓ pH → Acidosis metabólica</td><td>↑ Cl⁻ → ↓ SID → ↑ H⁺</td></tr>
+            <tr><td>SID alto (&gt;40)</td><td>Vómitos, diuréticos de asa, pérdidas gástricas</td><td>↑ pH → Alcalosis metabólica</td><td>↓ Cl⁻ → ↑ SID → ↓ H⁺</td></tr>
+            <tr><td>SID con lactato ↑</td><td>Shock, hipoxia, falla hepática</td><td>↓ pH → Acidosis láctica</td><td>Lactato⁻ reduce el SID efectivo</td></tr>
+          </tbody>
+        </table></div>
+      </div>
+
+      <div class="subseccion">
+        <h3>Atot – Ácidos débiles no volátiles</h3>
+        <div class="formula-box">Atot estimado ≈ (2.5 × albúmina en g/dL) + (0.6 × fósforo en mg/dL)</div>
+        <div class="tabla-wrap"><table>
+          <thead><tr><th>Condición</th><th>Causa Clínica</th><th>Efecto pH</th><th>Importancia en Anestesia</th></tr></thead>
+          <tbody>
+            <tr><td>Atot bajo (hipoalbuminemia)</td><td>Sepsis, cirrosis, desnutrición, hemodilución, quemaduras</td><td>↑ pH → Alcalosis metabólica relativa oculta</td><td>Enmascara acidosis coexistente; muy frecuente en cirugía mayor y UCI</td></tr>
+            <tr><td>Atot alto (hiperfosfatemia)</td><td>Insuficiencia renal aguda o crónica</td><td>↓ pH → Acidosis metabólica</td><td>Puede no detectarse con el modelo HH clásico</td></tr>
+          </tbody>
+        </table></div>
+        <div class="caja caja-lila"><strong>🔬 Concepto clave de Stewart:</strong> Un paciente con albúmina 2.0 g/dL y gases "normales" tiene en realidad una alcalosis metabólica oculta. Si además tiene acidosis láctica leve, el pH puede verse falsamente normal. La teoría de Stewart revela este trastorno mixto invisible al modelo clásico. Especialmente relevante en cirugía hepática, grandes quemados y pacientes sépticos.</div>
+      </div>
+
+      <div class="subseccion">
+        <h3>Stewart vs. Henderson-Hasselbalch – Comparación</h3>
+        <div class="tabla-wrap"><table>
+          <thead><tr><th>Característica</th><th>Henderson-Hasselbalch</th><th>Stewart</th></tr></thead>
+          <tbody>
+            <tr><td>Enfoque</td><td>Bioquímico / clínico tradicional</td><td>Fisicoquímico cuantitativo</td></tr>
+            <tr><td>Variables independientes</td><td>HCO₃⁻ y pCO₂ (tratadas como independientes)</td><td>pCO₂, SID y Atot (únicas variables independientes verdaderas)</td></tr>
+            <tr><td>Trata el HCO₃⁻ como</td><td>Variable independiente (conceptualmente incorrecto)</td><td>Variable dependiente (fisicoquímicamente correcto)</td></tr>
+            <tr><td>Detecta acidosis hiperclorémica</td><td>Sí (AG normal), pero no explica el mecanismo</td><td>Sí, y explica el mecanismo (↓ SID por ↑ Cl⁻)</td></tr>
+            <tr><td>Detecta efecto de albúmina</td><td>No (limitación mayor)</td><td>Sí, mediante Atot</td></tr>
+            <tr><td>Utilidad clínica</td><td>Análisis rápido; situaciones simples y urgentes</td><td>Trastornos mixtos, UCI, cirugía mayor, grandes quemados</td></tr>
+          </tbody>
+        </table></div>
+        <div class="caja caja-ok"><strong>✔ Conclusión práctica:</strong> Ambas teorías se complementan. Use Henderson-Hasselbalch para interpretación rápida. Incorpore Stewart cuando los gases "no cuadren", en pacientes con hipoalbuminemia, en UCI, o tras reanimación con grandes volúmenes de cristaloides.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- S4 -->
+  <div class="seccion" id="s4">
+    <div class="seccion-header"><div class="seccion-numero">4</div><div class="seccion-titulo">Compensaciones Esperadas</div></div>
+    <div class="seccion-body">
+      <p class="parrafo">Toda compensación busca mantener estable la relación HCO₃⁻/CO₂. Una compensación dentro del rango esperado confirma trastorno simple. Una compensación inadecuada revela un segundo trastorno primario superpuesto.</p>
+      <div class="comp-grid">
+        <div class="comp-card">
+          <div class="comp-h comp-acid-met">Acidosis Metabólica</div>
+          <div class="comp-body">
+            <code class="comp-formula">PaCO₂ esperada = (1.5 × HCO₃⁻) + 8 ± 2 (Regla de Winter)</code>
+            <code class="comp-formula">ΔPaCO₂ = 1.2 × ΔHCO₃⁻</code>
+            <div class="comp-nota">Si PaCO₂ real &lt; esperada → alcalosis respiratoria mixta. Si PaCO₂ real &gt; esperada → acidosis respiratoria mixta.</div>
+          </div>
+        </div>
+        <div class="comp-card">
+          <div class="comp-h comp-alc-met">Alcalosis Metabólica</div>
+          <div class="comp-body">
+            <code class="comp-formula">ΔPaCO₂ = 0.7 × ΔHCO₃⁻ (máximo ~55 mmHg)</code>
+            <div class="comp-nota">La compensación hipercápnica está limitada por el estímulo hipóxico ventilatorio. Rara vez supera 55 mmHg en ausencia de patología pulmonar.</div>
+          </div>
+        </div>
+        <div class="comp-card">
+          <div class="comp-h comp-acid-resp">Acidosis Respiratoria</div>
+          <div class="comp-body">
+            <code class="comp-formula">Aguda: ΔHCO₃⁻ = 1 mEq/L por cada ↑10 mmHg CO₂</code>
+            <code class="comp-formula">Crónica: ΔHCO₃⁻ = 3.5 mEq/L por ↑10 mmHg CO₂</code>
+            <div class="comp-nota">La compensación renal tarda 3–5 días. En el perioperatorio inmediato, espere solo compensación aguda.</div>
+          </div>
+        </div>
+        <div class="comp-card">
+          <div class="comp-h comp-alc-resp">Alcalosis Respiratoria</div>
+          <div class="comp-body">
+            <code class="comp-formula">Aguda: ΔHCO₃⁻ = 2 mEq/L por cada ↓10 mmHg CO₂</code>
+            <code class="comp-formula">Crónica: ΔHCO₃⁻ = 5 mEq/L por ↓10 mmHg CO₂</code>
+            <div class="comp-nota">En pacientes adaptados a Bogotá, la PaCO₂ basal de 30–38 mmHg es fisiológica y no debe tratarse.</div>
+          </div>
+        </div>
+      </div>
+      <div class="caja caja-evidencia"><strong>📚 Trastornos mixtos más frecuentes en anestesiología:</strong> Acidosis respiratoria + acidosis metabólica (paro cardiorrespiratorio, hipoventilación + hipoperfusión). Acidosis metabólica + alcalosis metabólica (sepsis con vómitos, insuficiencia renal + diuréticos). Alcalosis respiratoria + alcalosis metabólica (hiperventilación mecánica + aspiración gástrica o uso de diuréticos).</div>
+    </div>
+  </div>
+
+  <!-- S5 -->
+  <div class="seccion" id="s5">
+    <div class="seccion-header"><div class="seccion-numero">5</div><div class="seccion-titulo">Anión Gap, AG Corregido y Gap Delta-Delta</div></div>
+    <div class="seccion-body">
+      <div class="subseccion">
+        <h3>Anión Gap (AG)</h3>
+        <div class="formula-box">AG = Na⁺ − (Cl⁻ + HCO₃⁻) &nbsp;|&nbsp; Normal: 8–12 mEq/L</div>
+        <div class="formula-box">AG corregido por albúmina = AG calculado + 2.5 × (4.0 − albúmina medida en g/dL)</div>
+        <div class="caja caja-alerta"><strong>⚠ Corrija SIEMPRE el AG por albúmina en UCI y cirugía mayor:</strong> Por cada 1 g/dL que la albúmina cae por debajo de 4 g/dL, el AG "normal" disminuye 2.5 mEq/L. Sin corrección, una acidosis con AG elevado puede verse erróneamente como AG normal en un paciente hipoalbuminémico.</div>
+        <div class="tabla-wrap"><table>
+          <thead><tr><th>AG</th><th>Tipo de Acidosis Metabólica</th><th>Causas (mnemotecnia GOLDMARK)</th></tr></thead>
+          <tbody>
+            <tr><td>AG elevado (&gt;12)</td><td>Acidosis con aniones no medidos</td><td>Glucosa (cetoacidosis), Oxoprolina, L-lactato, D-lactato, Metanol, Aspirina, Renal (uremia), Ketamina (intox.)</td></tr>
+            <tr><td>AG normal (8–12)</td><td>Acidosis hiperclorémica</td><td>SS 0.9%, Diarrea, Fístulas intestinales, Acidosis tubular renal, Acetazolamida</td></tr>
+          </tbody>
+        </table></div>
+      </div>
+      <div class="subseccion">
+        <h3>Gap Delta-Delta (Ratio Δ/Δ)</h3>
+        <p class="parrafo">Detecta trastornos mixtos en pacientes con acidosis metabólica de AG elevado.</p>
+        <div class="formula-box">ΔAG = AG calculado − 12 &nbsp;|&nbsp; ΔHCO₃⁻ = 24 − HCO₃⁻ medido<br>Ratio Δ/Δ = ΔAG / ΔHCO₃⁻ &nbsp;|&nbsp; Esperado: 1.0–2.0</div>
+        <div class="tabla-wrap"><table>
+          <thead><tr><th>Ratio Δ/Δ</th><th>Interpretación</th><th>Ejemplo clínico</th></tr></thead>
+          <tbody>
+            <tr><td>1.0 – 2.0</td><td>Acidosis de AG elevado pura</td><td>Cetoacidosis diabética no complicada</td></tr>
+            <tr><td>&gt; 2.0</td><td>AG elevado + alcalosis metabólica mixta</td><td>CAD + vómitos · CAD + alcalosis de contracción</td></tr>
+            <tr><td>&lt; 1.0</td><td>AG elevado + acidosis hiperclorémica mixta</td><td>Acidosis láctica + diarrea · Shock + SS 0.9%</td></tr>
+          </tbody>
+        </table></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- S6 -->
+  <div class="seccion" id="s6">
+    <div class="seccion-header"><div class="seccion-numero">6</div><div class="seccion-titulo">Base Exceso y Lactato Arterial</div></div>
+    <div class="seccion-body">
+      <div class="subseccion">
+        <h3>Base Exceso (BE / SBE)</h3>
+        <p class="parrafo">El BE estima la cantidad de ácido fuerte necesaria para llevar el pH a 7.40 con PaCO₂ = 40 mmHg y temperatura 37°C. Es un indicador <strong>puro del componente metabólico</strong>, independiente de los cambios respiratorios agudos.</p>
+        <div class="tabla-wrap"><table>
+          <thead><tr><th>BE (mEq/L)</th><th>Interpretación</th><th>Conducta</th></tr></thead>
+          <tbody>
+            <tr><td>−2 a +2</td><td>Normal</td><td>Sin alteración metabólica significativa</td></tr>
+            <tr><td>−2 a −6</td><td>Acidosis metabólica leve</td><td>Corrección del trastorno subyacente</td></tr>
+            <tr><td>−6 a −10</td><td>Acidosis metabólica moderada</td><td>Evaluar bicarbonato si pH &lt;7.20</td></tr>
+            <tr><td>&lt; −10</td><td>Acidosis metabólica grave</td><td>Alta mortalidad; reanimación agresiva, identificar y tratar causa</td></tr>
+            <tr><td>&gt; +2</td><td>Alcalosis metabólica</td><td>Buscar pérdidas de Cl⁻, exceso de álcalis, hipokalemia</td></tr>
+          </tbody>
+        </table></div>
+        <div class="caja caja-info"><strong>ℹ SBE vs BE:</strong> El Standard Base Excess (SBE) considera el sistema tampón del líquido extracelular completo, siendo más estable y confiable durante cambios respiratorios rápidos. Es el parámetro preferido en anestesiología y UCI. En la práctica clínica habitual, ambos son equivalentes.</div>
+      </div>
+      <div class="subseccion">
+        <h3>Lactato Arterial</h3>
+        <div class="tabla-wrap"><table>
+          <thead><tr><th>Lactato (mmol/L)</th><th>Clasificación</th><th>Asociación Clínica</th><th>Conducta</th></tr></thead>
+          <tbody>
+            <tr><td>0.5 – 1.6</td><td>Normal</td><td>Metabolismo aerobio adecuado</td><td>Monitoreo habitual</td></tr>
+            <tr><td>1.6 – 2.0</td><td>Limítrofe</td><td>Estrés metabólico, ejercicio, postoperatorio inmediato</td><td>Repetir en 1–2 horas; evaluar contexto</td></tr>
+            <tr><td>2.0 – 4.0</td><td>Hiperlactatemia moderada</td><td>Hipoperfusión tisular, sepsis, falla hepática</td><td>Reanimación dirigida; identificar causa</td></tr>
+            <tr><td>&gt; 4.0</td><td>Hiperlactatemia grave</td><td>Shock séptico (criterio Sepsis-3), isquemia mesentérica, intoxicaciones</td><td>Reanimación agresiva; mortalidad &gt;40% en sepsis</td></tr>
+          </tbody>
+        </table></div>
+        <div class="caja caja-alerta"><strong>⚕ Criterio Sepsis-3 (JAMA 2016):</strong> Shock séptico = sepsis + hipotensión refractaria + <strong>lactato &gt;2 mmol/L</strong>. La normalización del lactato (aclaramiento ≥10% en 2 horas) es un objetivo de reanimación con reducción demostrada de mortalidad. Importante: el lactato puede elevarse sin hipoperfusión en hiperglucemia, uso de β-agonistas, falla hepática e intoxicación por metformina (acidosis láctica tipo B).</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- S7 -->
+  <div class="seccion" id="s7">
+    <div class="seccion-header"><div class="seccion-numero">7</div><div class="seccion-titulo">Oxigenación: PaFi, SaFi y Gradiente A–a</div></div>
+    <div class="seccion-body">
+      <div class="subseccion">
+        <h3>Gradiente Alveolo-Arterial de O₂ (A–a)</h3>
+        <div class="formula-box">
+          PAO₂ = FiO₂ × (Pb − PH₂O) − PaCO₂ / RQ<br>
+          A nivel del mar (FiO₂ 0.21 · Pb 760 · PH₂O 47 · RQ 0.8):<br>
+          PAO₂ = 150 − PaCO₂/0.8 &nbsp;|&nbsp; Gradiente A–a = PAO₂ − PaO₂
+        </div>
+        <div class="tabla-wrap"><table>
+          <thead><tr><th>A–a</th><th>Nivel del Mar</th><th>Bogotá (2.640 msnm)</th><th>Significado</th></tr></thead>
+          <tbody>
+            <tr><td>Normal jóvenes</td><td>&lt;10–15 mmHg</td><td>&lt;20 mmHg</td><td>Intercambio gaseoso normal</td></tr>
+            <tr><td>Normal &gt;65 años</td><td>&lt;25–30 mmHg</td><td>&lt;30 mmHg</td><td>Fisiológico (cierre de vías aéreas pequeñas)</td></tr>
+            <tr><td>A–a elevado</td><td>&gt;15–30 mmHg</td><td>&gt;20–30 mmHg</td><td>Alteración V/Q, shunt intrapulmonar, defecto de difusión</td></tr>
+          </tbody>
+        </table></div>
+        <div class="caja caja-info"><strong>ℹ Utilidad clínica del A–a:</strong> Permite distinguir hipoxemia por hipoventilación pura (A–a normal; PaCO₂ ↑) de hipoxemia por enfermedad pulmonar (A–a elevado). En el postoperatorio, un A–a elevado sugiere atelectasias, broncoaspiración o edema pulmonar agudo.</div>
+      </div>
+      <div class="subseccion">
+        <h3>PaFi y SaFi – Clasificación de SDRA (Berlín 2012 + Actualización Global 2023)</h3>
+        <div class="formula-box">PaFi = PaO₂ / FiO₂ &nbsp;|&nbsp; SaFi = SaO₂% / FiO₂</div>
+        <div class="tabla-wrap"><table>
+          <thead><tr><th>Clasificación SDRA</th><th>PaFi (nivel del mar)</th><th>PaFi (Bogotá aprox.)</th><th>SaFi equivalente</th><th>Mortalidad</th></tr></thead>
+          <tbody>
+            <tr><td>Normal (sin SDRA)</td><td>&gt;300</td><td>&gt;250–270</td><td>&gt;315</td><td>—</td></tr>
+            <tr><td>SDRA leve</td><td>200–300</td><td>170–250</td><td>235–315</td><td>~27%</td></tr>
+            <tr><td>SDRA moderado</td><td>100–200</td><td>85–170</td><td>120–235</td><td>~32%</td></tr>
+            <tr><td>SDRA grave</td><td>&lt;100</td><td>&lt;85</td><td>&lt;120</td><td>~45%</td></tr>
+          </tbody>
+        </table></div>
+        <div class="caja caja-advertencia"><strong>⚠ Nueva Definición Global SDRA (JAMA 2023):</strong> La definición actualizada amplía el SDRA para incluir pacientes con cánula nasal de alto flujo (CNAF, FiO₂ ≥0.3 y flujo ≥30 L/min) con SpO₂/FiO₂ ≤315. El SaFi es ahora una herramienta diagnóstica validada, especialmente útil en entornos con recursos limitados y en altitud como Bogotá, donde la PaFi basal es fisiológicamente más baja.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- S8 -->
+  <div class="seccion" id="s8">
+    <div class="seccion-header"><div class="seccion-numero">8</div><div class="seccion-titulo">Soluciones Intravenosas y Equilibrio Ácido-Base</div></div>
+    <div class="seccion-body">
+      <div class="sol-grid">
+        <div class="sol-card sol-ss">
+          <div class="sol-nombre">Solución Salina 0.9%</div>
+          <div class="sol-dato">Na⁺: 154 mEq/L<br>Cl⁻: 154 mEq/L<br>SIDa: 0 mEq/L<br>pH: 5.0–7.0</div>
+          <span class="sol-efecto">Acidosis hiperclorémica</span>
+        </div>
+        <div class="sol-card sol-rl">
+          <div class="sol-nombre">Ringer Lactato</div>
+          <div class="sol-dato">Na⁺: 130 mEq/L<br>Cl⁻: 109 mEq/L<br>SIDa: 21 mEq/L<br>Lactato: 28 mEq/L</div>
+          <span class="sol-efecto">Levemente alcalinizante</span>
+        </div>
+        <div class="sol-card sol-pl">
+          <div class="sol-nombre">PlasmaLyte 148</div>
+          <div class="sol-dato">Na⁺: 140 mEq/L<br>Cl⁻: 98 mEq/L<br>SIDa: 42 mEq/L<br>pH: 7.4</div>
+          <span class="sol-efecto">Neutro / Fisiológico</span>
+        </div>
+      </div>
+      <div class="caja caja-evidencia"><strong>📚 Evidencia actual (SMART, SALT-ED 2018, BaSICS 2021):</strong> Los ensayos SMART y SALT-ED (NEJM 2018) demostraron que las soluciones balanceadas (Ringer Lactato, PlasmaLyte) reducen la incidencia de lesión renal aguda, la necesidad de terapia de reemplazo renal y la mortalidad a 30 días vs. SS 0.9% en pacientes críticos. El ensayo BaSICS (JAMA 2021) confirmó la seguridad de las soluciones balanceadas. Las guías ESICM 2022 recomiendan preferir soluciones balanceadas para reanimación en pacientes críticamente enfermos.</div>
+    </div>
+  </div>
+
+  <!-- S9 -->
+  <div class="seccion" id="s9">
+    <div class="seccion-header"><div class="seccion-numero">9</div><div class="seccion-titulo">Gases Arteriales en Bogotá – 2.640 msnm</div></div>
+    <div class="seccion-body">
+      <p class="parrafo">La presión barométrica en Bogotá es ~560 mmHg (vs. 760 al nivel del mar). Esto reduce la PAO₂ y modifica los valores esperados de oxigenación. Los parámetros ácido-base (pH, HCO₃⁻, BE, lactato, AG) NO cambian con la altitud.</p>
+      <div class="altitud-grid">
+        <div class="altitud-card">
+          <div class="altitud-h">Parámetros AFECTADOS por la altitud</div>
+          <div class="altitud-body">
+            <div class="altitud-row"><span class="alt-lbl">PaO₂ (jóvenes)</span><span class="alt-mar">80–100 mmHg</span><span class="alt-bog">60–70 mmHg</span></div>
+            <div class="altitud-row"><span class="alt-lbl">PaO₂ (&gt;60 años)</span><span class="alt-mar">70–90 mmHg</span><span class="alt-bog">55–65 mmHg</span></div>
+            <div class="altitud-row"><span class="alt-lbl">PAO₂ (alveolar)</span><span class="alt-mar">~100 mmHg</span><span class="alt-bog">~60–70 mmHg</span></div>
+            <div class="altitud-row"><span class="alt-lbl">Gradiente A–a</span><span class="alt-mar">&lt;15 mmHg</span><span class="alt-bog">&lt;20 mmHg</span></div>
+            <div class="altitud-row"><span class="alt-lbl">PaFi normal</span><span class="alt-mar">&gt;300</span><span class="alt-bog">&gt;250–270</span></div>
+            <div class="altitud-row"><span class="alt-lbl">SaFi normal</span><span class="alt-mar">&gt;470</span><span class="alt-bog">&gt;315</span></div>
+            <div class="altitud-row"><span class="alt-lbl">PaCO₂</span><span class="alt-mar">35–45 mmHg</span><span class="alt-bog">30–40 mmHg (fisiológico)</span></div>
+            <div class="altitud-row"><span class="alt-lbl">SaO₂</span><span class="alt-mar">95–100%</span><span class="alt-bog">92–96%</span></div>
+          </div>
+        </div>
+        <div class="altitud-card">
+          <div class="altitud-h">Parámetros NO afectados por la altitud</div>
+          <div class="altitud-body">
+            <div class="altitud-row"><span class="alt-lbl">pH</span><span class="alt-mar">7.35–7.45</span><span class="alt-bog">= igual</span></div>
+            <div class="altitud-row"><span class="alt-lbl">HCO₃⁻</span><span class="alt-mar">22–26 mEq/L</span><span class="alt-bog">= igual</span></div>
+            <div class="altitud-row"><span class="alt-lbl">Base Exceso</span><span class="alt-mar">−2 a +2 mEq/L</span><span class="alt-bog">= igual</span></div>
+            <div class="altitud-row"><span class="alt-lbl">Lactato</span><span class="alt-mar">&lt;2 mmol/L</span><span class="alt-bog">= igual</span></div>
+            <div class="altitud-row"><span class="alt-lbl">Anión Gap</span><span class="alt-mar">8–12 mEq/L</span><span class="alt-bog">= igual</span></div>
+            <div class="altitud-row"><span class="alt-lbl">Na⁺, K⁺, Cl⁻</span><span class="alt-mar">Valores normales</span><span class="alt-bog">= igual</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="subseccion">
+        <h3>Adaptaciones fisiológicas crónicas a Bogotá</h3>
+        <ul class="lista-alert">
+          <li><span class="tag tag-ok">Fisiológico</span>PaCO₂ de 30–38 mmHg en reposo: hiperventilación crónica adaptativa por hipoxia hipobárica. No confundir con alcalosis respiratoria patológica.</li>
+          <li><span class="tag tag-ok">Fisiológico</span>SaO₂ de 92–96%: normal en residentes de Bogotá adaptados a la altitud. No requiere oxígeno suplementario si el paciente está asintomático.</li>
+          <li><span class="tag tag-ok">Fisiológico</span>Alcalosis respiratoria leve crónica con compensación metabólica (HCO₃⁻ 20–22 mEq/L) en residentes de larga data. Hallazgo esperable.</li>
+          <li><span class="tag tag-ojo">Evaluar</span>Policitemia secundaria (Hb 15–18 g/dL en hombres): adaptación fisiológica. Puede aumentar viscosidad y riesgo trombótico perioperatorio.</li>
+          <li><span class="tag tag-mal">Patológico</span>PaO₂ &lt;55 mmHg o SaO₂ &lt;88% en reposo en residente de Bogotá: hipoxemia patológica. Requiere evaluación y suplemento de O₂.</li>
+        </ul>
+      </div>
+      <div class="caja caja-advertencia"><strong>⚠ Error frecuente:</strong> Aplicar valores normales de nivel del mar directamente en Bogotá. Una PaO₂ de 65 mmHg en un paciente de Bogotá puede ser completamente normal, mientras que al nivel del mar indicaría hipoxemia moderada. Siempre ajuste la interpretación a la altitud de la ciudad.</div>
+    </div>
+  </div>
+
+  <!-- S10 -->
+  <div class="seccion" id="s10">
+    <div class="seccion-header"><div class="seccion-numero">10</div><div class="seccion-titulo">Algoritmo Sistemático de Interpretación</div></div>
+    <div class="seccion-body">
+      <p class="parrafo">Use siempre el mismo orden de análisis. La interpretación sistemática es más segura y completa que el reconocimiento de patrones aislados.</p>
+      <div class="pasos">
+        <div class="paso"><div class="paso-num">1</div><div class="paso-texto"><strong>Verifique la muestra:</strong> ¿Sangre arterial o venosa? ¿Burbujas de aire? ¿Procesada en &lt;15 min? Una muestra venosa tiene PO₂ 30–50 mmHg y pH 0.03–0.05 unidades menor que la arterial.</div></div>
+        <div class="paso"><div class="paso-num">2</div><div class="paso-texto"><strong>pH:</strong> ¿Acidosis (&lt;7.35) o alcalosis (&gt;7.45)? Si pH normal, puede haber trastorno compensado o mixto: continúe el análisis completo.</div></div>
+        <div class="paso"><div class="paso-num">3</div><div class="paso-texto"><strong>pCO₂:</strong> ¿Cambia en sentido opuesto al pH? → Trastorno respiratorio primario. ¿Mismo sentido que el pH? → Compensación respiratoria de trastorno metabólico primario.</div></div>
+        <div class="paso"><div class="paso-num">4</div><div class="paso-texto"><strong>HCO₃⁻ y BE:</strong> ¿Cambian en el mismo sentido del pH? → Componente metabólico primario. BE &lt;−2 = acidosis · BE &gt;+2 = alcalosis metabólica.</div></div>
+        <div class="paso"><div class="paso-num">5</div><div class="paso-texto"><strong>Verifique la compensación (Sección 4):</strong> ¿Coincide con lo calculado? Si no → trastorno mixto. Identifique qué variable está fuera de rango.</div></div>
+        <div class="paso"><div class="paso-num">6</div><div class="paso-texto"><strong>Anión Gap:</strong> En acidosis metabólica: AG = Na⁺−(Cl⁻+HCO₃⁻). Corrija por albúmina. AG &gt;12 → busque aniones no medidos. AG normal → acidosis hiperclorémica.</div></div>
+        <div class="paso"><div class="paso-num">7</div><div class="paso-texto"><strong>Gap delta-delta:</strong> Si AG elevado: Ratio Δ/Δ = ΔAG/ΔHCO₃⁻. &gt;2 = alcalosis metabólica mixta. &lt;1 = acidosis hiperclorémica mixta.</div></div>
+        <div class="paso"><div class="paso-num">8</div><div class="paso-texto"><strong>Stewart complementario:</strong> SIDa = Na⁺ − Cl⁻. Si disponible, calcule Atot por albúmina. Discrepancias con HH sugieren trastornos ocultos.</div></div>
+        <div class="paso"><div class="paso-num">9</div><div class="paso-texto"><strong>Oxigenación:</strong> Evalúe PaO₂/SaO₂ según altitud (Sección 9). Calcule PaFi o SaFi. Calcule gradiente A–a para distinguir hipoventilación de enfermedad pulmonar.</div></div>
+        <div class="paso"><div class="paso-num">10</div><div class="paso-texto"><strong>Lactato:</strong> Normal (&lt;2) o elevado? Hiperlactatemia &gt;2 mmol/L = hipoperfusión hasta demostrar lo contrario. Repita en 1–2 horas para evaluar tendencia.</div></div>
+        <div class="paso"><div class="paso-num">11</div><div class="paso-texto"><strong>Integración clínica:</strong> Nunca interprete el gas en el vacío. Correlacione con la clínica, diagnóstico, medicamentos, volumen de fluidos administrado y contexto perioperatorio o de UCI.</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- S11 -->
+  <div class="seccion" id="s11">
+    <div class="seccion-header"><div class="seccion-numero">11</div><div class="seccion-titulo">Casos Clínicos Resueltos</div></div>
+    <div class="seccion-body">
+
+      <div class="caso">
+        <div class="caso-titulo">Caso 1 – Postoperatorio de cirugía abdominal mayor con reanimación en SS 0.9%</div>
+        <div class="caso-datos">
+          <div class="caso-dato anormal"><span class="cd-param">pH</span><span class="cd-valor">7.28</span><span class="cd-unidad">—</span></div>
+          <div class="caso-dato"><span class="cd-param">PaCO₂</span><span class="cd-valor">30</span><span class="cd-unidad">mmHg</span></div>
+          <div class="caso-dato anormal"><span class="cd-param">HCO₃⁻</span><span class="cd-valor">15</span><span class="cd-unidad">mEq/L</span></div>
+          <div class="caso-dato anormal"><span class="cd-param">BE</span><span class="cd-valor">−11</span><span class="cd-unidad">mEq/L</span></div>
+          <div class="caso-dato"><span class="cd-param">Na⁺</span><span class="cd-valor">138</span><span class="cd-unidad">mEq/L</span></div>
+          <div class="caso-dato anormal"><span class="cd-param">Cl⁻</span><span class="cd-valor">112</span><span class="cd-unidad">mEq/L</span></div>
+          <div class="caso-dato"><span class="cd-param">Lactato</span><span class="cd-valor">1.2</span><span class="cd-unidad">mmol/L</span></div>
+          <div class="caso-dato"><span class="cd-param">Albúmina</span><span class="cd-valor">3.8</span><span class="cd-unidad">g/dL</span></div>
+        </div>
+        <div class="caso-interp">pH 7.28 → acidosis. PaCO₂ 30 → baja (no explica la acidosis) → compensación respiratoria. HCO₃⁻ 15 → acidosis metabólica primaria. BE −11 confirma. Compensación esperada (Winter): PaCO₂ = (1.5×15)+8 = 30.5 ±2 ✔ → trastorno simple. AG = 138−(112+15) = 11 → normal. AG no requiere corrección (albúmina normal). SIDa = 138−112 = 26 → bajo (normal 36–40) → acidosis hiperclorémica confirmada por Stewart. Lactato normal.</div>
+        <div class="caso-dx">⬡ Diagnóstico: Acidosis metabólica hiperclorémica pura (AG normal) por reanimación con SS 0.9%. Manejo: cambiar a soluciones balanceadas (PlasmaLyte o Ringer Lactato).</div>
+      </div>
+
+      <div class="caso">
+        <div class="caso-titulo">Caso 2 – Sepsis grave con hiperlactatemia (Bogotá, 2.640 msnm)</div>
+        <div class="caso-datos">
+          <div class="caso-dato anormal"><span class="cd-param">pH</span><span class="cd-valor">7.22</span><span class="cd-unidad">—</span></div>
+          <div class="caso-dato"><span class="cd-param">PaCO₂</span><span class="cd-valor">28</span><span class="cd-unidad">mmHg</span></div>
+          <div class="caso-dato anormal"><span class="cd-param">HCO₃⁻</span><span class="cd-valor">11</span><span class="cd-unidad">mEq/L</span></div>
+          <div class="caso-dato"><span class="cd-param">PaO₂</span><span class="cd-valor">64</span><span class="cd-unidad">mmHg</span></div>
+          <div class="caso-dato"><span class="cd-param">Na⁺</span><span class="cd-valor">140</span><span class="cd-unidad">mEq/L</span></div>
+          <div class="caso-dato"><span class="cd-param">Cl⁻</span><span class="cd-valor">104</span><span class="cd-unidad">mEq/L</span></div>
+          <div class="caso-dato anormal"><span class="cd-param">Lactato</span><span class="cd-valor">5.8</span><span class="cd-unidad">mmol/L</span></div>
+          <div class="caso-dato anormal"><span class="cd-param">Albúmina</span><span class="cd-valor">2.2</span><span class="cd-unidad">g/dL</span></div>
+        </div>
+        <div class="caso-interp">pH 7.22 → acidosis grave. PaCO₂ 28 → compensación respiratoria. HCO₃⁻ 11 → acidosis metabólica primaria grave. AG = 140−(104+11) = 25 → elevado. AG corregido por albúmina = 25 + 2.5×(4−2.2) = 25+4.5 = 29.5 → muy elevado. SIDa = 140−104 = 36 → aparentemente normal, pero SID efectivo = 140−(104+5.8) = 30.2 → bajo por lactato. Atot ↓ (hipoalbuminemia) → alcalosis metabólica oculta coexistente (Stewart). PaO₂ 64 en Bogotá → normal para la altitud (no hay hipoxemia patológica).</div>
+        <div class="caso-dx">⬡ Diagnóstico: Acidosis metabólica grave de AG elevado por acidosis láctica (shock séptico, criterio Sepsis-3). Trastorno mixto oculto: alcalosis metabólica por hipoalbuminemia (Stewart). PaO₂ normal para Bogotá. Reanimación dirigida a metas + antibióticos + vasopresores.</div>
+      </div>
+
+      <div class="caso">
+        <div class="caso-titulo">Caso 3 – EPOC exacerbado en UCI (Bogotá)</div>
+        <div class="caso-datos">
+          <div class="caso-dato anormal"><span class="cd-param">pH</span><span class="cd-valor">7.30</span><span class="cd-unidad">—</span></div>
+          <div class="caso-dato anormal"><span class="cd-param">PaCO₂</span><span class="cd-valor">72</span><span class="cd-unidad">mmHg</span></div>
+          <div class="caso-dato anormal"><span class="cd-param">HCO₃⁻</span><span class="cd-valor">34</span><span class="cd-unidad">mEq/L</span></div>
+          <div class="caso-dato anormal"><span class="cd-param">PaO₂</span><span class="cd-valor">48</span><span class="cd-unidad">mmHg</span></div>
+          <div class="caso-dato"><span class="cd-param">BE</span><span class="cd-valor">+6</span><span class="cd-unidad">mEq/L</span></div>
+          <div class="caso-dato"><span class="cd-param">Lactato</span><span class="cd-valor">1.4</span><span class="cd-unidad">mmol/L</span></div>
+        </div>
+        <div class="caso-interp">pH 7.30 → acidosis. PaCO₂ 72 → elevada, mismo sentido → acidosis respiratoria primaria. HCO₃⁻ 34 → elevado → compensación metabólica. Compensación crónica esperada: ΔHCO₃⁻ = 3.5×(72−40)/10 = 11.2 → HCO₃⁻ esperado = 24+11.2 = 35.2 (medido: 34 ✔ compensación crónica adecuada → EPOC conocido). PaO₂ 48 en Bogotá → patológico (normal: 60–70 mmHg) → hipoxemia significativa. Lactato normal.</div>
+        <div class="caso-dx">⬡ Diagnóstico: Acidosis respiratoria crónica agudizada (exacerbación de EPOC) + hipoxemia patológica para Bogotá. Indicación de O₂ controlado (meta SpO₂ 88–92%) y ventilación no invasiva (VNI). Evitar FiO₂ alta sin monitoreo de PaCO₂.</div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- S12 -->
+  <div class="seccion" id="s12">
+    <div class="seccion-header"><div class="seccion-numero">12</div><div class="seccion-titulo">Consideraciones Perioperatorias Específicas</div></div>
+    <div class="seccion-body">
+
+      <div class="subseccion">
+        <h3>Ventilación mecánica protectora en quirófano</h3>
+        <div class="tabla-wrap"><table>
+          <thead><tr><th>Parámetro</th><th>Recomendación Actual</th><th>Evidencia</th></tr></thead>
+          <tbody>
+            <tr><td>Volumen corriente (VT)</td><td>6–8 mL/kg de peso ideal corporal</td><td>IMPROVE trial, LAS VEGAS study</td></tr>
+            <tr><td>PEEP</td><td>5–8 cmH₂O (individualizado)</td><td>iPROVE, PROVHILO</td></tr>
+            <tr><td>Presión plateau</td><td>&lt;30 cmH₂O</td><td>Estándar de ventilación protectora</td></tr>
+            <tr><td>Driving pressure (ΔP)</td><td>&lt;15 cmH₂O (ΔP = Pplat − PEEP)</td><td>Amato et al. NEJM 2015</td></tr>
+            <tr><td>FiO₂ intraoperatoria</td><td>La mínima para SpO₂ 94–96% (evitar hiperoxia)</td><td>PROVHILO, iPROVE</td></tr>
+            <tr><td>PaCO₂ meta intraoperatoria</td><td>35–45 mmHg (nivel del mar) · 30–40 mmHg (Bogotá)</td><td>Ajuste al valor basal del paciente</td></tr>
+          </tbody>
+        </table></div>
+      </div>
+
+      <div class="subseccion">
+        <h3>Cuándo administrar bicarbonato de sodio</h3>
+        <div class="caja caja-alerta"><strong>⚠ No administre bicarbonato de rutina:</strong> Las guías actuales no recomiendan el bicarbonato en acidosis láctica tipo A (hipoperfusión) excepto con pH &lt;7.10–7.15 y disfunción cardiovascular documentada. El bicarbonato puede empeorar la hipercapnia intracelular, reducir transitoriamente el calcio ionizado y enmascarar la causa subyacente. Siempre corrija primero la causa: perfusión, ventilación y electrolitos.</div>
+        <div class="tabla-wrap"><table>
+          <thead><tr><th>Situación</th><th>Bicarbonato</th><th>Conducta recomendada</th></tr></thead>
+          <tbody>
+            <tr><td>Acidosis láctica (hipoperfusión)</td><td>No de rutina. Considerar solo si pH &lt;7.10–7.15</td><td>Corregir la causa: fluidos, vasopresores, O₂</td></tr>
+            <tr><td>Acidosis hiperclorémica (SS 0.9%)</td><td>No indicado. Cambiar la solución</td><td>PlasmaLyte o Ringer Lactato</td></tr>
+            <tr><td>Cetoacidosis diabética (CAD)</td><td>Solo si pH &lt;6.9 (controversial)</td><td>Insulina + fluidos + corrección de K⁺</td></tr>
+            <tr><td>Acidosis tubular renal tipo I o II</td><td>Indicado (reposición crónica)</td><td>1–4 mEq/kg/día VO o IV según grado</td></tr>
+            <tr><td>Hiperpotasemia grave (&gt;6.5 + cambios ECG)</td><td>Indicado como medida puente</td><td>Junto a Ca²⁺ gluconato, insulina-dextrosa y diuresis</td></tr>
+          </tbody>
+        </table></div>
+      </div>
+
+      <div class="caja caja-evidencia"><strong>📚 Fuentes principales:</strong> Surviving Sepsis Campaign 2021 · ESICM Fluid Guidelines 2022 · Nueva Definición Global SDRA (JAMA 2023) · ARDS Network / Definición de Berlín 2012 · iPROVE / LAS VEGAS / IMPROVE Trials (ventilación protectora) · Sepsis-3 JAMA 2016 · Stewart P. Traditional Interpretation of Blood-Gas Analysis vs. Physicochemical Approach, Curr Opin Crit Care 2020 · SMART / SALT-ED / BaSICS 2021 (soluciones balanceadas) · Actualizado: 2025.</div>
+    </div>
+  </div>
+
+</div>
+</div><!-- /contenedor -->
+<footer>
+  <div>
+    <div class="footer-name">Dr. Andrés Robayo C.</div>
+    <div class="footer-title">Médico Especialista en Anestesiología · Docente de Pregrado – Rotación de Anestesiología<br>Hospital de Kennedy · Hospital de Bosa · Subred Suroccidente – Bogotá, D.C., Colombia</div>
+  </div>
+  <div class="footer-copy">Surviving Sepsis 2021 · ESICM 2022 · Nueva Def. Global SDRA JAMA 2023<br>SMART, SALT-ED, BaSICS · iPROVE, LAS VEGAS, IMPROVE Trials<br>© 2025 – Uso exclusivo académico/docente</div>
+</footer>
+</div><!-- /teoria-tab -->
+
+<!-- ═══════ TALLER ═══════ -->
+<div class="tab-content" id="taller-tab">
+<div class="taller-header">
+  <h2>Taller Calificado – <em>Gases Arteriales</em></h2>
+  <div class="taller-meta">5.0 puntos · 8 casos clínicos · Interpretación sistemática · Dr. Andrés Robayo C.</div>
+</div>
+<div class="taller-content">
+
+<div class="alert-yellow">
+  🤖 <strong>Módulo A</strong> (2.5 pts) — Interpretación de casos con selección múltiple autocorregible. Presione <em>Corregir Módulo A</em> al terminar. &nbsp;|&nbsp; ✏️ <strong>Módulo B</strong> (2.5 pts) — Análisis razonado calificado por el docente.
+</div>
+
+<!-- MÓDULO A -->
+<div class="module">
+  <div class="module-header" style="background:var(--navy);">
+    <span class="module-tag">🤖 AUTOCORREGIBLE</span>
+    <span class="module-title">Módulo A — 8 casos de gases arteriales con selección múltiple</span>
+    <span class="module-pts">2.5 pts</span>
+  </div>
+  <div class="module-body">
+
+    <!-- CASO 1 -->
+    <div class="ex-item">
+      <div class="ex-label"><span class="ex-num">Caso 1</span> Postoperatorio de laparotomía — Bogotá, 2.640 msnm <span class="ex-pts-auto">2 preg · 0.625 pts</span></div>
+      <div class="ex-context"><strong>Paciente:</strong> Hombre 52 años, postoperatorio de colectomía laparoscópica 4 horas antes. Recibió 4 L de SS 0.9% intraoperatoria. Lúcido, sin disnea.</div>
+      <div class="gas-vals">
+        <div class="gv-item"><span class="gv-param">pH</span><span class="gv-val anormal">7.26</span><span class="gv-unit">—</span></div>
+        <div class="gv-item"><span class="gv-param">PaCO₂</span><span class="gv-val">28</span><span class="gv-unit">mmHg</span></div>
+        <div class="gv-item"><span class="gv-param">HCO₃⁻</span><span class="gv-val anormal">12</span><span class="gv-unit">mEq/L</span></div>
+        <div class="gv-item"><span class="gv-param">BE</span><span class="gv-val anormal">−14</span><span class="gv-unit">mEq/L</span></div>
+        <div class="gv-item"><span class="gv-param">Na⁺</span><span class="gv-val">139</span><span class="gv-unit">mEq/L</span></div>
+        <div class="gv-item"><span class="gv-param">Cl⁻</span><span class="gv-val anormal">115</span><span class="gv-unit">mEq/L</span></div>
+        <div class="gv-item"><span class="gv-param">Lactato</span><span class="gv-val">1.1</span><span class="gv-unit">mmol/L</span></div>
+        <div class="gv-item"><span class="gv-param">PaO₂</span><span class="gv-val">66</span><span class="gv-unit">mmHg</span></div>
+      </div>
+      <div class="mc-row"><span class="mc-label">Diagnóstico ácido-base correcto:</span>
+        <select class="mc-select" onchange="chk(this,'Acidosis metabólica hiperclorémica (AG normal) por SS 0.9%','fbC1a')">
+          <option value="">— elegir —</option>
+          <option>Acidosis metabólica hiperclorémica (AG normal) por SS 0.9%</option>
+          <option>Acidosis metabólica con AG elevado (acidosis láctica)</option>
+          <option>Acidosis respiratoria + metabólica mixta</option>
+          <option>Acidosis metabólica compensada completamente</option>
+        </select><span class="fb" id="fbC1a"></span>
+      </div>
+      <div class="mc-row"><span class="mc-label">PaO₂ 66 mmHg en Bogotá y manejo correcto:</span>
+        <select class="mc-select" onchange="chk(this,'Normal para Bogotá; cambiar SS 0.9% por PlasmaLyte o Ringer','fbC1b')">
+          <option value="">— elegir —</option>
+          <option>Normal para Bogotá; cambiar SS 0.9% por PlasmaLyte o Ringer</option>
+          <option>Hipoxemia patológica; iniciar O₂ suplementario urgente</option>
+          <option>Normal; administrar bicarbonato de sodio 1 mEq/kg</option>
+          <option>Hipoxemia leve; ventilar con FiO₂ 0.6</option>
+        </select><span class="fb" id="fbC1b"></span>
+      </div>
+    </div>
+
+    <!-- CASO 2 -->
+    <div class="ex-item">
+      <div class="ex-label"><span class="ex-num">Caso 2</span> EPOC exacerbado en UCI — Bogotá <span class="ex-pts-auto">2 preg · 0.625 pts</span></div>
+      <div class="ex-context"><strong>Paciente:</strong> Mujer 68 años, EPOC GOLD III conocida, residente de Bogotá toda su vida. Ingresa por disnea aguda, fiebre y expectoración purulenta.</div>
+      <div class="gas-vals">
+        <div class="gv-item"><span class="gv-param">pH</span><span class="gv-val anormal">7.31</span><span class="gv-unit">—</span></div>
+        <div class="gv-item"><span class="gv-param">PaCO₂</span><span class="gv-val anormal">68</span><span class="gv-unit">mmHg</span></div>
+        <div class="gv-item"><span class="gv-param">HCO₃⁻</span><span class="gv-val anormal">33</span><span class="gv-unit">mEq/L</span></div>
+        <div class="gv-item"><span class="gv-param">BE</span><span class="gv-val anormal">+7</span><span class="gv-unit">mEq/L</span></div>
+        <div class="gv-item"><span class="gv-param">PaO₂</span><span class="gv-val anormal">46</span><span class="gv-unit">mmHg</span></div>
+        <div class="gv-item"><span class="gv-param">SaO₂</span><span class="gv-val anormal">78</span><span class="gv-unit">%</span></div>
+        <div class="gv-item"><span class="gv-param">Lactato</span><span class="gv-val">1.5</span><span class="gv-unit">mmol/L</span></div>
+      </div>
+      <div class="mc-row"><span class="mc-label">Trastorno ácido-base y compensación:</span>
+        <select class="mc-select" onchange="chk(this,'Acidosis respiratoria crónica agudizada con compensación renal adecuada','fbC2a')">
+          <option value="">— elegir —</option>
+          <option>Acidosis respiratoria crónica agudizada con compensación renal adecuada</option>
+          <option>Acidosis respiratoria aguda sin compensación</option>
+          <option>Trastorno mixto: acidosis respiratoria + alcalosis metabólica</option>
+          <option>Alcalosis metabólica primaria con compensación respiratoria</option>
+        </select><span class="fb" id="fbC2a"></span>
+      </div>
+      <div class="mc-row"><span class="mc-label">PaO₂ 46 mmHg en Bogotá y manejo del O₂:</span>
+        <select class="mc-select" onchange="chk(this,'Hipoxemia patológica para Bogotá; O₂ controlado meta SpO₂ 88–92%','fbC2b')">
+          <option value="">— elegir —</option>
+          <option>Hipoxemia patológica para Bogotá; O₂ controlado meta SpO₂ 88–92%</option>
+          <option>Normal para Bogotá; no requiere O₂</option>
+          <option>Hipoxemia grave; intubar inmediatamente con FiO₂ 1.0</option>
+          <option>Hipoxemia leve; O₂ libre sin restricción de FiO₂</option>
+        </select><span class="fb" id="fbC2b"></span>
+      </div>
+    </div>
+
+    <!-- CASO 3 -->
+    <div class="ex-item">
+      <div class="ex-label"><span class="ex-num">Caso 3</span> Shock séptico con trastorno mixto — Stewart <span class="ex-pts-auto">2 preg · 0.625 pts</span></div>
+      <div class="ex-context"><strong>Paciente:</strong> Hombre 61 años, peritonitis por perforación intestinal. Sepsis grave. Albúmina 1.8 g/dL. Recibió 3 L de Ringer Lactato.</div>
+      <div class="gas-vals">
+        <div class="gv-item"><span class="gv-param">pH</span><span class="gv-val anormal">7.20</span><span class="gv-unit">—</span></div>
+        <div class="gv-item"><span class="gv-param">PaCO₂</span><span class="gv-val">26</span><span class="gv-unit">mmHg</span></div>
+        <div class="gv-item"><span class="gv-param">HCO₃⁻</span><span class="gv-val anormal">10</span><span class="gv-unit">mEq/L</span></div>
+        <div class="gv-item"><span class="gv-param">Na⁺</span><span class="gv-val">138</span><span class="gv-unit">mEq/L</span></div>
+        <div class="gv-item"><span class="gv-param">Cl⁻</span><span class="gv-val">102</span><span class="gv-unit">mEq/L</span></div>
+        <div class="gv-item"><span class="gv-param">Lactato</span><span class="gv-val anormal">6.2</span><span class="gv-unit">mmol/L</span></div>
+        <div class="gv-item"><span class="gv-param">Albúmina</span><span class="gv-val anormal">1.8</span><span class="gv-unit">g/dL</span></div>
+      </div>
+      <div class="mc-row"><span class="mc-label">AG calculado = 138−(102+10)=26. AG corregido por albúmina (alb 1.8):</span>
+        <select class="mc-select" onchange="chk(this,'AG corregido = 26 + 2.5×(4−1.8) = 31.5 → muy elevado','fbC3a')">
+          <option value="">— elegir —</option>
+          <option>AG corregido = 26 + 2.5×(4−1.8) = 31.5 → muy elevado</option>
+          <option>AG corregido = 26 − 2.5×(4−1.8) = 20.5 → moderado</option>
+          <option>AG no necesita corrección porque el Cl⁻ es normal</option>
+          <option>AG corregido = 26 + 1.5×(4−1.8) = 29.3</option>
+        </select><span class="fb" id="fbC3a"></span>
+      </div>
+      <div class="mc-row"><span class="mc-label">Trastorno mixto por teoría de Stewart (Atot y SID):</span>
+        <select class="mc-select" onchange="chk(this,'Acidosis láctica (AG↑) + alcalosis metabólica oculta por hipoalbuminemia (Atot↓)','fbC3b')">
+          <option value="">— elegir —</option>
+          <option>Acidosis láctica (AG↑) + alcalosis metabólica oculta por hipoalbuminemia (Atot↓)</option>
+          <option>Acidosis hiperclorémica pura (SID bajo por Cl⁻ elevado)</option>
+          <option>Acidosis metabólica simple sin trastorno mixto</option>
+          <option>Alcalosis metabólica compensada con acidosis respiratoria</option>
+        </select><span class="fb" id="fbC3b"></span>
+      </div>
+    </div>
+
+    <!-- CASO 4 -->
+    <div class="ex-item">
+      <div class="ex-label"><span class="ex-num">Caso 4</span> Hiperventilación mecánica + aspiración gástrica — trastorno mixto <span class="ex-pts-auto">2 preg · 0.625 pts</span></div>
+      <div class="ex-context"><strong>Paciente:</strong> Mujer 44 años, ventilada mecánicamente tras cirugía de fosa posterior. PEEP 5 cmH₂O. La enfermera reporta que aspiró 200 mL de contenido gástrico por SNG durante la noche. VC 540 mL (peso ideal 60 kg).</div>
+      <div class="gas-vals">
+        <div class="gv-item"><span class="gv-param">pH</span><span class="gv-val anormal">7.58</span><span class="gv-unit">—</span></div>
+        <div class="gv-item"><span class="gv-param">PaCO₂</span><span class="gv-val anormal">28</span><span class="gv-unit">mmHg</span></div>
+        <div class="gv-item"><span class="gv-param">HCO₃⁻</span><span class="gv-val anormal">30</span><span class="gv-unit">mEq/L</span></div>
+        <div class="gv-item"><span class="gv-param">BE</span><span class="gv-val anormal">+8</span><span class="gv-unit">mEq/L</span></div>
+        <div class="gv-item"><span class="gv-param">K⁺</span><span class="gv-val anormal">3.1</span><span class="gv-unit">mEq/L</span></div>
+        <div class="gv-item"><span class="gv-param">Cl⁻</span><span class="gv-val anormal">88</span><span class="gv-unit">mEq/L</span></div>
+        <div class="gv-item"><span class="gv-param">Lactato</span><span class="gv-val">0.9</span><span class="gv-unit">mmol/L</span></div>
+      </div>
+      <div class="mc-row"><span class="mc-label">Diagnóstico del trastorno mixto:</span>
+        <select class="mc-select" onchange="chk(this,'Alcalosis respiratoria (hiperventilación mecánica) + alcalosis metabólica (pérdida gástrica de HCl)','fbC4a')">
+          <option value="">— elegir —</option>
+          <option>Alcalosis respiratoria (hiperventilación mecánica) + alcalosis metabólica (pérdida gástrica de HCl)</option>
+          <option>Alcalosis metabólica pura compensada con hiperventilación</option>
+          <option>Alcalosis respiratoria pura sin componente metabólico</option>
+          <option>Alcalosis respiratoria + acidosis metabólica mixta</option>
+        </select><span class="fb" id="fbC4a"></span>
+      </div>
+      <div class="mc-row"><span class="mc-label">Volumen corriente 540 mL con peso ideal 60 kg: ¿protector?</span>
+        <select class="mc-select" onchange="chk(this,'No protector (9 mL/kg peso ideal); reducir a 360–480 mL (6–8 mL/kg)','fbC4b')">
+          <option value="">— elegir —</option>
+          <option>No protector (9 mL/kg peso ideal); reducir a 360–480 mL (6–8 mL/kg)</option>
+          <option>Protector (9 mL/kg está dentro del rango de 8–10 mL/kg)</option>
+          <option>Adecuado; aumentar frecuencia respiratoria para bajar CO₂</option>
+          <option>No protector; subir PEEP a 12 cmH₂O como corrección</option>
+        </select><span class="fb" id="fbC4b"></span>
+      </div>
+    </div>
+
+    <!-- CASO 5 -->
+    <div class="ex-item">
+      <div class="ex-label"><span class="ex-num">Caso 5</span> Cetoacidosis diabética con gap delta-delta <span class="ex-pts-auto">2 preg · 0.625 pts</span></div>
+      <div class="ex-context"><strong>Paciente:</strong> Mujer 28 años, DM tipo 1. Ingresa con vómitos a repetición desde hace 3 días, glucemia 480 mg/dL. Sin diarrea. Na⁺ 136, Cl⁻ 94 mEq/L.</div>
+      <div class="gas-vals">
+        <div class="gv-item"><span class="gv-param">pH</span><span class="gv-val anormal">7.18</span><span class="gv-unit">—</span></div>
+        <div class="gv-item"><span class="gv-param">PaCO₂</span><span class="gv-val anormal">22</span><span class="gv-unit">mmHg</span></div>
+        <div class="gv-item"><span class="gv-param">HCO₃⁻</span><span class="gv-val anormal">8</span><span class="gv-unit">mEq/L</span></div>
+        <div class="gv-item"><span class="gv-param">Na⁺</span><span class="gv-val">136</span><span class="gv-unit">mEq/L</span></div>
+        <div class="gv-item"><span class="gv-param">Cl⁻</span><span class="gv-val">94</span><span class="gv-unit">mEq/L</span></div>
+        <div class="gv-item"><span class="gv-param">Lactato</span><span class="gv-val">1.3</span><span class="gv-unit">mmol/L</span></div>
+        <div class="gv-item"><span class="gv-param">Glucemia</span><span class="gv-val anormal">480</span><span class="gv-unit">mg/dL</span></div>
+      </div>
+      <div class="mc-row"><span class="mc-label">AG = 136−(94+8) = 34. Ratio Δ/Δ = (34−12)/(24−8):</span>
+        <select class="mc-select" onchange="chk(this,'Ratio 22/16 = 1.375 → CAD pura + alcalosis metabólica mixta oculta por vómitos (>1 pero límite)','fbC5a')">
+          <option value="">— elegir —</option>
+          <option>Ratio 22/16 = 1.375 → CAD pura + alcalosis metabólica mixta oculta por vómitos (>1 pero límite)</option>
+          <option>Ratio 22/16 = 1.375 → acidosis hiperclorémica mixta coexistente (&lt;1)</option>
+          <option>Ratio 22/16 = 0.73 → acidosis de AG elevado pura</option>
+          <option>No es necesario calcular el gap delta-delta con pH &lt;7.20</option>
+        </select><span class="fb" id="fbC5a"></span>
+      </div>
+      <div class="mc-row"><span class="mc-label">Manejo correcto de la CAD (bicarbonato en este caso):</span>
+        <select class="mc-select" onchange="chk(this,'No indicado (pH 7.18 > 6.9); tratar con insulina + fluidos + K⁺','fbC5b')">
+          <option value="">— elegir —</option>
+          <option>No indicado (pH 7.18 > 6.9); tratar con insulina + fluidos + K⁺</option>
+          <option>Indicado: bicarbonato 1 mEq/kg IV porque pH &lt;7.20</option>
+          <option>Indicado urgente: pH &lt;7.20 es umbral universal para bicarbonato</option>
+          <option>No indicado; solo hidratación sin insulina hasta que el pH mejore</option>
+        </select><span class="fb" id="fbC5b"></span>
+      </div>
+    </div>
+
+    <!-- CASO 6 -->
+    <div class="ex-item">
+      <div class="ex-label"><span class="ex-num">Caso 6</span> SDRA moderado — PaFi y SaFi en Bogotá <span class="ex-pts-auto">2 preg · 0.625 pts</span></div>
+      <div class="ex-context"><strong>Paciente:</strong> Hombre 55 años, ventilado mecánicamente en UCI de Bogotá. SDRA por neumonía. FiO₂ actual: 0.55. SpO₂ 89%.</div>
+      <div class="gas-vals">
+        <div class="gv-item"><span class="gv-param">pH</span><span class="gv-val">7.36</span><span class="gv-unit">—</span></div>
+        <div class="gv-item"><span class="gv-param">PaCO₂</span><span class="gv-val">42</span><span class="gv-unit">mmHg</span></div>
+        <div class="gv-item"><span class="gv-param">PaO₂</span><span class="gv-val anormal">88</span><span class="gv-unit">mmHg</span></div>
+        <div class="gv-item"><span class="gv-param">FiO₂</span><span class="gv-val">0.55</span><span class="gv-unit">—</span></div>
+        <div class="gv-item"><span class="gv-param">HCO₃⁻</span><span class="gv-val">24</span><span class="gv-unit">mEq/L</span></div>
+        <div class="gv-item"><span class="gv-param">BE</span><span class="gv-val">0</span><span class="gv-unit">mEq/L</span></div>
+        <div class="gv-item"><span class="gv-param">SpO₂</span><span class="gv-val anormal">89</span><span class="gv-unit">%</span></div>
+      </div>
+      <div class="mc-row"><span class="mc-label">PaFi = 88/0.55 = 160. Clasificación SDRA para Bogotá:</span>
+        <select class="mc-select" onchange="chk(this,'SDRA moderado (PaFi 85–170 en Bogotá); equivalente a PaFi 100–200 nivel del mar','fbC6a')">
+          <option value="">— elegir —</option>
+          <option>SDRA moderado (PaFi 85–170 en Bogotá); equivalente a PaFi 100–200 nivel del mar</option>
+          <option>SDRA grave (PaFi &lt;100 nivel del mar)</option>
+          <option>SDRA leve (PaFi 200–300)</option>
+          <option>Sin SDRA; PaFi 160 es normal</option>
+        </select><span class="fb" id="fbC6a"></span>
+      </div>
+      <div class="mc-row"><span class="mc-label">SaFi = SpO₂% / FiO₂ = 89/0.55 = 162. Interpretación:</span>
+        <select class="mc-select" onchange="chk(this,'SaFi 162 ≈ PaFi moderado; SaFi válido en Bogotá cuando no hay gasometría confiable','fbC6b')">
+          <option value="">— elegir —</option>
+          <option>SaFi 162 ≈ PaFi moderado; SaFi válido en Bogotá cuando no hay gasometría confiable</option>
+          <option>SaFi 162 equivale a PaFi grave (&lt;100)</option>
+          <option>SaFi no es válido; solo PaFi puede clasificar el SDRA</option>
+          <option>SaFi 162 indica función pulmonar normal para la altitud</option>
+        </select><span class="fb" id="fbC6b"></span>
+      </div>
+    </div>
+
+    <!-- CASO 7 -->
+    <div class="ex-item">
+      <div class="ex-label"><span class="ex-num">Caso 7</span> Hipoventilación pura vs enfermedad pulmonar — Gradiente A–a <span class="ex-pts-auto">2 preg · 0.625 pts</span></div>
+      <div class="ex-context"><strong>Paciente:</strong> Hombre 38 años, en postoperatorio inmediato de colecistectomía laparoscópica. Recibió morfina 10 mg IV. Somnoliento, FR 8 rpm. Bogotá 2.640 msnm. Pb estimada 560 mmHg, FiO₂ 0.21.</div>
+      <div class="gas-vals">
+        <div class="gv-item"><span class="gv-param">pH</span><span class="gv-val anormal">7.28</span><span class="gv-unit">—</span></div>
+        <div class="gv-item"><span class="gv-param">PaCO₂</span><span class="gv-val anormal">62</span><span class="gv-unit">mmHg</span></div>
+        <div class="gv-item"><span class="gv-param">PaO₂</span><span class="gv-val anormal">48</span><span class="gv-unit">mmHg</span></div>
+        <div class="gv-item"><span class="gv-param">HCO₃⁻</span><span class="gv-val">27</span><span class="gv-unit">mEq/L</span></div>
+        <div class="gv-item"><span class="gv-param">SaO₂</span><span class="gv-val anormal">82</span><span class="gv-unit">%</span></div>
+        <div class="gv-item"><span class="gv-param">Lactato</span><span class="gv-val">1.2</span><span class="gv-unit">mmol/L</span></div>
+      </div>
+      <div class="mc-row"><span class="mc-label">PAO₂ Bogotá = 0.21×(560−47)−62/0.8 = 0.21×513−77.5 = 107.7−77.5 = 30.2. Gradiente A–a:</span>
+        <select class="mc-select" onchange="chk(this,'A–a = 30.2−48 = negativo/~0 → Gradiente normal → hipoventilación pura (opioide)','fbC7a')">
+          <option value="">— elegir —</option>
+          <option>A–a = 30.2−48 = negativo/~0 → Gradiente normal → hipoventilación pura (opioide)</option>
+          <option>A–a = 48−30.2 = 17.8 → Gradiente elevado → enfermedad pulmonar</option>
+          <option>A–a no se puede calcular en Bogotá</option>
+          <option>A–a = 100−48 = 52 → Shunt intrapulmonar grave</option>
+        </select><span class="fb" id="fbC7a"></span>
+      </div>
+      <div class="mc-row"><span class="mc-label">Diagnóstico y manejo prioritario:</span>
+        <select class="mc-select" onchange="chk(this,'Depresión respiratoria por opioides; naloxona 0.04–0.1 mg IV + estimulación','fbC7b')">
+          <option value="">— elegir —</option>
+          <option>Depresión respiratoria por opioides; naloxona 0.04–0.1 mg IV + estimulación</option>
+          <option>Neumonía aspirativa; antibióticos + CPAP</option>
+          <option>Insuficiencia respiratoria por atelectasias; intubación inmediata</option>
+          <option>EPOC oculto; broncodilatadores + VNI</option>
+        </select><span class="fb" id="fbC7b"></span>
+      </div>
+    </div>
+
+    <!-- CASO 8 -->
+    <div class="ex-item">
+      <div class="ex-label"><span class="ex-num">Caso 8</span> Paro cardiorrespiratorio recuperado — trastorno mixto grave <span class="ex-pts-auto">2 preg · 0.625 pts</span></div>
+      <div class="ex-context"><strong>Paciente:</strong> Mujer 58 años, paro cardiorrespiratorio recuperado tras 12 min de RCP. Ventilada mecánicamente. FiO₂ 1.0 post-reanimación.</div>
+      <div class="gas-vals">
+        <div class="gv-item"><span class="gv-param">pH</span><span class="gv-val anormal">6.98</span><span class="gv-unit">—</span></div>
+        <div class="gv-item"><span class="gv-param">PaCO₂</span><span class="gv-val anormal">58</span><span class="gv-unit">mmHg</span></div>
+        <div class="gv-item"><span class="gv-param">HCO₃⁻</span><span class="gv-val anormal">13</span><span class="gv-unit">mEq/L</span></div>
+        <div class="gv-item"><span class="gv-param">BE</span><span class="gv-val anormal">−16</span><span class="gv-unit">mEq/L</span></div>
+        <div class="gv-item"><span class="gv-param">PaO₂</span><span class="gv-val">210</span><span class="gv-unit">mmHg</span></div>
+        <div class="gv-item"><span class="gv-param">Lactato</span><span class="gv-val anormal">9.8</span><span class="gv-unit">mmol/L</span></div>
+        <div class="gv-item"><span class="gv-param">Na⁺</span><span class="gv-val">141</span><span class="gv-unit">mEq/L</span></div>
+        <div class="gv-item"><span class="gv-param">Cl⁻</span><span class="gv-val">108</span><span class="gv-unit">mEq/L</span></div>
+      </div>
+      <div class="mc-row"><span class="mc-label">Diagnóstico del trastorno mixto presente:</span>
+        <select class="mc-select" onchange="chk(this,'Acidosis mixta: respiratoria (PaCO₂↑) + metabólica grave (BE −16, lactato 9.8 = isquemia global)','fbC8a')">
+          <option value="">— elegir —</option>
+          <option>Acidosis mixta: respiratoria (PaCO₂↑) + metabólica grave (BE −16, lactato 9.8 = isquemia global)</option>
+          <option>Acidosis respiratoria pura; el lactato es elevado pero no cambia el diagnóstico</option>
+          <option>Acidosis metabólica hiperclorémica pura (AG normal)</option>
+          <option>Acidosis respiratoria crónica con compensación metabólica inadecuada</option>
+        </select><span class="fb" id="fbC8a"></span>
+      </div>
+      <div class="mc-row"><span class="mc-label">¿Está indicado bicarbonato de sodio en este caso?</span>
+        <select class="mc-select" onchange="chk(this,'Considerar si pH <7.10 + disfunción CV documentada; prioridad es mejorar ventilación y perfusión','fbC8b')">
+          <option value="">— elegir —</option>
+          <option>Considerar si pH <7.10 + disfunción CV documentada; prioridad es mejorar ventilación y perfusión</option>
+          <option>Indicado de inmediato: bicarbonato 2 mEq/kg IV bolo rápido</option>
+          <option>No indicado nunca en acidosis láctica post-paro</option>
+          <option>Indicado solo si lactato > 10 mmol/L</option>
+        </select><span class="fb" id="fbC8b"></span>
+      </div>
+    </div>
+
+    <button class="correct-btn" onclick="corregir('A',16,['fbC1a','fbC1b','fbC2a','fbC2b','fbC3a','fbC3b','fbC4a','fbC4b','fbC5a','fbC5b','fbC6a','fbC6b','fbC7a','fbC7b','fbC8a','fbC8b'],2.5)">Corregir Módulo A (2.5 pts)</button>
+    <div class="nota-bar">
+      <span class="nota-bar-label">Nota autocorregible</span>
+      <span class="nota-bar-val" id="notaGA">0.00 / 2.50</span>
+      <span style="font-family:var(--sans);font-size:9pt;color:var(--gray-400);">pts · Módulo A</span>
+    </div>
+  </div>
+</div>
+
+<!-- MÓDULO B -->
+<div class="module">
+  <div class="module-header" style="background:var(--amber);">
+    <span class="module-tag">✏️ DOCENTE</span>
+    <span class="module-title">Módulo B — Análisis razonado de gases arteriales</span>
+    <span class="module-pts">2.5 pts</span>
+  </div>
+  <div class="module-body">
+
+    <div class="ex-item">
+      <div class="ex-label"><span class="ex-num">B1</span> Stewart en cirugía hepática mayor <span class="ex-pts-manual">0.5 pts · docente</span></div>
+      <div class="manual-block">
+        <div class="manual-block-label">✏️ Pregunta abierta</div>
+        <div class="open-question-part"><span class="open-question-part-letter">a</span><span>Un paciente con cirrosis Child B (albúmina 2.4 g/dL) tiene gases "normales" al modelo Henderson-Hasselbalch. Usando la teoría de Stewart, explique qué trastorno oculto existe, cómo calcularlo con Atot, y por qué el HH no lo detecta.</span></div>
+        <div class="open-question-part"><span class="open-question-part-letter">b</span><span>Durante la hepatectomía se administran 5 L de SS 0.9%. ¿Qué le ocurrirá al SID? ¿Cuál será el efecto sobre el pH? ¿Qué solución habría sido preferible según las guías ESICM 2022?</span></div>
+        <textarea class="open-area" placeholder="Escriba su respuesta aquí..."></textarea>
+        <div class="print-answer"></div>
+      </div>
+    </div>
+
+    <div class="ex-item">
+      <div class="ex-label"><span class="ex-num">B2</span> Ventilación mecánica protectora y gases <span class="ex-pts-manual">0.5 pts · docente</span></div>
+      <div class="manual-block">
+        <div class="manual-block-label">✏️ Pregunta abierta</div>
+        <div class="open-question">Un paciente de 70 kg (peso ideal) ventilado en el quirófano tiene: VT 700 mL, FR 14 rpm, PEEP 6 cmH₂O, FiO₂ 0.4. Gases: pH 7.38, PaCO₂ 39, PaO₂ 148, BE 0. Presión plateau 32 cmH₂O. (a) Evalúe si la ventilación es protectora según las guías actuales (VT/kg, Pplat, driving pressure). (b) El cirujano pide Trendelenburg 30° para laparoscopia. ¿Qué cambios espera en los gases y qué ajustes propondría? (c) ¿Cuál es la meta de PaO₂ intraoperatoria según iPROVE? ¿Tiene riesgo la hiperoxia?</div>
+        <textarea class="open-area" placeholder="Escriba su respuesta aquí..."></textarea>
+        <div class="print-answer"></div>
+      </div>
+    </div>
+
+    <div class="ex-item">
+      <div class="ex-label"><span class="ex-num">B3</span> Bogotá 2.640 msnm: adaptación fisiológica vs patología <span class="ex-pts-manual">0.5 pts · docente</span></div>
+      <div class="manual-block">
+        <div class="manual-block-label">✏️ Pregunta abierta</div>
+        <div class="open-question-part"><span class="open-question-part-letter">a</span><span>Un residente de Bogotá de toda su vida llega a su consulta preoperatoria con: PaO₂ 63 mmHg, SaO₂ 93%, PaCO₂ 34 mmHg, pH 7.42, Hb 17.5 g/dL. ¿Es patológico? Explique cada valor según la fisiología de la altitud.</span></div>
+        <div class="open-question-part"><span class="open-question-part-letter">b</span><span>Llega el mismo día un paciente recién llegado del nivel del mar con los mismos gases. ¿Cambia su interpretación? ¿Por qué?</span></div>
+        <div class="open-question-part"><span class="open-question-part-letter">c</span><span>¿Qué valores de PaFi y SaFi utilizaría para clasificar SDRA en un paciente en UCI de Bogotá, y por qué difieren del nivel del mar?</span></div>
+        <textarea class="open-area" placeholder="Escriba su respuesta aquí..."></textarea>
+        <div class="print-answer"></div>
+      </div>
+    </div>
+
+    <div class="ex-item">
+      <div class="ex-label"><span class="ex-num">B4</span> Algoritmo completo de interpretación — caso integrador <span class="ex-pts-manual">0.5 pts · docente</span></div>
+      <div class="manual-block">
+        <div class="manual-block-label">✏️ Caso integrador</div>
+        <div class="ex-context" style="margin-bottom:10px;"><strong>Datos:</strong> Mujer 66 años, DM tipo 2, falla cardíaca crónica. Ingresa a UCI postoperatoria tras bypass coronario de 4 horas. Recibió 3 L SS 0.9% + 500 mL coloides. Furosemida IV al llegar.<br>
+        pH 7.35 · PaCO₂ 38 · HCO₃⁻ 21 · BE −3 · Na⁺ 140 · K⁺ 2.9 · Cl⁻ 113 · Lactato 2.6 · Albúmina 3.0 g/dL · PaO₂ 74 (FiO₂ 0.35)</div>
+        <div class="open-question">Aplique el algoritmo completo de 11 pasos: calcule AG, AG corregido, SIDa, Atot estimado, ratio Δ/Δ, PaFi y gradiente A–a. Identifique todos los trastornos presentes (puede ser mixto). Proponga el manejo priorizado.</div>
+        <textarea class="open-area" style="min-height:120px;" placeholder="Escriba su respuesta aquí..."></textarea>
+        <div class="print-answer"></div>
+      </div>
+    </div>
+
+    <div class="ex-item">
+      <div class="ex-label"><span class="ex-num">B5</span> Lactato: interpretación avanzada y criterios Sepsis-3 <span class="ex-pts-manual">0.5 pts · docente</span></div>
+      <div class="manual-block">
+        <div class="manual-block-label">✏️ Pregunta abierta</div>
+        <div class="open-question-part"><span class="open-question-part-letter">a</span><span>Un paciente con sepsis tiene lactato de 3.2 mmol/L pero presión arterial normal y sin signos de hipoperfusión clínica. ¿Cumple criterios de shock séptico (Sepsis-3)? ¿Cómo diferencia hiperlactatemia tipo A de tipo B?</span></div>
+        <div class="open-question-part"><span class="open-question-part-letter">b</span><span>¿Qué es el "aclaramiento de lactato" y por qué es un objetivo de reanimación? ¿Cuánto debe bajar en 2 horas para considerarse adecuado?</span></div>
+        <div class="open-question-part"><span class="open-question-part-letter">c</span><span>Mencione tres causas de hiperlactatemia tipo B (sin hipoperfusión tisular) relevantes en el perioperatorio.</span></div>
+        <textarea class="open-area" placeholder="Escriba su respuesta aquí..."></textarea>
+        <div class="print-answer"></div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- DESCARGA -->
+<div class="download-box">
+  <h3>⬇ Descargar PDF del Taller</h3>
+  <div class="input-row">
+    <input class="id-input" id="nomG" type="text" placeholder="Nombre completo del estudiante">
+    <input class="id-input" id="univG" type="text" placeholder="Universidad / Institución">
+  </div>
+  <button class="dl-btn" onclick="dlPDF()">⬇ Descargar PDF</button>
+  <div class="dl-error" id="errG">Complete nombre y universidad antes de descargar.</div>
+</div>
+
+</div><!-- /taller-content -->
+</div><!-- /taller-tab -->
+</div><!-- /page -->
+
+<script>
+function showTab(id,btn){
+  document.querySelectorAll('.tab-content').forEach(t=>t.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+  document.getElementById(id+'-tab').classList.add('active');
+  btn.classList.add('active');
+}
+var answers={};
+function chk(sel,correct,fbId){
+  answers[fbId]={val:sel.value.trim(),correct:correct.trim()};
+  var fb=document.getElementById(fbId);
+  if(fb){fb.textContent='';fb.className='fb';}
+}
+var pts={A:0};
+function corregir(mod,total,fbIds,maxPts){
+  var ok=0;
+  fbIds.forEach(function(fbId){
+    var fb=document.getElementById(fbId);
+    var ans=answers[fbId];
+    if(!fb)return;
+    if(!ans||!ans.val){fb.textContent='— sin respuesta';fb.className='fb';return;}
+    if(ans.val===ans.correct){ok++;fb.textContent='✓ correcto';fb.className='fb ok';}
+    else{fb.textContent='✗ incorrecto';fb.className='fb err';}
+  });
+  var p=(ok/total)*maxPts;
+  pts[mod]=p;
+  actualizarNotas();
+  alert('Módulo '+mod+' corregido: '+ok+'/'+total+' correctas = '+p.toFixed(2)+' pts');
+}
+function actualizarNotas(){
+  var nt=document.getElementById('notaGA');
+  if(nt)nt.textContent=(pts.A||0).toFixed(2)+' / 2.50';
+}
+function setupPrintAnswers(){
+  document.querySelectorAll('textarea.open-area').forEach(function(ta){
+    var clone=ta.nextElementSibling;
+    if(!clone||!clone.classList.contains('print-answer')){
+      clone=document.createElement('div');clone.className='print-answer';
+      ta.parentNode.insertBefore(clone,ta.nextSibling);
+    }
+    ta.addEventListener('input',function(){clone.textContent=ta.value;});
+  });
+}
+document.addEventListener('DOMContentLoaded',setupPrintAnswers);
+window.addEventListener('beforeprint',function(){
+  document.querySelectorAll('textarea.open-area').forEach(function(ta){
+    var clone=ta.nextElementSibling;
+    if(clone&&clone.classList.contains('print-answer'))clone.textContent=ta.value;
+  });
+});
+function dlPDF(){
+  var nom=document.getElementById('nomG').value.trim();
+  var univ=document.getElementById('univG').value.trim();
+  if(!nom||!univ){document.getElementById('errG').style.display='block';return;}
+  document.getElementById('errG').style.display='none';
+  var ahora=new Date();
+  var f=ahora.toLocaleDateString('es-CO',{day:'2-digit',month:'long',year:'numeric'})+' '+ahora.toLocaleTimeString('es-CO',{hour:'2-digit',minute:'2-digit'});
+  ['phNombre','pfNombre'].forEach(id=>{var el=document.getElementById(id);if(el)el.textContent=nom;});
+  ['phUniversidad','pfUniversidad'].forEach(id=>{var el=document.getElementById(id);if(el)el.textContent=univ;});
+  ['phGuia','pfGuia'].forEach(id=>{var el=document.getElementById(id);if(el)el.textContent='Taller — Gases Arteriales · Dr. Andrés Robayo C.';});
+  ['phFecha','pfFecha'].forEach(id=>{var el=document.getElementById(id);if(el)el.textContent=f;});
+  document.querySelectorAll('.tab-content').forEach(t=>t.classList.remove('active'));
+  document.getElementById('taller-tab').classList.add('active');
+  setTimeout(function(){window.print();},300);
+}
+</script>
+</body>
+</html>
