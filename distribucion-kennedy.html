@@ -47,6 +47,7 @@ body{font-family:'DM Sans',sans-serif;font-size:13.5px;line-height:1.6;color:var
 .col-dia{font-weight:800;color:#0D1B2A;white-space:nowrap;padding-right:6px !important;font-size:12px;}
 .cell-on{text-align:center;padding:5px 3px !important;min-width:75px;}
 .cell-off{text-align:center;color:#CBD5E1;font-size:16px;font-weight:300;border-right:1px solid #E2E8F0;}
+.cell-na{text-align:center;color:#94A3B8;font-size:11px;font-weight:700;background:repeating-linear-gradient(45deg,#F1F5F9,#F1F5F9 6px,#E2E8F0 6px,#E2E8F0 12px);border-right:1px solid #E2E8F0;}
 .chip-u{display:inline-block;padding:2px 6px;border-radius:4px;font-size:8px;font-weight:800;letter-spacing:.6px;text-transform:uppercase;border:1.5px solid;}
 .cell-name{font-weight:800;font-size:11.5px;line-height:1.2;color:#0D1B2A;}
 .row-urg td{background:#FFF1F2 !important;border-bottom:2px solid #FECDD3;}
@@ -107,8 +108,8 @@ body{font-family:'DM Sans',sans-serif;font-size:13.5px;line-height:1.6;color:var
   <p class="portada-sub">Distribución diaria de salas, recuperación e interconsultas. Turnos noche, posturno, días libres y urgencias de fin de semana y festivos. II Semestre · Julio – Diciembre 2026.</p>
   <div class="portada-pills">
     <div class="pill"><span class="pill-dot" style="background:#3B82F6;"></span>SM — San Martín</div><div class="pill"><span class="pill-dot" style="background:#7C3AED;"></span>SB — La Sabana</div>
-    <div class="pill">5 salas + Rec. + IC · 5 estudiantes</div>
-    <div class="pill">03/08/2026 → 20/08/2026</div>
+    <div class="pill">5 salas + Rec. + IC · 6 estudiantes</div>
+    <div class="pill">03/08/2026 → 30/08/2026</div>
   </div>
 </div></div>
 
@@ -202,7 +203,8 @@ body{font-family:'DM Sans',sans-serif;font-size:13.5px;line-height:1.6;color:var
     </div>
   </div>
 </div>
-<div class="nota nota-info"><strong>📋 Sistema de asignación:</strong> Las salas se asignan por aleatorización equitativa rotativa — cada estudiante rota por todas las salas. Los días de clase, turno noche y post-turno quedan excluidos. Los festivos colombianos están marcados automáticamente.</div>
+<div class="nota nota-info"><strong>📋 Sistema de asignación:</strong> Las salas, Interconsultas y el Hospital Tintal se asignan por aleatorización equitativa rotativa — cada estudiante rota por todos los destinos. Los días de clase, turno noche y post-turno quedan excluidos. Los festivos colombianos están marcados automáticamente.</div>
+<div class="nota nota-info" style="border-color:#0F766E;background:#F0FDFA;color:#134E4A;"><strong style="color:#0F766E;">🏨 Hospital Tintal:</strong> La rotación en el Hospital Tintal tiene disponibilidad <strong>únicamente los martes, jueves y viernes</strong>. Los lunes y miércoles la columna aparece como no disponible (▨).</div>
 <div class="nota nota-warn"><strong>🚨 Urgencias:</strong> Los fines de semana y festivos colombianos muestran los estudiantes asignados a urgencias. Las celdas sin asignar pueden completarse manualmente.</div>
 
 <div class="leyenda">
@@ -227,7 +229,7 @@ body{font-family:'DM Sans',sans-serif;font-size:13.5px;line-height:1.6;color:var
   <div class="sec-h">
     <div class="sec-num">1</div>
     <div class="sec-titulo">Distribución General — Hospital de Kennedy</div>
-    <div class="sec-sub">03/08/2026 → 20/08/2026</div>
+    <div class="sec-sub">03/08/2026 → 30/08/2026</div>
   </div>
   <div class="sec-b">
     <table class="cal-table">
@@ -239,77 +241,65 @@ body{font-family:'DM Sans',sans-serif;font-size:13.5px;line-height:1.6;color:var
         <td class="col-dia">Lunes</td>
         <td class="cell-on" style="">
             <span class="chip-u" style="background:#EDE9FE;border-color:#7C3AED;color:#4C1D95;">SB</span>
-            <div class="cell-name" style="color:#881337;">Mariana Rodriguez Pedraza</div>
+            <div class="cell-name" style="color:#1E3A8A;">Mariana Rodriguez Pedraza</div>
             
           </td><td class="cell-on" style="">
             <span class="chip-u" style="background:#EDE9FE;border-color:#7C3AED;color:#4C1D95;">SB</span>
-            <div class="cell-name" style="color:#1E3A8A;">Liseth Camila Roa Rojas</div>
+            <div class="cell-name" style="color:#14532D;">Liseth Camila Roa Rojas</div>
             
           </td><td class="cell-on" style="">
             <span class="chip-u" style="background:#EDE9FE;border-color:#7C3AED;color:#4C1D95;">SB</span>
-            <div class="cell-name" style="color:#14532D;">Santiago Ararat Collazos</div>
+            <div class="cell-name" style="color:#581C87;">Santiago Ararat Collazos</div>
             
           </td><td class="cell-on" style="">
             <span class="chip-u" style="background:#EDE9FE;border-color:#7C3AED;color:#4C1D95;">SB</span>
-            <div class="cell-name" style="color:#581C87;">Maria Juliana Rizo</div>
+            <div class="cell-name" style="color:#7C2D12;">Maria Juliana Rizo</div>
             
-          </td><td class="cell-off">·</td><td class="cell-off">·</td><td class="cell-off">·</td>
+          </td><td class="cell-off">·</td><td class="cell-off">·</td><td class="cell-na" title="Hospital Tintal — disponible solo martes, jueves y viernes">✕</td>
       </tr><tr class="day-row">
         <td class="col-fecha">04/08/2026</td>
         <td class="col-dia">Martes</td>
-        <td class="cell-on" style="">
-            <span class="chip-u" style="background:#DBEAFE;border-color:#1D4ED8;color:#1E3A8A;">SM</span>
-            <div class="cell-name" style="color:#78350F;">David Cordoba Torres</div>
-            
-          </td><td class="cell-off">·</td><td class="cell-off">·</td><td class="cell-off">·</td><td class="cell-off">·</td><td class="cell-off">·</td><td class="cell-off">·</td>
+        <td class="cell-off">·</td><td class="cell-off">·</td><td class="cell-off">·</td><td class="cell-off">·</td><td class="cell-off">·</td><td class="cell-off">·</td><td class="cell-off">·</td>
       </tr><tr><td colspan="9" style="padding:4px 14px 5px;background:#1A1F3A;border-bottom:2px solid #3949AB;"><span style="background:#292524;color:#FDE68A;padding:2px 9px;border-radius:4px;font-weight:700;font-size:10.5px;margin-right:5px;">📚 Clase: Mariana Rodriguez Pedraza</span><span style="background:#292524;color:#FDE68A;padding:2px 9px;border-radius:4px;font-weight:700;font-size:10.5px;margin-right:5px;">📚 Clase: Liseth Camila Roa Rojas</span><span style="background:#292524;color:#FDE68A;padding:2px 9px;border-radius:4px;font-weight:700;font-size:10.5px;margin-right:5px;">📚 Clase: Santiago Ararat Collazos</span><span style="background:#292524;color:#FDE68A;padding:2px 9px;border-radius:4px;font-weight:700;font-size:10.5px;margin-right:5px;">📚 Clase: Maria Juliana Rizo</span></td></tr><tr class="day-row">
         <td class="col-fecha">05/08/2026</td>
         <td class="col-dia">Miércoles</td>
         <td class="cell-on" style="">
             <span class="chip-u" style="background:#EDE9FE;border-color:#7C3AED;color:#4C1D95;">SB</span>
-            <div class="cell-name" style="color:#1E3A8A;">Liseth Camila Roa Rojas</div>
+            <div class="cell-name" style="color:#581C87;">Santiago Ararat Collazos</div>
             
           </td><td class="cell-on" style="">
             <span class="chip-u" style="background:#EDE9FE;border-color:#7C3AED;color:#4C1D95;">SB</span>
-            <div class="cell-name" style="color:#14532D;">Santiago Ararat Collazos</div>
+            <div class="cell-name" style="color:#7C2D12;">Maria Juliana Rizo</div>
             
           </td><td class="cell-on" style="">
             <span class="chip-u" style="background:#EDE9FE;border-color:#7C3AED;color:#4C1D95;">SB</span>
-            <div class="cell-name" style="color:#581C87;">Maria Juliana Rizo</div>
-            
-          </td><td class="cell-on" style="">
-            <span class="chip-u" style="background:#DBEAFE;border-color:#1D4ED8;color:#1E3A8A;">SM</span>
-            <div class="cell-name" style="color:#78350F;">David Cordoba Torres</div>
+            <div class="cell-name" style="color:#1E3A8A;">Mariana Rodriguez Pedraza</div>
             
           </td><td class="cell-on" style="">
             <span class="chip-u" style="background:#EDE9FE;border-color:#7C3AED;color:#4C1D95;">SB</span>
-            <div class="cell-name" style="color:#881337;">Mariana Rodriguez Pedraza</div>
+            <div class="cell-name" style="color:#14532D;">Liseth Camila Roa Rojas</div>
             
-          </td><td class="cell-off">·</td><td class="cell-off">·</td>
+          </td><td class="cell-off">·</td><td class="cell-off">·</td><td class="cell-na" title="Hospital Tintal — disponible solo martes, jueves y viernes">✕</td>
       </tr><tr class="day-row">
         <td class="col-fecha">06/08/2026</td>
         <td class="col-dia">Jueves</td>
         <td class="cell-on" style="">
             <span class="chip-u" style="background:#EDE9FE;border-color:#7C3AED;color:#4C1D95;">SB</span>
-            <div class="cell-name" style="color:#14532D;">Santiago Ararat Collazos</div>
+            <div class="cell-name" style="color:#7C2D12;">Maria Juliana Rizo</div>
             
           </td><td class="cell-on" style="">
             <span class="chip-u" style="background:#EDE9FE;border-color:#7C3AED;color:#4C1D95;">SB</span>
-            <div class="cell-name" style="color:#581C87;">Maria Juliana Rizo</div>
-            
-          </td><td class="cell-on" style="">
-            <span class="chip-u" style="background:#DBEAFE;border-color:#1D4ED8;color:#1E3A8A;">SM</span>
-            <div class="cell-name" style="color:#78350F;">David Cordoba Torres</div>
+            <div class="cell-name" style="color:#1E3A8A;">Mariana Rodriguez Pedraza</div>
             
           </td><td class="cell-on" style="">
             <span class="chip-u" style="background:#EDE9FE;border-color:#7C3AED;color:#4C1D95;">SB</span>
-            <div class="cell-name" style="color:#881337;">Mariana Rodriguez Pedraza</div>
+            <div class="cell-name" style="color:#14532D;">Liseth Camila Roa Rojas</div>
             
           </td><td class="cell-on" style="">
             <span class="chip-u" style="background:#EDE9FE;border-color:#7C3AED;color:#4C1D95;">SB</span>
-            <div class="cell-name" style="color:#1E3A8A;">Liseth Camila Roa Rojas</div>
+            <div class="cell-name" style="color:#581C87;">Santiago Ararat Collazos</div>
             
-          </td><td class="cell-off">·</td><td class="cell-off">·</td>
+          </td><td class="cell-off">·</td><td class="cell-off">·</td><td class="cell-off">·</td>
       </tr><tr class="day-row row-urg">
           <td class="col-fecha">07/08/2026</td>
           <td class="col-dia">Viernes <span class="tag-tipo">Viernes</span><span class="tag-fest">🇨🇴 Festivo</span></td>
@@ -320,13 +310,13 @@ body{font-family:'DM Sans',sans-serif;font-size:13.5px;line-height:1.6;color:var
           <td class="col-fecha">08/08/2026</td>
           <td class="col-dia">Sábado <span class="tag-tipo">Sábado</span></td>
           <td colspan="7" class="cell-urg">
-            <div class="urg-inner"><span class="urg-label">🚨 Urgencias</span><span class="urg-slot" style="border-color:#7C3AED;background:#EDE9FE;color:#4C1D95;font-weight:700;">Mariana Rodriguez Pedraza</span></div>
+            <div class="urg-inner"><span class="urg-label">🚨 Urgencias</span><span class="urg-slot" style="border-color:#7C3AED;background:#EDE9FE;color:#4C1D95;font-weight:700;">Maria Juliana Rizo</span></div>
           </td>
         </tr><tr class="day-row row-urg">
           <td class="col-fecha">09/08/2026</td>
           <td class="col-dia">Domingo <span class="tag-tipo">Domingo</span></td>
           <td colspan="7" class="cell-urg">
-            <div class="urg-inner"><span class="urg-label">🚨 Urgencias</span><span class="urg-slot" style="border-color:#1D4ED8;background:#DBEAFE;color:#1E3A8A;font-weight:700;">David Cordoba Torres</span></div>
+            <div class="urg-inner"><span class="urg-label">🚨 Urgencias</span><span class="urg-slot">Est. ____________________</span><span class="urg-sep">/</span><span class="urg-slot">Est. ____________________</span><span class="urg-note">(sin asignar)</span></div>
           </td>
         </tr></tbody><tbody class="week-body">
     <tr class="week-title-row"><td colspan="9" class="week-title">📅 Semana 10/08/2026 &nbsp;→&nbsp; 16/08/2026</td></tr>
@@ -335,85 +325,117 @@ body{font-family:'DM Sans',sans-serif;font-size:13.5px;line-height:1.6;color:var
         <td class="col-dia">Lunes</td>
         <td class="cell-on" style="">
             <span class="chip-u" style="background:#EDE9FE;border-color:#7C3AED;color:#4C1D95;">SB</span>
-            <div class="cell-name" style="color:#581C87;">Maria Juliana Rizo</div>
+            <div class="cell-name" style="color:#14532D;">Liseth Camila Roa Rojas</div>
             
           </td><td class="cell-on" style="">
             <span class="chip-u" style="background:#EDE9FE;border-color:#7C3AED;color:#4C1D95;">SB</span>
-            <div class="cell-name" style="color:#881337;">Mariana Rodriguez Pedraza</div>
+            <div class="cell-name" style="color:#581C87;">Santiago Ararat Collazos</div>
             
           </td><td class="cell-on" style="">
             <span class="chip-u" style="background:#EDE9FE;border-color:#7C3AED;color:#4C1D95;">SB</span>
-            <div class="cell-name" style="color:#1E3A8A;">Liseth Camila Roa Rojas</div>
+            <div class="cell-name" style="color:#7C2D12;">Maria Juliana Rizo</div>
             
           </td><td class="cell-on" style="">
             <span class="chip-u" style="background:#EDE9FE;border-color:#7C3AED;color:#4C1D95;">SB</span>
-            <div class="cell-name" style="color:#14532D;">Santiago Ararat Collazos</div>
+            <div class="cell-name" style="color:#1E3A8A;">Mariana Rodriguez Pedraza</div>
             
-          </td><td class="cell-off">·</td><td class="cell-off">·</td><td class="cell-off">·</td>
-      </tr><tr class="day-row">
+          </td><td class="cell-off">·</td><td class="cell-off">·</td><td class="cell-na" title="Hospital Tintal — disponible solo martes, jueves y viernes">✕</td>
+      </tr><tr><td colspan="9" style="padding:4px 14px 5px;background:#1A1F3A;border-bottom:2px solid #3949AB;"><span style="background:#292524;color:#FDE68A;padding:2px 9px;border-radius:4px;font-weight:700;font-size:10.5px;margin-right:5px;">📚 Clase: Brahian Mendez </span><span style="background:#292524;color:#FDE68A;padding:2px 9px;border-radius:4px;font-weight:700;font-size:10.5px;margin-right:5px;">📚 Clase: Sara Gonzalez </span></td></tr><tr class="day-row">
         <td class="col-fecha">11/08/2026</td>
         <td class="col-dia">Martes</td>
-        <td class="cell-off">·</td><td class="cell-off">·</td><td class="cell-off">·</td><td class="cell-off">·</td><td class="cell-off">·</td><td class="cell-off">·</td><td class="cell-off">·</td>
+        <td class="cell-on" style="">
+            <span class="chip-u" style="background:#DBEAFE;border-color:#1D4ED8;color:#1E3A8A;">SM</span>
+            <div class="cell-name" style="color:#881337;">Sara Gonzalez </div>
+            
+          </td><td class="cell-on" style="">
+            <span class="chip-u" style="background:#DBEAFE;border-color:#1D4ED8;color:#1E3A8A;">SM</span>
+            <div class="cell-name" style="color:#78350F;">Brahian Mendez </div>
+            
+          </td><td class="cell-off">·</td><td class="cell-off">·</td><td class="cell-off">·</td><td class="cell-off">·</td><td class="cell-off">·</td>
       </tr><tr><td colspan="9" style="padding:4px 14px 5px;background:#1A1F3A;border-bottom:2px solid #3949AB;"><span style="background:#292524;color:#FDE68A;padding:2px 9px;border-radius:4px;font-weight:700;font-size:10.5px;margin-right:5px;">📚 Clase: Mariana Rodriguez Pedraza</span><span style="background:#292524;color:#FDE68A;padding:2px 9px;border-radius:4px;font-weight:700;font-size:10.5px;margin-right:5px;">📚 Clase: Liseth Camila Roa Rojas</span><span style="background:#292524;color:#FDE68A;padding:2px 9px;border-radius:4px;font-weight:700;font-size:10.5px;margin-right:5px;">📚 Clase: Santiago Ararat Collazos</span><span style="background:#292524;color:#FDE68A;padding:2px 9px;border-radius:4px;font-weight:700;font-size:10.5px;margin-right:5px;">📚 Clase: Maria Juliana Rizo</span></td></tr><tr class="day-row">
         <td class="col-fecha">12/08/2026</td>
         <td class="col-dia">Miércoles</td>
-        <td class="cell-off">·</td><td class="cell-off">·</td><td class="cell-on" style="">
-            <span class="chip-u" style="background:#EDE9FE;border-color:#7C3AED;color:#4C1D95;">SB</span>
-            <div class="cell-name" style="color:#881337;">Mariana Rodriguez Pedraza</div>
+        <td class="cell-on" style="">
+            <span class="chip-u" style="background:#DBEAFE;border-color:#1D4ED8;color:#1E3A8A;">SM</span>
+            <div class="cell-name" style="color:#78350F;">Brahian Mendez </div>
+            
+          </td><td class="cell-on" style="">
+            <span class="chip-u" style="background:#DBEAFE;border-color:#1D4ED8;color:#1E3A8A;">SM</span>
+            <div class="cell-name" style="color:#881337;">Sara Gonzalez </div>
             
           </td><td class="cell-on" style="">
             <span class="chip-u" style="background:#EDE9FE;border-color:#7C3AED;color:#4C1D95;">SB</span>
-            <div class="cell-name" style="color:#1E3A8A;">Liseth Camila Roa Rojas</div>
+            <div class="cell-name" style="color:#581C87;">Santiago Ararat Collazos</div>
             
           </td><td class="cell-on" style="">
             <span class="chip-u" style="background:#EDE9FE;border-color:#7C3AED;color:#4C1D95;">SB</span>
-            <div class="cell-name" style="color:#14532D;">Santiago Ararat Collazos</div>
+            <div class="cell-name" style="color:#7C2D12;">Maria Juliana Rizo</div>
             
           </td><td class="cell-on" style="">
             <span class="chip-u" style="background:#EDE9FE;border-color:#7C3AED;color:#4C1D95;">SB</span>
-            <div class="cell-name" style="color:#581C87;">Maria Juliana Rizo</div>
+            <div class="cell-name" style="color:#1E3A8A;">Mariana Rodriguez Pedraza</div>
+            
+          </td><td class="cell-on" style="">
+            <span class="chip-u" style="background:#EDE9FE;border-color:#7C3AED;color:#4C1D95;">SB</span>
+            <div class="cell-name" style="color:#14532D;">Liseth Camila Roa Rojas</div>
             <div style="font-size:8px;color:#4ADE80;font-weight:700;">📋 IC</div>
-          </td><td class="cell-off">·</td>
+          </td><td class="cell-na" title="Hospital Tintal — disponible solo martes, jueves y viernes">✕</td>
       </tr><tr class="day-row">
         <td class="col-fecha">13/08/2026</td>
         <td class="col-dia">Jueves</td>
         <td class="cell-on" style="">
             <span class="chip-u" style="background:#EDE9FE;border-color:#7C3AED;color:#4C1D95;">SB</span>
-            <div class="cell-name" style="color:#1E3A8A;">Liseth Camila Roa Rojas</div>
+            <div class="cell-name" style="color:#7C2D12;">Maria Juliana Rizo</div>
+            
+          </td><td class="cell-off">·</td><td class="cell-on" style="">
+            <span class="chip-u" style="background:#DBEAFE;border-color:#1D4ED8;color:#1E3A8A;">SM</span>
+            <div class="cell-name" style="color:#881337;">Sara Gonzalez </div>
+            
+          </td><td class="cell-on" style="">
+            <span class="chip-u" style="background:#DBEAFE;border-color:#1D4ED8;color:#1E3A8A;">SM</span>
+            <div class="cell-name" style="color:#78350F;">Brahian Mendez </div>
             
           </td><td class="cell-on" style="">
             <span class="chip-u" style="background:#EDE9FE;border-color:#7C3AED;color:#4C1D95;">SB</span>
-            <div class="cell-name" style="color:#14532D;">Santiago Ararat Collazos</div>
-            
-          </td><td class="cell-off">·</td><td class="cell-off">·</td><td class="cell-on" style="">
-            <span class="chip-u" style="background:#EDE9FE;border-color:#7C3AED;color:#4C1D95;">SB</span>
-            <div class="cell-name" style="color:#581C87;">Maria Juliana Rizo</div>
+            <div class="cell-name" style="color:#14532D;">Liseth Camila Roa Rojas</div>
             
           </td><td class="cell-on" style="">
             <span class="chip-u" style="background:#EDE9FE;border-color:#7C3AED;color:#4C1D95;">SB</span>
-            <div class="cell-name" style="color:#881337;">Mariana Rodriguez Pedraza</div>
+            <div class="cell-name" style="color:#1E3A8A;">Mariana Rodriguez Pedraza</div>
             <div style="font-size:8px;color:#4ADE80;font-weight:700;">📋 IC</div>
-          </td><td class="cell-off">·</td>
+          </td><td class="cell-on" style="">
+            <span class="chip-u" style="background:#EDE9FE;border-color:#7C3AED;color:#4C1D95;">SB</span>
+            <div class="cell-name" style="color:#581C87;">Santiago Ararat Collazos</div>
+            
+          </td>
       </tr><tr class="day-row">
         <td class="col-fecha">14/08/2026</td>
         <td class="col-dia">Viernes</td>
         <td class="cell-on" style="">
             <span class="chip-u" style="background:#EDE9FE;border-color:#7C3AED;color:#4C1D95;">SB</span>
-            <div class="cell-name" style="color:#881337;">Mariana Rodriguez Pedraza</div>
+            <div class="cell-name" style="color:#14532D;">Liseth Camila Roa Rojas</div>
+            
+          </td><td class="cell-off">·</td><td class="cell-on" style="">
+            <span class="chip-u" style="background:#DBEAFE;border-color:#1D4ED8;color:#1E3A8A;">SM</span>
+            <div class="cell-name" style="color:#78350F;">Brahian Mendez </div>
+            
+          </td><td class="cell-on" style="">
+            <span class="chip-u" style="background:#DBEAFE;border-color:#1D4ED8;color:#1E3A8A;">SM</span>
+            <div class="cell-name" style="color:#881337;">Sara Gonzalez </div>
             
           </td><td class="cell-on" style="">
             <span class="chip-u" style="background:#EDE9FE;border-color:#7C3AED;color:#4C1D95;">SB</span>
-            <div class="cell-name" style="color:#581C87;">Maria Juliana Rizo</div>
+            <div class="cell-name" style="color:#581C87;">Santiago Ararat Collazos</div>
             
           </td><td class="cell-on" style="">
             <span class="chip-u" style="background:#EDE9FE;border-color:#7C3AED;color:#4C1D95;">SB</span>
-            <div class="cell-name" style="color:#14532D;">Santiago Ararat Collazos</div>
-            
-          </td><td class="cell-off">·</td><td class="cell-off">·</td><td class="cell-on" style="">
-            <span class="chip-u" style="background:#EDE9FE;border-color:#7C3AED;color:#4C1D95;">SB</span>
-            <div class="cell-name" style="color:#1E3A8A;">Liseth Camila Roa Rojas</div>
+            <div class="cell-name" style="color:#7C2D12;">Maria Juliana Rizo</div>
             <div style="font-size:8px;color:#4ADE80;font-weight:700;">📋 IC</div>
-          </td><td class="cell-off">·</td>
+          </td><td class="cell-on" style="">
+            <span class="chip-u" style="background:#EDE9FE;border-color:#7C3AED;color:#4C1D95;">SB</span>
+            <div class="cell-name" style="color:#1E3A8A;">Mariana Rodriguez Pedraza</div>
+            
+          </td>
       </tr><tr class="day-row row-urg">
           <td class="col-fecha">15/08/2026</td>
           <td class="col-dia">Sábado <span class="tag-tipo">Sábado</span></td>
@@ -427,58 +449,172 @@ body{font-family:'DM Sans',sans-serif;font-size:13.5px;line-height:1.6;color:var
             <div class="urg-inner"><span class="urg-label">🚨 Urgencias</span><span class="urg-slot" style="border-color:#7C3AED;background:#EDE9FE;color:#4C1D95;font-weight:700;">Santiago Ararat Collazos</span></div>
           </td>
         </tr></tbody><tbody class="week-body">
-    <tr class="week-title-row"><td colspan="9" class="week-title">📅 Semana 17/08/2026 &nbsp;→&nbsp; 20/08/2026</td></tr>
+    <tr class="week-title-row"><td colspan="9" class="week-title">📅 Semana 17/08/2026 &nbsp;→&nbsp; 23/08/2026</td></tr>
     <tr class="subhead-row"><td class="sh th-meta">Fecha</td><td class="sh th-meta">Día</td><th class="sh" style="background:#B45309;">Sala 1</th><th class="sh" style="background:#9F1239;">Sala 2</th><th class="sh" style="background:#1D4ED8;">Sala 3</th><th class="sh" style="background:#15803D;">Sala 4</th><th class="sh" style="background:#7E22CE;">Sala 5</th><th class="sh" style="background:#B91C1C;">Interconsultas</th><th class="sh" style="background:#0369A1;">Hospital Tintal</th></tr><tr class="day-row row-urg">
           <td class="col-fecha">17/08/2026</td>
           <td class="col-dia">Lunes <span class="tag-tipo">Lunes</span><span class="tag-fest">🇨🇴 Festivo</span></td>
           <td colspan="7" class="cell-urg">
-            <div class="urg-inner"><span class="urg-label">🚨 Urgencias</span><span class="urg-slot" style="border-color:#7C3AED;background:#EDE9FE;color:#4C1D95;font-weight:700;">Maria Juliana Rizo</span></div>
+            <div class="urg-inner"><span class="urg-label">🚨 Urgencias</span><span class="urg-slot" style="border-color:#7C3AED;background:#EDE9FE;color:#4C1D95;font-weight:700;">Mariana Rodriguez Pedraza</span></div>
           </td>
         </tr><tr class="day-row">
         <td class="col-fecha">18/08/2026</td>
         <td class="col-dia">Martes</td>
-        <td class="cell-off">·</td><td class="cell-off">·</td><td class="cell-off">·</td><td class="cell-off">·</td><td class="cell-off">·</td><td class="cell-off">·</td><td class="cell-off">·</td>
+        <td class="cell-off">·</td><td class="cell-off">·</td><td class="cell-off">·</td><td class="cell-off">·</td><td class="cell-on" style="">
+            <span class="chip-u" style="background:#DBEAFE;border-color:#1D4ED8;color:#1E3A8A;">SM</span>
+            <div class="cell-name" style="color:#881337;">Sara Gonzalez </div>
+            
+          </td><td class="cell-on" style="">
+            <span class="chip-u" style="background:#DBEAFE;border-color:#1D4ED8;color:#1E3A8A;">SM</span>
+            <div class="cell-name" style="color:#78350F;">Brahian Mendez </div>
+            <div style="font-size:8px;color:#4ADE80;font-weight:700;">📋 IC</div>
+          </td><td class="cell-off">·</td>
       </tr><tr><td colspan="9" style="padding:4px 14px 5px;background:#1A1F3A;border-bottom:2px solid #3949AB;"><span style="background:#292524;color:#FDE68A;padding:2px 9px;border-radius:4px;font-weight:700;font-size:10.5px;margin-right:5px;">📚 Clase: Mariana Rodriguez Pedraza</span><span style="background:#292524;color:#FDE68A;padding:2px 9px;border-radius:4px;font-weight:700;font-size:10.5px;margin-right:5px;">📚 Clase: Liseth Camila Roa Rojas</span><span style="background:#292524;color:#FDE68A;padding:2px 9px;border-radius:4px;font-weight:700;font-size:10.5px;margin-right:5px;">📚 Clase: Santiago Ararat Collazos</span><span style="background:#292524;color:#FDE68A;padding:2px 9px;border-radius:4px;font-weight:700;font-size:10.5px;margin-right:5px;">📚 Clase: Maria Juliana Rizo</span></td></tr><tr class="day-row">
         <td class="col-fecha">19/08/2026</td>
         <td class="col-dia">Miércoles</td>
         <td class="cell-on" style="">
             <span class="chip-u" style="background:#EDE9FE;border-color:#7C3AED;color:#4C1D95;">SB</span>
-            <div class="cell-name" style="color:#581C87;">Maria Juliana Rizo</div>
+            <div class="cell-name" style="color:#581C87;">Santiago Ararat Collazos</div>
             
           </td><td class="cell-on" style="">
             <span class="chip-u" style="background:#EDE9FE;border-color:#7C3AED;color:#4C1D95;">SB</span>
-            <div class="cell-name" style="color:#881337;">Mariana Rodriguez Pedraza</div>
+            <div class="cell-name" style="color:#7C2D12;">Maria Juliana Rizo</div>
             
           </td><td class="cell-on" style="">
             <span class="chip-u" style="background:#EDE9FE;border-color:#7C3AED;color:#4C1D95;">SB</span>
-            <div class="cell-name" style="color:#1E3A8A;">Liseth Camila Roa Rojas</div>
+            <div class="cell-name" style="color:#1E3A8A;">Mariana Rodriguez Pedraza</div>
             
-          </td><td class="cell-off">·</td><td class="cell-off">·</td><td class="cell-on" style="">
+          </td><td class="cell-on" style="">
             <span class="chip-u" style="background:#EDE9FE;border-color:#7C3AED;color:#4C1D95;">SB</span>
-            <div class="cell-name" style="color:#14532D;">Santiago Ararat Collazos</div>
+            <div class="cell-name" style="color:#14532D;">Liseth Camila Roa Rojas</div>
+            
+          </td><td class="cell-on" style="">
+            <span class="chip-u" style="background:#DBEAFE;border-color:#1D4ED8;color:#1E3A8A;">SM</span>
+            <div class="cell-name" style="color:#78350F;">Brahian Mendez </div>
+            
+          </td><td class="cell-on" style="">
+            <span class="chip-u" style="background:#DBEAFE;border-color:#1D4ED8;color:#1E3A8A;">SM</span>
+            <div class="cell-name" style="color:#881337;">Sara Gonzalez </div>
             <div style="font-size:8px;color:#4ADE80;font-weight:700;">📋 IC</div>
-          </td><td class="cell-off">·</td>
+          </td><td class="cell-na" title="Hospital Tintal — disponible solo martes, jueves y viernes">✕</td>
       </tr><tr class="day-row">
         <td class="col-fecha">20/08/2026</td>
         <td class="col-dia">Jueves</td>
         <td class="cell-on" style="">
-            <span class="chip-u" style="background:#EDE9FE;border-color:#7C3AED;color:#4C1D95;">SB</span>
-            <div class="cell-name" style="color:#14532D;">Santiago Ararat Collazos</div>
+            <span class="chip-u" style="background:#DBEAFE;border-color:#1D4ED8;color:#1E3A8A;">SM</span>
+            <div class="cell-name" style="color:#881337;">Sara Gonzalez </div>
             
           </td><td class="cell-on" style="">
             <span class="chip-u" style="background:#EDE9FE;border-color:#7C3AED;color:#4C1D95;">SB</span>
-            <div class="cell-name" style="color:#1E3A8A;">Liseth Camila Roa Rojas</div>
+            <div class="cell-name" style="color:#1E3A8A;">Mariana Rodriguez Pedraza</div>
             
           </td><td class="cell-on" style="">
             <span class="chip-u" style="background:#EDE9FE;border-color:#7C3AED;color:#4C1D95;">SB</span>
-            <div class="cell-name" style="color:#581C87;">Maria Juliana Rizo</div>
+            <div class="cell-name" style="color:#14532D;">Liseth Camila Roa Rojas</div>
+            
+          </td><td class="cell-off">·</td><td class="cell-on" style="">
+            <span class="chip-u" style="background:#EDE9FE;border-color:#7C3AED;color:#4C1D95;">SB</span>
+            <div class="cell-name" style="color:#7C2D12;">Maria Juliana Rizo</div>
             
           </td><td class="cell-on" style="">
             <span class="chip-u" style="background:#EDE9FE;border-color:#7C3AED;color:#4C1D95;">SB</span>
-            <div class="cell-name" style="color:#881337;">Mariana Rodriguez Pedraza</div>
+            <div class="cell-name" style="color:#581C87;">Santiago Ararat Collazos</div>
+            <div style="font-size:8px;color:#4ADE80;font-weight:700;">📋 IC</div>
+          </td><td class="cell-on" style="">
+            <span class="chip-u" style="background:#DBEAFE;border-color:#1D4ED8;color:#1E3A8A;">SM</span>
+            <div class="cell-name" style="color:#78350F;">Brahian Mendez </div>
             
-          </td><td class="cell-off">·</td><td class="cell-off">·</td><td class="cell-off">·</td>
-      </tr></tbody>
+          </td>
+      </tr><tr class="day-row">
+        <td class="col-fecha">21/08/2026</td>
+        <td class="col-dia">Viernes</td>
+        <td class="cell-on" style="">
+            <span class="chip-u" style="background:#DBEAFE;border-color:#1D4ED8;color:#1E3A8A;">SM</span>
+            <div class="cell-name" style="color:#78350F;">Brahian Mendez </div>
+            
+          </td><td class="cell-off">·</td><td class="cell-off">·</td><td class="cell-off">·</td><td class="cell-off">·</td><td class="cell-off">·</td><td class="cell-on" style="">
+            <span class="chip-u" style="background:#DBEAFE;border-color:#1D4ED8;color:#1E3A8A;">SM</span>
+            <div class="cell-name" style="color:#881337;">Sara Gonzalez </div>
+            
+          </td>
+      </tr><tr class="day-row row-urg">
+          <td class="col-fecha">22/08/2026</td>
+          <td class="col-dia">Sábado <span class="tag-tipo">Sábado</span></td>
+          <td colspan="7" class="cell-urg">
+            <div class="urg-inner"><span class="urg-label">🚨 Urgencias</span><span class="urg-slot">Est. ____________________</span><span class="urg-sep">/</span><span class="urg-slot">Est. ____________________</span><span class="urg-note">(sin asignar)</span></div>
+          </td>
+        </tr><tr class="day-row row-urg">
+          <td class="col-fecha">23/08/2026</td>
+          <td class="col-dia">Domingo <span class="tag-tipo">Domingo</span></td>
+          <td colspan="7" class="cell-urg">
+            <div class="urg-inner"><span class="urg-label">🚨 Urgencias</span><span class="urg-slot" style="border-color:#1D4ED8;background:#DBEAFE;color:#1E3A8A;font-weight:700;">Brahian Mendez </span></div>
+          </td>
+        </tr></tbody><tbody class="week-body">
+    <tr class="week-title-row"><td colspan="9" class="week-title">📅 Semana 24/08/2026 &nbsp;→&nbsp; 30/08/2026</td></tr>
+    <tr class="subhead-row"><td class="sh th-meta">Fecha</td><td class="sh th-meta">Día</td><th class="sh" style="background:#B45309;">Sala 1</th><th class="sh" style="background:#9F1239;">Sala 2</th><th class="sh" style="background:#1D4ED8;">Sala 3</th><th class="sh" style="background:#15803D;">Sala 4</th><th class="sh" style="background:#7E22CE;">Sala 5</th><th class="sh" style="background:#B91C1C;">Interconsultas</th><th class="sh" style="background:#0369A1;">Hospital Tintal</th></tr><tr class="day-row">
+        <td class="col-fecha">24/08/2026</td>
+        <td class="col-dia">Lunes</td>
+        <td class="cell-off">·</td><td class="cell-off">·</td><td class="cell-off">·</td><td class="cell-off">·</td><td class="cell-off">·</td><td class="cell-off">·</td><td class="cell-na" title="Hospital Tintal — disponible solo martes, jueves y viernes">✕</td>
+      </tr><tr><td colspan="9" style="padding:4px 14px 5px;background:#1A1F3A;border-bottom:2px solid #3949AB;"><span style="background:#292524;color:#FDE68A;padding:2px 9px;border-radius:4px;font-weight:700;font-size:10.5px;margin-right:5px;">📚 Clase: Brahian Mendez </span><span style="background:#292524;color:#FDE68A;padding:2px 9px;border-radius:4px;font-weight:700;font-size:10.5px;margin-right:5px;">📚 Clase: Sara Gonzalez </span></td></tr><tr class="day-row">
+        <td class="col-fecha">25/08/2026</td>
+        <td class="col-dia">Martes</td>
+        <td class="cell-off">·</td><td class="cell-on" style="">
+            <span class="chip-u" style="background:#DBEAFE;border-color:#1D4ED8;color:#1E3A8A;">SM</span>
+            <div class="cell-name" style="color:#78350F;">Brahian Mendez </div>
+            
+          </td><td class="cell-on" style="">
+            <span class="chip-u" style="background:#DBEAFE;border-color:#1D4ED8;color:#1E3A8A;">SM</span>
+            <div class="cell-name" style="color:#881337;">Sara Gonzalez </div>
+            
+          </td><td class="cell-off">·</td><td class="cell-off">·</td><td class="cell-off">·</td><td class="cell-off">·</td>
+      </tr><tr class="day-row">
+        <td class="col-fecha">26/08/2026</td>
+        <td class="col-dia">Miércoles</td>
+        <td class="cell-off">·</td><td class="cell-on" style="">
+            <span class="chip-u" style="background:#DBEAFE;border-color:#1D4ED8;color:#1E3A8A;">SM</span>
+            <div class="cell-name" style="color:#881337;">Sara Gonzalez </div>
+            
+          </td><td class="cell-on" style="">
+            <span class="chip-u" style="background:#DBEAFE;border-color:#1D4ED8;color:#1E3A8A;">SM</span>
+            <div class="cell-name" style="color:#78350F;">Brahian Mendez </div>
+            
+          </td><td class="cell-off">·</td><td class="cell-off">·</td><td class="cell-off">·</td><td class="cell-na" title="Hospital Tintal — disponible solo martes, jueves y viernes">✕</td>
+      </tr><tr class="day-row">
+        <td class="col-fecha">27/08/2026</td>
+        <td class="col-dia">Jueves</td>
+        <td class="cell-off">·</td><td class="cell-off">·</td><td class="cell-off">·</td><td class="cell-on" style="">
+            <span class="chip-u" style="background:#DBEAFE;border-color:#1D4ED8;color:#1E3A8A;">SM</span>
+            <div class="cell-name" style="color:#78350F;">Brahian Mendez </div>
+            
+          </td><td class="cell-on" style="">
+            <span class="chip-u" style="background:#DBEAFE;border-color:#1D4ED8;color:#1E3A8A;">SM</span>
+            <div class="cell-name" style="color:#881337;">Sara Gonzalez </div>
+            
+          </td><td class="cell-off">·</td><td class="cell-off">·</td>
+      </tr><tr class="day-row">
+        <td class="col-fecha">28/08/2026</td>
+        <td class="col-dia">Viernes</td>
+        <td class="cell-off">·</td><td class="cell-off">·</td><td class="cell-off">·</td><td class="cell-on" style="">
+            <span class="chip-u" style="background:#DBEAFE;border-color:#1D4ED8;color:#1E3A8A;">SM</span>
+            <div class="cell-name" style="color:#881337;">Sara Gonzalez </div>
+            
+          </td><td class="cell-on" style="">
+            <span class="chip-u" style="background:#DBEAFE;border-color:#1D4ED8;color:#1E3A8A;">SM</span>
+            <div class="cell-name" style="color:#78350F;">Brahian Mendez </div>
+            
+          </td><td class="cell-off">·</td><td class="cell-off">·</td>
+      </tr><tr class="day-row row-urg">
+          <td class="col-fecha">29/08/2026</td>
+          <td class="col-dia">Sábado <span class="tag-tipo">Sábado</span></td>
+          <td colspan="7" class="cell-urg">
+            <div class="urg-inner"><span class="urg-label">🚨 Urgencias</span><span class="urg-slot">Est. ____________________</span><span class="urg-sep">/</span><span class="urg-slot">Est. ____________________</span><span class="urg-note">(sin asignar)</span></div>
+          </td>
+        </tr><tr class="day-row row-urg">
+          <td class="col-fecha">30/08/2026</td>
+          <td class="col-dia">Domingo <span class="tag-tipo">Domingo</span></td>
+          <td colspan="7" class="cell-urg">
+            <div class="urg-inner"><span class="urg-label">🚨 Urgencias</span><span class="urg-slot" style="border-color:#1D4ED8;background:#DBEAFE;color:#1E3A8A;font-weight:700;">Sara Gonzalez </span></div>
+          </td>
+        </tr></tbody>
     </table>
   </div>
 </div>
@@ -487,14 +623,14 @@ body{font-family:'DM Sans',sans-serif;font-size:13.5px;line-height:1.6;color:var
   <div class="sec-h">
     <div class="sec-num">2</div>
     <div class="sec-titulo">Rotación Individual por Estudiante</div>
-    <div class="sec-sub">5 estudiantes</div>
+    <div class="sec-sub">6 estudiantes</div>
   </div>
   <div class="students-grid"><div class="student-card">
       <div class="student-card-h" style="background:#3B82F6;">
-        David Cordoba Torres <small>SM · 04/08/2026 → 09/08/2026</small>
+        Brahian Mendez  <small>SM · 10/08/2026 → 30/08/2026</small>
       </div>
       <div style="padding:8px 14px;background:#F8F9FA;font-size:11px;display:flex;flex-wrap:wrap;gap:10px;border-bottom:2px solid #E2E8F0;">
-        <span>🏥 <strong>3</strong> días en salas</span>
+        <span>🏥 <strong>12</strong> días en salas</span>
         <span>🌙 <strong>0</strong> turno(s) noche</span>
         <span>🏖️ <strong>0</strong> libre(s)</span>
         <span>📚 Clase: <strong>Lun, Sáb</strong></span>
@@ -504,21 +640,191 @@ body{font-family:'DM Sans',sans-serif;font-size:13.5px;line-height:1.6;color:var
           <table class="ind-table">
             <thead><tr><th>Fecha</th><th>Día</th><th>Tipo</th><th>Asignación</th></tr></thead>
             <tbody><tr style="">
-        <td class="ind-fecha">04/08/2026</td>
+        <td class="ind-fecha">10/08/2026</td>
+        <td class="ind-dia">Lun</td>
+        <td><span class="badge-ind" style="background:#78350F;color:#FDE68A;">📚 Clase</span></td>
+        <td>—</td>
+      </tr><tr style="">
+        <td class="ind-fecha">11/08/2026</td>
+        <td class="ind-dia">Mar</td>
+        <td><span class="badge-ind" style="background:#9F1239;color:#fff;">🏥 Sala</span></td>
+        <td><span style="font-weight:700;color:#9F1239;">Sala 2</span></td>
+      </tr><tr style="">
+        <td class="ind-fecha">12/08/2026</td>
+        <td class="ind-dia">Mié</td>
+        <td><span class="badge-ind" style="background:#B45309;color:#fff;">🏥 Sala</span></td>
+        <td><span style="font-weight:700;color:#B45309;">Sala 1</span></td>
+      </tr><tr style="">
+        <td class="ind-fecha">13/08/2026</td>
+        <td class="ind-dia">Jue</td>
+        <td><span class="badge-ind" style="background:#15803D;color:#fff;">🏥 Sala</span></td>
+        <td><span style="font-weight:700;color:#15803D;">Sala 4</span></td>
+      </tr><tr style="">
+        <td class="ind-fecha">14/08/2026</td>
+        <td class="ind-dia">Vie</td>
+        <td><span class="badge-ind" style="background:#1D4ED8;color:#fff;">🏥 Sala</span></td>
+        <td><span style="font-weight:700;color:#1D4ED8;">Sala 3</span></td>
+      </tr><tr style="">
+        <td class="ind-fecha">18/08/2026</td>
+        <td class="ind-dia">Mar</td>
+        <td><span class="badge-ind" style="background:#14532D;color:#4ADE80;">📋 Interconsultas</span></td>
+        <td><span style="font-weight:700;color:#14532D;">Interconsultas</span></td>
+      </tr><tr style="">
+        <td class="ind-fecha">19/08/2026</td>
+        <td class="ind-dia">Mié</td>
+        <td><span class="badge-ind" style="background:#7E22CE;color:#fff;">🏥 Sala</span></td>
+        <td><span style="font-weight:700;color:#7E22CE;">Sala 5</span></td>
+      </tr><tr style="">
+        <td class="ind-fecha">20/08/2026</td>
+        <td class="ind-dia">Jue</td>
+        <td><span class="badge-ind" style="background:#0369A1;color:#fff;">🏥 Sala</span></td>
+        <td><span style="font-weight:700;color:#0369A1;">Hospital Tintal</span></td>
+      </tr><tr style="">
+        <td class="ind-fecha">21/08/2026</td>
+        <td class="ind-dia">Vie</td>
+        <td><span class="badge-ind" style="background:#B45309;color:#fff;">🏥 Sala</span></td>
+        <td><span style="font-weight:700;color:#B45309;">Sala 1</span></td>
+      </tr><tr><td class="ind-fecha">23/08/2026</td><td class="ind-dia">Dom</td>
+            <td><span class="badge-ind" style="background:#7F1D1D;color:#FCA5A5;">🚨 Urgencias</span></td>
+            <td style="font-family:monospace;font-size:10px;">—</td></tr><tr style="">
+        <td class="ind-fecha">24/08/2026</td>
+        <td class="ind-dia">Lun</td>
+        <td><span class="badge-ind" style="background:#78350F;color:#FDE68A;">📚 Clase</span></td>
+        <td>—</td>
+      </tr><tr style="">
+        <td class="ind-fecha">25/08/2026</td>
+        <td class="ind-dia">Mar</td>
+        <td><span class="badge-ind" style="background:#9F1239;color:#fff;">🏥 Sala</span></td>
+        <td><span style="font-weight:700;color:#9F1239;">Sala 2</span></td>
+      </tr><tr style="">
+        <td class="ind-fecha">26/08/2026</td>
+        <td class="ind-dia">Mié</td>
+        <td><span class="badge-ind" style="background:#1D4ED8;color:#fff;">🏥 Sala</span></td>
+        <td><span style="font-weight:700;color:#1D4ED8;">Sala 3</span></td>
+      </tr><tr style="">
+        <td class="ind-fecha">27/08/2026</td>
+        <td class="ind-dia">Jue</td>
+        <td><span class="badge-ind" style="background:#15803D;color:#fff;">🏥 Sala</span></td>
+        <td><span style="font-weight:700;color:#15803D;">Sala 4</span></td>
+      </tr><tr style="">
+        <td class="ind-fecha">28/08/2026</td>
+        <td class="ind-dia">Vie</td>
+        <td><span class="badge-ind" style="background:#7E22CE;color:#fff;">🏥 Sala</span></td>
+        <td><span style="font-weight:700;color:#7E22CE;">Sala 5</span></td>
+      </tr></tbody>
+          </table>
+        </div>
+        <div style="padding:12px 14px;background:#FAFBFC;">
+          <div style="font-size:9.5px;font-weight:700;letter-spacing:.8px;text-transform:uppercase;color:#94A3B8;margin-bottom:7px;">Rotación por Sala</div>
+          <div style="display:flex;justify-content:space-between;padding:3px 0;border-bottom:1px solid #EEE;font-size:11px;">
+        <span style="color:#B45309;font-weight:600;">Sala 1</span>
+        <span style="font-family:'DM Mono',monospace;font-weight:700;">2d</span>
+      </div><div style="display:flex;justify-content:space-between;padding:3px 0;border-bottom:1px solid #EEE;font-size:11px;">
+        <span style="color:#9F1239;font-weight:600;">Sala 2</span>
+        <span style="font-family:'DM Mono',monospace;font-weight:700;">2d</span>
+      </div><div style="display:flex;justify-content:space-between;padding:3px 0;border-bottom:1px solid #EEE;font-size:11px;">
+        <span style="color:#1D4ED8;font-weight:600;">Sala 3</span>
+        <span style="font-family:'DM Mono',monospace;font-weight:700;">2d</span>
+      </div><div style="display:flex;justify-content:space-between;padding:3px 0;border-bottom:1px solid #EEE;font-size:11px;">
+        <span style="color:#15803D;font-weight:600;">Sala 4</span>
+        <span style="font-family:'DM Mono',monospace;font-weight:700;">2d</span>
+      </div><div style="display:flex;justify-content:space-between;padding:3px 0;border-bottom:1px solid #EEE;font-size:11px;">
+        <span style="color:#7E22CE;font-weight:600;">Sala 5</span>
+        <span style="font-family:'DM Mono',monospace;font-weight:700;">2d</span>
+      </div><div style="display:flex;justify-content:space-between;padding:3px 0;border-bottom:1px solid #EEE;font-size:11px;">
+        <span style="color:#B91C1C;font-weight:600;">Interconsultas</span>
+        <span style="font-family:'DM Mono',monospace;font-weight:700;">1d</span>
+      </div><div style="display:flex;justify-content:space-between;padding:3px 0;border-bottom:1px solid #EEE;font-size:11px;">
+        <span style="color:#0369A1;font-weight:600;">Hospital Tintal</span>
+        <span style="font-family:'DM Mono',monospace;font-weight:700;">1d</span>
+      </div>
+        </div>
+      </div>
+    </div><div class="student-card">
+      <div class="student-card-h" style="background:#3B82F6;">
+        Sara Gonzalez  <small>SM · 10/08/2026 → 30/08/2026</small>
+      </div>
+      <div style="padding:8px 14px;background:#F8F9FA;font-size:11px;display:flex;flex-wrap:wrap;gap:10px;border-bottom:2px solid #E2E8F0;">
+        <span>🏥 <strong>12</strong> días en salas</span>
+        <span>🌙 <strong>0</strong> turno(s) noche</span>
+        <span>🏖️ <strong>0</strong> libre(s)</span>
+        <span>📚 Clase: <strong>Lun, Sáb</strong></span>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 200px;">
+        <div style="overflow-x:auto;border-right:1px solid #E2E8F0;">
+          <table class="ind-table">
+            <thead><tr><th>Fecha</th><th>Día</th><th>Tipo</th><th>Asignación</th></tr></thead>
+            <tbody><tr style="">
+        <td class="ind-fecha">10/08/2026</td>
+        <td class="ind-dia">Lun</td>
+        <td><span class="badge-ind" style="background:#78350F;color:#FDE68A;">📚 Clase</span></td>
+        <td>—</td>
+      </tr><tr style="">
+        <td class="ind-fecha">11/08/2026</td>
         <td class="ind-dia">Mar</td>
         <td><span class="badge-ind" style="background:#B45309;color:#fff;">🏥 Sala</span></td>
         <td><span style="font-weight:700;color:#B45309;">Sala 1</span></td>
       </tr><tr style="">
-        <td class="ind-fecha">05/08/2026</td>
+        <td class="ind-fecha">12/08/2026</td>
         <td class="ind-dia">Mié</td>
-        <td><span class="badge-ind" style="background:#15803D;color:#fff;">🏥 Sala</span></td>
-        <td><span style="font-weight:700;color:#15803D;">Sala 4</span></td>
+        <td><span class="badge-ind" style="background:#9F1239;color:#fff;">🏥 Sala</span></td>
+        <td><span style="font-weight:700;color:#9F1239;">Sala 2</span></td>
       </tr><tr style="">
-        <td class="ind-fecha">06/08/2026</td>
+        <td class="ind-fecha">13/08/2026</td>
         <td class="ind-dia">Jue</td>
         <td><span class="badge-ind" style="background:#1D4ED8;color:#fff;">🏥 Sala</span></td>
         <td><span style="font-weight:700;color:#1D4ED8;">Sala 3</span></td>
-      </tr><tr><td class="ind-fecha">09/08/2026</td><td class="ind-dia">Dom</td>
+      </tr><tr style="">
+        <td class="ind-fecha">14/08/2026</td>
+        <td class="ind-dia">Vie</td>
+        <td><span class="badge-ind" style="background:#15803D;color:#fff;">🏥 Sala</span></td>
+        <td><span style="font-weight:700;color:#15803D;">Sala 4</span></td>
+      </tr><tr style="">
+        <td class="ind-fecha">18/08/2026</td>
+        <td class="ind-dia">Mar</td>
+        <td><span class="badge-ind" style="background:#7E22CE;color:#fff;">🏥 Sala</span></td>
+        <td><span style="font-weight:700;color:#7E22CE;">Sala 5</span></td>
+      </tr><tr style="">
+        <td class="ind-fecha">19/08/2026</td>
+        <td class="ind-dia">Mié</td>
+        <td><span class="badge-ind" style="background:#14532D;color:#4ADE80;">📋 Interconsultas</span></td>
+        <td><span style="font-weight:700;color:#14532D;">Interconsultas</span></td>
+      </tr><tr style="">
+        <td class="ind-fecha">20/08/2026</td>
+        <td class="ind-dia">Jue</td>
+        <td><span class="badge-ind" style="background:#B45309;color:#fff;">🏥 Sala</span></td>
+        <td><span style="font-weight:700;color:#B45309;">Sala 1</span></td>
+      </tr><tr style="">
+        <td class="ind-fecha">21/08/2026</td>
+        <td class="ind-dia">Vie</td>
+        <td><span class="badge-ind" style="background:#0369A1;color:#fff;">🏥 Sala</span></td>
+        <td><span style="font-weight:700;color:#0369A1;">Hospital Tintal</span></td>
+      </tr><tr style="">
+        <td class="ind-fecha">24/08/2026</td>
+        <td class="ind-dia">Lun</td>
+        <td><span class="badge-ind" style="background:#78350F;color:#FDE68A;">📚 Clase</span></td>
+        <td>—</td>
+      </tr><tr style="">
+        <td class="ind-fecha">25/08/2026</td>
+        <td class="ind-dia">Mar</td>
+        <td><span class="badge-ind" style="background:#1D4ED8;color:#fff;">🏥 Sala</span></td>
+        <td><span style="font-weight:700;color:#1D4ED8;">Sala 3</span></td>
+      </tr><tr style="">
+        <td class="ind-fecha">26/08/2026</td>
+        <td class="ind-dia">Mié</td>
+        <td><span class="badge-ind" style="background:#9F1239;color:#fff;">🏥 Sala</span></td>
+        <td><span style="font-weight:700;color:#9F1239;">Sala 2</span></td>
+      </tr><tr style="">
+        <td class="ind-fecha">27/08/2026</td>
+        <td class="ind-dia">Jue</td>
+        <td><span class="badge-ind" style="background:#7E22CE;color:#fff;">🏥 Sala</span></td>
+        <td><span style="font-weight:700;color:#7E22CE;">Sala 5</span></td>
+      </tr><tr style="">
+        <td class="ind-fecha">28/08/2026</td>
+        <td class="ind-dia">Vie</td>
+        <td><span class="badge-ind" style="background:#15803D;color:#fff;">🏥 Sala</span></td>
+        <td><span style="font-weight:700;color:#15803D;">Sala 4</span></td>
+      </tr><tr><td class="ind-fecha">30/08/2026</td><td class="ind-dia">Dom</td>
             <td><span class="badge-ind" style="background:#7F1D1D;color:#FCA5A5;">🚨 Urgencias</span></td>
             <td style="font-family:monospace;font-size:10px;">—</td></tr></tbody>
           </table>
@@ -527,12 +833,24 @@ body{font-family:'DM Sans',sans-serif;font-size:13.5px;line-height:1.6;color:var
           <div style="font-size:9.5px;font-weight:700;letter-spacing:.8px;text-transform:uppercase;color:#94A3B8;margin-bottom:7px;">Rotación por Sala</div>
           <div style="display:flex;justify-content:space-between;padding:3px 0;border-bottom:1px solid #EEE;font-size:11px;">
         <span style="color:#B45309;font-weight:600;">Sala 1</span>
-        <span style="font-family:'DM Mono',monospace;font-weight:700;">1d</span>
+        <span style="font-family:'DM Mono',monospace;font-weight:700;">2d</span>
+      </div><div style="display:flex;justify-content:space-between;padding:3px 0;border-bottom:1px solid #EEE;font-size:11px;">
+        <span style="color:#9F1239;font-weight:600;">Sala 2</span>
+        <span style="font-family:'DM Mono',monospace;font-weight:700;">2d</span>
       </div><div style="display:flex;justify-content:space-between;padding:3px 0;border-bottom:1px solid #EEE;font-size:11px;">
         <span style="color:#1D4ED8;font-weight:600;">Sala 3</span>
-        <span style="font-family:'DM Mono',monospace;font-weight:700;">1d</span>
+        <span style="font-family:'DM Mono',monospace;font-weight:700;">2d</span>
       </div><div style="display:flex;justify-content:space-between;padding:3px 0;border-bottom:1px solid #EEE;font-size:11px;">
         <span style="color:#15803D;font-weight:600;">Sala 4</span>
+        <span style="font-family:'DM Mono',monospace;font-weight:700;">2d</span>
+      </div><div style="display:flex;justify-content:space-between;padding:3px 0;border-bottom:1px solid #EEE;font-size:11px;">
+        <span style="color:#7E22CE;font-weight:600;">Sala 5</span>
+        <span style="font-family:'DM Mono',monospace;font-weight:700;">2d</span>
+      </div><div style="display:flex;justify-content:space-between;padding:3px 0;border-bottom:1px solid #EEE;font-size:11px;">
+        <span style="color:#B91C1C;font-weight:600;">Interconsultas</span>
+        <span style="font-family:'DM Mono',monospace;font-weight:700;">1d</span>
+      </div><div style="display:flex;justify-content:space-between;padding:3px 0;border-bottom:1px solid #EEE;font-size:11px;">
+        <span style="color:#0369A1;font-weight:600;">Hospital Tintal</span>
         <span style="font-family:'DM Mono',monospace;font-weight:700;">1d</span>
       </div>
         </div>
@@ -564,20 +882,18 @@ body{font-family:'DM Sans',sans-serif;font-size:13.5px;line-height:1.6;color:var
       </tr><tr style="">
         <td class="ind-fecha">05/08/2026</td>
         <td class="ind-dia">Mié</td>
-        <td><span class="badge-ind" style="background:#7E22CE;color:#fff;">🏥 Sala</span></td>
-        <td><span style="font-weight:700;color:#7E22CE;">Sala 5</span></td>
+        <td><span class="badge-ind" style="background:#1D4ED8;color:#fff;">🏥 Sala</span></td>
+        <td><span style="font-weight:700;color:#1D4ED8;">Sala 3</span></td>
       </tr><tr style="">
         <td class="ind-fecha">06/08/2026</td>
         <td class="ind-dia">Jue</td>
-        <td><span class="badge-ind" style="background:#15803D;color:#fff;">🏥 Sala</span></td>
-        <td><span style="font-weight:700;color:#15803D;">Sala 4</span></td>
-      </tr><tr><td class="ind-fecha">08/08/2026</td><td class="ind-dia">Sáb</td>
-            <td><span class="badge-ind" style="background:#7F1D1D;color:#FCA5A5;">🚨 Urgencias</span></td>
-            <td style="font-family:monospace;font-size:10px;">—</td></tr><tr style="">
-        <td class="ind-fecha">10/08/2026</td>
-        <td class="ind-dia">Lun</td>
         <td><span class="badge-ind" style="background:#9F1239;color:#fff;">🏥 Sala</span></td>
         <td><span style="font-weight:700;color:#9F1239;">Sala 2</span></td>
+      </tr><tr style="">
+        <td class="ind-fecha">10/08/2026</td>
+        <td class="ind-dia">Lun</td>
+        <td><span class="badge-ind" style="background:#15803D;color:#fff;">🏥 Sala</span></td>
+        <td><span style="font-weight:700;color:#15803D;">Sala 4</span></td>
       </tr><tr style="">
         <td class="ind-fecha">11/08/2026</td>
         <td class="ind-dia">Mar</td>
@@ -586,8 +902,8 @@ body{font-family:'DM Sans',sans-serif;font-size:13.5px;line-height:1.6;color:var
       </tr><tr style="">
         <td class="ind-fecha">12/08/2026</td>
         <td class="ind-dia">Mié</td>
-        <td><span class="badge-ind" style="background:#1D4ED8;color:#fff;">🏥 Sala</span></td>
-        <td><span style="font-weight:700;color:#1D4ED8;">Sala 3</span></td>
+        <td><span class="badge-ind" style="background:#7E22CE;color:#fff;">🏥 Sala</span></td>
+        <td><span style="font-weight:700;color:#7E22CE;">Sala 5</span></td>
       </tr><tr style="">
         <td class="ind-fecha">13/08/2026</td>
         <td class="ind-dia">Jue</td>
@@ -596,9 +912,11 @@ body{font-family:'DM Sans',sans-serif;font-size:13.5px;line-height:1.6;color:var
       </tr><tr style="">
         <td class="ind-fecha">14/08/2026</td>
         <td class="ind-dia">Vie</td>
-        <td><span class="badge-ind" style="background:#B45309;color:#fff;">🏥 Sala</span></td>
-        <td><span style="font-weight:700;color:#B45309;">Sala 1</span></td>
-      </tr><tr style="">
+        <td><span class="badge-ind" style="background:#0369A1;color:#fff;">🏥 Sala</span></td>
+        <td><span style="font-weight:700;color:#0369A1;">Hospital Tintal</span></td>
+      </tr><tr><td class="ind-fecha">17/08/2026</td><td class="ind-dia">Lun</td>
+            <td><span class="badge-ind" style="background:#7F1D1D;color:#FCA5A5;">🚨 Urgencias</span></td>
+            <td style="font-family:monospace;font-size:10px;">—</td></tr><tr style="">
         <td class="ind-fecha">18/08/2026</td>
         <td class="ind-dia">Mar</td>
         <td><span class="badge-ind" style="background:#78350F;color:#FDE68A;">📚 Clase</span></td>
@@ -606,13 +924,13 @@ body{font-family:'DM Sans',sans-serif;font-size:13.5px;line-height:1.6;color:var
       </tr><tr style="">
         <td class="ind-fecha">19/08/2026</td>
         <td class="ind-dia">Mié</td>
-        <td><span class="badge-ind" style="background:#9F1239;color:#fff;">🏥 Sala</span></td>
-        <td><span style="font-weight:700;color:#9F1239;">Sala 2</span></td>
+        <td><span class="badge-ind" style="background:#1D4ED8;color:#fff;">🏥 Sala</span></td>
+        <td><span style="font-weight:700;color:#1D4ED8;">Sala 3</span></td>
       </tr><tr style="">
         <td class="ind-fecha">20/08/2026</td>
         <td class="ind-dia">Jue</td>
-        <td><span class="badge-ind" style="background:#15803D;color:#fff;">🏥 Sala</span></td>
-        <td><span style="font-weight:700;color:#15803D;">Sala 4</span></td>
+        <td><span class="badge-ind" style="background:#9F1239;color:#fff;">🏥 Sala</span></td>
+        <td><span style="font-weight:700;color:#9F1239;">Sala 2</span></td>
       </tr></tbody>
           </table>
         </div>
@@ -620,21 +938,24 @@ body{font-family:'DM Sans',sans-serif;font-size:13.5px;line-height:1.6;color:var
           <div style="font-size:9.5px;font-weight:700;letter-spacing:.8px;text-transform:uppercase;color:#94A3B8;margin-bottom:7px;">Rotación por Sala</div>
           <div style="display:flex;justify-content:space-between;padding:3px 0;border-bottom:1px solid #EEE;font-size:11px;">
         <span style="color:#B45309;font-weight:600;">Sala 1</span>
-        <span style="font-family:'DM Mono',monospace;font-weight:700;">2d</span>
+        <span style="font-family:'DM Mono',monospace;font-weight:700;">1d</span>
       </div><div style="display:flex;justify-content:space-between;padding:3px 0;border-bottom:1px solid #EEE;font-size:11px;">
         <span style="color:#9F1239;font-weight:600;">Sala 2</span>
         <span style="font-family:'DM Mono',monospace;font-weight:700;">2d</span>
       </div><div style="display:flex;justify-content:space-between;padding:3px 0;border-bottom:1px solid #EEE;font-size:11px;">
         <span style="color:#1D4ED8;font-weight:600;">Sala 3</span>
-        <span style="font-family:'DM Mono',monospace;font-weight:700;">1d</span>
+        <span style="font-family:'DM Mono',monospace;font-weight:700;">2d</span>
       </div><div style="display:flex;justify-content:space-between;padding:3px 0;border-bottom:1px solid #EEE;font-size:11px;">
         <span style="color:#15803D;font-weight:600;">Sala 4</span>
-        <span style="font-family:'DM Mono',monospace;font-weight:700;">2d</span>
+        <span style="font-family:'DM Mono',monospace;font-weight:700;">1d</span>
       </div><div style="display:flex;justify-content:space-between;padding:3px 0;border-bottom:1px solid #EEE;font-size:11px;">
         <span style="color:#7E22CE;font-weight:600;">Sala 5</span>
         <span style="font-family:'DM Mono',monospace;font-weight:700;">1d</span>
       </div><div style="display:flex;justify-content:space-between;padding:3px 0;border-bottom:1px solid #EEE;font-size:11px;">
         <span style="color:#B91C1C;font-weight:600;">Interconsultas</span>
+        <span style="font-family:'DM Mono',monospace;font-weight:700;">1d</span>
+      </div><div style="display:flex;justify-content:space-between;padding:3px 0;border-bottom:1px solid #EEE;font-size:11px;">
+        <span style="color:#0369A1;font-weight:600;">Hospital Tintal</span>
         <span style="font-family:'DM Mono',monospace;font-weight:700;">1d</span>
       </div>
         </div>
@@ -666,18 +987,18 @@ body{font-family:'DM Sans',sans-serif;font-size:13.5px;line-height:1.6;color:var
       </tr><tr style="">
         <td class="ind-fecha">05/08/2026</td>
         <td class="ind-dia">Mié</td>
-        <td><span class="badge-ind" style="background:#B45309;color:#fff;">🏥 Sala</span></td>
-        <td><span style="font-weight:700;color:#B45309;">Sala 1</span></td>
+        <td><span class="badge-ind" style="background:#15803D;color:#fff;">🏥 Sala</span></td>
+        <td><span style="font-weight:700;color:#15803D;">Sala 4</span></td>
       </tr><tr style="">
         <td class="ind-fecha">06/08/2026</td>
         <td class="ind-dia">Jue</td>
-        <td><span class="badge-ind" style="background:#7E22CE;color:#fff;">🏥 Sala</span></td>
-        <td><span style="font-weight:700;color:#7E22CE;">Sala 5</span></td>
+        <td><span class="badge-ind" style="background:#1D4ED8;color:#fff;">🏥 Sala</span></td>
+        <td><span style="font-weight:700;color:#1D4ED8;">Sala 3</span></td>
       </tr><tr style="">
         <td class="ind-fecha">10/08/2026</td>
         <td class="ind-dia">Lun</td>
-        <td><span class="badge-ind" style="background:#1D4ED8;color:#fff;">🏥 Sala</span></td>
-        <td><span style="font-weight:700;color:#1D4ED8;">Sala 3</span></td>
+        <td><span class="badge-ind" style="background:#B45309;color:#fff;">🏥 Sala</span></td>
+        <td><span style="font-weight:700;color:#B45309;">Sala 1</span></td>
       </tr><tr style="">
         <td class="ind-fecha">11/08/2026</td>
         <td class="ind-dia">Mar</td>
@@ -686,18 +1007,18 @@ body{font-family:'DM Sans',sans-serif;font-size:13.5px;line-height:1.6;color:var
       </tr><tr style="">
         <td class="ind-fecha">12/08/2026</td>
         <td class="ind-dia">Mié</td>
-        <td><span class="badge-ind" style="background:#15803D;color:#fff;">🏥 Sala</span></td>
-        <td><span style="font-weight:700;color:#15803D;">Sala 4</span></td>
+        <td><span class="badge-ind" style="background:#14532D;color:#4ADE80;">📋 Interconsultas</span></td>
+        <td><span style="font-weight:700;color:#14532D;">Interconsultas</span></td>
       </tr><tr style="">
         <td class="ind-fecha">13/08/2026</td>
         <td class="ind-dia">Jue</td>
-        <td><span class="badge-ind" style="background:#B45309;color:#fff;">🏥 Sala</span></td>
-        <td><span style="font-weight:700;color:#B45309;">Sala 1</span></td>
+        <td><span class="badge-ind" style="background:#7E22CE;color:#fff;">🏥 Sala</span></td>
+        <td><span style="font-weight:700;color:#7E22CE;">Sala 5</span></td>
       </tr><tr style="">
         <td class="ind-fecha">14/08/2026</td>
         <td class="ind-dia">Vie</td>
-        <td><span class="badge-ind" style="background:#14532D;color:#4ADE80;">📋 Interconsultas</span></td>
-        <td><span style="font-weight:700;color:#14532D;">Interconsultas</span></td>
+        <td><span class="badge-ind" style="background:#B45309;color:#fff;">🏥 Sala</span></td>
+        <td><span style="font-weight:700;color:#B45309;">Sala 1</span></td>
       </tr><tr><td class="ind-fecha">15/08/2026</td><td class="ind-dia">Sáb</td>
             <td><span class="badge-ind" style="background:#7F1D1D;color:#FCA5A5;">🚨 Urgencias</span></td>
             <td style="font-family:monospace;font-size:10px;">—</td></tr><tr style="">
@@ -708,13 +1029,13 @@ body{font-family:'DM Sans',sans-serif;font-size:13.5px;line-height:1.6;color:var
       </tr><tr style="">
         <td class="ind-fecha">19/08/2026</td>
         <td class="ind-dia">Mié</td>
-        <td><span class="badge-ind" style="background:#1D4ED8;color:#fff;">🏥 Sala</span></td>
-        <td><span style="font-weight:700;color:#1D4ED8;">Sala 3</span></td>
+        <td><span class="badge-ind" style="background:#15803D;color:#fff;">🏥 Sala</span></td>
+        <td><span style="font-weight:700;color:#15803D;">Sala 4</span></td>
       </tr><tr style="">
         <td class="ind-fecha">20/08/2026</td>
         <td class="ind-dia">Jue</td>
-        <td><span class="badge-ind" style="background:#9F1239;color:#fff;">🏥 Sala</span></td>
-        <td><span style="font-weight:700;color:#9F1239;">Sala 2</span></td>
+        <td><span class="badge-ind" style="background:#1D4ED8;color:#fff;">🏥 Sala</span></td>
+        <td><span style="font-weight:700;color:#1D4ED8;">Sala 3</span></td>
       </tr></tbody>
           </table>
         </div>
@@ -725,13 +1046,13 @@ body{font-family:'DM Sans',sans-serif;font-size:13.5px;line-height:1.6;color:var
         <span style="font-family:'DM Mono',monospace;font-weight:700;">2d</span>
       </div><div style="display:flex;justify-content:space-between;padding:3px 0;border-bottom:1px solid #EEE;font-size:11px;">
         <span style="color:#9F1239;font-weight:600;">Sala 2</span>
-        <span style="font-family:'DM Mono',monospace;font-weight:700;">2d</span>
+        <span style="font-family:'DM Mono',monospace;font-weight:700;">1d</span>
       </div><div style="display:flex;justify-content:space-between;padding:3px 0;border-bottom:1px solid #EEE;font-size:11px;">
         <span style="color:#1D4ED8;font-weight:600;">Sala 3</span>
         <span style="font-family:'DM Mono',monospace;font-weight:700;">2d</span>
       </div><div style="display:flex;justify-content:space-between;padding:3px 0;border-bottom:1px solid #EEE;font-size:11px;">
         <span style="color:#15803D;font-weight:600;">Sala 4</span>
-        <span style="font-family:'DM Mono',monospace;font-weight:700;">1d</span>
+        <span style="font-family:'DM Mono',monospace;font-weight:700;">2d</span>
       </div><div style="display:flex;justify-content:space-between;padding:3px 0;border-bottom:1px solid #EEE;font-size:11px;">
         <span style="color:#7E22CE;font-weight:600;">Sala 5</span>
         <span style="font-family:'DM Mono',monospace;font-weight:700;">1d</span>
@@ -768,18 +1089,18 @@ body{font-family:'DM Sans',sans-serif;font-size:13.5px;line-height:1.6;color:var
       </tr><tr style="">
         <td class="ind-fecha">05/08/2026</td>
         <td class="ind-dia">Mié</td>
-        <td><span class="badge-ind" style="background:#9F1239;color:#fff;">🏥 Sala</span></td>
-        <td><span style="font-weight:700;color:#9F1239;">Sala 2</span></td>
-      </tr><tr style="">
-        <td class="ind-fecha">06/08/2026</td>
-        <td class="ind-dia">Jue</td>
         <td><span class="badge-ind" style="background:#B45309;color:#fff;">🏥 Sala</span></td>
         <td><span style="font-weight:700;color:#B45309;">Sala 1</span></td>
       </tr><tr style="">
-        <td class="ind-fecha">10/08/2026</td>
-        <td class="ind-dia">Lun</td>
+        <td class="ind-fecha">06/08/2026</td>
+        <td class="ind-dia">Jue</td>
         <td><span class="badge-ind" style="background:#15803D;color:#fff;">🏥 Sala</span></td>
         <td><span style="font-weight:700;color:#15803D;">Sala 4</span></td>
+      </tr><tr style="">
+        <td class="ind-fecha">10/08/2026</td>
+        <td class="ind-dia">Lun</td>
+        <td><span class="badge-ind" style="background:#9F1239;color:#fff;">🏥 Sala</span></td>
+        <td><span style="font-weight:700;color:#9F1239;">Sala 2</span></td>
       </tr><tr style="">
         <td class="ind-fecha">11/08/2026</td>
         <td class="ind-dia">Mar</td>
@@ -788,18 +1109,18 @@ body{font-family:'DM Sans',sans-serif;font-size:13.5px;line-height:1.6;color:var
       </tr><tr style="">
         <td class="ind-fecha">12/08/2026</td>
         <td class="ind-dia">Mié</td>
-        <td><span class="badge-ind" style="background:#7E22CE;color:#fff;">🏥 Sala</span></td>
-        <td><span style="font-weight:700;color:#7E22CE;">Sala 5</span></td>
+        <td><span class="badge-ind" style="background:#1D4ED8;color:#fff;">🏥 Sala</span></td>
+        <td><span style="font-weight:700;color:#1D4ED8;">Sala 3</span></td>
       </tr><tr style="">
         <td class="ind-fecha">13/08/2026</td>
         <td class="ind-dia">Jue</td>
-        <td><span class="badge-ind" style="background:#9F1239;color:#fff;">🏥 Sala</span></td>
-        <td><span style="font-weight:700;color:#9F1239;">Sala 2</span></td>
+        <td><span class="badge-ind" style="background:#0369A1;color:#fff;">🏥 Sala</span></td>
+        <td><span style="font-weight:700;color:#0369A1;">Hospital Tintal</span></td>
       </tr><tr style="">
         <td class="ind-fecha">14/08/2026</td>
         <td class="ind-dia">Vie</td>
-        <td><span class="badge-ind" style="background:#1D4ED8;color:#fff;">🏥 Sala</span></td>
-        <td><span style="font-weight:700;color:#1D4ED8;">Sala 3</span></td>
+        <td><span class="badge-ind" style="background:#7E22CE;color:#fff;">🏥 Sala</span></td>
+        <td><span style="font-weight:700;color:#7E22CE;">Sala 5</span></td>
       </tr><tr><td class="ind-fecha">16/08/2026</td><td class="ind-dia">Dom</td>
             <td><span class="badge-ind" style="background:#7F1D1D;color:#FCA5A5;">🚨 Urgencias</span></td>
             <td style="font-family:monospace;font-size:10px;">—</td></tr><tr style="">
@@ -810,13 +1131,13 @@ body{font-family:'DM Sans',sans-serif;font-size:13.5px;line-height:1.6;color:var
       </tr><tr style="">
         <td class="ind-fecha">19/08/2026</td>
         <td class="ind-dia">Mié</td>
-        <td><span class="badge-ind" style="background:#14532D;color:#4ADE80;">📋 Interconsultas</span></td>
-        <td><span style="font-weight:700;color:#14532D;">Interconsultas</span></td>
+        <td><span class="badge-ind" style="background:#B45309;color:#fff;">🏥 Sala</span></td>
+        <td><span style="font-weight:700;color:#B45309;">Sala 1</span></td>
       </tr><tr style="">
         <td class="ind-fecha">20/08/2026</td>
         <td class="ind-dia">Jue</td>
-        <td><span class="badge-ind" style="background:#B45309;color:#fff;">🏥 Sala</span></td>
-        <td><span style="font-weight:700;color:#B45309;">Sala 1</span></td>
+        <td><span class="badge-ind" style="background:#14532D;color:#4ADE80;">📋 Interconsultas</span></td>
+        <td><span style="font-weight:700;color:#14532D;">Interconsultas</span></td>
       </tr></tbody>
           </table>
         </div>
@@ -827,7 +1148,7 @@ body{font-family:'DM Sans',sans-serif;font-size:13.5px;line-height:1.6;color:var
         <span style="font-family:'DM Mono',monospace;font-weight:700;">2d</span>
       </div><div style="display:flex;justify-content:space-between;padding:3px 0;border-bottom:1px solid #EEE;font-size:11px;">
         <span style="color:#9F1239;font-weight:600;">Sala 2</span>
-        <span style="font-family:'DM Mono',monospace;font-weight:700;">2d</span>
+        <span style="font-family:'DM Mono',monospace;font-weight:700;">1d</span>
       </div><div style="display:flex;justify-content:space-between;padding:3px 0;border-bottom:1px solid #EEE;font-size:11px;">
         <span style="color:#1D4ED8;font-weight:600;">Sala 3</span>
         <span style="font-family:'DM Mono',monospace;font-weight:700;">2d</span>
@@ -839,6 +1160,9 @@ body{font-family:'DM Sans',sans-serif;font-size:13.5px;line-height:1.6;color:var
         <span style="font-family:'DM Mono',monospace;font-weight:700;">1d</span>
       </div><div style="display:flex;justify-content:space-between;padding:3px 0;border-bottom:1px solid #EEE;font-size:11px;">
         <span style="color:#B91C1C;font-weight:600;">Interconsultas</span>
+        <span style="font-family:'DM Mono',monospace;font-weight:700;">1d</span>
+      </div><div style="display:flex;justify-content:space-between;padding:3px 0;border-bottom:1px solid #EEE;font-size:11px;">
+        <span style="color:#0369A1;font-weight:600;">Hospital Tintal</span>
         <span style="font-family:'DM Mono',monospace;font-weight:700;">1d</span>
       </div>
         </div>
@@ -870,18 +1194,20 @@ body{font-family:'DM Sans',sans-serif;font-size:13.5px;line-height:1.6;color:var
       </tr><tr style="">
         <td class="ind-fecha">05/08/2026</td>
         <td class="ind-dia">Mié</td>
-        <td><span class="badge-ind" style="background:#1D4ED8;color:#fff;">🏥 Sala</span></td>
-        <td><span style="font-weight:700;color:#1D4ED8;">Sala 3</span></td>
-      </tr><tr style="">
-        <td class="ind-fecha">06/08/2026</td>
-        <td class="ind-dia">Jue</td>
         <td><span class="badge-ind" style="background:#9F1239;color:#fff;">🏥 Sala</span></td>
         <td><span style="font-weight:700;color:#9F1239;">Sala 2</span></td>
       </tr><tr style="">
-        <td class="ind-fecha">10/08/2026</td>
-        <td class="ind-dia">Lun</td>
+        <td class="ind-fecha">06/08/2026</td>
+        <td class="ind-dia">Jue</td>
         <td><span class="badge-ind" style="background:#B45309;color:#fff;">🏥 Sala</span></td>
         <td><span style="font-weight:700;color:#B45309;">Sala 1</span></td>
+      </tr><tr><td class="ind-fecha">08/08/2026</td><td class="ind-dia">Sáb</td>
+            <td><span class="badge-ind" style="background:#7F1D1D;color:#FCA5A5;">🚨 Urgencias</span></td>
+            <td style="font-family:monospace;font-size:10px;">—</td></tr><tr style="">
+        <td class="ind-fecha">10/08/2026</td>
+        <td class="ind-dia">Lun</td>
+        <td><span class="badge-ind" style="background:#1D4ED8;color:#fff;">🏥 Sala</span></td>
+        <td><span style="font-weight:700;color:#1D4ED8;">Sala 3</span></td>
       </tr><tr style="">
         <td class="ind-fecha">11/08/2026</td>
         <td class="ind-dia">Mar</td>
@@ -890,21 +1216,19 @@ body{font-family:'DM Sans',sans-serif;font-size:13.5px;line-height:1.6;color:var
       </tr><tr style="">
         <td class="ind-fecha">12/08/2026</td>
         <td class="ind-dia">Mié</td>
-        <td><span class="badge-ind" style="background:#14532D;color:#4ADE80;">📋 Interconsultas</span></td>
-        <td><span style="font-weight:700;color:#14532D;">Interconsultas</span></td>
+        <td><span class="badge-ind" style="background:#15803D;color:#fff;">🏥 Sala</span></td>
+        <td><span style="font-weight:700;color:#15803D;">Sala 4</span></td>
       </tr><tr style="">
         <td class="ind-fecha">13/08/2026</td>
         <td class="ind-dia">Jue</td>
-        <td><span class="badge-ind" style="background:#7E22CE;color:#fff;">🏥 Sala</span></td>
-        <td><span style="font-weight:700;color:#7E22CE;">Sala 5</span></td>
+        <td><span class="badge-ind" style="background:#B45309;color:#fff;">🏥 Sala</span></td>
+        <td><span style="font-weight:700;color:#B45309;">Sala 1</span></td>
       </tr><tr style="">
         <td class="ind-fecha">14/08/2026</td>
         <td class="ind-dia">Vie</td>
-        <td><span class="badge-ind" style="background:#9F1239;color:#fff;">🏥 Sala</span></td>
-        <td><span style="font-weight:700;color:#9F1239;">Sala 2</span></td>
-      </tr><tr><td class="ind-fecha">17/08/2026</td><td class="ind-dia">Lun</td>
-            <td><span class="badge-ind" style="background:#7F1D1D;color:#FCA5A5;">🚨 Urgencias</span></td>
-            <td style="font-family:monospace;font-size:10px;">—</td></tr><tr style="">
+        <td><span class="badge-ind" style="background:#14532D;color:#4ADE80;">📋 Interconsultas</span></td>
+        <td><span style="font-weight:700;color:#14532D;">Interconsultas</span></td>
+      </tr><tr style="">
         <td class="ind-fecha">18/08/2026</td>
         <td class="ind-dia">Mar</td>
         <td><span class="badge-ind" style="background:#78350F;color:#FDE68A;">📚 Clase</span></td>
@@ -912,13 +1236,13 @@ body{font-family:'DM Sans',sans-serif;font-size:13.5px;line-height:1.6;color:var
       </tr><tr style="">
         <td class="ind-fecha">19/08/2026</td>
         <td class="ind-dia">Mié</td>
-        <td><span class="badge-ind" style="background:#B45309;color:#fff;">🏥 Sala</span></td>
-        <td><span style="font-weight:700;color:#B45309;">Sala 1</span></td>
+        <td><span class="badge-ind" style="background:#9F1239;color:#fff;">🏥 Sala</span></td>
+        <td><span style="font-weight:700;color:#9F1239;">Sala 2</span></td>
       </tr><tr style="">
         <td class="ind-fecha">20/08/2026</td>
         <td class="ind-dia">Jue</td>
-        <td><span class="badge-ind" style="background:#1D4ED8;color:#fff;">🏥 Sala</span></td>
-        <td><span style="font-weight:700;color:#1D4ED8;">Sala 3</span></td>
+        <td><span class="badge-ind" style="background:#7E22CE;color:#fff;">🏥 Sala</span></td>
+        <td><span style="font-weight:700;color:#7E22CE;">Sala 5</span></td>
       </tr></tbody>
           </table>
         </div>
@@ -932,10 +1256,10 @@ body{font-family:'DM Sans',sans-serif;font-size:13.5px;line-height:1.6;color:var
         <span style="font-family:'DM Mono',monospace;font-weight:700;">2d</span>
       </div><div style="display:flex;justify-content:space-between;padding:3px 0;border-bottom:1px solid #EEE;font-size:11px;">
         <span style="color:#1D4ED8;font-weight:600;">Sala 3</span>
-        <span style="font-family:'DM Mono',monospace;font-weight:700;">2d</span>
+        <span style="font-family:'DM Mono',monospace;font-weight:700;">1d</span>
       </div><div style="display:flex;justify-content:space-between;padding:3px 0;border-bottom:1px solid #EEE;font-size:11px;">
         <span style="color:#15803D;font-weight:600;">Sala 4</span>
-        <span style="font-family:'DM Mono',monospace;font-weight:700;">1d</span>
+        <span style="font-family:'DM Mono',monospace;font-weight:700;">2d</span>
       </div><div style="display:flex;justify-content:space-between;padding:3px 0;border-bottom:1px solid #EEE;font-size:11px;">
         <span style="color:#7E22CE;font-weight:600;">Sala 5</span>
         <span style="font-family:'DM Mono',monospace;font-weight:700;">1d</span>
