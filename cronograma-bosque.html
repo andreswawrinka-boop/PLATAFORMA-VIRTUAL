@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="es"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Universidad El Bosque — Anestesiología · Hospital de Kennedy</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800;900&family=Inter:wght@400;500;600;700;800&display=swap');
+:root{
+  --pri:#115C2D;--sec:#0A3D1C;--l:#22C55E;--t:#E8F9EE;
+  --txt:#0F172A;--sub:#475569;--dim:#64748B;--brd:#E2E8F0;--bg:#F8FAFC;
+  --k:#4F46E5;--b:#E11D48;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Inter',sans-serif;font-size:13px;line-height:1.5;color:var(--txt);background:var(--bg);}
+h1,h2,h3,.h{font-family:'Outfit',sans-serif;font-weight:800;letter-spacing:-.2px;}
+.cont{max-width:1120px;margin:0 auto;padding:16px;}
+
+/* HERO compacto */
+.hero{background:linear-gradient(135deg,#115C2D,#0A3D1C);color:#fff;padding:20px 26px;border-radius:18px;display:grid;grid-template-columns:1fr auto;gap:18px;align-items:center;margin-bottom:14px;box-shadow:0 8px 24px rgba(0,0,0,.12);}
+.hero .tag{display:inline-block;background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.28);border-radius:100px;padding:3px 12px;font-size:9.5px;font-weight:800;letter-spacing:1.6px;text-transform:uppercase;margin-bottom:8px;}
+.hero h1{font-size:26px;line-height:1.05;margin-bottom:4px;}
+.hero h1 em{font-style:normal;color:#22C55E;}
+.hero .p-sub{font-size:12px;opacity:.85;font-weight:500;}
+.hero-meta{display:flex;flex-direction:column;gap:5px;min-width:200px;text-align:right;font-size:11.5px;line-height:1.35;}
+.hero-meta b{font-family:'Outfit',sans-serif;font-weight:800;font-size:14px;color:#22C55E;display:block;}
+.hosp-chip{display:inline-flex;align-items:center;gap:6px;background:var(--k);color:#fff;padding:4px 12px;border-radius:100px;font-size:11px;font-weight:800;letter-spacing:.5px;}
+
+/* CHIPS de info (reemplaza las 5 alertas gigantes) */
+.chips{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:8px;margin-bottom:14px;}
+.chip{background:#fff;border:1px solid var(--brd);border-left:4px solid;border-radius:10px;padding:9px 12px;font-size:11.5px;line-height:1.45;box-shadow:0 1px 3px rgba(0,0,0,.04);}
+.chip strong{font-family:'Outfit',sans-serif;font-weight:800;display:block;font-size:11px;letter-spacing:.3px;margin-bottom:1px;color:var(--txt);}
+.chip.c-w{border-left-color:#F59E0B;background:#FFFBEB;}
+.chip.c-g{border-left-color:#16A34A;background:#F0FDF4;}
+.chip.c-r{border-left-color:#DC2626;background:#FEF2F2;}
+.chip.c-b{border-left-color:#2563EB;background:#EFF6FF;}
+.chip.c-u{border-left-color:#22C55E;background:#E8F9EE;}
+
+/* PONDERACIÓN compacta */
+.pond{background:#fff;border:1px solid var(--brd);border-radius:14px;padding:14px;margin-bottom:14px;}
+.pond-hdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;}
+.pond-hdr .h{font-size:15px;color:#115C2D;}
+.pond-total{background:#115C2D;color:#fff;padding:5px 14px;border-radius:100px;font-family:'Outfit',sans-serif;font-weight:900;font-size:13px;letter-spacing:1px;}
+.pond-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(110px,1fr));gap:8px;}
+.pcard{border:1px solid var(--brd);border-radius:10px;padding:8px 10px;background:#fff;text-align:center;position:relative;overflow:hidden;}
+.pcard::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:#115C2D;}
+.pcard.p-vp::before{background:#0D9488;} .pcard.p-vp{background:#F0FDFA;}
+.pcard.p-ex::before{background:#DC2626;} .pcard.p-ex{background:#FEF2F2;}
+.pcard.p-se::before{background:#0D47A1;} .pcard.p-se{background:#EFF6FF;}
+.p-pct{font-family:'Outfit',sans-serif;font-weight:900;font-size:22px;color:#115C2D;line-height:1;margin-top:5px;}
+.pcard.p-vp .p-pct{color:#0D9488;} .pcard.p-ex .p-pct{color:#DC2626;} .pcard.p-se .p-pct{color:#0D47A1;}
+.p-lbl{font-size:9.5px;font-weight:800;text-transform:uppercase;color:var(--sub);letter-spacing:.6px;margin-top:3px;}
+.p-det{font-size:9.5px;color:var(--dim);margin-top:2px;line-height:1.3;}
+
+/* CRONOGRAMA compacto — grid de semanas */
+.sec-title{display:flex;align-items:center;gap:10px;font-family:'Outfit',sans-serif;font-weight:800;font-size:15px;color:var(--txt);margin:16px 0 10px;}
+.sec-title::after{content:'';flex:1;height:2px;background:linear-gradient(90deg,#22C55E80,transparent);border-radius:1px;}
+.sec-title .cnt{background:#115C2D;color:#fff;font-size:10px;padding:2px 9px;border-radius:100px;font-weight:800;letter-spacing:.5px;}
+.est-strip{background:#E8F9EE;border:1px solid #22C55E40;border-radius:10px;padding:8px 14px;margin-bottom:12px;font-size:12px;display:flex;flex-wrap:wrap;gap:6px 16px;align-items:baseline;}
+.est-strip b{font-family:'Outfit',sans-serif;font-weight:800;color:#115C2D;font-size:11px;letter-spacing:.5px;text-transform:uppercase;}
+
+.sgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:10px;margin-bottom:10px;}
+.scard{background:#fff;border:1px solid var(--brd);border-radius:12px;overflow:hidden;display:flex;flex-direction:column;box-shadow:0 2px 8px rgba(0,0,0,.05);}
+.scard .sh{padding:8px 12px;color:#fff;font-family:'Outfit',sans-serif;font-weight:800;display:flex;align-items:center;justify-content:space-between;font-size:12.5px;letter-spacing:.3px;}
+.scard .sh .sf{font-family:'Inter',sans-serif;font-weight:600;font-size:10.5px;opacity:.9;background:rgba(0,0,0,.18);padding:1px 8px;border-radius:100px;}
+.scard .sb{padding:10px 12px;font-size:12px;flex:1;}
+.sb ul{list-style:none;padding:0;}
+.sb li{padding:5px 0;border-bottom:1px dashed #E2E8F0;line-height:1.4;}
+.sb li:last-child{border:none;}
+.sb .tt{font-weight:700;color:var(--txt);}
+.sb .pct{display:inline-block;background:#115C2D;color:#fff;font-family:'Outfit',sans-serif;font-weight:800;font-size:10px;padding:1px 6px;border-radius:100px;margin-left:5px;letter-spacing:.4px;}
+.sb .lbl{display:inline-block;font-size:9.5px;font-weight:800;text-transform:uppercase;padding:1px 7px;border-radius:100px;letter-spacing:.5px;margin-right:5px;vertical-align:1px;}
+.lbl-t{background:#E8F9EE;color:#115C2D;border:1px solid #22C55E40;}
+.lbl-e{background:#FEF2F2;color:#DC2626;border:1px solid #FCA5A5;}
+.lbl-d{background:#F0FDF4;color:#166534;border:1px solid #86EFAC;}
+.sb .fecha{color:var(--dim);font-size:10.5px;font-weight:600;}
+/* Colores rotativos por semana */
+.sh-1{background:linear-gradient(135deg,#4F46E5,#3730A3);}
+.sh-2{background:linear-gradient(135deg,#0D9488,#0F766E);}
+.sh-3{background:linear-gradient(135deg,#F59E0B,#B45309);}
+.sh-4{background:linear-gradient(135deg,#8B5CF6,#6D28D9);}
+.sh-5{background:linear-gradient(135deg,#E11D48,#9F1239);}
+.sh-vp{background:linear-gradient(135deg,#0F766E,#134E4A);}
+.sh-se{background:linear-gradient(135deg,#0D47A1,#1E3A8A);}
+
+/* EXAMEN */
+.exam-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:10px;margin-top:10px;}
+.exam-box{background:#FEF2F2;border:1px solid #FECACA;border-left:4px solid #DC2626;border-radius:10px;padding:10px 12px;}
+.exam-title{font-family:'Outfit',sans-serif;font-weight:800;font-size:12px;color:#991B1B;margin-bottom:6px;letter-spacing:.3px;}
+.exam-items{list-style:none;padding:0;}
+.exam-items li{font-size:11px;color:#7F1D1D;padding:2px 0;padding-left:12px;position:relative;line-height:1.4;}
+.exam-items li::before{content:"▸";color:#DC2626;position:absolute;left:0;}
+
+/* FOOTER */
+.foot{margin-top:16px;padding:12px 16px;background:#0F172A;color:rgba(255,255,255,.7);border-radius:12px;font-size:10.5px;line-height:1.5;display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+.foot b{font-family:'Outfit',sans-serif;color:#fff;font-weight:800;display:block;font-size:11px;letter-spacing:.4px;margin-bottom:2px;}
+@media(max-width:640px){.hero{grid-template-columns:1fr;}.hero-meta{text-align:left;}.foot{grid-template-columns:1fr;}}
+@media print{body{background:#fff;}.scard,.pond{break-inside:avoid;}.hero,.sh,.sh-1,.sh-2,.sh-3,.sh-4,.sh-5,.sh-vp,.sh-se,.pcard::before,.foot{-webkit-print-color-adjust:exact;print-color-adjust:exact;}}
+</style></head><body>
+<div class="cont">
+<div class="hero">
+  <div>
+    <span class="tag">Hospital de Kennedy · Universidad El Bosque · 2026</span>
+    <h1>Cronograma <em>Actividades Académicas</em></h1>
+    <p class="p-sub">Talleres teórico-prácticos, examen final y seminario de integración clínica.</p>
+  </div>
+  <div class="hero-meta">
+    <span class="hosp-chip">🏥 Kennedy</span>
+    <div><b>3 semana(s)</b>17/08/2026 – 06/09/2026</div>
+    <div><b>Grupo 1</b>2 estudiante(s)</div>
+    <div style="font-size:10.5px;opacity:.85;">Dr. Andrés Robayo C.</div>
+  </div>
+</div>
+
+<div class="chips">
+  <div class="chip c-w"><strong>⏰ Entregas</strong>Talleres cada domingo 23:59 h · Google Classroom.</div>
+  <div class="chip c-g"><strong>📋 Valoración Preanestésica</strong>Taller transversal · entrega 06/09/2026.</div>
+  <div class="chip c-r"><strong>📝 Examen</strong>Todo el día · calculadora · sin celulares/tablets.</div>
+  <div class="chip c-b"><strong>📚 Material</strong>Google Classroom.</div>
+  <div class="chip c-u"><strong>📅 Días académicos Universidad El Bosque</strong>Martes</div>
+  <div class="chip c-w"><strong>📋 Nota diaria</strong>Último día (06/09/2026): Dr. Robayo o Dr. Geovanny Rodríguez.</div>
+</div>
+
+<div class="pond">
+  <div class="pond-hdr"><span class="h">Ponderación de la nota final</span><span class="pond-total">TOTAL 100%</span></div>
+  <div class="pond-grid"><div class="pcard"><div class="p-pct">4%</div><div class="p-lbl">Taller Sem.1 A</div><div class="p-det">Vía Aérea</div></div><div class="pcard"><div class="p-pct">4%</div><div class="p-lbl">Taller Sem.1 B</div><div class="p-det">Manejo del Ventilador</div></div><div class="pcard"><div class="p-pct">4%</div><div class="p-lbl">Taller Sem.1 C</div><div class="p-det">Farmacología Clínica</div></div><div class="pcard"><div class="p-pct">4%</div><div class="p-lbl">Taller Sem.2 A</div><div class="p-det">Anestésicos Locales</div></div><div class="pcard"><div class="p-pct">4%</div><div class="p-lbl">Taller Sem.2 B</div><div class="p-det">Hipnóticos</div></div><div class="pcard"><div class="p-pct">4%</div><div class="p-lbl">Taller Sem.2 C</div><div class="p-det">Opioides</div></div><div class="pcard"><div class="p-pct">4%</div><div class="p-lbl">Taller Sem.3 A</div><div class="p-det">Bloqueantes Neuromusculares</div></div><div class="pcard"><div class="p-pct">4%</div><div class="p-lbl">Taller Sem.3 B</div><div class="p-det">Náuseas y Vómito Postoperato…</div></div><div class="pcard"><div class="p-pct">4%</div><div class="p-lbl">Taller Sem.3 C</div><div class="p-det">Líquidos y Fluidoterapia</div></div><div class="pcard p-ex"><div class="p-pct">30%</div><div class="p-lbl">Examen</div><div class="p-det">Examen · 03/09/2026</div></div><div class="pcard p-vp"><div class="p-pct">4%</div><div class="p-lbl">Transversal</div><div class="p-det">Valoración Preanestésica</div></div><div class="pcard p-se"><div class="p-pct">30%</div><div class="p-lbl">Seminario</div><div class="p-det">02/09/2026</div></div></div>
+</div>
+
+<div class="sec-title">Universidad El Bosque — Cronograma detallado <span class="cnt">3 sem · 17/08/2026 – 06/09/2026</span></div>
+<div class="est-strip"><b>Estudiantes</b><span>Camilo Andrés Avila Acevedo · María del José del Corral Perez</span></div>
+
+<div class="sgrid">
+  <div class="scard"><div class="sh sh-1"><span>📅 Semana 1</span><span class="sf">17/08/2026 → 23/08/2026</span></div><div class="sb"><ul><li><span class="lbl lbl-t">📗 Taller A</span><span class="tt">Vía Aérea</span><span class="pct">4%</span></li><li><span class="lbl lbl-t">📗 Taller B</span><span class="tt">Manejo del Ventilador</span><span class="pct">4%</span></li><li><span class="lbl lbl-t">📗 Taller C</span><span class="tt">Farmacología Clínica</span><span class="pct">4%</span></li><li><span class="lbl lbl-d">⚑ Entrega</span><span class="fecha">Dom 23/08/2026 · 23:59</span></li></ul></div></div><div class="scard"><div class="sh sh-2"><span>📅 Semana 2</span><span class="sf">24/08/2026 → 30/08/2026</span></div><div class="sb"><ul><li><span class="lbl lbl-t">📗 Taller A</span><span class="tt">Anestésicos Locales</span><span class="pct">4%</span></li><li><span class="lbl lbl-t">📗 Taller B</span><span class="tt">Hipnóticos</span><span class="pct">4%</span></li><li><span class="lbl lbl-t">📗 Taller C</span><span class="tt">Opioides</span><span class="pct">4%</span></li><li><span class="lbl lbl-d">⚑ Entrega</span><span class="fecha">Dom 30/08/2026 · 23:59</span></li></ul></div></div><div class="scard"><div class="sh sh-3"><span>📅 Semana 3</span><span class="sf">31/08/2026 → 06/09/2026</span></div><div class="sb"><ul><li><span class="lbl lbl-t">📗 Taller A</span><span class="tt">Bloqueantes Neuromusculares</span><span class="pct">4%</span></li><li><span class="lbl lbl-t">📗 Taller B</span><span class="tt">Náuseas y Vómito Postoperatorio (NVPO)</span><span class="pct">4%</span></li><li><span class="lbl lbl-t">📗 Taller C</span><span class="tt">Líquidos y Fluidoterapia</span><span class="pct">4%</span></li><li><span class="lbl lbl-e">📝 Examen</span><span class="tt">Examen</span> <span class="fecha">· 03/09/2026</span><span class="pct" style="background:#DC2626;">30%</span></li><li><span class="lbl lbl-d">⚑ Entrega</span><span class="fecha">Dom 06/09/2026 · 23:59</span></li></ul></div></div>
+  <div class="scard"><div class="sh sh-vp"><span>📋 Taller Transversal</span><span class="sf">06/09/2026</span></div><div class="sb"><ul><li><span class="lbl" style="background:#F0FDFA;color:#0F766E;border:1px solid #99F6E4;">Continuo</span><span class="tt">Valoración Preanestésica</span><span class="pct" style="background:#0D9488;">4%</span><div class="fecha" style="margin-top:3px;">Registra las valoraciones durante los turnos. Entrega: 06/09/2026.</div></li></ul></div></div>
+  <div class="scard"><div class="sh sh-se"><span>🎓 Seminario Integración</span><span class="sf">02/09/2026</span></div><div class="sb"><ul><li><span class="lbl" style="background:#EFF6FF;color:#0D47A1;border:1px solid #93C5FD;">Presencial/Virtual</span><span class="tt">Seminario de Integración Clínica</span><span class="pct" style="background:#0D47A1;">30%</span><div class="fecha" style="margin-top:3px;">Integración de los contenidos teórico-prácticos.</div></li></ul></div></div>
+</div>
+
+<div class="sec-title">Contenidos del Examen Final</div><div class="exam-grid"><div class="exam-box"><div class="exam-title">📝 Examen — 03/09/2026</div><ul class="exam-items"><li>Vía Aérea</li><li>Manejo del Ventilador</li><li>Farmacología Clínica</li><li>Anestésicos Locales</li><li>Hipnóticos</li><li>Opioides</li><li>Bloqueantes Neuromusculares</li><li>Náuseas y Vómito Postoperatorio (NVPO)</li><li>Líquidos y Fluidoterapia</li></ul></div></div>
+
+<div class="foot">
+  <div><b>Docente Responsable</b>Dr. Andrés Robayo C. · Anestesiología y Reanimación · Coordinador Académico · Subred Suroccidente</div>
+  <div><b>Material y Entregas</b>Google Classroom · Domingos 23:59 h · Nota diaria: Dr. Robayo o Dr. Geovanny Rodríguez.<br>© 2026 · Uso académico interno.</div>
+</div>
+</div>
+</body></html>
