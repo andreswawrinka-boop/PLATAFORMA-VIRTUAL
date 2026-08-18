@@ -215,6 +215,10 @@ select.mc-select:focus { border-color:var(--navy); outline:none; }
 .ci.lg { width:90px; }
 .ci-result { font-family:var(--mono); font-size:11pt; font-weight:600; border:2px solid var(--teal); border-radius:9px; background:var(--teal-light); color:var(--navy); text-align:center; padding:4px 8px; width:90px; outline:none; }
 .ci-op { color:var(--dim); font-size:14pt; padding:0 4px; font-family:var(--sans); }
+/* Feedback por casilla tras "Corregir" */
+.ci.ci-ok,.ci-result.ci-ok { border-color:var(--green) !important; background:var(--green-light) !important; color:var(--green) !important; }
+.ci.ci-bad,.ci-result.ci-bad { border-color:var(--red) !important; background:var(--red-light) !important; color:var(--red) !important; }
+.ci.ci-empty,.ci-result.ci-empty { border-color:var(--amber) !important; background:var(--amber-light) !important; }
 .calc-hint { font-family:var(--sans); font-size:8pt; color:var(--sub); margin-top:8px; font-style:italic; }
 .frac-visual { display:inline-flex; flex-direction:column; align-items:center; gap:0; vertical-align:middle; }
 .frac-num-i { border-bottom:none !important; border-top:none !important; }
@@ -923,7 +927,7 @@ footer { border-top:2px solid rgba(0,0,0,.08); padding:22px 56px 28px; display:f
   <div class="taller-meta">Dr. Andrés Robayo C. · Módulos A–E · 5.0 puntos totales · Hospital de Kennedy</div>
 </div>
 <div class="taller-content">
-<div class="alert-yellow">⚠ <strong>Instrucción:</strong> Usar <strong>punto</strong> como separador decimal. Complete las casillas de cálculo Y los desplegables antes de oprimir "Corregir Módulo". El feedback solo aparece al corregir.</div>
+<div class="alert-yellow">⚠ <strong>Instrucción:</strong> Usar <strong>punto</strong> como separador decimal. En los módulos de cálculo (B y E) se califica <strong>cada casilla del desarrollo</strong> además del desplegable: no basta con acertar el resultado final, el planteamiento debe estar correcto. Complete todas las casillas antes de oprimir "Corregir Módulo". El feedback solo aparece al corregir.</div>
 
 <!-- SCORE BREAKDOWN BANNER -->
 <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:22px;">
@@ -975,7 +979,7 @@ footer { border-top:2px solid rgba(0,0,0,.08); padding:22px 56px 28px; display:f
       <div class="mc-row"><span class="mc-label">Predictores MOANS/OBESE de ventilación difícil presentes:</span><select class="mc-select" onchange="chk(this,'4','fbA3a')"><option value="">— elegir —</option><option>1</option><option>2</option><option>3</option><option>4</option></select><span class="fb" id="fbA3a"></span></div>
       <div class="mc-row"><span class="mc-label">El edentulismo genera dificultad con máscara porque:</span><select class="mc-select" onchange="chk(this,'Pierde el soporte óseo facial necesario para el sello de la máscara','fbA3b')"><option value="">— elegir —</option><option>Produce más CO₂ durante la anestesia</option><option>Pierde el soporte óseo facial necesario para el sello de la máscara</option><option>Obstruye la glotis directamente</option></select><span class="fb" id="fbA3b"></span></div>
       <div class="mc-row"><span class="mc-label">Técnica de ventilación con máscara indicada en este paciente:</span><select class="mc-select" onchange="chk(this,'Técnica a dos manos (C-E bilateral) con segundo operador en bolsa','fbA3c')"><option value="">— elegir —</option><option>Técnica a una mano estándar</option><option>Técnica a dos manos (C-E bilateral) con segundo operador en bolsa</option><option>No es necesario optimizar</option></select><span class="fb" id="fbA3c"></span></div>
-      <button class="correct-btn" onclick="corregir('A','taller',9,['fbA1a','fbA1b','fbA1c','fbA2a','fbA2b','fbA2c','fbA3a','fbA3b','fbA3c'],1.0)">Corregir Módulo A</button>
+      <button class="correct-btn" onclick="corregir('A','taller',['fbA1a','fbA1b','fbA1c','fbA2a','fbA2b','fbA2c','fbA3a','fbA3b','fbA3c'],1.0,this)">Corregir Módulo A</button>
     </div>
   </div>
 </div>
@@ -984,15 +988,15 @@ footer { border-top:2px solid rgba(0,0,0,.08); padding:22px 56px 28px; display:f
 <div class="module">
   <div class="module-header"><span class="module-tag">MÓDULO B</span><span class="module-title">Cálculo de TOT pediátrico — cancelación algebraica</span><span class="module-pts">🤖 0.8 pts · 0.16 pts c/ejercicio</span></div>
   <div class="module-body">
-  <div class="alert-yellow" style="margin-bottom:14px;">Complete las casillas matemáticas y luego confirme con el desplegable. Fórmulas: <strong>Tamaño = Edad/4 + 4</strong> &nbsp;|&nbsp; <strong>Profundidad = TOT × 3</strong><br>⚠️ Si el resultado no corresponde a un tubo real (ej. 4.75 mm), tome el tubo superior e inferior y seleccione el <strong>menor</strong> como tamaño correcto.</div>
+  <div class="alert-yellow" style="margin-bottom:14px;">Complete <strong>cada casilla</strong> del desarrollo (el valor que plantea y el resultado de cada paso) y luego confirme con el desplegable. <strong>Se califica todo el planteamiento, no solo el resultado.</strong> Fórmulas: <strong>Tamaño = Edad/4 + 4</strong> &nbsp;|&nbsp; <strong>Profundidad = TOT × 3</strong><br>⚠️ Si el resultado no corresponde a un tubo real (ej. 4.75 mm), tome el tubo superior e inferior y seleccione el <strong>menor</strong> como tamaño correcto en el desplegable (la casilla de resultado conserva el valor calculado).</div>
 
     <div class="ex-item">
       <div class="ex-label"><span class="ex-num">B1</span> Niña · 3 años · 14 kg <span class="ex-pts">🤖 0.16 pts</span></div>
       <div class="calc-box">
         <div class="calc-box-title">Tamaño TOT</div>
-        <div class="calc-step"><span class="calc-step-label">mm =</span><input class="ci sm" inputmode="decimal" placeholder="edad"><span class="ci-op">÷</span><input class="ci sm" inputmode="decimal" placeholder="4"><span class="ci-op">+</span><input class="ci sm" inputmode="decimal" placeholder="4"><span class="ci-op">=</span><input class="ci-result" inputmode="decimal" placeholder="? mm"></div>
+        <div class="calc-step"><span class="calc-step-label">mm =</span><input class="ci sm" inputmode="decimal" placeholder="edad" data-ans="3"><span class="ci-op">÷</span><input class="ci sm" inputmode="decimal" placeholder="4"><span class="ci-op">+</span><input class="ci sm" inputmode="decimal" placeholder="4"><span class="ci-op">=</span><input class="ci-result" inputmode="decimal" placeholder="? mm" data-ans="4.75"></div>
         <div class="calc-box-title" style="margin-top:8px;">Profundidad</div>
-        <div class="calc-step"><span class="calc-step-label">cm =</span><input class="ci sm" inputmode="decimal" placeholder="TOT"><span class="ci-op">×</span><input class="ci sm" inputmode="decimal" placeholder="3"><span class="ci-op">=</span><input class="ci-result" inputmode="decimal" placeholder="? cm"></div>
+        <div class="calc-step"><span class="calc-step-label">cm =</span><input class="ci sm" inputmode="decimal" placeholder="TOT" data-ans="4.75"><span class="ci-op">×</span><input class="ci sm" inputmode="decimal" placeholder="3"><span class="ci-op">=</span><input class="ci-result" inputmode="decimal" placeholder="? cm" data-ans="14.25"></div>
       </div>
       <div class="mc-row"><span class="mc-label">Tamaño correcto:</span><select class="mc-select" onchange="chk(this,'4.5','fbB1t')"><option value="">— elegir —</option><option value="4.5">4.5 mm</option><option value="4.75">4.75 mm</option><option value="5.0">5.0 mm</option></select><span class="fb" id="fbB1t"></span></div>
       <div class="mc-row"><span class="mc-label">Profundidad:</span><select class="mc-select" onchange="chk(this,'14.25','fbB1p')"><option value="">— elegir —</option><option value="12.0">12.0 cm</option><option value="14.25">14.25 cm</option><option value="15.0">15.0 cm</option></select><span class="fb" id="fbB1p"></span></div>
@@ -1001,8 +1005,8 @@ footer { border-top:2px solid rgba(0,0,0,.08); padding:22px 56px 28px; display:f
     <div class="ex-item">
       <div class="ex-label"><span class="ex-num">B2</span> Niño · 9 años · 28 kg <span class="ex-pts">🤖 0.16 pts</span></div>
       <div class="calc-box">
-        <div class="calc-step"><span class="calc-step-label">mm =</span><input class="ci sm" inputmode="decimal" placeholder="edad"><span class="ci-op">÷</span><input class="ci sm" inputmode="decimal" placeholder="4"><span class="ci-op">+</span><input class="ci sm" inputmode="decimal" placeholder="4"><span class="ci-op">=</span><input class="ci-result" inputmode="decimal" placeholder="? mm"></div>
-        <div class="calc-step" style="margin-top:8px;"><span class="calc-step-label">cm =</span><input class="ci sm" inputmode="decimal" placeholder="TOT"><span class="ci-op">×</span><input class="ci sm" inputmode="decimal" placeholder="3"><span class="ci-op">=</span><input class="ci-result" inputmode="decimal" placeholder="? cm"></div>
+        <div class="calc-step"><span class="calc-step-label">mm =</span><input class="ci sm" inputmode="decimal" placeholder="edad" data-ans="9"><span class="ci-op">÷</span><input class="ci sm" inputmode="decimal" placeholder="4"><span class="ci-op">+</span><input class="ci sm" inputmode="decimal" placeholder="4"><span class="ci-op">=</span><input class="ci-result" inputmode="decimal" placeholder="? mm" data-ans="6.25"></div>
+        <div class="calc-step" style="margin-top:8px;"><span class="calc-step-label">cm =</span><input class="ci sm" inputmode="decimal" placeholder="TOT" data-ans="6.25"><span class="ci-op">×</span><input class="ci sm" inputmode="decimal" placeholder="3"><span class="ci-op">=</span><input class="ci-result" inputmode="decimal" placeholder="? cm" data-ans="18.75"></div>
       </div>
       <div class="mc-row"><span class="mc-label">Tamaño:</span><select class="mc-select" onchange="chk(this,'6.0','fbB2t')"><option value="">— elegir —</option><option value="6.0">6.0 mm</option><option value="6.25">6.25 mm</option><option value="6.5">6.5 mm</option></select><span class="fb" id="fbB2t"></span></div>
       <div class="mc-row"><span class="mc-label">Profundidad:</span><select class="mc-select" onchange="chk(this,'18.75','fbB2p')"><option value="">— elegir —</option><option value="18.0">18.0 cm</option><option value="18.75">18.75 cm</option><option value="19.5">19.5 cm</option></select><span class="fb" id="fbB2p"></span></div>
@@ -1011,8 +1015,8 @@ footer { border-top:2px solid rgba(0,0,0,.08); padding:22px 56px 28px; display:f
     <div class="ex-item">
       <div class="ex-label"><span class="ex-num">B3</span> Niña · 5 años · 18 kg <span class="ex-pts">🤖 0.16 pts</span></div>
       <div class="calc-box">
-        <div class="calc-step"><span class="calc-step-label">mm =</span><input class="ci sm" inputmode="decimal" placeholder="edad"><span class="ci-op">÷</span><input class="ci sm" inputmode="decimal" placeholder="4"><span class="ci-op">+</span><input class="ci sm" inputmode="decimal" placeholder="4"><span class="ci-op">=</span><input class="ci-result" inputmode="decimal" placeholder="? mm"></div>
-        <div class="calc-step" style="margin-top:8px;"><span class="calc-step-label">cm =</span><input class="ci sm" inputmode="decimal" placeholder="TOT"><span class="ci-op">×</span><input class="ci sm" inputmode="decimal" placeholder="3"><span class="ci-op">=</span><input class="ci-result" inputmode="decimal" placeholder="? cm"></div>
+        <div class="calc-step"><span class="calc-step-label">mm =</span><input class="ci sm" inputmode="decimal" placeholder="edad" data-ans="5"><span class="ci-op">÷</span><input class="ci sm" inputmode="decimal" placeholder="4"><span class="ci-op">+</span><input class="ci sm" inputmode="decimal" placeholder="4"><span class="ci-op">=</span><input class="ci-result" inputmode="decimal" placeholder="? mm" data-ans="5.25"></div>
+        <div class="calc-step" style="margin-top:8px;"><span class="calc-step-label">cm =</span><input class="ci sm" inputmode="decimal" placeholder="TOT" data-ans="5.25"><span class="ci-op">×</span><input class="ci sm" inputmode="decimal" placeholder="3"><span class="ci-op">=</span><input class="ci-result" inputmode="decimal" placeholder="? cm" data-ans="15.75"></div>
       </div>
       <div class="mc-row"><span class="mc-label">Tamaño:</span><select class="mc-select" onchange="chk(this,'5.0','fbB3t')"><option value="">— elegir —</option><option value="5.0">5.0 mm</option><option value="5.25">5.25 mm</option><option value="5.5">5.5 mm</option></select><span class="fb" id="fbB3t"></span></div>
       <div class="mc-row"><span class="mc-label">Profundidad:</span><select class="mc-select" onchange="chk(this,'15.75','fbB3p')"><option value="">— elegir —</option><option value="15.0">15.0 cm</option><option value="15.75">15.75 cm</option><option value="16.5">16.5 cm</option></select><span class="fb" id="fbB3p"></span></div>
@@ -1021,8 +1025,8 @@ footer { border-top:2px solid rgba(0,0,0,.08); padding:22px 56px 28px; display:f
     <div class="ex-item">
       <div class="ex-label"><span class="ex-num">B4</span> Niño · 12 años · 40 kg <span class="ex-pts">🤖 0.16 pts</span></div>
       <div class="calc-box">
-        <div class="calc-step"><span class="calc-step-label">mm =</span><input class="ci sm" inputmode="decimal" placeholder="edad"><span class="ci-op">÷</span><input class="ci sm" inputmode="decimal" placeholder="4"><span class="ci-op">+</span><input class="ci sm" inputmode="decimal" placeholder="4"><span class="ci-op">=</span><input class="ci-result" inputmode="decimal" placeholder="? mm"></div>
-        <div class="calc-step" style="margin-top:8px;"><span class="calc-step-label">cm =</span><input class="ci sm" inputmode="decimal" placeholder="TOT"><span class="ci-op">×</span><input class="ci sm" inputmode="decimal" placeholder="3"><span class="ci-op">=</span><input class="ci-result" inputmode="decimal" placeholder="? cm"></div>
+        <div class="calc-step"><span class="calc-step-label">mm =</span><input class="ci sm" inputmode="decimal" placeholder="edad" data-ans="12"><span class="ci-op">÷</span><input class="ci sm" inputmode="decimal" placeholder="4"><span class="ci-op">+</span><input class="ci sm" inputmode="decimal" placeholder="4"><span class="ci-op">=</span><input class="ci-result" inputmode="decimal" placeholder="? mm" data-ans="7.0"></div>
+        <div class="calc-step" style="margin-top:8px;"><span class="calc-step-label">cm =</span><input class="ci sm" inputmode="decimal" placeholder="TOT" data-ans="7.0"><span class="ci-op">×</span><input class="ci sm" inputmode="decimal" placeholder="3"><span class="ci-op">=</span><input class="ci-result" inputmode="decimal" placeholder="? cm" data-ans="21.0"></div>
       </div>
       <div class="mc-row"><span class="mc-label">Tamaño:</span><select class="mc-select" onchange="chk(this,'7.0','fbB4t')"><option value="">— elegir —</option><option value="6.5">6.5 mm</option><option value="7.0">7.0 mm</option><option value="7.5">7.5 mm</option></select><span class="fb" id="fbB4t"></span></div>
       <div class="mc-row"><span class="mc-label">Profundidad:</span><select class="mc-select" onchange="chk(this,'21.0','fbB4p')"><option value="">— elegir —</option><option value="19.5">19.5 cm</option><option value="21.0">21.0 cm</option><option value="22.5">22.5 cm</option></select><span class="fb" id="fbB4p"></span></div>
@@ -1031,12 +1035,12 @@ footer { border-top:2px solid rgba(0,0,0,.08); padding:22px 56px 28px; display:f
     <div class="ex-item">
       <div class="ex-label"><span class="ex-num">B5</span> Niño · 11 años · 36 kg <span class="ex-pts">🤖 0.16 pts</span></div>
       <div class="calc-box">
-        <div class="calc-step"><span class="calc-step-label">mm =</span><input class="ci sm" inputmode="decimal" placeholder="edad"><span class="ci-op">÷</span><input class="ci sm" inputmode="decimal" placeholder="4"><span class="ci-op">+</span><input class="ci sm" inputmode="decimal" placeholder="4"><span class="ci-op">=</span><input class="ci-result" inputmode="decimal" placeholder="? mm"></div>
-        <div class="calc-step" style="margin-top:8px;"><span class="calc-step-label">cm =</span><input class="ci sm" inputmode="decimal" placeholder="TOT"><span class="ci-op">×</span><input class="ci sm" inputmode="decimal" placeholder="3"><span class="ci-op">=</span><input class="ci-result" inputmode="decimal" placeholder="? cm"></div>
+        <div class="calc-step"><span class="calc-step-label">mm =</span><input class="ci sm" inputmode="decimal" placeholder="edad" data-ans="11"><span class="ci-op">÷</span><input class="ci sm" inputmode="decimal" placeholder="4"><span class="ci-op">+</span><input class="ci sm" inputmode="decimal" placeholder="4"><span class="ci-op">=</span><input class="ci-result" inputmode="decimal" placeholder="? mm" data-ans="6.75"></div>
+        <div class="calc-step" style="margin-top:8px;"><span class="calc-step-label">cm =</span><input class="ci sm" inputmode="decimal" placeholder="TOT" data-ans="6.75"><span class="ci-op">×</span><input class="ci sm" inputmode="decimal" placeholder="3"><span class="ci-op">=</span><input class="ci-result" inputmode="decimal" placeholder="? cm" data-ans="20.25"></div>
       </div>
       <div class="mc-row"><span class="mc-label">Tamaño:</span><select class="mc-select" onchange="chk(this,'6.5','fbB5t')"><option value="">— elegir —</option><option value="6.5">6.5 mm</option><option value="6.75">6.75 mm</option><option value="7.0">7.0 mm</option></select><span class="fb" id="fbB5t"></span></div>
       <div class="mc-row"><span class="mc-label">Profundidad:</span><select class="mc-select" onchange="chk(this,'20.25','fbB5p')"><option value="">— elegir —</option><option value="19.5">19.5 cm</option><option value="20.25">20.25 cm</option><option value="21.0">21.0 cm</option></select><span class="fb" id="fbB5p"></span></div>
-      <button class="correct-btn" onclick="corregir('B','taller',10,['fbB1t','fbB1p','fbB2t','fbB2p','fbB3t','fbB3p','fbB4t','fbB4p','fbB5t','fbB5p'],0.8)">Corregir Módulo B</button>
+      <button class="correct-btn" onclick="corregir('B','taller',['fbB1t','fbB1p','fbB2t','fbB2p','fbB3t','fbB3p','fbB4t','fbB4p','fbB5t','fbB5p'],0.8,this)">Corregir Módulo B</button>
     </div>
   </div>
 </div>
@@ -1079,7 +1083,7 @@ footer { border-top:2px solid rgba(0,0,0,.08); padding:22px 56px 28px; display:f
         <span class="open-label">Describa paso a paso la cricotirotomía con bisturí (scalpel-bougie technique) según DAS 2025:</span>
         <textarea class="open-area" style="border-color:var(--amber);" placeholder="Escriba su respuesta aquí..."></textarea>
       </div>
-      <button class="correct-btn" onclick="corregir('C','taller',6,['fbC1a','fbC1b','fbC2a','fbC2b','fbC3a','fbC3b'],0.6)">Corregir Módulo C — Selección múltiple (0.60 pts autocorregibles)</button>
+      <button class="correct-btn" onclick="corregir('C','taller',['fbC1a','fbC1b','fbC2a','fbC2b','fbC3a','fbC3b'],0.6,this)">Corregir Módulo C — Selección múltiple (0.60 pts autocorregibles)</button>
       <div style="font-family:var(--sans);font-size:8pt;color:var(--gray-400);margin-top:6px;font-style:italic;">Las 3 preguntas abiertas de C1, C2 y C3 suman 0.30 pts adicionales calificados por el docente → Total Módulo C: 0.90 pts</div>
     </div>
   </div>
@@ -1108,7 +1112,7 @@ footer { border-top:2px solid rgba(0,0,0,.08); padding:22px 56px 28px; display:f
       <div class="mc-row"><span class="mc-label">Secuencia correcta de preoxigenación para este caso:</span><select class="mc-select" onchange="chk(this,'Posición de rampa + FiO₂ 100% × 3–5 min + HFNC u O₂ apneico 15 L/min durante laringoscopia','fbD3a')"><option value="">— elegir —</option><option>Supino plano + 2 L O₂ × 1 min</option><option>Posición de rampa + FiO₂ 100% × 3–5 min + HFNC u O₂ apneico 15 L/min durante laringoscopia</option><option>Solo capacidad vital</option></select><span class="fb" id="fbD3a"></span></div>
       <div class="mc-row"><span class="mc-label">¿La oxigenación apneica sustituye la preoxigenación?</span><select class="mc-select" onchange="chk(this,'No — la complementa pero nunca la reemplaza','fbD3b')"><option value="">— elegir —</option><option>Sí, si el flujo es mayor de 10 L/min</option><option>No — la complementa pero nunca la reemplaza</option><option>Solo en pacientes pediátricos</option></select><span class="fb" id="fbD3b"></span></div>
       <div class="mc-row"><span class="mc-label">¿Cuántos predictores de dificultad tiene este paciente?</span><select class="mc-select" onchange="chk(this,'5 o más','fbD3c')"><option value="">— elegir —</option><option>1–2</option><option>3–4</option><option>5 o más</option></select><span class="fb" id="fbD3c"></span></div>
-      <button class="correct-btn" onclick="corregir('D','taller',9,['fbD1a','fbD1b','fbD1c','fbD2a','fbD2b','fbD2c','fbD3a','fbD3b','fbD3c'],0.9)">Corregir Módulo D</button>
+      <button class="correct-btn" onclick="corregir('D','taller',['fbD1a','fbD1b','fbD1c','fbD2a','fbD2b','fbD2c','fbD3a','fbD3b','fbD3c'],0.9,this)">Corregir Módulo D</button>
     </div>
   </div>
 </div>
@@ -1117,13 +1121,13 @@ footer { border-top:2px solid rgba(0,0,0,.08); padding:22px 56px 28px; display:f
 <div class="module">
   <div class="module-header"><span class="module-tag">MÓDULO E</span><span class="module-title">LMA — Selección de talla y cálculo de cuff</span><span class="module-pts">🤖 0.9 pts · Fórmula: Vol = (Talla × 10) − 10</span></div>
   <div class="module-body">
-  <div class="alert-yellow" style="margin-bottom:14px;">Complete el cálculo algebraico con la fórmula <strong>Vol (mL) = (Talla × 10) − 10</strong> y luego confirme con el desplegable.</div>
+  <div class="alert-yellow" style="margin-bottom:14px;">Complete <strong>cada casilla</strong> del cálculo algebraico con la fórmula <strong>Vol (mL) = (Talla × 10) − 10</strong> y luego confirme con el desplegable. <strong>Se califica el planteamiento completo, no solo el resultado.</strong></div>
 
     <div class="ex-item">
       <div class="ex-label"><span class="ex-num">E1</span> Paciente · 6 kg <span class="ex-pts">🤖 0.18 pts</span></div>
       <div class="calc-box">
         <div class="mc-row" style="margin-bottom:8px;"><span class="mc-label">Talla LMA para 6 kg:</span><select class="mc-select" onchange="chk(this,'1.5','fbE1t')"><option value="">— elegir —</option><option value="1">LMA 1 (&lt;5 kg)</option><option value="1.5">LMA 1.5 (5–10 kg)</option><option value="2">LMA 2 (10–20 kg)</option></select><span class="fb" id="fbE1t"></span></div>
-        <div class="calc-step"><span class="calc-step-label">Vol (mL) = (</span><input class="ci sm" inputmode="decimal" placeholder="talla"><span class="ci-op">×</span><input class="ci sm" inputmode="decimal" placeholder="10"><span class="ci-op">)−</span><input class="ci sm" inputmode="decimal" placeholder="10"><span class="ci-op">=</span><input class="ci-result" inputmode="decimal" placeholder="? mL"></div>
+        <div class="calc-step"><span class="calc-step-label">Vol (mL) = (</span><input class="ci sm" inputmode="decimal" placeholder="talla" data-ans="1.5"><span class="ci-op">×</span><input class="ci sm" inputmode="decimal" placeholder="10"><span class="ci-op">)−</span><input class="ci sm" inputmode="decimal" placeholder="10"><span class="ci-op">=</span><input class="ci-result" inputmode="decimal" placeholder="? mL" data-ans="5"></div>
       </div>
       <div class="mc-row"><span class="mc-label">Vol. de cuff correcto:</span><select class="mc-select" onchange="chk(this,'5','fbE1v')"><option value="">— elegir —</option><option value="4">4 mL</option><option value="5">5 mL</option><option value="10">10 mL</option></select><span class="fb" id="fbE1v"></span></div>
     </div>
@@ -1132,7 +1136,7 @@ footer { border-top:2px solid rgba(0,0,0,.08); padding:22px 56px 28px; display:f
       <div class="ex-label"><span class="ex-num">E2</span> Paciente · 15 kg <span class="ex-pts">🤖 0.18 pts</span></div>
       <div class="calc-box">
         <div class="mc-row" style="margin-bottom:8px;"><span class="mc-label">Talla LMA para 15 kg:</span><select class="mc-select" onchange="chk(this,'2','fbE2t')"><option value="">— elegir —</option><option value="1.5">LMA 1.5</option><option value="2">LMA 2 (10–20 kg)</option><option value="2.5">LMA 2.5</option></select><span class="fb" id="fbE2t"></span></div>
-        <div class="calc-step"><span class="calc-step-label">Vol (mL) = (</span><input class="ci sm" inputmode="decimal" placeholder="talla"><span class="ci-op">×</span><input class="ci sm" inputmode="decimal" placeholder="10"><span class="ci-op">)−</span><input class="ci sm" inputmode="decimal" placeholder="10"><span class="ci-op">=</span><input class="ci-result" inputmode="decimal" placeholder="? mL"></div>
+        <div class="calc-step"><span class="calc-step-label">Vol (mL) = (</span><input class="ci sm" inputmode="decimal" placeholder="talla" data-ans="2"><span class="ci-op">×</span><input class="ci sm" inputmode="decimal" placeholder="10"><span class="ci-op">)−</span><input class="ci sm" inputmode="decimal" placeholder="10"><span class="ci-op">=</span><input class="ci-result" inputmode="decimal" placeholder="? mL" data-ans="10"></div>
       </div>
       <div class="mc-row"><span class="mc-label">Vol. de cuff correcto:</span><select class="mc-select" onchange="chk(this,'10','fbE2v')"><option value="">— elegir —</option><option value="5">5 mL</option><option value="10">10 mL</option><option value="15">15 mL</option></select><span class="fb" id="fbE2v"></span></div>
     </div>
@@ -1141,7 +1145,7 @@ footer { border-top:2px solid rgba(0,0,0,.08); padding:22px 56px 28px; display:f
       <div class="ex-label"><span class="ex-num">E3</span> Paciente · 60 kg <span class="ex-pts">🤖 0.18 pts</span></div>
       <div class="calc-box">
         <div class="mc-row" style="margin-bottom:8px;"><span class="mc-label">Talla LMA para 60 kg:</span><select class="mc-select" onchange="chk(this,'4','fbE3t')"><option value="">— elegir —</option><option value="3">LMA 3 (30–50 kg)</option><option value="4">LMA 4 (50–70 kg)</option><option value="5">LMA 5 (70–100 kg)</option></select><span class="fb" id="fbE3t"></span></div>
-        <div class="calc-step"><span class="calc-step-label">Vol (mL) = (</span><input class="ci sm" inputmode="decimal" placeholder="talla"><span class="ci-op">×</span><input class="ci sm" inputmode="decimal" placeholder="10"><span class="ci-op">)−</span><input class="ci sm" inputmode="decimal" placeholder="10"><span class="ci-op">=</span><input class="ci-result" inputmode="decimal" placeholder="? mL"></div>
+        <div class="calc-step"><span class="calc-step-label">Vol (mL) = (</span><input class="ci sm" inputmode="decimal" placeholder="talla" data-ans="4"><span class="ci-op">×</span><input class="ci sm" inputmode="decimal" placeholder="10"><span class="ci-op">)−</span><input class="ci sm" inputmode="decimal" placeholder="10"><span class="ci-op">=</span><input class="ci-result" inputmode="decimal" placeholder="? mL" data-ans="30"></div>
       </div>
       <div class="mc-row"><span class="mc-label">Vol. de cuff correcto:</span><select class="mc-select" onchange="chk(this,'30','fbE3v')"><option value="">— elegir —</option><option value="20">20 mL</option><option value="30">30 mL</option><option value="40">40 mL</option></select><span class="fb" id="fbE3v"></span></div>
     </div>
@@ -1150,7 +1154,7 @@ footer { border-top:2px solid rgba(0,0,0,.08); padding:22px 56px 28px; display:f
       <div class="ex-label"><span class="ex-num">E4</span> Paciente · 95 kg <span class="ex-pts">🤖 0.18 pts</span></div>
       <div class="calc-box">
         <div class="mc-row" style="margin-bottom:8px;"><span class="mc-label">Talla LMA para 95 kg:</span><select class="mc-select" onchange="chk(this,'5','fbE4t')"><option value="">— elegir —</option><option value="4">LMA 4</option><option value="5">LMA 5 (70–100 kg)</option><option value="6">LMA 6</option></select><span class="fb" id="fbE4t"></span></div>
-        <div class="calc-step"><span class="calc-step-label">Vol (mL) = (</span><input class="ci sm" inputmode="decimal" placeholder="talla"><span class="ci-op">×</span><input class="ci sm" inputmode="decimal" placeholder="10"><span class="ci-op">)−</span><input class="ci sm" inputmode="decimal" placeholder="10"><span class="ci-op">=</span><input class="ci-result" inputmode="decimal" placeholder="? mL"></div>
+        <div class="calc-step"><span class="calc-step-label">Vol (mL) = (</span><input class="ci sm" inputmode="decimal" placeholder="talla" data-ans="5"><span class="ci-op">×</span><input class="ci sm" inputmode="decimal" placeholder="10"><span class="ci-op">)−</span><input class="ci sm" inputmode="decimal" placeholder="10"><span class="ci-op">=</span><input class="ci-result" inputmode="decimal" placeholder="? mL" data-ans="40"></div>
       </div>
       <div class="mc-row"><span class="mc-label">Vol. de cuff correcto:</span><select class="mc-select" onchange="chk(this,'40','fbE4v')"><option value="">— elegir —</option><option value="30">30 mL</option><option value="40">40 mL</option><option value="50">50 mL</option></select><span class="fb" id="fbE4v"></span></div>
     </div>
@@ -1159,11 +1163,11 @@ footer { border-top:2px solid rgba(0,0,0,.08); padding:22px 56px 28px; display:f
       <div class="ex-label"><span class="ex-num">E5</span> Paciente · 110 kg — Presión del cuff <span class="ex-pts">🤖 0.18 pts</span></div>
       <div class="calc-box">
         <div class="mc-row" style="margin-bottom:8px;"><span class="mc-label">Talla LMA para 110 kg:</span><select class="mc-select" onchange="chk(this,'6','fbE5t')"><option value="">— elegir —</option><option value="5">LMA 5</option><option value="6">LMA 6 (&gt;100 kg)</option></select><span class="fb" id="fbE5t"></span></div>
-        <div class="calc-step"><span class="calc-step-label">Vol (mL) = (</span><input class="ci sm" inputmode="decimal" placeholder="talla"><span class="ci-op">×</span><input class="ci sm" inputmode="decimal" placeholder="10"><span class="ci-op">)−</span><input class="ci sm" inputmode="decimal" placeholder="10"><span class="ci-op">=</span><input class="ci-result" inputmode="decimal" placeholder="? mL"></div>
+        <div class="calc-step"><span class="calc-step-label">Vol (mL) = (</span><input class="ci sm" inputmode="decimal" placeholder="talla" data-ans="6"><span class="ci-op">×</span><input class="ci sm" inputmode="decimal" placeholder="10"><span class="ci-op">)−</span><input class="ci sm" inputmode="decimal" placeholder="10"><span class="ci-op">=</span><input class="ci-result" inputmode="decimal" placeholder="? mL" data-ans="50"></div>
       </div>
       <div class="mc-row"><span class="mc-label">Vol. de cuff correcto:</span><select class="mc-select" onchange="chk(this,'50','fbE5v')"><option value="">— elegir —</option><option value="40">40 mL</option><option value="50">50 mL</option><option value="60">60 mL</option></select><span class="fb" id="fbE5v"></span></div>
       <div class="mc-row"><span class="mc-label">Presión intracuff recomendada para LMA:</span><select class="mc-select" onchange="chk(this,'20–40 cmH₂O','fbE5p')"><option value="">— elegir —</option><option>5–10 cmH₂O</option><option>10–20 cmH₂O</option><option>20–40 cmH₂O</option><option>50–80 cmH₂O</option></select><span class="fb" id="fbE5p"></span></div>
-      <button class="correct-btn" onclick="corregir('E','taller',11,['fbE1t','fbE1v','fbE2t','fbE2v','fbE3t','fbE3v','fbE4t','fbE4v','fbE5t','fbE5v','fbE5p'],0.9)">Corregir Módulo E</button>
+      <button class="correct-btn" onclick="corregir('E','taller',['fbE1t','fbE1v','fbE2t','fbE2v','fbE3t','fbE3v','fbE4t','fbE4v','fbE5t','fbE5v','fbE5p'],0.9,this)">Corregir Módulo E</button>
     </div>
   </div>
 </div>
@@ -1232,22 +1236,58 @@ function chk(sel, correct, fbId){
 
 // ══ SCORE ══
 var pts = {taller:{A:0,B:0,C:0,D:0,E:0}};
-function corregir(mod, taller, total, fbIds, maxPts){
-  var ok = 0;
+
+// Marca visual de una casilla numérica del desarrollo
+function marcarCasilla(inp, estado){
+  inp.classList.remove('ci-ok','ci-bad','ci-empty');
+  if(estado==='ok')   inp.classList.add('ci-ok');
+  else if(estado==='bad') inp.classList.add('ci-bad');
+  else if(estado==='empty') inp.classList.add('ci-empty');
+}
+
+function corregir(mod, taller, fbIds, maxPts, btn){
+  var ok = 0, total = 0, okSel = 0, totSel = 0, okNum = 0, totNum = 0;
+
+  // 1) Selección múltiple (desplegables)
   fbIds.forEach(function(fbId){
+    total++; totSel++;
     var fb = document.getElementById(fbId);
     var ans = answers[fbId];
     if(!fb) return;
     if(!ans || !ans.val){ fb.textContent='— sin respuesta'; fb.className='fb'; return; }
     var correct = ans.val === ans.correct;
-    if(correct){ ok++; fb.textContent='✓ correcto'; fb.className='fb ok'; }
+    if(correct){ ok++; okSel++; fb.textContent='✓ correcto'; fb.className='fb ok'; }
     else { fb.textContent='✗ incorrecto'; fb.className='fb err'; }
   });
-  var p = (ok/total)*maxPts;
+
+  // 2) Casillas del desarrollo (todo input con data-ans dentro del módulo)
+  var modEl = btn ? btn.closest('.module') : null;
+  if(modEl){
+    var inputs = modEl.querySelectorAll('input[data-ans]');
+    inputs.forEach(function(inp){
+      total++; totNum++;
+      var esperado = parseFloat(inp.getAttribute('data-ans'));
+      var crudo = (inp.value||'').trim().replace(',', '.');
+      if(crudo===''){ marcarCasilla(inp,'empty'); return; }
+      var val = parseFloat(crudo);
+      var bien = !isNaN(val) && Math.abs(val - esperado) < 0.01;
+      if(bien){ ok++; okNum++; marcarCasilla(inp,'ok'); }
+      else { marcarCasilla(inp,'bad'); }
+    });
+  }
+
+  var p = total>0 ? (ok/total)*maxPts : 0;
   if(!pts[taller]) pts[taller]={};
   pts[taller][mod] = p;
   actualizarNotas();
-  alert('Módulo '+mod+' corregido: '+ok+'/'+total+' correctas = '+p.toFixed(2)+' pts');
+
+  var msg = 'Módulo '+mod+' corregido: '+ok+'/'+total+' aciertos = '+p.toFixed(2)+' pts';
+  if(totNum>0){
+    msg += '\n  • Desplegables: '+okSel+'/'+totSel;
+    msg += '\n  • Casillas de desarrollo: '+okNum+'/'+totNum;
+    msg += '\n\nRevise en rojo las casillas del desarrollo que no coinciden con el cálculo correcto.';
+  }
+  alert(msg);
 }
 function actualizarNotas(){
   var t = pts.taller;
@@ -1273,6 +1313,13 @@ function setupPrintAnswers(){
   });
 }
 document.addEventListener('DOMContentLoaded', setupPrintAnswers);
+
+// Al editar una casilla del desarrollo, borrar su marca previa de corrección
+document.addEventListener('DOMContentLoaded', function(){
+  document.querySelectorAll('input[data-ans]').forEach(function(inp){
+    inp.addEventListener('input', function(){ marcarCasilla(inp, null); });
+  });
+});
 
 // Sincronizar TODOS antes de imprimir (por si setupPrintAnswers corrió antes de que escribieran)
 window.addEventListener('beforeprint', function(){
