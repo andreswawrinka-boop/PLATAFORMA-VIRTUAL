@@ -182,6 +182,10 @@ ul.content-list li.warn::before { background:var(--red); }
 .open-question-part { margin:8px 0; }
 .open-question-part-letter { font-family:var(--sans); font-weight:800; color:var(--navy); }
 
+/* Numeric input validation feedback */
+.ans-input.num-ok { border-color:var(--green) !important; background:#f0faf0; }
+.ans-input.num-err { border-color:var(--red) !important; background:#fdecec; }
+.ans-input.num-empty { border-color:var(--amber) !important; background:#fff8ec; }
 /* MC select */
 .mc-row { display:flex; align-items:center; gap:10px; margin:7px 0; font-family:var(--sans); font-size:9.5pt; flex-wrap:wrap; }
 .mc-label { font-weight:700; color:var(--navy-mid); min-width:200px; }
@@ -550,13 +554,13 @@ footer { border-top:2px solid rgba(0,0,0,.08); padding:22px 56px 28px; display:f
       <div class="question-label">1A. Calcule el Peso Ideal (fórmula de Devine) <span class="q-pts-auto">🤖 0.20 pts</span></div>
       <div class="answer-line">
         PI = 45.5 + 0.9 × (
-        <input class="ans-input ans-sm" inputmode="decimal" placeholder="talla">
+        <input class="ans-input ans-sm" inputmode="decimal" placeholder="talla" data-ans="163" data-tol="0">
         −152) =
-        <input class="ans-input ans-md" inputmode="decimal" placeholder="resultado">
+        <input class="ans-input ans-md" inputmode="decimal" placeholder="resultado" data-ans="55.4" data-tol="0.2">
         <span>kg</span>
       </div>
       <div class="mc-row"><span class="mc-label">Resultado correcto del PI:</span>
-        <select class="mc-select" onchange="chk(this,'48.2 kg','fb1a')"><option value="">— elegir —</option><option>44.5 kg</option><option>48.2 kg</option><option>51.7 kg</option><option>53.0 kg</option></select>
+        <select class="mc-select" onchange="chk(this,'55.4 kg','fb1a')"><option value="">— elegir —</option><option>48.2 kg</option><option>52.7 kg</option><option>55.4 kg</option><option>58.6 kg</option></select>
         <span class="fb" id="fb1a"></span>
       </div>
     </div>
@@ -565,11 +569,11 @@ footer { border-top:2px solid rgba(0,0,0,.08); padding:22px 56px 28px; display:f
     <div class="question">
       <div class="question-label">1B. Calcule el rango de Vt protector para cirugía abdominal <span class="q-pts-auto">🤖 0.20 pts</span></div>
       <div class="answer-line">
-        Vt mínimo (6 mL/kg PI): <input class="ans-input ans-sm" inputmode="decimal" placeholder="?"> mL &nbsp;|&nbsp;
-        Vt máximo (8 mL/kg PI): <input class="ans-input ans-sm" inputmode="decimal" placeholder="?"> mL
+        Vt mínimo (6 mL/kg PI): <input class="ans-input ans-sm" inputmode="decimal" placeholder="?" data-ans="332" data-tol="2"> mL &nbsp;|&nbsp;
+        Vt máximo (8 mL/kg PI): <input class="ans-input ans-sm" inputmode="decimal" placeholder="?" data-ans="443" data-tol="2"> mL
       </div>
       <div class="mc-row"><span class="mc-label">Rango Vt correcto:</span>
-        <select class="mc-select" onchange="chk(this,'289 – 386 mL','fb1b')"><option value="">— elegir —</option><option>290 – 385 mL</option><option>289 – 386 mL</option><option>312 – 416 mL</option><option>267 – 356 mL</option></select>
+        <select class="mc-select" onchange="chk(this,'332 – 443 mL','fb1b')"><option value="">— elegir —</option><option>289 – 386 mL</option><option>310 – 413 mL</option><option>332 – 443 mL</option><option>354 – 472 mL</option></select>
         <span class="fb" id="fb1b"></span>
       </div>
     </div>
@@ -598,7 +602,7 @@ footer { border-top:2px solid rgba(0,0,0,.08); padding:22px 56px 28px; display:f
         <textarea class="open-area" placeholder="Escriba su respuesta aquí..."></textarea>
       </div>
     </div>
-    <button class="correct-btn" onclick="corregir('E1',3,['fb1a','fb1b','fb1c1','fb1c2'],0.6)">Corregir Ejercicio 1 — Parte autocorregible (0.60 pts)</button>
+    <button class="correct-btn" onclick="corregir('E1',['fb1a','fb1b','fb1c1','fb1c2'],0.6,this)">Corregir Ejercicio 1 — Parte autocorregible (0.60 pts)</button>
     <div style="font-family:var(--sans);font-size:8pt;color:var(--gray-400);margin-top:6px;font-style:italic;">Pregunta 1D calificada por el docente (0.40 pts) → Total Ejercicio 1: 1.00 pt</div>
   </div>
 </div>
@@ -622,10 +626,10 @@ footer { border-top:2px solid rgba(0,0,0,.08); padding:22px 56px 28px; display:f
 
     <div class="question">
       <div class="question-label">2A. Calcule el PI, verifique si el Vt está en rango protector y calcule el VM actual <span class="q-pts-auto">🤖 0.25 pts</span></div>
-      <div class="answer-line">PI = 50 + 0.9×(<input class="ans-input ans-sm" inputmode="decimal" placeholder="talla">−152) = <input class="ans-input ans-sm" inputmode="decimal" placeholder="?"> kg</div>
-      <div class="answer-line">Vt/kg PI = 420÷<input class="ans-input ans-sm" inputmode="decimal" placeholder="PI"> = <input class="ans-input ans-sm" inputmode="decimal" placeholder="?"> mL/kg &nbsp;|&nbsp; VM = 420×12 = <input class="ans-input ans-sm" inputmode="decimal" placeholder="?"> mL/min</div>
+      <div class="answer-line">PI = 50 + 0.9×(<input class="ans-input ans-sm" inputmode="decimal" placeholder="talla" data-ans="168" data-tol="0">−152) = <input class="ans-input ans-sm" inputmode="decimal" placeholder="?" data-ans="64.4" data-tol="0.2"> kg</div>
+      <div class="answer-line">Vt/kg PI = 420÷<input class="ans-input ans-sm" inputmode="decimal" placeholder="PI" data-ans="64.4" data-tol="0.2"> = <input class="ans-input ans-sm" inputmode="decimal" placeholder="?" data-ans="6.5" data-tol="0.15"> mL/kg &nbsp;|&nbsp; VM = 420×12 = <input class="ans-input ans-sm" inputmode="decimal" placeholder="?" data-ans="5040" data-tol="0"> mL/min</div>
       <div class="mc-row"><span class="mc-label">PI correcto:</span>
-        <select class="mc-select" onchange="chk(this,'64.8 kg','fb2a1')"><option value="">— elegir —</option><option>60.2 kg</option><option>64.8 kg</option><option>68.4 kg</option><option>72.0 kg</option></select>
+        <select class="mc-select" onchange="chk(this,'64.4 kg','fb2a1')"><option value="">— elegir —</option><option>60.2 kg</option><option>64.4 kg</option><option>68.4 kg</option><option>72.0 kg</option></select>
         <span class="fb" id="fb2a1"></span>
       </div>
       <div class="mc-row"><span class="mc-label">¿Vt en rango protector?</span>
@@ -636,7 +640,7 @@ footer { border-top:2px solid rgba(0,0,0,.08); padding:22px 56px 28px; display:f
 
     <div class="question">
       <div class="question-label">2B. Calcule la Driving Pressure e interprete <span class="q-pts-auto">🤖 0.15 pts</span></div>
-      <div class="answer-line">ΔP = Pplat − PEEP = <input class="ans-input ans-sm" inputmode="decimal" placeholder="?"> − <input class="ans-input ans-sm" inputmode="decimal" placeholder="?"> = <input class="ans-input ans-sm" inputmode="decimal" placeholder="?"> cmH₂O</div>
+      <div class="answer-line">ΔP = Pplat − PEEP = <input class="ans-input ans-sm" inputmode="decimal" placeholder="?" data-ans="24" data-tol="0"> − <input class="ans-input ans-sm" inputmode="decimal" placeholder="?" data-ans="5" data-tol="0"> = <input class="ans-input ans-sm" inputmode="decimal" placeholder="?" data-ans="19" data-tol="0"> cmH₂O</div>
       <div class="mc-row"><span class="mc-label">ΔP correcto e interpretación:</span>
         <select class="mc-select" onchange="chk(this,'19 cmH₂O — en rango seguro (&lt;15 cmH₂O aceptable, monitor)','fb2b')"><option value="">— elegir —</option><option>19 cmH₂O — en rango seguro (&lt;15 cmH₂O aceptable, monitor)</option><option>19 cmH₂O — fuera de rango, requiere ajuste inmediato</option><option>29 cmH₂O — fuera de rango</option><option>14 cmH₂O — en rango seguro</option></select>
         <span class="fb" id="fb2b"></span>
@@ -660,7 +664,7 @@ footer { border-top:2px solid rgba(0,0,0,.08); padding:22px 56px 28px; display:f
         <textarea class="open-area" placeholder="Escriba su respuesta aquí..."></textarea>
       </div>
     </div>
-    <button class="correct-btn" onclick="corregir('E2',4,['fb2a1','fb2a2','fb2b','fb2c'],0.6)">Corregir Ejercicio 2 — Parte autocorregible (0.60 pts)</button>
+    <button class="correct-btn" onclick="corregir('E2',['fb2a1','fb2a2','fb2b','fb2c'],0.6,this)">Corregir Ejercicio 2 — Parte autocorregible (0.60 pts)</button>
     <div style="font-family:var(--sans);font-size:8pt;color:var(--gray-400);margin-top:6px;font-style:italic;">Pregunta 2D calificada por el docente (0.40 pts) → Total Ejercicio 2: 1.00 pt</div>
   </div>
 </div>
@@ -684,7 +688,7 @@ footer { border-top:2px solid rgba(0,0,0,.08); padding:22px 56px 28px; display:f
 
     <div class="question">
       <div class="question-label">3A. Calcule el IMC e identifique el grado de obesidad <span class="q-pts-auto">🤖 0.15 pts</span></div>
-      <div class="answer-line">IMC = 96 ÷ (1.58²) = 96 ÷ <input class="ans-input ans-sm" inputmode="decimal" placeholder="?"> = <input class="ans-input ans-sm" inputmode="decimal" placeholder="?"> kg/m²</div>
+      <div class="answer-line">IMC = 96 ÷ (1.58²) = 96 ÷ <input class="ans-input ans-sm" inputmode="decimal" placeholder="?" data-ans="2.4964" data-tol="0.02"> = <input class="ans-input ans-sm" inputmode="decimal" placeholder="?" data-ans="38.5" data-tol="0.2"> kg/m²</div>
       <div class="mc-row"><span class="mc-label">IMC y clasificación:</span>
         <select class="mc-select" onchange="chk(this,'38.5 kg/m² — Obesidad grado II','fb3a')"><option value="">— elegir —</option><option>32.4 kg/m² — Obesidad grado I</option><option>38.5 kg/m² — Obesidad grado II</option><option>40.7 kg/m² — Obesidad grado III</option><option>35.1 kg/m² — Sobrepeso</option></select>
         <span class="fb" id="fb3a"></span>
@@ -693,7 +697,7 @@ footer { border-top:2px solid rgba(0,0,0,.08); padding:22px 56px 28px; display:f
 
     <div class="question">
       <div class="question-label">3B. Calcule el PI y el rango de Vt protector correcto <span class="q-pts-auto">🤖 0.20 pts</span></div>
-      <div class="answer-line">PI (mujer 158 cm) = 45.5 + 0.9×(<input class="ans-input ans-sm" inputmode="decimal" placeholder="?"> − 152) = <input class="ans-input ans-sm" inputmode="decimal" placeholder="?"> kg</div>
+      <div class="answer-line">PI (mujer 158 cm) = 45.5 + 0.9×(<input class="ans-input ans-sm" inputmode="decimal" placeholder="?" data-ans="158" data-tol="0"> − 152) = <input class="ans-input ans-sm" inputmode="decimal" placeholder="?" data-ans="50.9" data-tol="0.2"> kg</div>
       <div class="mc-row"><span class="mc-label">PI correcto:</span>
         <select class="mc-select" onchange="chk(this,'50.9 kg','fb3b1')"><option value="">— elegir —</option><option>45.5 kg</option><option>50.9 kg</option><option>56.3 kg</option><option>96.0 kg</option></select>
         <span class="fb" id="fb3b1"></span>
@@ -706,7 +710,7 @@ footer { border-top:2px solid rgba(0,0,0,.08); padding:22px 56px 28px; display:f
 
     <div class="question">
       <div class="question-label">3C. Calcule la Driving Pressure e interprete <span class="q-pts-auto">🤖 0.20 pts</span></div>
-      <div class="answer-line">ΔP = <input class="ans-input ans-sm" inputmode="decimal" placeholder="Pplat"> − <input class="ans-input ans-sm" inputmode="decimal" placeholder="PEEP"> = <input class="ans-input ans-sm" inputmode="decimal" placeholder="?"> cmH₂O</div>
+      <div class="answer-line">ΔP = <input class="ans-input ans-sm" inputmode="decimal" placeholder="Pplat" data-ans="26" data-tol="0"> − <input class="ans-input ans-sm" inputmode="decimal" placeholder="PEEP" data-ans="8" data-tol="0"> = <input class="ans-input ans-sm" inputmode="decimal" placeholder="?" data-ans="18" data-tol="0"> cmH₂O</div>
       <div class="mc-row"><span class="mc-label">ΔP e interpretación:</span>
         <select class="mc-select" onchange="chk(this,'18 cmH₂O — en rango aceptable para paciente obesa con PEEP alta','fb3c')"><option value="">— elegir —</option><option>18 cmH₂O — en rango aceptable para paciente obesa con PEEP alta</option><option>18 cmH₂O — peligrosa, requiere reducción inmediata de Vt</option><option>34 cmH₂O — peligrosa</option><option>8 cmH₂O — en rango excelente</option></select>
         <span class="fb" id="fb3c"></span>
@@ -722,7 +726,7 @@ footer { border-top:2px solid rgba(0,0,0,.08); padding:22px 56px 28px; display:f
         <textarea class="open-area" placeholder="Escriba su respuesta aquí..."></textarea>
       </div>
     </div>
-    <button class="correct-btn" onclick="corregir('E3',5,['fb3a','fb3b1','fb3b2','fb3c'],0.55)">Corregir Ejercicio 3 — Parte autocorregible (0.55 pts)</button>
+    <button class="correct-btn" onclick="corregir('E3',['fb3a','fb3b1','fb3b2','fb3c'],0.55,this)">Corregir Ejercicio 3 — Parte autocorregible (0.55 pts)</button>
     <div style="font-family:var(--sans);font-size:8pt;color:var(--gray-400);margin-top:6px;font-style:italic;">Pregunta 3D calificada por el docente (0.45 pts) → Total Ejercicio 3: 1.00 pt</div>
   </div>
 </div>
@@ -746,8 +750,8 @@ footer { border-top:2px solid rgba(0,0,0,.08); padding:22px 56px 28px; display:f
 
     <div class="question">
       <div class="question-label">4A. Calcule PI, Vt/kg PI y determine si el Vt está en rango protector <span class="q-pts-auto">🤖 0.20 pts</span></div>
-      <div class="answer-line">PI = 50 + 0.9×(<input class="ans-input ans-sm" inputmode="decimal" placeholder="talla">−152) = <input class="ans-input ans-sm" inputmode="decimal" placeholder="?"> kg</div>
-      <div class="answer-line">Vt/kg PI = 480÷<input class="ans-input ans-sm" inputmode="decimal" placeholder="PI"> = <input class="ans-input ans-sm" inputmode="decimal" placeholder="?"> mL/kg</div>
+      <div class="answer-line">PI = 50 + 0.9×(<input class="ans-input ans-sm" inputmode="decimal" placeholder="talla" data-ans="174" data-tol="0">−152) = <input class="ans-input ans-sm" inputmode="decimal" placeholder="?" data-ans="69.8" data-tol="0.2"> kg</div>
+      <div class="answer-line">Vt/kg PI = 480÷<input class="ans-input ans-sm" inputmode="decimal" placeholder="PI" data-ans="69.8" data-tol="0.2"> = <input class="ans-input ans-sm" inputmode="decimal" placeholder="?" data-ans="6.9" data-tol="0.15"> mL/kg</div>
       <div class="mc-row"><span class="mc-label">PI correcto:</span>
         <select class="mc-select" onchange="chk(this,'69.8 kg','fb4a1')"><option value="">— elegir —</option><option>65.2 kg</option><option>69.8 kg</option><option>74.3 kg</option><option>80.0 kg</option></select>
         <span class="fb" id="fb4a1"></span>
@@ -760,8 +764,8 @@ footer { border-top:2px solid rgba(0,0,0,.08); padding:22px 56px 28px; display:f
 
     <div class="question">
       <div class="question-label">4B. Calcule la Driving Pressure y la Compliance dinámica <span class="q-pts-auto">🤖 0.20 pts</span></div>
-      <div class="answer-line">ΔP = <input class="ans-input ans-sm" inputmode="decimal" placeholder="Pplat">−<input class="ans-input ans-sm" inputmode="decimal" placeholder="PEEP"> = <input class="ans-input ans-sm" inputmode="decimal" placeholder="?"> cmH₂O</div>
-      <div class="answer-line">C = 480÷(<input class="ans-input ans-sm" inputmode="decimal" placeholder="Pplat">−<input class="ans-input ans-sm" inputmode="decimal" placeholder="PEEP">) = <input class="ans-input ans-sm" inputmode="decimal" placeholder="?"> mL/cmH₂O</div>
+      <div class="answer-line">ΔP = <input class="ans-input ans-sm" inputmode="decimal" placeholder="Pplat" data-ans="32" data-tol="0">−<input class="ans-input ans-sm" inputmode="decimal" placeholder="PEEP" data-ans="5" data-tol="0"> = <input class="ans-input ans-sm" inputmode="decimal" placeholder="?" data-ans="27" data-tol="0"> cmH₂O</div>
+      <div class="answer-line">C = 480÷(<input class="ans-input ans-sm" inputmode="decimal" placeholder="Pplat" data-ans="32" data-tol="0">−<input class="ans-input ans-sm" inputmode="decimal" placeholder="PEEP" data-ans="5" data-tol="0">) = <input class="ans-input ans-sm" inputmode="decimal" placeholder="?" data-ans="17.8" data-tol="0.3"> mL/cmH₂O</div>
       <div class="mc-row"><span class="mc-label">ΔP e interpretación:</span>
         <select class="mc-select" onchange="chk(this,'27 cmH₂O — por encima del límite (>15), riesgo VILI','fb4b1')"><option value="">— elegir —</option><option>27 cmH₂O — por encima del límite (>15), riesgo VILI</option><option>27 cmH₂O — en rango aceptable</option><option>37 cmH₂O — fuera de rango</option><option>22 cmH₂O — en rango aceptable</option></select>
         <span class="fb" id="fb4b1"></span>
@@ -781,7 +785,7 @@ footer { border-top:2px solid rgba(0,0,0,.08); padding:22px 56px 28px; display:f
         <textarea class="open-area" style="min-height:100px;" placeholder="Escriba su respuesta aquí..."></textarea>
       </div>
     </div>
-    <button class="correct-btn" onclick="corregir('E4',5,['fb4a1','fb4a2','fb4b1','fb4b2'],0.4)">Corregir Ejercicio 4 — Parte autocorregible (0.40 pts)</button>
+    <button class="correct-btn" onclick="corregir('E4',['fb4a1','fb4a2','fb4b1','fb4b2'],0.4,this)">Corregir Ejercicio 4 — Parte autocorregible (0.40 pts)</button>
     <div style="font-family:var(--sans);font-size:8pt;color:var(--gray-400);margin-top:6px;font-style:italic;">Pregunta 4C calificada por el docente (0.60 pts) → Total Ejercicio 4: 1.00 pt</div>
   </div>
 </div>
@@ -804,7 +808,7 @@ footer { border-top:2px solid rgba(0,0,0,.08); padding:22px 56px 28px; display:f
 
     <div class="question">
       <div class="question-label">5A. Calcule el rango de Vt adecuado para esta niña <span class="q-pts-auto">🤖 0.20 pts</span></div>
-      <div class="answer-line">Vt 8 mL/kg: <input class="ans-input ans-sm" inputmode="decimal" placeholder="?"> mL &nbsp;|&nbsp; Vt 10 mL/kg: <input class="ans-input ans-sm" inputmode="decimal" placeholder="?"> mL</div>
+      <div class="answer-line">Vt 8 mL/kg: <input class="ans-input ans-sm" inputmode="decimal" placeholder="?" data-ans="208" data-tol="0"> mL &nbsp;|&nbsp; Vt 10 mL/kg: <input class="ans-input ans-sm" inputmode="decimal" placeholder="?" data-ans="260" data-tol="0"> mL</div>
       <div class="mc-row"><span class="mc-label">Rango de Vt correcto:</span>
         <select class="mc-select" onchange="chk(this,'208 – 260 mL','fb5a')"><option value="">— elegir —</option><option>156 – 195 mL</option><option>208 – 260 mL</option><option>260 – 325 mL</option><option>180 – 225 mL</option></select>
         <span class="fb" id="fb5a"></span>
@@ -835,7 +839,7 @@ footer { border-top:2px solid rgba(0,0,0,.08); padding:22px 56px 28px; display:f
         <textarea class="open-area" placeholder="Escriba su respuesta aquí..."></textarea>
       </div>
     </div>
-    <button class="correct-btn" onclick="corregir('E5',3,['fb5a','fb5b','fb5c'],0.55)">Corregir Ejercicio 5 — Parte autocorregible (0.55 pts)</button>
+    <button class="correct-btn" onclick="corregir('E5',['fb5a','fb5b','fb5c'],0.55,this)">Corregir Ejercicio 5 — Parte autocorregible (0.55 pts)</button>
     <div style="font-family:var(--sans);font-size:8pt;color:var(--gray-400);margin-top:6px;font-style:italic;">Pregunta 5D calificada por el docente (0.45 pts) → Total Ejercicio 5: 1.00 pt</div>
   </div>
 </div>
@@ -877,21 +881,40 @@ function chk(sel,correct,fbId){
 }
 // SCORE
 var pts={E1:0,E2:0,E3:0,E4:0,E5:0};
-function corregir(ex,total,fbIds,maxPts){
-  var ok=0;
+function corregir(ex,fbIds,maxPts,btn){
+  var container=btn.closest('.exercise');
+  var numInputs=container?container.querySelectorAll('input[data-ans]'):[];
+  var totalItems=fbIds.length+numInputs.length;
+  var ok=0, okDrop=0, okNum=0, emptyDrop=0, emptyNum=0;
+  // Dropdowns
   fbIds.forEach(function(fbId){
     var fb=document.getElementById(fbId);
     var ans=answers[fbId];
     if(!fb)return;
-    if(!ans||!ans.val){fb.textContent='— sin respuesta';fb.className='fb';return;}
-    var correct=ans.val===ans.correct;
-    if(correct){ok++;fb.textContent='✓ correcto';fb.className='fb ok';}
+    if(!ans||!ans.val){fb.textContent='— sin respuesta';fb.className='fb';emptyDrop++;return;}
+    if(ans.val===ans.correct){ok++;okDrop++;fb.textContent='✓ correcto';fb.className='fb ok';}
     else{fb.textContent='✗ incorrecto';fb.className='fb err';}
   });
-  var p=(ok/total)*maxPts;
+  // Numeric inputs
+  numInputs.forEach(function(inp){
+    var expected=parseFloat(inp.getAttribute('data-ans'));
+    var tol=parseFloat(inp.getAttribute('data-tol')||'0.5');
+    var raw=(inp.value||'').replace(',','.').trim();
+    inp.classList.remove('num-ok','num-err','num-empty');
+    if(raw===''){inp.classList.add('num-empty');emptyNum++;return;}
+    var val=parseFloat(raw);
+    if(isNaN(val)){inp.classList.add('num-err');return;}
+    if(Math.abs(val-expected)<=tol){ok++;okNum++;inp.classList.add('num-ok');}
+    else{inp.classList.add('num-err');}
+  });
+  var p=(ok/totalItems)*maxPts;
   pts[ex]=p;
   actualizarNotas();
-  alert(ex+' corregido: '+ok+'/'+total+' correctas = '+p.toFixed(2)+' pts autocorregibles');
+  var msg=ex+' corregido:\n'+
+    '  • Desplegables: '+okDrop+'/'+fbIds.length+(emptyDrop?' ('+emptyDrop+' sin responder)':'')+'\n'+
+    '  • Cálculos numéricos: '+okNum+'/'+numInputs.length+(emptyNum?' ('+emptyNum+' sin responder)':'')+'\n'+
+    '  → Total: '+ok+'/'+totalItems+' = '+p.toFixed(2)+' pts autocorregibles';
+  alert(msg);
 }
 function actualizarNotas(){
   var total=Object.values(pts).reduce(function(a,b){return a+b;},0);
