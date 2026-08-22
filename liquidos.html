@@ -516,6 +516,9 @@ body{ background:#EEF3E6 !important; font-family:var(--sans); }
 .ans-sm{width:68px;}
 .ans-md{width:100px;}
 .ans-lg{width:145px;}
+.calc-block{background:#f8f9fa;border:1.5px solid #dee2e6;border-radius:8px;padding:10px 14px;margin:8px 0;}
+.ans-input.fi-ok{background:var(--teal-light);color:var(--teal);border-bottom-color:var(--teal);border-radius:3px;font-weight:700;}
+.ans-input.fi-err{background:var(--red-light);color:var(--red);border-bottom-color:var(--red);border-radius:3px;font-weight:700;text-decoration:underline wavy var(--red);}
 .manual-block-label{font-family:var(--sans);font-size:7.5pt;font-weight:700;color:var(--amber);text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px;}
 .open-question{font-family:var(--sans);font-size:9.5pt;color:#212529;line-height:1.65;margin-bottom:8px;font-weight:500;}
 .open-question-part{font-family:var(--sans);font-size:9.5pt;color:var(--navy-mid);line-height:1.65;margin-bottom:6px;display:flex;gap:8px;}
@@ -1020,7 +1023,7 @@ body{ background:#EEF3E6 !important; font-family:var(--sans); }
 
     <div class="question">
       <div class="question-label"><span class="q-num">1&#183;P2</span> Volumen de mantenimiento intraoperatorio (ERAS) <span class="q-pts-auto">&#127744; 0.20 pts</span></div>
-      <div class="answer-line">Tasa ERAS 1.5 mL/kg/h &#215; <input class="ans-input ans-sm" inputmode="decimal" placeholder="kg"> kg &#215; <input class="ans-input ans-sm" inputmode="decimal" placeholder="h"> h = <input class="ans-input ans-md" inputmode="decimal" placeholder="? mL"> mL</div>
+      <div class="calc-block" id="calc-1p3"><div class="answer-line">Tasa ERAS 1.5 mL/kg/h &#215; <input data-ans="110" class="ans-input ans-sm" inputmode="decimal" placeholder="kg"> kg &#215; <input data-ans="2" class="ans-input ans-sm" inputmode="decimal" placeholder="h"> h = <input data-ans="330" class="ans-input ans-md" inputmode="decimal" placeholder="? mL"> mL</div></div>
       <div class="mc-row"><span class="mc-label">Volumen correcto de mantenimiento (120 min, 110 kg):</span>
         <select class="mc-select" onchange="chk(this,'330 mL (1.5 mL/kg/h x 110 kg x 2 h)','fb1p3')">
           <option value="">&#8212; elegir &#8212;</option>
@@ -1085,9 +1088,11 @@ body{ background:#EEF3E6 !important; font-family:var(--sans); }
 
     <div class="question">
       <div class="question-label"><span class="q-num">2&#183;P1</span> C&#225;lculo del VSE y la P&#233;rdida Sangu&#237;nea Permisible (PSP) <span class="q-pts-auto">&#127744; 0.30 pts</span></div>
-      <div class="answer-line">VSE (mujer 65 mL/kg): <input class="ans-input ans-sm" inputmode="decimal" placeholder="65"> &#215; <input class="ans-input ans-sm" inputmode="decimal" placeholder="68"> = <input class="ans-input ans-md" inputmode="decimal" placeholder="? mL"> mL</div>
-      <div class="answer-line">Hto promedio = (33 + <input class="ans-input ans-sm" inputmode="decimal" placeholder="Hto m&#237;n">)/2 = <input class="ans-input ans-sm" inputmode="decimal" placeholder="?"> %</div>
-      <div class="answer-line">PSP = VSE &#215; (33 &#8722; <input class="ans-input ans-sm" inputmode="decimal" placeholder="Hto m&#237;n">) / <input class="ans-input ans-sm" inputmode="decimal" placeholder="prom"> = <input class="ans-input ans-md" inputmode="decimal" placeholder="? mL"> mL</div>
+      <div class="calc-block" id="calc-2p1"><div class="answer-line">VSE (mujer 65 mL/kg): <input data-ans="65" class="ans-input ans-sm" inputmode="decimal" placeholder="65"> &#215; <input data-ans="68" class="ans-input ans-sm" inputmode="decimal" placeholder="68"> = <input data-ans="4420" class="ans-input ans-md" inputmode="decimal" placeholder="? mL"> mL</div></div>
+      <div class="calc-block" id="calc-2p2">
+      <div class="answer-line">Hto promedio = (33 + <input data-ans="24" class="ans-input ans-sm" inputmode="decimal" placeholder="Hto m&#237;n">)/2 = <input data-ans="28.5" class="ans-input ans-sm" inputmode="decimal" placeholder="?"> %</div>
+      <div class="answer-line">PSP = VSE &#215; (33 &#8722; <input data-ans="24" class="ans-input ans-sm" inputmode="decimal" placeholder="Hto m&#237;n">) / <input data-ans="28.5" class="ans-input ans-sm" inputmode="decimal" placeholder="prom"> = <input data-ans="1395.8" class="ans-input ans-md" inputmode="decimal" placeholder="? mL"> mL</div>
+      </div>
       <div class="mc-row"><span class="mc-label">VSE correcto (68 kg, mujer):</span>
         <select class="mc-select" onchange="chk(this,'4420 mL (65 mL/kg x 68 kg)','fb2p1')">
           <option value="">&#8212; elegir &#8212;</option>
@@ -1113,7 +1118,7 @@ body{ background:#EEF3E6 !important; font-family:var(--sans); }
     <div class="question">
       <div class="question-label"><span class="q-num">2&#183;P2</span> Reposici&#243;n del sangrado con cristaloide (ratio 3:1) <span class="q-pts-auto">&#127744; 0.15 pts</span></div>
       <div class="ex-context">A los 90 minutos el sangrado acumulado es <strong>700 mL</strong>. Se repone con cristaloide balanceado (ratio 3:1).</div>
-      <div class="answer-line">Volumen cristaloide = <input class="ans-input ans-sm" inputmode="decimal" placeholder="700"> &#215; <input class="ans-input ans-sm" inputmode="decimal" placeholder="3"> = <input class="ans-input ans-md" inputmode="decimal" placeholder="? mL"> mL</div>
+      <div class="calc-block" id="calc-2p3"><div class="answer-line">Volumen cristaloide = <input data-ans="700" class="ans-input ans-sm" inputmode="decimal" placeholder="700"> &#215; <input data-ans="3" class="ans-input ans-sm" inputmode="decimal" placeholder="3"> = <input data-ans="2100" class="ans-input ans-md" inputmode="decimal" placeholder="? mL"> mL</div></div>
       <div class="mc-row"><span class="mc-label">Volumen de cristaloide correcto para 700 mL de sangre:</span>
         <select class="mc-select" onchange="chk(this,'2100 mL de cristaloide balanceado (ratio 3:1)','fb2p3')">
           <option value="">&#8212; elegir &#8212;</option>
@@ -1310,8 +1315,8 @@ body{ background:#EEF3E6 !important; font-family:var(--sans); }
 
       <div class="question">
         <div class="question-label"><span class="q-num">4B&#183;P1</span> C&#225;lculo de la f&#243;rmula de Parkland <span class="q-pts-auto">&#127744; 0.25 pts</span></div>
-        <div class="answer-line">Parkland cl&#225;sico: 4 mL &#215; <input class="ans-input ans-sm" inputmode="decimal" placeholder="kg"> &#215; <input class="ans-input ans-sm" inputmode="decimal" placeholder="%SCT"> = <input class="ans-input ans-md" inputmode="decimal" placeholder="? mL 24h"> mL en 24 h</div>
-        <div class="answer-line">Primeras 8 h desde quemadura (50%): <input class="ans-input ans-md" inputmode="decimal" placeholder="? mL"> mL &#183; Siguientes 16 h: <input class="ans-input ans-md" inputmode="decimal" placeholder="? mL"> mL</div>
+        <div class="calc-block" id="calc-4bp1"><div class="answer-line">Parkland cl&#225;sico: 4 mL &#215; <input data-ans="58" class="ans-input ans-sm" inputmode="decimal" placeholder="kg"> &#215; <input data-ans="40" class="ans-input ans-sm" inputmode="decimal" placeholder="%SCT"> = <input data-ans="9280" class="ans-input ans-md" inputmode="decimal" placeholder="? mL 24h"> mL en 24 h</div></div>
+        <div class="calc-block" id="calc-4bp2"><div class="answer-line">Primeras 8 h desde quemadura (50%): <input data-ans="4640" class="ans-input ans-md" inputmode="decimal" placeholder="? mL"> mL &#183; Siguientes 16 h: <input data-ans="4640" class="ans-input ans-md" inputmode="decimal" placeholder="? mL"> mL</div></div>
         <div class="mc-row"><span class="mc-label">Volumen total Parkland cl&#225;sico (58 kg, 40% SCT):</span>
           <select class="mc-select" onchange="chk(this,'9280 mL en 24 h &#8212; 4 mL x 58 kg x 40% SCT','fb4bp1')">
             <option value="">&#8212; elegir &#8212;</option>
@@ -1400,16 +1405,63 @@ function chk(sel,correct,fbId){
   var fb=document.getElementById(fbId);
   if(fb){fb.textContent='';fb.className='fb';}
 }
+
+// MAPEO: cada casilla de resultado (fbId) -> bloque(s) de cálculo (calc-block) que debe verificarse
+var chainMap={
+  fb1p3:['calc-1p3'],
+  fb2p1:['calc-2p1'],
+  fb2p2:['calc-2p2'],
+  fb2p3:['calc-2p3'],
+  fb4bp1:['calc-4bp1'],
+  fb4bp2:['calc-4bp2']
+};
+
+// Convierte texto a n&#250;mero, aceptando coma decimal
+function parseNum(str){
+  if(str===undefined||str===null) return NaN;
+  str=String(str).trim().replace(',','.');
+  if(str==='') return NaN;
+  return parseFloat(str);
+}
+// Tolerancia: 3% relativo o 0.01 absoluto (lo que sea mayor)
+function numClose(given,expected){
+  if(isNaN(given)||isNaN(expected)) return false;
+  var tol=Math.max(0.01, Math.abs(expected)*0.03);
+  return Math.abs(given-expected)<=tol;
+}
+// Revisa TODAS las casillas num&#233;ricas del bloque de c&#225;lculo asociado a una respuesta.
+function checkChains(fbId){
+  var blocks=chainMap[fbId];
+  if(!blocks) return true;
+  var allOk=true;
+  blocks.forEach(function(bid){
+    var block=document.getElementById(bid);
+    if(!block) return;
+    var inputs=block.querySelectorAll('input[data-ans]');
+    inputs.forEach(function(inp){
+      var expected=parseNum(inp.getAttribute('data-ans'));
+      var given=parseNum(inp.value);
+      var ok=numClose(given,expected);
+      inp.classList.remove('fi-ok','fi-err');
+      inp.classList.add(ok?'fi-ok':'fi-err');
+      if(!ok) allOk=false;
+    });
+  });
+  return allOk;
+}
+
 var pts={E1:0,E2:0,E3:0,E4:0};
 function corregir(ex,total,fbIds,maxPts){
   var ok=0;
   fbIds.forEach(function(fbId){
     var fb=document.getElementById(fbId);
     var ans=answers[fbId];
+    var chainOk=checkChains(fbId);
     if(!fb)return;
     if(!ans||!ans.val){fb.textContent='&#8212; sin respuesta';fb.className='fb';return;}
-    var correct=ans.val===ans.correct;
-    if(correct){ok++;fb.textContent='&#10003; correcto';fb.className='fb ok';}
+    var selectOk=ans.val===ans.correct;
+    if(selectOk && chainOk){ok++;fb.textContent='&#10003; correcto';fb.className='fb ok';}
+    else if(selectOk && !chainOk){fb.textContent='&#10007; c&#225;lculo incorrecto (revise las casillas en rojo)';fb.className='fb err';}
     else{fb.textContent='&#10007; incorrecto';fb.className='fb err';}
   });
   var p=(ok/total)*maxPts;

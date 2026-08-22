@@ -479,6 +479,9 @@ h4{font-family:var(--sans);font-size:9pt;font-weight:600;color:var(--gray-600);m
 .ans-input:focus{background:#fffbeb;}
 .ans-sm{width:70px;}
 .ans-md{width:100px;}
+.calc-block{background:#f8f9fa;border:1.5px solid #dee2e6;border-radius:8px;padding:10px 14px;margin:8px 0;}
+.ans-input.fi-ok{background:var(--teal-light);color:var(--teal);border-bottom-color:var(--teal);border-radius:3px;font-weight:700;}
+.ans-input.fi-err{background:var(--red-light);color:var(--red);border-bottom-color:var(--red);border-radius:3px;font-weight:700;text-decoration:underline wavy var(--red);}
 .ans-lg{width:150px;}
 .manual-block-label{font-family:var(--sans);font-size:7.5pt;font-weight:700;color:var(--amber);text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px;}
 .open-question{font-family:var(--sans);font-size:9.5pt;color:#212529;line-height:1.65;margin-bottom:8px;font-weight:500;}
@@ -909,17 +912,19 @@ h4{font-family:var(--sans);font-size:9pt;font-weight:600;color:var(--gray-600);m
     <span class="module-pts">🤖 2.5 pts · 0.5 pts c/u</span>
   </div>
   <div class="module-body">
-  <div class="alert-yellow" style="margin-bottom:14px;">Complete las casillas de cálculo y seleccione el resultado correcto. Muestre el procedimiento con unidades.</div>
+  <div class="alert-yellow" style="margin-bottom:14px;">Complete las casillas de cálculo y seleccione el resultado correcto. Muestre el procedimiento con unidades. <strong>Usar punto como separador decimal.</strong> <strong>La calificación evalúa tanto las casillas de cálculo como la respuesta final</strong> — completar solo el resultado sin desarrollar el cálculo correcto se marcará como incorrecto. El feedback (con casillas en verde/rojo) aparece al oprimir "Corregir Módulo".</div>
 
     <!-- A1 PROPOFOL -->
     <div class="ex-item">
       <div class="ex-label"><span class="ex-num">A1</span> Propofol — Inducción en paciente geriátrico &nbsp;<span class="ex-pts-auto">🤖 0.5 pts</span></div>
       <div class="ex-context">Paciente <strong>femenina, 78 años, 62 kg</strong>, programada para colecistectomía laparoscópica electiva. ASA III. Se decide inducción con propofol 1% (10 mg/mL). Use la dosis recomendada para paciente geriátrico.</div>
+      <div class="calc-block" id="calc-A1">
       <div class="answer-line">
-        Dosis geriátrica: <input class="ans-input ans-sm" inputmode="decimal" placeholder="mg/kg"> × <input class="ans-input ans-sm" inputmode="decimal" placeholder="kg"> = <input class="ans-input ans-sm" inputmode="decimal" placeholder="? mg"> mg
+        Dosis geriátrica (1–1.5 mg/kg): mínima = <input data-ans="62" class="ans-input ans-sm" inputmode="decimal" placeholder="? mg"> mg · máxima = <input data-ans="93" class="ans-input ans-sm" inputmode="decimal" placeholder="? mg"> mg
       </div>
       <div class="answer-line">
-        Volumen propofol 1%: <input class="ans-input ans-sm" inputmode="decimal" placeholder="mg"> ÷ 10 mg/mL = <input class="ans-input ans-sm" inputmode="decimal" placeholder="? mL"> mL
+        Volumen propofol 1% (10 mg/mL): mínimo = <input data-ans="6.2" class="ans-input ans-sm" inputmode="decimal" placeholder="? mL"> mL · máximo = <input data-ans="9.3" class="ans-input ans-sm" inputmode="decimal" placeholder="? mL"> mL
+      </div>
       </div>
       <div class="mc-row"><span class="mc-label">Rango de dosis y volumen correctos:</span>
         <select class="mc-select" onchange="chk(this,'62 – 93 mg → 6.2 – 9.3 mL','fbA1')"><option value="">— elegir —</option><option>93 – 155 mg → 9.3 – 15.5 mL</option><option>62 – 93 mg → 6.2 – 9.3 mL</option><option>31 – 62 mg → 3.1 – 6.2 mL</option><option>124 – 155 mg → 12.4 – 15.5 mL</option></select>
@@ -935,11 +940,13 @@ h4{font-family:var(--sans);font-size:9pt;font-weight:600;color:var(--gray-600);m
     <div class="ex-item">
       <div class="ex-label"><span class="ex-num">A2</span> Ketamina — Analgesia subanestésica en dolor agudo &nbsp;<span class="ex-pts-auto">🤖 0.5 pts</span></div>
       <div class="ex-context">Paciente <strong>masculino, 85 kg</strong>, trauma torácico cerrado, dolor EVA 9/10 en urgencias. Se decide ketamina subanestésica IV para analgesia. Ampolla disponible: 50 mg/mL.</div>
+      <div class="calc-block" id="calc-A2">
       <div class="answer-line">
-        Dosis mínima (0.1 mg/kg): <input class="ans-input ans-sm" inputmode="decimal" placeholder="?"> mg ÷ 50 mg/mL = <input class="ans-input ans-sm" inputmode="decimal" placeholder="?"> mL
+        Dosis mínima (0.1 mg/kg): <input data-ans="8.5" class="ans-input ans-sm" inputmode="decimal" placeholder="?"> mg ÷ 50 mg/mL = <input data-ans="0.17" class="ans-input ans-sm" inputmode="decimal" placeholder="?"> mL
       </div>
       <div class="answer-line">
-        Dosis máxima (0.5 mg/kg): <input class="ans-input ans-sm" inputmode="decimal" placeholder="?"> mg ÷ 50 mg/mL = <input class="ans-input ans-sm" inputmode="decimal" placeholder="?"> mL
+        Dosis máxima (0.5 mg/kg): <input data-ans="42.5" class="ans-input ans-sm" inputmode="decimal" placeholder="?"> mg ÷ 50 mg/mL = <input data-ans="0.85" class="ans-input ans-sm" inputmode="decimal" placeholder="?"> mL
+      </div>
       </div>
       <div class="mc-row"><span class="mc-label">Rango correcto (mg y mL):</span>
         <select class="mc-select" onchange="chk(this,'8.5 – 42.5 mg → 0.17 – 0.85 mL','fbA2')"><option value="">— elegir —</option><option>8.5 – 42.5 mg → 0.17 – 0.85 mL</option><option>85 – 425 mg → 1.7 – 8.5 mL</option><option>4.25 – 17 mg → 0.085 – 0.34 mL</option><option>17 – 85 mg → 0.34 – 1.7 mL</option></select>
@@ -955,11 +962,13 @@ h4{font-family:var(--sans);font-size:9pt;font-weight:600;color:var(--gray-600);m
     <div class="ex-item">
       <div class="ex-label"><span class="ex-num">A3</span> Etomidato — ISR en shock cardiogénico &nbsp;<span class="ex-pts-auto">🤖 0.5 pts</span></div>
       <div class="ex-context">Paciente <strong>masculino, 70 kg</strong>, infarto agudo de miocardio con falla cardíaca aguda. FEVI estimada 25%. Requiere ISR urgente para intubación. Etomidato disponible: 2 mg/mL (vial 10 mL).</div>
+      <div class="calc-block" id="calc-A3">
       <div class="answer-line">
-        Dosis (0.2–0.3 mg/kg): mínima = <input class="ans-input ans-sm" inputmode="decimal" placeholder="?"> mg · máxima = <input class="ans-input ans-sm" inputmode="decimal" placeholder="?"> mg
+        Dosis (0.2–0.3 mg/kg): mínima = <input data-ans="14" class="ans-input ans-sm" inputmode="decimal" placeholder="?"> mg · máxima = <input data-ans="21" class="ans-input ans-sm" inputmode="decimal" placeholder="?"> mg
       </div>
       <div class="answer-line">
-        Volumen (a 2 mg/mL): mínimo = <input class="ans-input ans-sm" inputmode="decimal" placeholder="?"> mL · máximo = <input class="ans-input ans-sm" inputmode="decimal" placeholder="?"> mL de vial de <input class="ans-input ans-sm" inputmode="decimal" placeholder="?"> mL
+        Volumen (a 2 mg/mL): mínimo = <input data-ans="7" class="ans-input ans-sm" inputmode="decimal" placeholder="?"> mL · máximo = <input data-ans="10.5" class="ans-input ans-sm" inputmode="decimal" placeholder="?"> mL de vial de <input data-ans="10" class="ans-input ans-sm" inputmode="decimal" placeholder="?"> mL
+      </div>
       </div>
       <div class="mc-row"><span class="mc-label">Dosis, volumen y fracción del vial correctos:</span>
         <select class="mc-select" onchange="chk(this,'14 – 21 mg → 7 – 10.5 mL del vial de 10 mL','fbA3')"><option value="">— elegir —</option><option>7 – 10.5 mg → 3.5 – 5.25 mL del vial de 10 mL</option><option>14 – 21 mg → 7 – 10.5 mL del vial de 10 mL</option><option>21 – 28 mg → 10.5 – 14 mL del vial de 10 mL</option><option>4.2 – 6.3 mg → 2.1 – 3.15 mL del vial de 10 mL</option></select>
@@ -975,14 +984,18 @@ h4{font-family:var(--sans);font-size:9pt;font-weight:600;color:var(--gray-600);m
     <div class="ex-item">
       <div class="ex-label"><span class="ex-num">A4</span> Tiopental — Reconstitución y cálculo &nbsp;<span class="ex-pts-auto">🤖 0.5 pts</span></div>
       <div class="ex-context">Paciente <strong>masculino, 68 kg</strong>. UCI neurológica. Se decide coma barbitúrico para hipertensión intracraneal refractaria. Dispone de un vial de tiopental sódico 1 g. Lo reconstituye con <strong>40 mL de agua estéril</strong>.</div>
+      <div class="calc-block" id="calc-A4a">
       <div class="answer-line">
-        Concentración: 1.000 mg ÷ <input class="ans-input ans-sm" inputmode="decimal" placeholder="?"> mL = <input class="ans-input ans-sm" inputmode="decimal" placeholder="?"> mg/mL
+        Concentración: 1.000 mg ÷ <input data-ans="40" class="ans-input ans-sm" inputmode="decimal" placeholder="?"> mL = <input data-ans="25" class="ans-input ans-sm" inputmode="decimal" placeholder="?"> mg/mL
+      </div>
+      </div>
+      <div class="calc-block" id="calc-A4b">
+      <div class="answer-line">
+        Dosis inducción (3–5 mg/kg): mínima = <input data-ans="204" class="ans-input ans-sm" inputmode="decimal" placeholder="?"> mg · máxima = <input data-ans="340" class="ans-input ans-sm" inputmode="decimal" placeholder="?"> mg
       </div>
       <div class="answer-line">
-        Dosis inducción (3–5 mg/kg): mínima = <input class="ans-input ans-sm" inputmode="decimal" placeholder="?"> mg · máxima = <input class="ans-input ans-sm" inputmode="decimal" placeholder="?"> mg
+        Volumen: mínimo = <input data-ans="8.16" class="ans-input ans-sm" inputmode="decimal" placeholder="?"> mL · máximo = <input data-ans="13.6" class="ans-input ans-sm" inputmode="decimal" placeholder="?"> mL
       </div>
-      <div class="answer-line">
-        Volumen: mínimo = <input class="ans-input ans-sm" inputmode="decimal" placeholder="?"> mL · máximo = <input class="ans-input ans-sm" inputmode="decimal" placeholder="?"> mL
       </div>
       <div class="mc-row"><span class="mc-label">Concentración tras reconstitución con 40 mL:</span>
         <select class="mc-select" onchange="chk(this,'25 mg/mL (2.5%)','fbA4a')"><option value="">— elegir —</option><option>50 mg/mL (5%)</option><option>25 mg/mL (2.5%)</option><option>20 mg/mL (2%)</option><option>10 mg/mL (1%)</option></select>
@@ -998,11 +1011,15 @@ h4{font-family:var(--sans);font-size:9pt;font-weight:600;color:var(--gray-600);m
     <div class="ex-item">
       <div class="ex-label"><span class="ex-num">A5</span> Midazolam — Premedicación + reversión con flumazenil &nbsp;<span class="ex-pts-auto">🤖 0.5 pts</span></div>
       <div class="ex-context">Paciente <strong>femenina, 55 kg</strong>, histeroscopia ambulatoria. Premedicación con midazolam IV. Ampolla disponible: <strong>15 mg / 3 mL</strong>. Al final del procedimiento presenta somnolencia excesiva y se decide revertir con flumazenil (0.1 mg/mL).</div>
+      <div class="calc-block" id="calc-A5a">
       <div class="answer-line">
-        Concentración ampolla midazolam: 15 mg ÷ 3 mL = <input class="ans-input ans-sm" inputmode="decimal" placeholder="?"> mg/mL
+        Concentración ampolla midazolam: 15 mg ÷ 3 mL = <input data-ans="5" class="ans-input ans-sm" inputmode="decimal" placeholder="?"> mg/mL
       </div>
+      </div>
+      <div class="calc-block" id="calc-A5b">
       <div class="answer-line">
-        Dosis premedicación (0.02–0.05 mg/kg): <input class="ans-input ans-sm" inputmode="decimal" placeholder="?"> – <input class="ans-input ans-sm" inputmode="decimal" placeholder="?"> mg → <input class="ans-input ans-sm" inputmode="decimal" placeholder="?"> – <input class="ans-input ans-sm" inputmode="decimal" placeholder="?"> mL
+        Dosis premedicación (0.02–0.05 mg/kg): <input data-ans="1.1" class="ans-input ans-sm" inputmode="decimal" placeholder="?"> – <input data-ans="2.75" class="ans-input ans-sm" inputmode="decimal" placeholder="?"> mg → <input data-ans="0.22" class="ans-input ans-sm" inputmode="decimal" placeholder="?"> – <input data-ans="0.55" class="ans-input ans-sm" inputmode="decimal" placeholder="?"> mL
+      </div>
       </div>
       <div class="mc-row"><span class="mc-label">Concentración de la ampolla:</span>
         <select class="mc-select" onchange="chk(this,'5 mg/mL','fbA5a')"><option value="">— elegir —</option><option>1 mg/mL</option><option>5 mg/mL</option><option>10 mg/mL</option><option>15 mg/mL</option></select>
@@ -1136,16 +1153,65 @@ function chk(sel,correct,fbId){
   if(fb){fb.textContent='';fb.className='fb';}
 }
 
+// MAPEO: cada casilla de resultado (fbId) -> bloque(s) de cálculo (calc-block) que debe verificarse
+// Las preguntas conceptuales ("¿por qué...?") no tienen bloque asociado — no se cruzan con cálculos.
+var chainMap={
+  fbA1:['calc-A1'],
+  fbA2:['calc-A2'],
+  fbA3:['calc-A3'],
+  fbA4a:['calc-A4a'],
+  fbA4b:['calc-A4b'],
+  fbA5a:['calc-A5a'],
+  fbA5b:['calc-A5b']
+};
+
+// Convierte texto a número, aceptando coma decimal
+function parseNum(str){
+  if(str===undefined||str===null) return NaN;
+  str=String(str).trim().replace(',','.');
+  if(str==='') return NaN;
+  return parseFloat(str);
+}
+// Tolerancia: 3% relativo o 0.01 absoluto (lo que sea mayor) — cubre redondeos sin permitir valores arbitrarios
+function numClose(given,expected){
+  if(isNaN(given)||isNaN(expected)) return false;
+  var tol=Math.max(0.01, Math.abs(expected)*0.03);
+  return Math.abs(given-expected)<=tol;
+}
+// Revisa TODAS las casillas numéricas del bloque de cálculo asociado a una respuesta.
+// Marca visualmente cada casilla (verde=correcta, roja=incorrecta) y retorna true solo si todas coinciden.
+function checkChains(fbId){
+  var blocks=chainMap[fbId];
+  if(!blocks) return true;
+  var allOk=true;
+  blocks.forEach(function(bid){
+    var block=document.getElementById(bid);
+    if(!block) return;
+    var inputs=block.querySelectorAll('input[data-ans]');
+    inputs.forEach(function(inp){
+      var expected=parseNum(inp.getAttribute('data-ans'));
+      var given=parseNum(inp.value);
+      var ok=numClose(given,expected);
+      inp.classList.remove('fi-ok','fi-err');
+      inp.classList.add(ok?'fi-ok':'fi-err');
+      if(!ok) allOk=false;
+    });
+  });
+  return allOk;
+}
+
 var pts={A:0};
 function corregir(mod,total,fbIds,maxPts){
   var ok=0;
   fbIds.forEach(function(fbId){
     var fb=document.getElementById(fbId);
     var ans=answers[fbId];
+    var chainOk=checkChains(fbId);
     if(!fb)return;
     if(!ans||!ans.val){fb.textContent='— sin respuesta';fb.className='fb';return;}
-    var correct=ans.val===ans.correct;
-    if(correct){ok++;fb.textContent='✓ correcto';fb.className='fb ok';}
+    var selectOk=ans.val===ans.correct;
+    if(selectOk && chainOk){ok++;fb.textContent='✓ correcto';fb.className='fb ok';}
+    else if(selectOk && !chainOk){fb.textContent='✗ cálculo incorrecto (revise las casillas en rojo)';fb.className='fb err';}
     else{fb.textContent='✗ incorrecto';fb.className='fb err';}
   });
   var p=(ok/total)*maxPts;

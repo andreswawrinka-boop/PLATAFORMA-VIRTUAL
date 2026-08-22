@@ -215,6 +215,14 @@ select.mc-select{font-family:var(--sans);font-size:9pt;padding:5px 10px;border:1
 .open-area:focus{border-color:var(--amber);outline:none;}
 .correct-btn{font-family:var(--sans);font-size:8.5pt;font-weight:600;padding:7px 18px;background:var(--teal);color:white;border:none;border-radius:5px;cursor:pointer;margin-top:12px;transition:background .2s;}
 .correct-btn:hover{background:var(--navy);}
+.answer-line{display:flex;align-items:center;gap:8px;margin:6px 0;font-family:var(--sans);font-size:9.5pt;color:var(--gray-600);flex-wrap:wrap;}
+.ans-input{font-family:var(--mono);font-size:10pt;border:none;border-bottom:2px solid var(--navy);background:transparent;color:#212529;text-align:center;outline:none;padding:1px 4px;}
+.ans-input:focus{background:#fffbeb;}
+.ans-sm{width:68px;}
+.ans-md{width:100px;}
+.calc-block{background:#f8f9fa;border:1.5px solid #dee2e6;border-radius:8px;padding:10px 14px;margin:8px 0;}
+.ans-input.fi-ok{background:var(--teal-light);color:var(--teal);border-bottom-color:var(--teal);border-radius:3px;font-weight:700;}
+.ans-input.fi-err{background:#fef2f2;color:#991b1b;border-bottom-color:#991b1b;border-radius:3px;font-weight:700;text-decoration:underline wavy #991b1b;}
 .nota-bar{background:var(--teal-light);border:2px solid var(--teal);border-radius:8px;padding:14px 18px;margin-top:16px;display:flex;align-items:center;gap:20px;flex-wrap:wrap;}
 .nota-bar-label{font-family:var(--sans);font-size:9pt;font-weight:600;color:var(--teal);text-transform:uppercase;letter-spacing:.05em;}
 .nota-bar-val{font-family:var(--mono);font-size:20pt;font-weight:500;color:var(--navy);line-height:1;}
@@ -363,7 +371,7 @@ body{ background:#EAF3F1 !important; font-family:var(--sans); }
     <div><span class="cover-meta-label">Autor y Docente</span><span class="cover-meta-value">Dr. Andrés Robayo C.<br>Especialista en Anestesiología</span></div>
     <div><span class="cover-meta-label">Institución</span><span class="cover-meta-value">Hospital de Kennedy · Hospital de Bosa<br>Subred Suroccidente – Bogotá, Colombia</span></div>
     <div><span class="cover-meta-label">Versión</span><span class="cover-meta-value">2025 · Guías SAMBA 2020,<br>Cochrane Reviews 2022–2024</span></div>
-    <div><span class="cover-meta-label">Ejercicios</span><span class="cover-meta-value">Calificados sobre 5.0 puntos<br>Con dilución de medicamentos</span></div>
+    <div><span class="cover-meta-label">Ejercicios</span><span class="cover-meta-value">Calificados sobre 6.0 puntos<br>Con dilución de medicamentos</span></div>
   </div>
 </div>
 <div class="contenedor">
@@ -914,7 +922,7 @@ body{ background:#EAF3F1 !important; font-family:var(--sans); }
 <div class="tab-content" id="taller-tab">
 <div class="taller-header">
   <h2>Taller Calificado – <em>NVPO</em></h2>
-  <div class="taller-meta">5.0 puntos · 8 ejercicios · Cálculo de dosis y dilución · Dr. Andrés Robayo C.</div>
+  <div class="taller-meta">6.0 puntos · 8 ejercicios + 5 cálculos · Cálculo de dosis y dilución · Dr. Andrés Robayo C.</div>
 </div>
 <div class="taller-content">
 
@@ -1116,10 +1124,74 @@ body{ background:#EAF3F1 !important; font-family:var(--sans); }
     </div>
 
     <button class="correct-btn" onclick="corregir('A',16,['fbA1','fbA1b','fbA2','fbA2b','fbA3','fbA3b','fbA4a','fbA4b','fbA5a','fbA5b','fbA6a','fbA6b','fbA7a','fbA7b','fbA8a','fbA8b'],2.5)">Corregir Módulo A (2.5 pts)</button>
+  </div>
+</div>
+
+<!-- MÓDULO C -->
+<div class="module">
+  <div class="module-header" style="background:var(--purple);">
+    <span class="module-tag">🤖 AUTOCORREGIBLE</span>
+    <span class="module-title">Módulo C — 5 ejercicios de cálculo de dosis</span>
+    <span class="module-pts">1.00 pts</span>
+  </div>
+  <div class="module-body">
+    <div class="alert-yellow" style="margin-bottom:14px;">⚠ <strong>Instrucciones:</strong> Usar <strong>punto</strong> como separador decimal. <strong>La calificación evalúa tanto las casillas de cálculo como la respuesta final</strong> — completar solo el resultado sin desarrollar el cálculo correcto se marcará como incorrecto. El feedback (con casillas en verde/rojo) aparece al oprimir "Corregir Módulo".</div>
+
+    <div class="ex-item">
+      <div class="ex-label"><span class="ex-num">C1</span> Ondansetrón pediátrico &nbsp;<span class="ex-pts-auto">0.20 pts</span></div>
+      <div class="ex-context">Niño 8 años, <strong>22 kg</strong>, adenoidectomía. Ondansetrón <strong>0.1 mg/kg</strong>. Ampolla 4 mg/2 mL (2 mg/mL).</div>
+      <div class="calc-block" id="calc-C1"><div class="answer-line">Dosis: 0.1 mg/kg × 22 kg = <input data-ans="2.2" class="ans-input ans-sm" inputmode="decimal" placeholder="? mg"> mg &nbsp;|&nbsp; Volumen (2 mg/mL) = <input data-ans="1.1" class="ans-input ans-sm" inputmode="decimal" placeholder="? mL"> mL</div></div>
+      <div class="mc-row"><span class="mc-label">Dosis y volumen correctos:</span>
+        <select class="mc-select" onchange="chk(this,'2.2 mg = 1.1 mL','fbC1')"><option value="">— elegir —</option><option>2.2 mg = 1.1 mL</option><option>2.2 mg = 4.4 mL</option><option>1.1 mg = 0.55 mL</option><option>4.4 mg = 2.2 mL</option></select>
+        <span class="fb" id="fbC1"></span>
+      </div>
+    </div>
+
+    <div class="ex-item">
+      <div class="ex-label"><span class="ex-num">C2</span> Dexametasona pediátrica &nbsp;<span class="ex-pts-auto">0.20 pts</span></div>
+      <div class="ex-context">Niño 5 años, <strong>20 kg</strong>, adenoamigdalectomía. Dexametasona <strong>0.15 mg/kg</strong>. Ampolla 4 mg/mL.</div>
+      <div class="calc-block" id="calc-C2"><div class="answer-line">Dosis: 0.15 mg/kg × 20 kg = <input data-ans="3" class="ans-input ans-sm" inputmode="decimal" placeholder="? mg"> mg &nbsp;|&nbsp; Volumen (4 mg/mL) = <input data-ans="0.75" class="ans-input ans-sm" inputmode="decimal" placeholder="? mL"> mL</div></div>
+      <div class="mc-row"><span class="mc-label">Dosis y volumen correctos:</span>
+        <select class="mc-select" onchange="chk(this,'3 mg = 0.75 mL','fbC2')"><option value="">— elegir —</option><option>3 mg = 0.75 mL</option><option>3 mg = 12 mL</option><option>1.5 mg = 0.375 mL</option><option>6 mg = 1.5 mL</option></select>
+        <span class="fb" id="fbC2"></span>
+      </div>
+    </div>
+
+    <div class="ex-item">
+      <div class="ex-label"><span class="ex-num">C3</span> Granisetrón pediátrico &nbsp;<span class="ex-pts-auto">0.20 pts</span></div>
+      <div class="ex-context">Adolescente 15 años, <strong>40 kg</strong>, adenoamigdalectomía, VPOP previo. Granisetrón <strong>0.04 mg/kg</strong>. Ampolla 1 mg/mL.</div>
+      <div class="calc-block" id="calc-C3"><div class="answer-line">Dosis: 0.04 mg/kg × 40 kg = <input data-ans="1.6" class="ans-input ans-sm" inputmode="decimal" placeholder="? mg"> mg &nbsp;|&nbsp; Volumen (1 mg/mL) = <input data-ans="1.6" class="ans-input ans-sm" inputmode="decimal" placeholder="? mL"> mL</div></div>
+      <div class="mc-row"><span class="mc-label">Dosis y volumen correctos:</span>
+        <select class="mc-select" onchange="chk(this,'1.6 mg = 1.6 mL','fbC3')"><option value="">— elegir —</option><option>1.6 mg = 1.6 mL</option><option>1.6 mg = 0.16 mL</option><option>0.8 mg = 0.8 mL</option><option>3.2 mg = 3.2 mL</option></select>
+        <span class="fb" id="fbC3"></span>
+      </div>
+    </div>
+
+    <div class="ex-item">
+      <div class="ex-label"><span class="ex-num">C4</span> Ondansetrón en lactante &nbsp;<span class="ex-pts-auto">0.20 pts</span></div>
+      <div class="ex-context">Lactante 8 meses, <strong>8 kg</strong>, hernia inguinal. Ondansetrón <strong>0.1 mg/kg</strong>. Ampolla 4 mg/2 mL (2 mg/mL).</div>
+      <div class="calc-block" id="calc-C4"><div class="answer-line">Dosis: 0.1 mg/kg × 8 kg = <input data-ans="0.8" class="ans-input ans-sm" inputmode="decimal" placeholder="? mg"> mg &nbsp;|&nbsp; Volumen (2 mg/mL) = <input data-ans="0.4" class="ans-input ans-sm" inputmode="decimal" placeholder="? mL"> mL</div></div>
+      <div class="mc-row"><span class="mc-label">Dosis y volumen correctos:</span>
+        <select class="mc-select" onchange="chk(this,'0.8 mg = 0.4 mL','fbC4')"><option value="">— elegir —</option><option>0.8 mg = 0.4 mL</option><option>0.8 mg = 1.6 mL</option><option>0.4 mg = 0.2 mL</option><option>1.6 mg = 0.8 mL</option></select>
+        <span class="fb" id="fbC4"></span>
+      </div>
+    </div>
+
+    <div class="ex-item">
+      <div class="ex-label"><span class="ex-num">C5</span> Dexametasona en escolar &nbsp;<span class="ex-pts-auto">0.20 pts</span></div>
+      <div class="ex-context">Niño 12 años, <strong>40 kg</strong>, amigdalectomía. Dexametasona <strong>0.15 mg/kg</strong>. Ampolla 4 mg/mL.</div>
+      <div class="calc-block" id="calc-C5"><div class="answer-line">Dosis: 0.15 mg/kg × 40 kg = <input data-ans="6" class="ans-input ans-sm" inputmode="decimal" placeholder="? mg"> mg &nbsp;|&nbsp; Volumen (4 mg/mL) = <input data-ans="1.5" class="ans-input ans-sm" inputmode="decimal" placeholder="? mL"> mL</div></div>
+      <div class="mc-row"><span class="mc-label">Dosis y volumen correctos:</span>
+        <select class="mc-select" onchange="chk(this,'6 mg = 1.5 mL','fbC5')"><option value="">— elegir —</option><option>6 mg = 1.5 mL</option><option>6 mg = 24 mL</option><option>3 mg = 0.75 mL</option><option>12 mg = 3 mL</option></select>
+        <span class="fb" id="fbC5"></span>
+      </div>
+      <button class="correct-btn" onclick="corregir('C',5,['fbC1','fbC2','fbC3','fbC4','fbC5'],1.0)">Corregir Módulo C (1.0 pt)</button>
+    </div>
+
     <div class="nota-bar">
       <span class="nota-bar-label">Nota autocorregible</span>
-      <span class="nota-bar-val" id="notaNVPO">0.00 / 2.50</span>
-      <span style="font-family:var(--sans);font-size:9pt;color:var(--gray-400);">pts · Módulo A</span>
+      <span class="nota-bar-val" id="notaNVPO">0.00 / 3.50</span>
+      <span style="font-family:var(--sans);font-size:9pt;color:var(--gray-400);">pts · Módulos A + C</span>
     </div>
   </div>
 </div>
@@ -1219,16 +1291,62 @@ function chk(sel,correct,fbId){
   var fb=document.getElementById(fbId);
   if(fb){fb.textContent='';fb.className='fb';}
 }
-var pts={A:0};
+
+// MAPEO: cada casilla de resultado (fbId) -> bloque(s) de cálculo (calc-block) que debe verificarse
+var chainMap={
+  fbC1:['calc-C1'],
+  fbC2:['calc-C2'],
+  fbC3:['calc-C3'],
+  fbC4:['calc-C4'],
+  fbC5:['calc-C5']
+};
+
+// Convierte texto a número, aceptando coma decimal
+function parseNum(str){
+  if(str===undefined||str===null) return NaN;
+  str=String(str).trim().replace(',','.');
+  if(str==='') return NaN;
+  return parseFloat(str);
+}
+// Tolerancia: 3% relativo o 0.01 absoluto (lo que sea mayor)
+function numClose(given,expected){
+  if(isNaN(given)||isNaN(expected)) return false;
+  var tol=Math.max(0.01, Math.abs(expected)*0.03);
+  return Math.abs(given-expected)<=tol;
+}
+// Revisa TODAS las casillas numéricas del bloque de cálculo asociado a una respuesta.
+function checkChains(fbId){
+  var blocks=chainMap[fbId];
+  if(!blocks) return true;
+  var allOk=true;
+  blocks.forEach(function(bid){
+    var block=document.getElementById(bid);
+    if(!block) return;
+    var inputs=block.querySelectorAll('input[data-ans]');
+    inputs.forEach(function(inp){
+      var expected=parseNum(inp.getAttribute('data-ans'));
+      var given=parseNum(inp.value);
+      var ok=numClose(given,expected);
+      inp.classList.remove('fi-ok','fi-err');
+      inp.classList.add(ok?'fi-ok':'fi-err');
+      if(!ok) allOk=false;
+    });
+  });
+  return allOk;
+}
+
+var pts={A:0,C:0};
 function corregir(mod,total,fbIds,maxPts){
   var ok=0;
   fbIds.forEach(function(fbId){
     var fb=document.getElementById(fbId);
     var ans=answers[fbId];
+    var chainOk=checkChains(fbId);
     if(!fb)return;
     if(!ans||!ans.val){fb.textContent='— sin respuesta';fb.className='fb';return;}
-    var correct=ans.val===ans.correct;
-    if(correct){ok++;fb.textContent='✓ correcto';fb.className='fb ok';}
+    var selectOk=ans.val===ans.correct;
+    if(selectOk && chainOk){ok++;fb.textContent='✓ correcto';fb.className='fb ok';}
+    else if(selectOk && !chainOk){fb.textContent='✗ cálculo incorrecto (revise las casillas en rojo)';fb.className='fb err';}
     else{fb.textContent='✗ incorrecto';fb.className='fb err';}
   });
   var p=(ok/total)*maxPts;
@@ -1238,7 +1356,7 @@ function corregir(mod,total,fbIds,maxPts){
 }
 function actualizarNotas(){
   var nt=document.getElementById('notaNVPO');
-  if(nt)nt.textContent=(pts.A||0).toFixed(2)+' / 2.50';
+  if(nt)nt.textContent=((pts.A||0)+(pts.C||0)).toFixed(2)+' / 3.50';
 }
 function setupPrintAnswers(){
   document.querySelectorAll('textarea.open-area').forEach(function(ta){

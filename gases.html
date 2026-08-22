@@ -267,6 +267,14 @@ select.mc-select{font-family:var(--sans);font-size:9pt;padding:5px 10px;border:1
 .open-area:focus{border-color:var(--amber);outline:none;}
 .correct-btn{font-family:var(--sans);font-size:8.5pt;font-weight:600;padding:7px 18px;background:var(--teal);color:white;border:none;border-radius:5px;cursor:pointer;margin-top:12px;transition:background .2s;}
 .correct-btn:hover{background:var(--navy);}
+.answer-line{display:flex;align-items:center;gap:8px;margin:6px 0;font-family:var(--sans);font-size:9.5pt;color:var(--gray-600);flex-wrap:wrap;}
+.ans-input{font-family:var(--mono);font-size:10pt;border:none;border-bottom:2px solid var(--navy);background:transparent;color:#212529;text-align:center;outline:none;padding:1px 4px;}
+.ans-input:focus{background:#fffbeb;}
+.ans-sm{width:68px;}
+.ans-md{width:100px;}
+.calc-block{background:#f8f9fa;border:1.5px solid #dee2e6;border-radius:8px;padding:10px 14px;margin:8px 0;}
+.ans-input.fi-ok{background:var(--teal-light);color:var(--teal);border-bottom-color:var(--teal);border-radius:3px;font-weight:700;}
+.ans-input.fi-err{background:var(--red-light);color:var(--red);border-bottom-color:var(--red);border-radius:3px;font-weight:700;text-decoration:underline wavy var(--red);}
 .nota-bar{background:var(--teal-light);border:2px solid var(--teal);border-radius:8px;padding:14px 18px;margin-top:16px;display:flex;align-items:center;gap:20px;flex-wrap:wrap;}
 .nota-bar-label{font-family:var(--sans);font-size:9pt;font-weight:600;color:var(--teal);text-transform:uppercase;letter-spacing:.05em;}
 .nota-bar-val{font-family:var(--mono);font-size:20pt;font-weight:500;color:var(--navy);line-height:1;}
@@ -920,7 +928,7 @@ body{ background:#F6EAF0 !important; font-family:var(--sans); }
 <div class="tab-content" id="taller-tab">
 <div class="taller-header">
   <h2>Taller Calificado – <em>Gases Arteriales</em></h2>
-  <div class="taller-meta">5.0 puntos · 8 casos clínicos · Interpretación sistemática · Dr. Andrés Robayo C.</div>
+  <div class="taller-meta">6.0 puntos · 8 casos clínicos + 5 cálculos · Interpretación sistemática · Dr. Andrés Robayo C.</div>
 </div>
 <div class="taller-content">
 
@@ -1203,10 +1211,74 @@ body{ background:#F6EAF0 !important; font-family:var(--sans); }
     </div>
 
     <button class="correct-btn" onclick="corregir('A',16,['fbC1a','fbC1b','fbC2a','fbC2b','fbC3a','fbC3b','fbC4a','fbC4b','fbC5a','fbC5b','fbC6a','fbC6b','fbC7a','fbC7b','fbC8a','fbC8b'],2.5)">Corregir Módulo A (2.5 pts)</button>
+  </div>
+</div>
+
+<!-- MÓDULO C -->
+<div class="module">
+  <div class="module-header" style="background:var(--purple);">
+    <span class="module-tag">🤖 AUTOCORREGIBLE</span>
+    <span class="module-title">Módulo C — 5 ejercicios de cálculo en gases arteriales</span>
+    <span class="module-pts">1.00 pts</span>
+  </div>
+  <div class="module-body">
+    <div class="alert-yellow" style="margin-bottom:14px;">⚠ <strong>Instrucciones:</strong> Usar <strong>punto</strong> como separador decimal. <strong>La calificación evalúa tanto las casillas de cálculo como la respuesta final</strong> — completar solo el resultado sin desarrollar el cálculo correcto se marcará como incorrecto. El feedback (con casillas en verde/rojo) aparece al oprimir "Corregir Módulo".</div>
+
+    <div class="ex-item">
+      <div class="ex-label"><span class="ex-num">G1</span> Anion Gap (AG) &nbsp;<span class="ex-pts-auto">0.20 pts</span></div>
+      <div class="ex-context">Paciente con Na⁺ <strong>138 mEq/L</strong>, Cl⁻ <strong>100 mEq/L</strong>, HCO₃⁻ <strong>16 mEq/L</strong>.</div>
+      <div class="calc-block" id="calc-G1"><div class="answer-line">Cl⁻ + HCO₃⁻ = 100 + 16 = <input data-ans="116" class="ans-input ans-sm" inputmode="decimal" placeholder="?"> mEq/L &nbsp;|&nbsp; AG = 138 − suma = <input data-ans="22" class="ans-input ans-sm" inputmode="decimal" placeholder="?"> mEq/L</div></div>
+      <div class="mc-row"><span class="mc-label">Interpretación correcta:</span>
+        <select class="mc-select" onchange="chk(this,'AG = 22 mEq/L (elevado) — sugiere acidosis metabólica con brecha aniónica aumentada','fbG1')"><option value="">— elegir —</option><option>AG = 22 mEq/L (elevado) — sugiere acidosis metabólica con brecha aniónica aumentada</option><option>AG = 22 mEq/L — dentro de rango normal</option><option>AG = 16 mEq/L (normal)</option><option>AG = 8 mEq/L — brecha disminuida</option></select>
+        <span class="fb" id="fbG1"></span>
+      </div>
+    </div>
+
+    <div class="ex-item">
+      <div class="ex-label"><span class="ex-num">G2</span> Anion Gap corregido por albúmina &nbsp;<span class="ex-pts-auto">0.20 pts</span></div>
+      <div class="ex-context">AG medido <strong>16 mEq/L</strong>. Albúmina sérica <strong>2.4 g/dL</strong> (normal 4 g/dL). Fórmula: AGcorr = AG + 2.5 × (4 − albúmina).</div>
+      <div class="calc-block" id="calc-G2"><div class="answer-line">Diferencia albúmina: 4 − 2.4 = <input data-ans="1.6" class="ans-input ans-sm" inputmode="decimal" placeholder="?"> g/dL &nbsp;|&nbsp; AGcorr = 16 + 2.5 × diferencia = <input data-ans="20" class="ans-input ans-sm" inputmode="decimal" placeholder="?"> mEq/L</div></div>
+      <div class="mc-row"><span class="mc-label">Interpretación correcta:</span>
+        <select class="mc-select" onchange="chk(this,'AG corregido = 20 mEq/L — la hipoalbuminemia enmascaraba una brecha aniónica mayor','fbG2')"><option value="">— elegir —</option><option>AG corregido = 20 mEq/L — la hipoalbuminemia enmascaraba una brecha aniónica mayor</option><option>AG corregido = 16 mEq/L — sin cambios relevantes</option><option>AG corregido = 18.4 mEq/L</option><option>AG corregido = 24 mEq/L</option></select>
+        <span class="fb" id="fbG2"></span>
+      </div>
+    </div>
+
+    <div class="ex-item">
+      <div class="ex-label"><span class="ex-num">G3</span> Relación PaO₂/FiO₂ (PaFi) &nbsp;<span class="ex-pts-auto">0.20 pts</span></div>
+      <div class="ex-context">PaO₂ <strong>84 mmHg</strong>, FiO₂ <strong>0.4</strong> (40%).</div>
+      <div class="calc-block" id="calc-G3"><div class="answer-line">PaFi = PaO₂ ÷ FiO₂ = 84 ÷ 0.4 = <input data-ans="210" class="ans-input ans-sm" inputmode="decimal" placeholder="?"></div></div>
+      <div class="mc-row"><span class="mc-label">Interpretación correcta:</span>
+        <select class="mc-select" onchange="chk(this,'PaFi = 210 — SDRA leve (200-300 según Berlín, ajustar por altitud en Bogotá)','fbG3')"><option value="">— elegir —</option><option>PaFi = 210 — SDRA leve (200-300 según Berlín, ajustar por altitud en Bogotá)</option><option>PaFi = 33.6 — SDRA grave</option><option>PaFi = 210 — sin criterio de SDRA</option><option>PaFi = 84 — no se divide por FiO₂ fraccional</option></select>
+        <span class="fb" id="fbG3"></span>
+      </div>
+    </div>
+
+    <div class="ex-item">
+      <div class="ex-label"><span class="ex-num">G4</span> Compensación esperada — Fórmula de Winter &nbsp;<span class="ex-pts-auto">0.20 pts</span></div>
+      <div class="ex-context">Acidosis metabólica con HCO₃⁻ <strong>12 mEq/L</strong>. Fórmula de Winter: PaCO₂ esperado = 1.5 × HCO₃⁻ + 8 (± 2).</div>
+      <div class="calc-block" id="calc-G4"><div class="answer-line">PaCO₂ esperado = 1.5 × 12 + 8 = <input data-ans="26" class="ans-input ans-sm" inputmode="decimal" placeholder="?"> mmHg</div></div>
+      <div class="mc-row"><span class="mc-label">Interpretación correcta:</span>
+        <select class="mc-select" onchange="chk(this,'PaCO₂ esperado = 26 mmHg — compensación respiratoria apropiada si el PaCO₂ medido está cerca de este valor','fbG4')"><option value="">— elegir —</option><option>PaCO₂ esperado = 26 mmHg — compensación respiratoria apropiada si el PaCO₂ medido está cerca de este valor</option><option>PaCO₂ esperado = 18 mmHg</option><option>PaCO₂ esperado = 20 mmHg</option><option>PaCO₂ esperado = 12 mmHg — igual al HCO₃⁻</option></select>
+        <span class="fb" id="fbG4"></span>
+      </div>
+    </div>
+
+    <div class="ex-item">
+      <div class="ex-label"><span class="ex-num">G5</span> Compensación esperada — Alcalosis metabólica &nbsp;<span class="ex-pts-auto">0.20 pts</span></div>
+      <div class="ex-context">Alcalosis metabólica con HCO₃⁻ <strong>34 mEq/L</strong> (basal 24 mEq/L). Regla: PaCO₂ aumenta 0.7 mmHg por cada 1 mEq/L de ΔHCO₃⁻, sobre PaCO₂ basal de 40 mmHg.</div>
+      <div class="calc-block" id="calc-G5"><div class="answer-line">ΔHCO₃⁻ = 34 − 24 = <input data-ans="10" class="ans-input ans-sm" inputmode="decimal" placeholder="?"> mEq/L &nbsp;|&nbsp; PaCO₂ esperado = 40 + 0.7 × ΔHCO₃⁻ = <input data-ans="47" class="ans-input ans-sm" inputmode="decimal" placeholder="?"> mmHg</div></div>
+      <div class="mc-row"><span class="mc-label">Interpretación correcta:</span>
+        <select class="mc-select" onchange="chk(this,'PaCO₂ esperado = 47 mmHg — compensación respiratoria esperada para esta alcalosis metabólica','fbG5')"><option value="">— elegir —</option><option>PaCO₂ esperado = 47 mmHg — compensación respiratoria esperada para esta alcalosis metabólica</option><option>PaCO₂ esperado = 40 mmHg — sin compensación</option><option>PaCO₂ esperado = 34 mmHg</option><option>PaCO₂ esperado = 64 mmHg</option></select>
+        <span class="fb" id="fbG5"></span>
+      </div>
+      <button class="correct-btn" onclick="corregir('C',5,['fbG1','fbG2','fbG3','fbG4','fbG5'],1.0)">Corregir Módulo C (1.0 pt)</button>
+    </div>
+
     <div class="nota-bar">
       <span class="nota-bar-label">Nota autocorregible</span>
-      <span class="nota-bar-val" id="notaGA">0.00 / 2.50</span>
-      <span style="font-family:var(--sans);font-size:9pt;color:var(--gray-400);">pts · Módulo A</span>
+      <span class="nota-bar-val" id="notaGA">0.00 / 3.50</span>
+      <span style="font-family:var(--sans);font-size:9pt;color:var(--gray-400);">pts · Módulos A + C</span>
     </div>
   </div>
 </div>
@@ -1308,15 +1380,62 @@ function chk(sel,correct,fbId){
   var fb=document.getElementById(fbId);
   if(fb){fb.textContent='';fb.className='fb';}
 }
-var pts={A:0};
+
+// MAPEO: cada casilla de resultado (fbId) -> bloque(s) de cálculo (calc-block) que debe verificarse
+var chainMap={
+  fbG1:['calc-G1'],
+  fbG2:['calc-G2'],
+  fbG3:['calc-G3'],
+  fbG4:['calc-G4'],
+  fbG5:['calc-G5']
+};
+
+// Convierte texto a número, aceptando coma decimal
+function parseNum(str){
+  if(str===undefined||str===null) return NaN;
+  str=String(str).trim().replace(',','.');
+  if(str==='') return NaN;
+  return parseFloat(str);
+}
+// Tolerancia: 3% relativo o 0.01 absoluto
+function numClose(given,expected){
+  if(isNaN(given)||isNaN(expected)) return false;
+  var tol=Math.max(0.01, Math.abs(expected)*0.03);
+  return Math.abs(given-expected)<=tol;
+}
+// Revisa TODAS las casillas numéricas del bloque de cálculo asociado a una respuesta.
+function checkChains(fbId){
+  var blocks=chainMap[fbId];
+  if(!blocks) return true;
+  var allOk=true;
+  blocks.forEach(function(bid){
+    var block=document.getElementById(bid);
+    if(!block) return;
+    var inputs=block.querySelectorAll('input[data-ans]');
+    inputs.forEach(function(inp){
+      var expected=parseNum(inp.getAttribute('data-ans'));
+      var given=parseNum(inp.value);
+      var ok=numClose(given,expected);
+      inp.classList.remove('fi-ok','fi-err');
+      inp.classList.add(ok?'fi-ok':'fi-err');
+      if(!ok) allOk=false;
+    });
+  });
+  return allOk;
+}
+
+var pts={A:0,C:0};
 function corregir(mod,total,fbIds,maxPts){
   var ok=0;
   fbIds.forEach(function(fbId){
     var fb=document.getElementById(fbId);
     var ans=answers[fbId];
+    var chainOk=checkChains(fbId);
     if(!fb)return;
     if(!ans||!ans.val){fb.textContent='— sin respuesta';fb.className='fb';return;}
-    if(ans.val===ans.correct){ok++;fb.textContent='✓ correcto';fb.className='fb ok';}
+    var selectOk=ans.val===ans.correct;
+    if(selectOk && chainOk){ok++;fb.textContent='✓ correcto';fb.className='fb ok';}
+    else if(selectOk && !chainOk){fb.textContent='✗ cálculo incorrecto (revise las casillas en rojo)';fb.className='fb err';}
     else{fb.textContent='✗ incorrecto';fb.className='fb err';}
   });
   var p=(ok/total)*maxPts;
@@ -1326,7 +1445,7 @@ function corregir(mod,total,fbIds,maxPts){
 }
 function actualizarNotas(){
   var nt=document.getElementById('notaGA');
-  if(nt)nt.textContent=(pts.A||0).toFixed(2)+' / 2.50';
+  if(nt)nt.textContent=((pts.A||0)+(pts.C||0)).toFixed(2)+' / 3.50';
 }
 function setupPrintAnswers(){
   document.querySelectorAll('textarea.open-area').forEach(function(ta){
