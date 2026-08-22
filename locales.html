@@ -184,6 +184,35 @@ select.mc-select{font-family:var(--sans);font-size:9pt;padding:5px 10px;border:1
 .open-area:focus{border-color:var(--amber);outline:none;}
 .correct-btn{font-family:var(--sans);font-size:8.5pt;font-weight:600;padding:7px 18px;background:var(--teal);color:white;border:none;border-radius:5px;cursor:pointer;margin-top:11px;transition:background .2s;}
 .correct-btn:hover{background:var(--navy);}
+
+/* ══ CANCELACIÓN ALGEBRAICA — cadenas de cálculo ══ */
+.frac-chain{display:flex;flex-wrap:wrap;align-items:center;background:#f8f9fa;border:1.5px solid #dee2e6;border-radius:8px;padding:12px 16px;margin:10px 0;box-sizing:border-box;}
+.frac-chain-label{font-family:var(--sans);font-size:8pt;font-weight:600;color:var(--navy);text-transform:uppercase;letter-spacing:.06em;width:100%;flex-basis:100%;margin-bottom:8px;border-bottom:1px solid #dee2e6;padding-bottom:5px;}
+.frac{display:inline-flex;flex-direction:column;align-items:center;margin:0 4px;vertical-align:middle;min-width:0;flex-shrink:1;}
+.frac-top,.frac-bot{display:flex;align-items:center;justify-content:center;gap:2px;padding:2px 2px;min-height:24px;flex-wrap:wrap;}
+.frac-line{width:100%;height:2px;background:#212529;margin:1px 0;}
+.fi{font-family:var(--mono);font-size:10pt;font-weight:500;border:none;background:transparent;color:#212529;text-align:center;outline:none;padding:1px 2px;width:46px;min-width:0;flex-shrink:1;}
+.fi:focus{background:#fffbeb;border-radius:3px;}
+.fi.w-sm{width:36px;}
+.fi.w-md{width:56px;}
+.fi.w-lg{width:80px;}
+.fi.w-xl{width:100px;}
+.fi.fi-ok{background:var(--teal-light);color:var(--teal);border-radius:3px;font-weight:700;}
+.fi.fi-err{background:var(--red-light);color:var(--red);border-radius:3px;font-weight:700;text-decoration:underline wavy var(--red);}
+.frac-result input.fi-ok{background:rgba(174,213,129,.25);color:#AED581;border-radius:3px;}
+.frac-result input.fi-err{background:rgba(153,27,27,.35);color:#ffb4b4;border-radius:3px;text-decoration:underline wavy #ffb4b4;}
+.fu{font-family:var(--mono);font-size:10pt;font-weight:600;color:var(--navy-mid);padding:1px 3px;}
+.fu-cancel{font-family:var(--mono);font-size:10pt;font-weight:600;color:var(--red);text-decoration:line-through;opacity:.6;padding:1px 3px;}
+.fop{font-family:var(--sans);font-size:16pt;color:var(--gray-400);padding:0 6px;align-self:center;line-height:1;}
+.fop-eq{font-family:var(--sans);font-size:14pt;color:var(--navy);padding:0 8px;align-self:center;font-weight:600;}
+.frac-result{display:inline-flex;flex-direction:column;align-items:center;background:var(--navy);border-radius:6px;padding:4px 10px;margin:0 4px;align-self:center;min-width:80px;}
+.frac-result input{font-family:var(--mono);font-size:11pt;font-weight:600;border:none;background:transparent;color:#AED581;text-align:center;outline:none;padding:2px 4px;width:72px;min-width:0;}
+.frac-result input:focus{background:rgba(255,255,255,.1);border-radius:3px;}
+.frac-result .fu{color:rgba(255,255,255,.7);font-size:9pt;}
+.cancel-hint{font-family:var(--sans);font-size:7.5pt;color:var(--gray-400);font-style:italic;width:100%;flex-basis:100%;margin-top:8px;padding-top:6px;border-top:1px dashed #dee2e6;}
+.cancel-btn{font-family:var(--sans);font-size:7pt;font-weight:600;padding:3px 10px;border:1.5px solid var(--navy);border-radius:4px;background:white;color:var(--navy);cursor:pointer;margin-left:8px;transition:all .15s;}
+.cancel-btn:hover{background:var(--navy);color:white;}
+@media print{.frac-chain{background:#f8f9fa !important;-webkit-print-color-adjust:exact;print-color-adjust:exact;}.cancel-btn{display:none !important;}}
 .score-note{background:var(--navy);border-radius:8px;padding:12px 18px;margin-bottom:20px;display:flex;align-items:center;gap:16px;flex-wrap:wrap;}
 .nota-bar{background:var(--teal-light);border:2px solid var(--teal);border-radius:8px;padding:13px 17px;margin-top:15px;display:flex;align-items:center;gap:20px;flex-wrap:wrap;}
 .nota-bar-label{font-family:var(--sans);font-size:9pt;font-weight:600;color:var(--teal);text-transform:uppercase;letter-spacing:.05em;}
@@ -755,7 +784,7 @@ body{ background:#E6F1FA !important; font-family:var(--sans); }
 <div class="tab-content" id="taller-tab">
 <div class="taller-header">
   <h2>Taller — <em>Anestésicos Locales</em></h2>
-  <div class="taller-meta">Dr. Andrés Robayo C. · Módulos A · B · C · D · 5.0 puntos totales · Hospital de Kennedy</div>
+  <div class="taller-meta">Dr. Andrés Robayo C. · Módulos A · B · C · D · E · 6.0 puntos totales · Hospital de Kennedy</div>
 </div>
 <div class="taller-content">
 <div class="alert-yellow">⚠ <strong>Instrucciones:</strong> El feedback de selección múltiple aparece solo al oprimir "Corregir Módulo". Las cajas ámbar son calificadas por el docente. Justifique con mecanismo farmacológico en cada respuesta abierta.</div>
@@ -975,6 +1004,150 @@ body{ background:#E6F1FA !important; font-family:var(--sans); }
   </div>
 </div>
 
+<!-- MÓDULO E -->
+<div class="module">
+  <div class="module-header" style="background:var(--purple);">
+    <span class="module-tag">MÓDULO E</span>
+    <span class="module-title">Cálculo de dosis máxima, concentración y volumen — Anestésicos locales</span>
+    <span class="module-pts">🤖 1.00 pts auto · 0.20 pts c/ejercicio</span>
+  </div>
+  <div class="module-body">
+    <div class="alert-yellow" style="margin-bottom:14px;">⚠ <strong>Instrucciones:</strong> Usar <strong>punto</strong> como separador decimal. En cada cadena de cálculo escriba los números en las casillas subrayadas; las unidades ya están impresas. <strong>La calificación evalúa tanto las casillas de la cadena de cálculo como la respuesta final</strong> — completar solo el resultado sin desarrollar el cálculo correcto se marcará como incorrecto. El feedback (con casillas en verde/rojo) aparece al oprimir "Corregir Módulo".</div>
+
+    <!-- E1 -->
+    <div class="ex-item">
+      <div class="ex-label"><span class="ex-num">E1</span> Paciente 70 kg · Ropivacaína 0.75% sin epinefrina &nbsp;<span class="ex-pts-auto">🤖 0.20 pts</span></div>
+      <div class="ex-context">Dosis máxima recomendada de ropivacaína sin epinefrina: <strong>3 mg/kg</strong>. Calcule dosis máxima, concentración y volumen máximo administrable.</div>
+      <div class="frac-chain" id="fc-e1">
+        <div class="frac-chain-label">3 pasos en cadena continua: dosis máx → concentración → volumen máx</div>
+        <div style="display:flex;flex-direction:column;align-items:center;gap:2px;margin:0 4px;">
+          <span style="font-family:var(--sans);font-size:7.5pt;color:var(--gray-400);">Dosis máx.</span>
+          <div class="frac"><div class="frac-top"><input data-ans="3" class="fi w-sm" inputmode="decimal" placeholder="?"> <span class="fu">mg</span></div><div class="frac-line"></div><div class="frac-bot"><input data-ans="1" class="fi w-sm" inputmode="decimal" placeholder="?"> <span class="fu" data-unit="kg2">kg</span></div></div>
+          <span style="font-family:var(--sans);font-size:7.5pt;color:var(--gray-400);">dosis/kg</span>
+        </div>
+        <span class="fop">×</span>
+        <div style="display:flex;flex-direction:column;align-items:center;gap:2px;margin:0 4px;">
+          <span style="font-family:var(--sans);font-size:7.5pt;color:var(--gray-400);">Peso</span>
+          <div class="frac"><div class="frac-top"><input data-ans="70" class="fi w-sm" inputmode="decimal" placeholder="?"> <span class="fu" data-unit="kg2">kg</span></div><div class="frac-line"></div><div class="frac-bot"><span class="fu">1</span></div></div>
+        </div>
+        <span class="fop-eq">=</span>
+        <div style="display:flex;flex-direction:column;align-items:center;gap:3px;margin:0 6px;">
+          <span style="font-family:var(--sans);font-size:7.5pt;color:var(--gray-400);">Dosis máx.</span>
+          <div class="frac-result" style="min-width:70px;"><input data-ans="210" inputmode="decimal" placeholder="?" style="width:60px;"><span class="fu">mg</span></div>
+        </div>
+        <span class="fop">÷</span>
+        <div style="display:flex;flex-direction:column;align-items:center;gap:2px;margin:0 4px;">
+          <span style="font-family:var(--sans);font-size:7.5pt;color:var(--gray-400);">Conc. (0.75%×10)</span>
+          <div class="frac"><div class="frac-top"><input data-ans="7.5" class="fi w-sm" inputmode="decimal" placeholder="?"> <span class="fu">mg</span></div><div class="frac-line"></div><div class="frac-bot"><span class="fu">mL</span></div></div>
+        </div>
+        <span class="fop-eq">=</span>
+        <div class="frac-result"><input data-ans="28" inputmode="decimal" placeholder="?"><span class="fu">mL</span></div>
+        <div class="cancel-hint">💡 El <strong>kg</strong> cancela en dosis×peso. El <strong>mg</strong> cancela al dividir por conc. → queda <strong>mL</strong> ✓
+          <button class="cancel-btn" onclick="toggleCancel('fc-e1','kg2')">Tachar "kg"</button>
+        </div>
+      </div>
+      <div class="mc-row"><span class="mc-label">Dosis máx · Conc · Vol máx:</span>
+        <select class="mc-select" onchange="chk(this,'210 mg · 7.5 mg/mL · 28 mL','fbE1')"><option value="">— elegir —</option><option>210 mg · 7.5 mg/mL · 28 mL</option><option>210 mg · 15 mg/mL · 14 mL</option><option>250 mg · 7.5 mg/mL · 33.3 mL</option><option>150 mg · 7.5 mg/mL · 20 mL</option></select>
+        <span class="fb" id="fbE1"></span>
+      </div>
+    </div>
+
+    <!-- E2 -->
+    <div class="ex-item">
+      <div class="ex-label"><span class="ex-num">E2</span> Paciente 90 kg · Mepivacaína 1.5% con epinefrina &nbsp;<span class="ex-pts-auto">🤖 0.20 pts</span></div>
+      <div class="ex-context">Con epinefrina, la dosis máxima de mepivacaína se extiende a <strong>7 mg/kg</strong>. Calcule dosis máxima, concentración y volumen máximo.</div>
+      <div class="frac-chain" id="fc-e2">
+        <div class="frac-chain-label">Dosis máx. con epinefrina (7 mg/kg) → concentración 1.5% → volumen</div>
+        <div class="frac"><div class="frac-top"><input data-ans="7" class="fi w-sm" inputmode="decimal" placeholder="?"> <span class="fu">mg</span></div><div class="frac-line"></div><div class="frac-bot"><input data-ans="1" class="fi w-sm" inputmode="decimal" placeholder="?"> <span class="fu" data-unit="kg2">kg</span></div></div>
+        <span class="fop">×</span>
+        <div class="frac"><div class="frac-top"><input data-ans="90" class="fi w-sm" inputmode="decimal" placeholder="?"> <span class="fu" data-unit="kg2">kg</span></div><div class="frac-line"></div><div class="frac-bot"><span class="fu">1</span></div></div>
+        <span class="fop-eq">=</span>
+        <div class="frac-result" style="min-width:70px;"><input data-ans="630" inputmode="decimal" placeholder="?" style="width:60px;"><span class="fu">mg</span></div>
+        <span class="fop">÷</span>
+        <div class="frac"><div class="frac-top"><input data-ans="15" class="fi w-sm" inputmode="decimal" placeholder="?"> <span class="fu">mg</span></div><div class="frac-line"></div><div class="frac-bot"><span class="fu">mL</span></div></div>
+        <span class="fop-eq">=</span>
+        <div class="frac-result"><input data-ans="42" inputmode="decimal" placeholder="?"><span class="fu">mL</span></div>
+        <div class="cancel-hint">💡 kg cancela, mg cancela → mL ✓</div>
+      </div>
+      <div class="mc-row"><span class="mc-label">Dosis máx · Conc · Vol máx:</span>
+        <select class="mc-select" onchange="chk(this,'630 mg · 15 mg/mL · 42 mL','fbE2')"><option value="">— elegir —</option><option>630 mg · 15 mg/mL · 42 mL</option><option>450 mg · 15 mg/mL · 30 mL</option><option>630 mg · 30 mg/mL · 21 mL</option><option>810 mg · 15 mg/mL · 54 mL</option></select>
+        <span class="fb" id="fbE2"></span>
+      </div>
+    </div>
+
+    <!-- E3: dilución -->
+    <div class="ex-item">
+      <div class="ex-label"><span class="ex-num">E3</span> Dilución peridural: 30 mL de ropivacaína 0.2% desde 0.75% &nbsp;<span class="ex-pts-auto">🤖 0.20 pts</span></div>
+      <div class="ex-context">Tiene ropivacaína 0.75% (7.5 mg/mL). Necesita preparar 30 mL de ropivacaína 0.2% (2 mg/mL) para infusión de catéter perineural. Use C₁×V₁ = C₂×V₂ para encontrar V₁ y V_diluyente.</div>
+      <div class="frac-chain" id="fc-e3">
+        <div class="frac-chain-label">V₁ = (C₂ × V₂) ÷ C₁ — complete cada casilla</div>
+        <span style="font-family:var(--mono);font-size:11pt;align-self:center;">V₁ =</span>
+        <span class="fop">(</span>
+        <div class="frac"><div class="frac-top"><input data-ans="2" class="fi w-sm" inputmode="decimal" placeholder="C₂"> <span class="fu">mg/mL</span></div><div class="frac-line"></div><div class="frac-bot"><span class="fu">1</span></div></div>
+        <span class="fop">×</span>
+        <div class="frac"><div class="frac-top"><input data-ans="30" class="fi w-sm" inputmode="decimal" placeholder="V₂"> <span class="fu">mL</span></div><div class="frac-line"></div><div class="frac-bot"><span class="fu">1</span></div></div>
+        <span class="fop">)</span>
+        <span class="fop">÷</span>
+        <div class="frac"><div class="frac-top"><input data-ans="7.5" class="fi w-sm" inputmode="decimal" placeholder="C₁"> <span class="fu">mg/mL</span></div><div class="frac-line"></div><div class="frac-bot"><span class="fu">1</span></div></div>
+        <span class="fop-eq">=</span>
+        <div class="frac-result" style="min-width:70px;"><input data-ans="8" inputmode="decimal" placeholder="V₁" style="width:55px;"><span class="fu">mL ropi</span></div>
+        <div class="cancel-hint">V_diluyente (SSN) = V₂ − V₁ = <input data-ans="30" class="fi w-sm" inputmode="decimal" placeholder="30"> − <input data-ans="8" class="fi w-sm" inputmode="decimal" placeholder="V₁"> = <input data-ans="22" class="fi w-md" style="border:2px solid var(--teal);border-radius:4px;padding:2px 6px;" inputmode="decimal" placeholder="? mL SSN"> &nbsp;|&nbsp; mg totales = V₂ × C₂ = <input data-ans="30" class="fi w-sm" inputmode="decimal" placeholder="30"> × <input data-ans="2" class="fi w-sm" inputmode="decimal" placeholder="C₂"> = <input data-ans="60" class="fi w-md" style="border:2px solid var(--teal);border-radius:4px;padding:2px 6px;" inputmode="decimal" placeholder="? mg"></div>
+      </div>
+      <div class="mc-row"><span class="mc-label">V₁ ropi · V diluyente · mg totales:</span>
+        <select class="mc-select" onchange="chk(this,'8 mL · 22 mL · 60 mg','fbE3')"><option value="">— elegir —</option><option>8 mL · 22 mL · 60 mg</option><option>10 mL · 20 mL · 60 mg</option><option>8 mL · 22 mL · 30 mg</option><option>6 mL · 24 mL · 45 mg</option></select>
+        <span class="fb" id="fbE3"></span>
+      </div>
+    </div>
+
+    <!-- E4: pediátrico -->
+    <div class="ex-item">
+      <div class="ex-label"><span class="ex-num">E4</span> Niño 22 kg · Bupivacaína 0.25% sin epinefrina &nbsp;<span class="ex-pts-auto">🤖 0.20 pts</span></div>
+      <div class="ex-context">Dosis máxima pediátrica de bupivacaína sin epinefrina: <strong>2.5 mg/kg</strong>. Paciente pediátrico — verifique que el volumen sea razonable.</div>
+      <div class="frac-chain" id="fc-e4">
+        <div class="frac-chain-label">Misma fórmula: dosis máx → concentración → volumen máx</div>
+        <div class="frac"><div class="frac-top"><input data-ans="2.5" class="fi w-sm" inputmode="decimal" placeholder="?"> <span class="fu">mg</span></div><div class="frac-line"></div><div class="frac-bot"><input data-ans="1" class="fi w-sm" inputmode="decimal" placeholder="?"> <span class="fu" data-unit="kg2">kg</span></div></div>
+        <span class="fop">×</span>
+        <div class="frac"><div class="frac-top"><input data-ans="22" class="fi w-sm" inputmode="decimal" placeholder="?"> <span class="fu" data-unit="kg2">kg</span></div><div class="frac-line"></div><div class="frac-bot"><span class="fu">1</span></div></div>
+        <span class="fop-eq">=</span>
+        <div class="frac-result" style="min-width:70px;"><input data-ans="55" inputmode="decimal" placeholder="?" style="width:55px;"><span class="fu">mg</span></div>
+        <span class="fop">÷</span>
+        <div class="frac"><div class="frac-top"><input data-ans="2.5" class="fi w-sm" inputmode="decimal" placeholder="?"> <span class="fu">mg</span></div><div class="frac-line"></div><div class="frac-bot"><span class="fu">mL</span></div></div>
+        <span class="fop-eq">=</span>
+        <div class="frac-result"><input data-ans="22" inputmode="decimal" placeholder="?"><span class="fu">mL</span></div>
+        <div class="cancel-hint">💡 kg cancela, mg cancela → mL ✓</div>
+      </div>
+      <div class="mc-row"><span class="mc-label">Dosis máx · Vol máx:</span>
+        <select class="mc-select" onchange="chk(this,'55 mg · 22 mL','fbE4')"><option value="">— elegir —</option><option>55 mg · 22 mL</option><option>55 mg · 11 mL</option><option>82.5 mg · 33 mL</option><option>27.5 mg · 11 mL</option></select>
+        <span class="fb" id="fbE4"></span>
+      </div>
+    </div>
+
+    <!-- E5 -->
+    <div class="ex-item">
+      <div class="ex-label"><span class="ex-num">E5</span> Paciente 40 kg · Lidocaína 4% sin epinefrina &nbsp;<span class="ex-pts-auto">🤖 0.20 pts</span></div>
+      <div class="ex-context">Dosis máxima de lidocaína sin epinefrina: <strong>4.5 mg/kg</strong>. Calcule dosis máxima, concentración y volumen máximo de esta presentación al 4%.</div>
+      <div class="frac-chain" id="fc-e5">
+        <div class="frac-chain-label">Dosis máx. (4.5 mg/kg) → concentración 4% → volumen</div>
+        <div class="frac"><div class="frac-top"><input data-ans="4.5" class="fi w-sm" inputmode="decimal" placeholder="?"> <span class="fu">mg</span></div><div class="frac-line"></div><div class="frac-bot"><input data-ans="1" class="fi w-sm" inputmode="decimal" placeholder="?"> <span class="fu" data-unit="kg2">kg</span></div></div>
+        <span class="fop">×</span>
+        <div class="frac"><div class="frac-top"><input data-ans="40" class="fi w-sm" inputmode="decimal" placeholder="?"> <span class="fu" data-unit="kg2">kg</span></div><div class="frac-line"></div><div class="frac-bot"><span class="fu">1</span></div></div>
+        <span class="fop-eq">=</span>
+        <div class="frac-result" style="min-width:70px;"><input data-ans="180" inputmode="decimal" placeholder="?" style="width:60px;"><span class="fu">mg</span></div>
+        <span class="fop">÷</span>
+        <div class="frac"><div class="frac-top"><input data-ans="40" class="fi w-sm" inputmode="decimal" placeholder="?"> <span class="fu">mg</span></div><div class="frac-line"></div><div class="frac-bot"><span class="fu">mL</span></div></div>
+        <span class="fop-eq">=</span>
+        <div class="frac-result"><input data-ans="4.5" inputmode="decimal" placeholder="?"><span class="fu">mL</span></div>
+        <div class="cancel-hint">💡 kg cancela, mg cancela → mL ✓</div>
+      </div>
+      <div class="mc-row"><span class="mc-label">Dosis máx · Conc · Vol máx:</span>
+        <select class="mc-select" onchange="chk(this,'180 mg · 40 mg/mL · 4.5 mL','fbE5')"><option value="">— elegir —</option><option>180 mg · 40 mg/mL · 4.5 mL</option><option>180 mg · 20 mg/mL · 9 mL</option><option>160 mg · 40 mg/mL · 4 mL</option><option>200 mg · 40 mg/mL · 5 mL</option></select>
+        <span class="fb" id="fbE5"></span>
+      </div>
+      <button class="correct-btn" onclick="corregir('E',5,['fbE1','fbE2','fbE3','fbE4','fbE5'],1.0)">Corregir Módulo E — Cálculos (1.00 pts)</button>
+    </div>
+  </div>
+</div>
+
 <div class="download-box">
   <h3>📥 Descargar Taller</h3>
   <div class="input-row">
@@ -986,19 +1159,35 @@ body{ background:#E6F1FA !important; font-family:var(--sans); }
 </div>
 <div class="nota-bar">
   <span class="nota-bar-label">Nota acumulada</span>
-  <span class="nota-bar-val" id="notaAL">0.00 / 2.50</span>
-  <span style="font-family:var(--sans);font-size:8.5pt;color:var(--gray-600);">Autocorregible (A–D) | <span style="color:var(--amber);font-weight:600;">✏️ 2.50 pts calificados por docente</span></span>
+  <span class="nota-bar-val" id="notaAL">0.00 / 3.50</span>
+  <span style="font-family:var(--sans);font-size:8.5pt;color:var(--gray-600);">Autocorregible (A–E) | <span style="color:var(--amber);font-weight:600;">✏️ 2.50 pts calificados por docente</span></span>
 </div>
 </div>
 </div><!-- /taller-tab -->
 </div><!-- /page -->
 <script>
 function showTab(id,btn){document.querySelectorAll('.tab-content').forEach(t=>t.classList.remove('active'));document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));document.getElementById(id+'-tab').classList.add('active');btn.classList.add('active');}
+
+// UNIT CANCELLATION — tachar/destachar unidades interactivamente en las cadenas de cálculo
+function toggleCancel(chainId,unit){var chain=document.getElementById(chainId);if(!chain)return;var spans=chain.querySelectorAll('[data-unit="'+unit+'"]');var allCancelled=true;spans.forEach(function(s){if(!s.classList.contains('fu-cancel'))allCancelled=false;});spans.forEach(function(s){if(allCancelled){s.classList.remove('fu-cancel');s.classList.add('fu');}else{s.classList.remove('fu');s.classList.add('fu-cancel');}});}
+
 var answers={};
 function chk(sel,correct,fbId){answers[fbId]={val:sel.value.trim(),correct:correct.trim()};var fb=document.getElementById(fbId);if(fb){fb.textContent='';fb.className='fb';}}
-var pts={A:0,B:0,C:0,D:0};
-function corregir(mod,total,fbIds,maxPts){var ok=0;fbIds.forEach(function(fbId){var fb=document.getElementById(fbId);var ans=answers[fbId];if(!fb)return;if(!ans||!ans.val){fb.textContent='— sin respuesta';fb.className='fb';return;}var correct=ans.val===ans.correct;if(correct){ok++;fb.textContent='✓ correcto';fb.className='fb ok';}else{fb.textContent='✗ incorrecto';fb.className='fb err';}});var p=(ok/total)*maxPts;pts[mod]=p;actualizarNotas();alert('Módulo '+mod+' corregido: '+ok+'/'+total+' correctas = '+p.toFixed(2)+' pts autocorregibles');}
-function actualizarNotas(){var total=(pts.A||0)+(pts.B||0)+(pts.C||0)+(pts.D||0);var nt=document.getElementById('notaAL');if(nt)nt.textContent=total.toFixed(2)+' / 2.50';}
+
+// MAPEO: cada casilla de resultado (fbId) -> cadena(s) de cálculo (frac-chain) que debe verificarse
+var chainMap={fbE1:['fc-e1'],fbE2:['fc-e2'],fbE3:['fc-e3'],fbE4:['fc-e4'],fbE5:['fc-e5']};
+
+// Convierte texto a número, aceptando coma decimal
+function parseNum(str){if(str===undefined||str===null)return NaN;str=String(str).trim().replace(',','.');if(str==='')return NaN;return parseFloat(str);}
+// Tolerancia: 3% relativo o 0.01 absoluto (lo que sea mayor) — cubre redondeos sin permitir valores arbitrarios
+function numClose(given,expected){if(isNaN(given)||isNaN(expected))return false;var tol=Math.max(0.01,Math.abs(expected)*0.03);return Math.abs(given-expected)<=tol;}
+// Revisa TODAS las casillas numéricas de la(s) cadena(s) de cálculo asociadas a una respuesta.
+// Marca visualmente cada casilla (verde=correcta, roja=incorrecta) y retorna true solo si todas coinciden.
+function checkChains(fbId){var chains=chainMap[fbId];if(!chains)return true;var allOk=true;chains.forEach(function(cid){var chain=document.getElementById(cid);if(!chain)return;var inputs=chain.querySelectorAll('input[data-ans]');inputs.forEach(function(inp){var expected=parseNum(inp.getAttribute('data-ans'));var given=parseNum(inp.value);var ok=numClose(given,expected);inp.classList.remove('fi-ok','fi-err');inp.classList.add(ok?'fi-ok':'fi-err');if(!ok)allOk=false;});});return allOk;}
+
+var pts={A:0,B:0,C:0,D:0,E:0};
+function corregir(mod,total,fbIds,maxPts){var ok=0;fbIds.forEach(function(fbId){var fb=document.getElementById(fbId);var ans=answers[fbId];var chainOk=checkChains(fbId);if(!fb)return;if(!ans||!ans.val){fb.textContent='— sin respuesta';fb.className='fb';return;}var selectOk=ans.val===ans.correct;if(selectOk&&chainOk){ok++;fb.textContent='✓ correcto';fb.className='fb ok';}else if(selectOk&&!chainOk){fb.textContent='✗ cálculo incorrecto (revise las casillas en rojo)';fb.className='fb err';}else{fb.textContent='✗ incorrecto';fb.className='fb err';}});var p=(ok/total)*maxPts;pts[mod]=p;actualizarNotas();alert('Módulo '+mod+' corregido: '+ok+'/'+total+' correctas = '+p.toFixed(2)+' pts autocorregibles');}
+function actualizarNotas(){var total=(pts.A||0)+(pts.B||0)+(pts.C||0)+(pts.D||0)+(pts.E||0);var nt=document.getElementById('notaAL');if(nt)nt.textContent=total.toFixed(2)+' / 3.50';}
 function setupPrintAnswers(){document.querySelectorAll('textarea.open-area').forEach(function(ta){var clone=ta.nextElementSibling;if(!clone||!clone.classList.contains('print-answer')){clone=document.createElement('div');clone.className='print-answer';ta.parentNode.insertBefore(clone,ta.nextSibling);}ta.addEventListener('input',function(){clone.textContent=ta.value;});});}
 document.addEventListener('DOMContentLoaded',setupPrintAnswers);
 window.addEventListener('beforeprint',function(){document.querySelectorAll('textarea.open-area').forEach(function(ta){var clone=ta.nextElementSibling;if(clone&&clone.classList.contains('print-answer'))clone.textContent=ta.value;});});
