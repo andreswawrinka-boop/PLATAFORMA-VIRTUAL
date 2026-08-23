@@ -1,0 +1,2015 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fisiología Cardiovascular y Renal · Dr. Andrés Robayo</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&family=Nunito:wght@400;600;700;800&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --navy:#0f2744; --navy-mid:#1a3a5c;
+  --teal:#0d7a6e; --teal-light:#e6f4f2;
+  --amber:#b85c00; --amber-light:#fdf3e7;
+  --red:#991b1b; --red-light:#fef2f2;
+  --purple:#5b21b6; --purple-light:#ede9fe;
+  --green:#166534; --green-light:#dcfce7;
+  --gray-50:#f8f9fa; --gray-100:#f1f3f5;
+  --gray-400:#868e96; --gray-600:#495057; --gray-800:#212529;
+  --border:#dee2e6;
+  --serif:'Source Serif 4',Georgia,serif;
+  --sans:'DM Sans',system-ui,sans-serif;
+  --mono:'DM Mono',monospace;
+}
+[data-design="B"] .cover { background:linear-gradient(135deg,#f0f9ff 0%,#e6f4f2 55%,#fdf3e7 100%) !important; border-bottom:4px solid var(--teal); }
+[data-design="B"] .cover h1 { color:var(--navy) !important; }
+[data-design="B"] .cover-tag { color:var(--teal) !important; opacity:1; }
+[data-design="B"] .cover-subtitle { color:var(--gray-600) !important; }
+[data-design="B"] .cover-meta-label { color:var(--gray-400) !important; }
+[data-design="B"] .cover-meta-value { color:var(--navy) !important; }
+[data-design="B"] .cover-rule { background:var(--teal) !important; }
+[data-design="B"] .cover::before,[data-design="B"] .cover::after { display:none; }
+[data-design="B"] .section-header { border-bottom:3px solid var(--teal); }
+[data-design="B"] .section-number { background:var(--navy); color:white; }
+[data-design="B"] .section-title { color:var(--teal); }
+[data-design="B"] .tab-btn.active { background:var(--teal); }
+[data-design="B"] thead th { background:var(--teal); }
+[data-design="B"] .module-header { background:var(--teal); }
+[data-design="B"] body { background:#fafbfc; }
+[data-design="B"] .page { box-shadow:0 0 40px rgba(0,0,0,.06); }
+[data-design="B"] .taller-header { background:linear-gradient(135deg,#0f2744,#0d7a6e) !important; }
+
+[data-palette="bosque"]   { --navy:#1a3d2b; --navy-mid:#2d5a3d; --teal:#3a7d44; --teal-light:#e8f5e9; --amber:#8d6e1a; --amber-light:#fffde7; }
+[data-palette="atardecer"]{ --navy:#4a1942; --navy-mid:#6b2d5e; --teal:#c0392b; --teal-light:#fde8e8; --amber:#e67e22; --amber-light:#fff3e0; }
+[data-palette="pizarra"]  { --navy:#2d3748; --navy-mid:#4a5568; --teal:#4a90a4; --teal-light:#e6f3f8; --amber:#c09040; --amber-light:#fdf8ee; }
+[data-palette="cereza"]   { --navy:#5c1a2e; --navy-mid:#7d2a42; --teal:#c0394f; --teal-light:#fde8ee; --amber:#d4822a; --amber-light:#fff3e6; }
+[data-palette="indigo"]   { --navy:#1e2460; --navy-mid:#2d3580; --teal:#4a67d4; --teal-light:#eaedfa; --amber:#a05c00; --amber-light:#fff8e6; }
+
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:var(--serif);font-size:10.5pt;color:#212529;background:white;line-height:1.75;}
+.page{max-width:840px;margin:0 auto;overflow-x:hidden;}
+
+/* TAB NAV */
+.tab-nav{display:flex;gap:0;border-bottom:2px solid var(--navy);position:sticky;top:0;z-index:100;background:white;}
+.tab-btn{font-family:var(--sans);font-size:8.5pt;font-weight:600;padding:11px 20px;border:none;background:var(--gray-100);color:var(--gray-600);cursor:pointer;letter-spacing:.06em;text-transform:uppercase;border-right:1px solid var(--border);transition:all .2s;}
+.tab-btn:hover{background:var(--teal-light);color:var(--teal);}
+.tab-btn.active{background:var(--navy);color:white;}
+.tab-content{display:none;width:100%;}
+.tab-content.active{display:block;width:100%;max-width:100%;}
+
+/* PALETTE */
+.palette-btn{position:fixed;top:14px;right:18px;z-index:9999;background:var(--navy);color:white;border:none;border-radius:50%;width:40px;height:40px;font-size:18px;cursor:pointer;box-shadow:0 2px 12px rgba(0,0,0,.25);transition:transform .2s;}
+.palette-btn:hover{transform:scale(1.1);}
+.palette-panel{position:fixed;top:62px;right:18px;z-index:9998;background:white;border:1px solid var(--border);border-radius:10px;padding:14px;box-shadow:0 8px 32px rgba(0,0,0,.15);display:none;flex-direction:column;gap:8px;}
+.palette-panel.open{display:flex;}
+.palette-panel-title{font-family:var(--sans);font-size:8pt;color:var(--gray-400);letter-spacing:.1em;text-transform:uppercase;}
+.palette-options{display:grid;grid-template-columns:1fr 1fr;gap:6px;}
+.palette-opt{font-family:var(--sans);font-size:8.5pt;font-weight:500;padding:7px 12px;border-radius:6px;cursor:pointer;border:2px solid transparent;transition:all .15s;}
+.palette-opt:hover,.palette-opt.sel{border-color:var(--teal);}
+.po-oceano{background:#0f2744;color:white;}
+.po-bosque{background:#1a3d2b;color:white;}
+.po-atardecer{background:#4a1942;color:white;}
+.po-pizarra{background:#2d3748;color:white;}
+.po-cereza{background:#5c1a2e;color:white;}
+.po-indigo{background:#1e2460;color:white;}
+
+/* DESIGN SWITCHER */
+.design-switcher{position:fixed;top:60px;right:18px;z-index:9999;display:flex;flex-direction:column;gap:6px;}
+.ds-label{font-family:var(--sans);font-size:7pt;color:var(--gray-400);text-transform:uppercase;letter-spacing:.1em;text-align:center;}
+.ds-btns{display:flex;gap:4px;}
+.ds-btn{font-family:var(--sans);font-size:8pt;font-weight:600;padding:6px 10px;border:2px solid var(--border);border-radius:5px;cursor:pointer;background:white;color:var(--navy);transition:all .2s;}
+.ds-btn.active,.ds-btn:hover{background:var(--navy);color:white;border-color:var(--navy);}
+
+/* COVER */
+.cover{background:var(--navy);color:white;padding:50px 56px 42px;position:relative;overflow:hidden;}
+.cover::before{content:'';position:absolute;top:-80px;right:-80px;width:380px;height:380px;border-radius:50%;background:rgba(255,255,255,.03);}
+.cover::after{content:'';position:absolute;bottom:-50px;left:250px;width:220px;height:220px;border-radius:50%;background:rgba(255,255,255,.025);}
+.cover-tag{font-family:var(--sans);font-size:8pt;font-weight:500;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.5);margin-bottom:20px;}
+.cover h1{font-family:var(--serif);font-size:28pt;font-weight:300;line-height:1.15;color:white;margin-bottom:12px;max-width:600px;}
+.cover h1 em{font-style:italic;font-weight:600;color:#AED581;}
+.cover-subtitle{font-family:var(--sans);font-size:9.5pt;color:rgba(255,255,255,.6);margin-bottom:38px;font-weight:300;line-height:1.5;}
+.cover-meta{display:flex;gap:30px;padding-top:28px;border-top:1px solid rgba(255,255,255,.14);flex-wrap:wrap;}
+.cover-meta-label{font-family:var(--sans);font-size:7pt;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.4);display:block;margin-bottom:2px;}
+.cover-meta-value{font-family:var(--sans);font-size:9pt;color:rgba(255,255,255,.88);}
+.cover-rule{width:52px;height:3px;background:#AED581;margin-bottom:22px;border-radius:2px;}
+
+/* CONTENT */
+.content{padding:40px 56px;width:100%;box-sizing:border-box;}
+.section{margin-bottom:40px;}
+.section-header{display:flex;align-items:baseline;gap:14px;margin-bottom:18px;padding-bottom:10px;border-bottom:2px solid var(--navy);}
+.section-number{font-family:var(--mono);font-size:7.5pt;font-weight:500;color:var(--teal);background:var(--teal-light);padding:2px 8px;border-radius:3px;flex-shrink:0;}
+.section-title{font-family:var(--serif);font-size:15pt;font-weight:600;color:var(--navy);line-height:1.2;}
+
+h3{font-family:var(--sans);font-size:9pt;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--navy-mid);margin:20px 0 10px;}
+h3::before{content:'▸ ';color:var(--teal);}
+p{font-size:10.5pt;line-height:1.75;color:#212529;margin-bottom:10px;}
+
+.definition{background:var(--navy);padding:16px 20px;border-radius:6px;margin:14px 0;}
+.definition-label{font-family:var(--sans);font-size:7pt;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:#AED581;margin-bottom:5px;}
+.definition p{color:rgba(255,255,255,.88);font-size:10.5pt;margin:0;line-height:1.65;}
+
+.callout{padding:12px 16px;border-radius:5px;margin:12px 0;border-left:4px solid;}
+.callout-title{font-family:var(--sans);font-size:7.5pt;font-weight:600;letter-spacing:.1em;text-transform:uppercase;margin-bottom:4px;}
+.callout p{margin:0;font-size:10pt;line-height:1.65;}
+.callout.clinical{background:var(--teal-light);border-color:var(--teal);}
+.callout.clinical .callout-title{color:var(--teal);}
+.callout.clinical p{color:#1a4a47;}
+.callout.warning{background:var(--amber-light);border-color:var(--amber);}
+.callout.warning .callout-title{color:var(--amber);}
+.callout.warning p{color:#5c3000;}
+.callout.danger{background:var(--red-light);border-color:var(--red);}
+.callout.danger .callout-title{color:var(--red);}
+.callout.danger p{color:#5c1a1a;}
+.callout.evidence{background:var(--purple-light);border-color:var(--purple);}
+.callout.evidence .callout-title{color:var(--purple);}
+.callout.evidence p{color:#3b1a7a;}
+
+.table-wrap{margin:14px 0;border-radius:6px;overflow:hidden;border:1px solid var(--border);}
+.table-caption{font-family:var(--sans);font-size:7pt;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--gray-400);padding:7px 13px;background:var(--gray-50);border-bottom:1px solid var(--border);}
+table{width:100%;border-collapse:collapse;font-family:var(--sans);font-size:9.5pt;}
+thead th{background:var(--navy);color:white;font-weight:500;font-size:8.5pt;padding:9px 12px;text-align:left;}
+tbody tr{border-bottom:1px solid var(--border);}
+tbody tr:last-child{border-bottom:none;}
+tbody tr:nth-child(even){background:var(--gray-50);}
+tbody td{padding:8px 12px;color:#212529;vertical-align:top;line-height:1.5;}
+td.hl{font-weight:600;color:var(--navy);}
+td.ok{font-weight:600;color:var(--teal);}
+td.warn{font-weight:600;color:var(--red);}
+td.amber{font-weight:600;color:var(--amber);}
+
+.formula-block{background:var(--gray-100);border:1px solid var(--border);border-radius:6px;padding:16px 20px;margin:14px 0;text-align:center;}
+.formula-label{font-family:var(--sans);font-size:8pt;color:var(--gray-400);text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px;}
+.formula{font-family:var(--mono);font-size:12pt;font-weight:500;color:var(--navy);line-height:1.5;}
+.formula-example{font-family:var(--sans);font-size:9pt;color:var(--gray-400);margin-top:8px;}
+
+.worked{background:var(--green-light);border:1px solid #86efac;border-radius:6px;padding:14px 18px;margin:12px 0;}
+.worked-title{font-family:var(--sans);font-size:7.5pt;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--green);margin-bottom:8px;}
+.worked-step{font-family:var(--sans);font-size:9.5pt;color:#14532d;margin-bottom:5px;display:flex;gap:10px;align-items:flex-start;line-height:1.55;}
+.step-n{font-family:var(--mono);font-size:8pt;color:white;background:var(--green);padding:1px 6px;border-radius:3px;flex-shrink:0;margin-top:2px;}
+.worked-result{font-family:var(--mono);font-size:10.5pt;font-weight:500;color:var(--navy);background:white;border:1px solid #86efac;border-radius:4px;padding:6px 12px;margin-top:10px;text-align:center;}
+
+.drug-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:14px 0;}
+.drug-card{border:1px solid var(--border);border-radius:7px;overflow:hidden;}
+.drug-header{padding:9px 14px;display:flex;align-items:center;gap:10px;}
+.drug-name{font-family:var(--sans);font-size:10pt;font-weight:600;color:white;}
+.drug-class{font-family:var(--sans);font-size:7.5pt;color:rgba(255,255,255,.75);margin-top:1px;}
+.drug-body{padding:11px 13px;background:white;font-family:var(--sans);font-size:9pt;}
+.drug-row{display:flex;gap:6px;margin-bottom:5px;align-items:flex-start;line-height:1.4;}
+.drug-row-label{color:var(--gray-400);min-width:100px;flex-shrink:0;font-size:8pt;text-transform:uppercase;letter-spacing:.04em;margin-top:1px;}
+.drug-row-val{color:#212529;}
+.drug-conc{display:inline-block;background:var(--navy);color:#AED581;font-family:var(--mono);font-size:9pt;padding:3px 8px;border-radius:4px;margin-top:6px;}
+
+.unit-chain{display:flex;align-items:center;gap:0;margin:14px 0;flex-wrap:wrap;}
+.unit-box{background:var(--navy);color:white;font-family:var(--mono);font-size:10pt;padding:8px 14px;border-radius:5px;font-weight:500;}
+.unit-arrow{font-family:var(--sans);font-size:8.5pt;color:var(--teal);padding:0 10px;text-align:center;}
+.unit-arrow span{display:block;font-size:7.5pt;color:var(--gray-400);}
+
+ul.content-list{list-style:none;padding:0;margin:8px 0;}
+ul.content-list li{padding-left:17px;position:relative;font-size:10pt;color:#212529;line-height:1.65;margin-bottom:5px;}
+ul.content-list li::before{content:'';position:absolute;left:0;top:9px;width:6px;height:6px;border-radius:50%;background:var(--teal);}
+
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:14px 0;}
+.col-card{background:var(--gray-50);border:1px solid var(--border);border-radius:6px;padding:13px 15px;}
+.col-card-title{font-family:var(--sans);font-size:9pt;font-weight:600;color:var(--navy);margin-bottom:7px;padding-bottom:6px;border-bottom:2px solid var(--teal);}
+.col-card p{font-size:9.5pt;color:#212529;margin-bottom:4px;}
+
+.diagram-wrap{margin:16px 0;background:var(--gray-50);border:1px solid var(--border);border-radius:8px;padding:14px;}
+.diagram-title{font-family:var(--sans);font-size:7pt;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--gray-400);margin-bottom:10px;}
+.divider{border:none;border-top:1px solid var(--border);margin:28px 0;}
+
+/* TALLER */
+.taller-header{background:var(--navy);color:white;padding:28px 56px 22px;}
+.taller-header h2{font-family:var(--serif);font-size:20pt;font-weight:300;color:white;margin-bottom:6px;}
+.taller-header h2 em{font-style:italic;color:#AED581;}
+.taller-meta{font-family:var(--sans);font-size:8.5pt;color:rgba(255,255,255,.55);}
+.taller-content{padding:30px 56px;width:100%;box-sizing:border-box;}
+
+.alert-yellow{background:#fffbeb;border:1.5px solid #f59e0b;border-radius:6px;padding:10px 16px;margin-bottom:20px;font-family:var(--sans);font-size:9pt;color:#78350f;}
+
+/* MODULES */
+.module{border:1px solid var(--border);border-radius:8px;overflow:hidden;margin-bottom:22px;page-break-inside:avoid;width:100%;box-sizing:border-box;}
+.module-header{background:var(--navy-mid);padding:11px 16px;display:flex;align-items:center;gap:12px;flex-wrap:wrap;}
+.module-tag{font-family:var(--mono);font-size:8pt;color:#AED581;font-weight:500;}
+.module-title{font-family:var(--sans);font-size:9.5pt;color:white;font-weight:500;flex:1;}
+.module-pts{font-family:var(--mono);font-size:8.5pt;color:white;background:var(--amber);padding:3px 9px;border-radius:4px;white-space:nowrap;}
+.module-body{padding:16px 18px;background:white;overflow-x:auto;}
+
+.ex-item{margin-bottom:18px;padding-bottom:18px;border-bottom:1px dashed var(--border);}
+.ex-item:last-child{border-bottom:none;margin-bottom:0;padding-bottom:0;}
+.ex-label{font-family:var(--sans);font-size:9pt;font-weight:600;color:var(--navy-mid);margin-bottom:8px;display:flex;align-items:flex-start;gap:8px;flex-wrap:wrap;}
+.ex-num{font-family:var(--mono);font-size:7.5pt;color:white;background:var(--navy-mid);padding:2px 7px;border-radius:3px;flex-shrink:0;margin-top:1px;}
+.ex-pts{font-family:var(--mono);font-size:7pt;color:white;background:var(--teal);padding:2px 6px;border-radius:3px;flex-shrink:0;margin-top:1px;}
+.ex-context{font-family:var(--sans);font-size:9pt;color:#212529;background:var(--gray-50);border:1px solid var(--border);border-radius:5px;padding:9px 12px;margin-bottom:10px;line-height:1.55;}
+.ex-context strong{color:var(--navy);}
+
+/* MC */
+.mc-row{display:flex;align-items:center;gap:10px;margin:7px 0;font-family:var(--sans);font-size:9.5pt;flex-wrap:wrap;}
+.mc-label{font-weight:600;color:var(--navy-mid);min-width:200px;}
+select.mc-select{font-family:var(--sans);font-size:9pt;padding:5px 10px;border:1.5px solid var(--border);border-radius:5px;background:white;color:#212529;cursor:pointer;}
+.fb{font-family:var(--sans);font-size:9pt;font-weight:600;margin-left:6px;}
+.fb.ok{color:var(--teal);}
+.fb.err{color:var(--red);}
+
+/* CALC BOXES */
+.calc-box{background:#f8faff;border:2px solid #c8d6e8;border-radius:8px;padding:14px 18px;margin:10px 0;}
+.calc-box-title{font-family:var(--sans);font-size:8pt;font-weight:600;color:var(--navy);letter-spacing:.06em;text-transform:uppercase;margin-bottom:10px;border-bottom:1px solid #c8d6e8;padding-bottom:5px;}
+.calc-step{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin:8px 0;font-family:var(--mono);font-size:11pt;}
+.calc-step-label{font-family:var(--sans);font-size:8.5pt;color:var(--gray-400);min-width:120px;}
+.ci{font-family:var(--mono);font-size:11pt;border:none;border-bottom:2px solid var(--navy);background:transparent;color:#212529;text-align:center;outline:none;padding:2px 4px;}
+.ci.sm{width:70px;}
+.ci.md{width:90px;}
+.ci.lg{width:120px;}
+.ci-result{font-family:var(--mono);font-size:11pt;font-weight:600;border:2px solid var(--teal);border-radius:5px;background:var(--teal-light);color:var(--navy);text-align:center;padding:4px 8px;width:110px;outline:none;}
+.ci-op{color:var(--gray-400);font-size:14pt;padding:0 4px;font-family:var(--sans);}
+.calc-hint{font-family:var(--sans);font-size:8pt;color:var(--gray-400);margin-top:6px;font-style:italic;}
+.calc-sub{font-family:var(--sans);font-size:8.5pt;color:var(--gray-600);margin:4px 0;}
+
+/* OPEN AREAS */
+.open-area{width:100%;min-height:80px;font-family:var(--sans);font-size:9.5pt;padding:10px 12px;border:1.5px solid var(--border);border-radius:5px;resize:vertical;color:#212529;line-height:1.6;}
+.open-label{font-family:var(--sans);font-size:8pt;color:var(--gray-400);text-transform:uppercase;letter-spacing:.05em;margin-bottom:4px;display:block;}
+
+/* ══ CANCELACIÓN ALGEBRAICA ══ */
+.frac-chain {
+  display:flex; flex-wrap:wrap; align-items:center;
+  background:#f8f9fa; border:1.5px solid #dee2e6; border-radius:8px;
+  padding:12px 16px; margin:10px 0;
+  box-sizing:border-box;
+}
+.frac-chain-label {
+  font-family:var(--sans); font-size:8pt; font-weight:600;
+  color:var(--navy); text-transform:uppercase; letter-spacing:.06em;
+  width:100%; flex-basis:100%; /* ocupa toda la línea */
+  margin-bottom:8px; border-bottom:1px solid #dee2e6; padding-bottom:5px;
+}
+.cancel-hint {
+  font-family:var(--sans); font-size:7.5pt; color:var(--gray-400);
+  font-style:italic; width:100%; flex-basis:100%; /* ocupa toda la línea */
+  margin-top:8px; padding-top:6px; border-top:1px dashed #dee2e6;
+}
+.frac {
+  display:inline-flex; flex-direction:column; align-items:center;
+  margin:0 4px; vertical-align:middle; min-width:0; flex-shrink:1;
+}
+.frac-top, .frac-bot {
+  display:flex; align-items:center; justify-content:center; gap:2px;
+  padding:2px 2px; min-height:24px; flex-wrap:wrap;
+}
+/* Una sola línea negra — la línea de fracción, sin líneas extra */
+.frac-line { width:100%; height:2px; background:#212529; margin:1px 0; }
+/* Input sin borde propio — no agrega líneas */
+.fi {
+  font-family:var(--mono); font-size:10pt; font-weight:500;
+  border:none; background:transparent; color:#212529;
+  text-align:center; outline:none; padding:1px 2px;
+  width:46px; min-width:0; flex-shrink:1;
+}
+.fi:focus { background:#fffbeb; border-radius:3px; }
+.fi.w-sm { width:36px; }
+.fi.w-md { width:56px; }
+.fi.w-lg { width:80px; }
+.fi.w-xl { width:100px; }
+.fu { font-family:var(--mono); font-size:10pt; font-weight:600; color:var(--navy-mid); padding:1px 3px; }
+.fu-cancel { font-family:var(--mono); font-size:10pt; font-weight:600; color:var(--red); text-decoration:line-through; opacity:.6; padding:1px 3px; }
+.fop { font-family:var(--sans); font-size:16pt; color:var(--gray-400); padding:0 6px; align-self:center; line-height:1; }
+.fop-eq { font-family:var(--sans); font-size:14pt; color:var(--navy); padding:0 8px; align-self:center; font-weight:600; }
+.frac-result {
+  display:inline-flex; flex-direction:column; align-items:center;
+  background:var(--navy); border-radius:6px; padding:4px 10px;
+  margin:0 4px; align-self:center; min-width:80px;
+}
+.frac-result input {
+  font-family:var(--mono); font-size:11pt; font-weight:600;
+  border:none; background:transparent; color:#AED581;
+  text-align:center; outline:none; padding:2px 4px; width:72px; min-width:0;
+}
+.frac-result input:focus { background:rgba(255,255,255,.1); border-radius:3px; }
+.frac-result .fu { color:rgba(255,255,255,.7); font-size:9pt; }
+.cancel-hint {
+  font-family:var(--sans); font-size:7.5pt; color:var(--gray-400);
+  font-style:italic; width:100%; margin-top:6px; padding-top:5px;
+  border-top:1px dashed #dee2e6;
+}
+.cancel-btn {
+  font-family:var(--sans); font-size:7pt; font-weight:600;
+  padding:3px 10px; border:1.5px solid var(--navy); border-radius:4px;
+  background:white; color:var(--navy); cursor:pointer; margin-left:8px;
+  transition:all .15s;
+}
+.cancel-btn:hover { background:var(--navy); color:white; }
+.frac-step-sep { width:100%; border-top:1px dashed #dee2e6; margin:10px 0 6px; display:flex; align-items:center; gap:8px; }
+.frac-step-label { font-family:var(--sans); font-size:7.5pt; font-weight:600; color:var(--navy); text-transform:uppercase; letter-spacing:.05em; white-space:nowrap; background:#f8f9fa; padding:0 6px; }
+@media print {
+  .frac-chain { background:#f8f9fa !important; -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+  .cancel-btn { display:none !important; }
+}
+
+/* MANUAL BLOCK */
+.manual-block{border:2px dashed var(--amber);border-radius:8px;background:var(--amber-light);padding:14px 18px;margin:20px 0;}
+.manual-block-header{display:flex;align-items:center;gap:10px;margin-bottom:10px;flex-wrap:wrap;}
+.manual-badge{font-family:var(--sans);font-size:7.5pt;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:white;background:var(--amber);padding:4px 10px;border-radius:4px;white-space:nowrap;}
+.manual-pts-badge{font-family:var(--mono);font-size:8pt;font-weight:600;color:var(--amber);border:1.5px solid var(--amber);border-radius:4px;padding:2px 8px;white-space:nowrap;}
+.manual-title{font-family:var(--sans);font-size:9pt;font-weight:600;color:var(--amber);flex:1;}
+.manual-note{font-family:var(--sans);font-size:7.5pt;color:#7a3d00;font-style:italic;margin-bottom:8px;}
+.manual-ex-item{margin-bottom:14px;}
+.manual-ex-item:last-child{margin-bottom:0;}
+.manual-ex-label{font-family:var(--sans);font-size:9pt;font-weight:600;color:#7a3d00;margin-bottom:6px;display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
+.manual-ex-num{font-family:var(--mono);font-size:7.5pt;color:white;background:#7a3d00;padding:2px 7px;border-radius:3px;}
+.manual-ex-pts{font-family:var(--mono);font-size:7pt;color:white;background:var(--amber);padding:2px 6px;border-radius:3px;}
+
+.correct-btn{font-family:var(--sans);font-size:8.5pt;font-weight:600;padding:7px 18px;background:var(--teal);color:white;border:none;border-radius:5px;cursor:pointer;margin-top:10px;transition:background .2s;}
+.correct-btn:hover{background:var(--navy);}
+
+/* NOTA BAR */
+.nota-bar{background:var(--teal-light);border:2px solid var(--teal);border-radius:8px;padding:16px 20px;margin-top:16px;display:flex;align-items:center;gap:20px;flex-wrap:wrap;}
+.nota-bar-label{font-family:var(--sans);font-size:9pt;font-weight:600;color:var(--teal);text-transform:uppercase;letter-spacing:.05em;}
+.nota-bar-val{font-family:var(--mono);font-size:20pt;font-weight:500;color:var(--navy);line-height:1;}
+
+/* DOWNLOAD */
+.download-box{background:var(--teal-light);border:2px solid var(--teal);border-radius:8px;padding:20px 24px;margin:24px 0;}
+.download-box h3{color:var(--teal);font-family:var(--sans);font-size:10pt;margin-bottom:12px;}
+.download-box h3::before{content:none;}
+.input-row{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:10px;}
+.id-input{flex:1;min-width:200px;font-family:var(--sans);font-size:9.5pt;padding:9px 12px;border:1.5px solid var(--border);border-radius:5px;color:#212529;}
+.dl-btn{font-family:var(--sans);font-size:9pt;font-weight:600;padding:10px 22px;background:var(--navy);color:white;border:none;border-radius:5px;cursor:pointer;transition:background .2s;white-space:nowrap;}
+.dl-btn:hover{background:var(--teal);}
+.dl-error{color:var(--red);font-family:var(--sans);font-size:9pt;margin-top:6px;display:none;}
+
+footer{border-top:2px solid var(--navy);padding:20px 56px 26px;display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:14px;}
+.footer-name{font-family:var(--sans);font-size:9.5pt;font-weight:600;color:var(--navy);}
+.footer-title{font-family:var(--sans);font-size:8pt;color:var(--gray-400);}
+.footer-copy{font-family:var(--sans);font-size:7.5pt;color:var(--gray-400);text-align:right;line-height:1.5;}
+
+/* PRINT */
+@media print {
+  .tab-nav,.palette-btn,.palette-panel,.design-switcher,.correct-btn,.download-box,.nota-bar{display:none !important;}
+  .tab-content{display:none !important;}
+  #taller-tab{display:block !important;}
+  #teoria-tab{display:none !important;}
+  body{font-size:10pt;}
+  .cover,.module-header,.drug-header,.worked{-webkit-print-color-adjust:exact;print-color-adjust:exact;}
+  .module{page-break-inside:avoid;}
+  .taller-content{padding:20px 40px;}
+  .page-print-header{display:block !important;font-family:var(--sans);font-size:8pt;color:var(--gray-600);padding:8px 40px;border-bottom:1px solid var(--border);background:var(--gray-50);}
+  .print-footer-fixed{display:flex !important;position:fixed;bottom:0;left:0;right:0;background:var(--gray-50);border-top:1px solid var(--border);padding:5px 40px;font-family:var(--sans);font-size:7.5pt;color:var(--gray-600);justify-content:space-between;}
+  textarea.open-area{display:none !important;}
+  .print-answer{display:block !important;font-family:'DM Sans',system-ui,sans-serif;font-size:9.5pt;color:#212529;line-height:1.6;border:1.5px solid #dee2e6;border-radius:5px;padding:8px 12px;min-height:60px;height:auto !important;overflow:visible !important;white-space:pre-wrap;word-break:break-word;page-break-inside:avoid;}
+  .print-answer:empty::after{content:'(sin respuesta)';color:#adb5bd;font-style:italic;}
+}
+@media screen {
+  .page-print-header{display:none;}
+  .print-footer-fixed{display:none;}
+  .print-answer{display:none !important;}
+}
+
+
+/* ══════════════════════════════════════════════════════════════
+   OVERRIDE · TEMA PORTAL ANESTESIOLOGÍA — FARMACOLOGÍA (VERDE LIMA)
+   ══════════════════════════════════════════════════════════════ */
+:root{
+  --navy:#33691E; --navy-mid:#558B2F;
+  --teal:#689F38; --teal-light:#F1F8E9;
+  --serif:'Bebas Neue','DM Sans',sans-serif;
+  --sans:'DM Sans','Nunito',system-ui,sans-serif;
+  --hero-grad:linear-gradient(135deg,#14260A,#33691E,#558B2F);
+  --gold-grad:linear-gradient(90deg,#FFEA00,#FFC400,#FF9100);
+  --gold:#F0F4C3;
+}
+
+body{ background:#EEF3E6 !important; font-family:var(--sans); }
+.design-switcher,.palette-btn,.palette-panel{ display:none !important; }
+
+.page{ max-width:960px; margin:22px auto 60px; background:#fff; border-radius:22px;
+  box-shadow:0 8px 40px rgba(20,38,10,.12); overflow:hidden; border:1px solid rgba(0,0,0,.10); }
+.content{ padding:42px 56px !important; }
+
+/* ── TABS ── */
+.tab-nav{ gap:6px !important; border-bottom:1px solid rgba(0,0,0,.10) !important; background:rgba(255,255,255,.96) !important;
+  backdrop-filter:blur(14px); padding:10px 20px !important; box-shadow:0 1px 8px rgba(0,0,0,.06); }
+.tab-btn{ font-size:11.5px !important; font-weight:800 !important; padding:8px 16px !important; background:transparent !important;
+  color:#1E293B !important; border:none !important; border-right:none !important; border-radius:9px !important;
+  letter-spacing:.3px !important; transition:background .16s,color .16s,transform .12s !important; }
+.tab-btn:hover{ background:var(--navy) !important; color:#fff !important; transform:translateY(-1px); }
+.tab-btn.active{ background:var(--navy) !important; color:#fff !important; box-shadow:0 2px 8px rgba(51,105,30,.35); }
+
+/* ── HERO ── */
+.cover{ background:var(--hero-grad) !important; color:#fff !important; padding:52px 56px 44px !important;
+  position:relative; overflow:hidden; border-bottom:none !important; }
+.cover::before{ content:''; position:absolute; top:-80px; right:-80px; width:340px; height:340px;
+  border-radius:50%; background:rgba(255,255,255,.06); pointer-events:none; }
+.cover::after{ content:''; position:absolute; bottom:-60px; left:-60px; width:240px; height:240px;
+  border-radius:50%; background:rgba(255,255,255,.05); pointer-events:none; }
+.cover-tag{ position:relative; z-index:1; display:inline-flex; align-items:center; gap:8px;
+  background:rgba(255,255,255,.15); border:1px solid rgba(255,255,255,.4); border-radius:100px;
+  padding:6px 16px; font-family:var(--sans); font-size:10px; font-weight:700; letter-spacing:2px;
+  text-transform:uppercase; color:#fff !important; margin-bottom:22px; }
+.cover-rule{ display:none !important; }
+.cover h1{ font-family:'Bebas Neue',sans-serif !important; font-size:clamp(34px,5.5vw,54px) !important;
+  font-weight:400 !important; line-height:1.02 !important; color:#fff !important; letter-spacing:2px;
+  margin-bottom:14px !important; max-width:640px; position:relative; z-index:1; }
+.cover h1 em{ font-style:normal !important; background:var(--gold-grad); -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent; background-clip:text; color:transparent !important; }
+.cover-subtitle{ position:relative; z-index:1; font-family:var(--sans) !important; font-size:12.5px !important;
+  color:rgba(255,255,255,.85) !important; font-weight:500 !important; line-height:1.7 !important; max-width:620px; margin-bottom:34px !important; }
+.cover-meta{ position:relative; z-index:1; gap:12px !important; padding-top:0 !important; border-top:none !important; }
+.cover-meta > div{ background:rgba(255,255,255,.18); border:1px solid rgba(255,255,255,.35);
+  border-radius:12px; padding:9px 16px; }
+.cover-meta-label{ font-size:9px !important; letter-spacing:1.5px !important; color:rgba(255,255,255,.7) !important; font-weight:700 !important; }
+.cover-meta-value{ font-size:12px !important; color:#fff !important; font-weight:700 !important; }
+
+/* ── SECCIONES ── */
+.section-header{ border-bottom:2px solid rgba(0,0,0,.08) !important; padding-bottom:14px !important; margin-bottom:18px !important; align-items:center !important; }
+.section-number{ background:var(--navy) !important; color:#fff !important; font-family:var(--mono);
+  padding:4px 11px !important; border-radius:8px !important; box-shadow:0 2px 8px rgba(51,105,30,.3); }
+.section-title{ font-family:'Bebas Neue',sans-serif !important; font-size:22px !important; font-weight:400 !important;
+  color:#0D1B0A !important; letter-spacing:1.5px; line-height:1.1; }
+
+/* ── TALLER ── */
+.taller-header{ background:var(--hero-grad) !important; }
+.taller-header h2{ font-family:'Bebas Neue',sans-serif !important; letter-spacing:2px; }
+.taller-header h2 em{ font-style:normal; background:var(--gold-grad); -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent; background-clip:text; color:transparent; }
+
+/* ── MÓDULOS / EXERCISE ── */
+.module{ border-radius:16px !important; box-shadow:0 3px 14px rgba(0,0,0,.06); border:1px solid rgba(0,0,0,.14) !important; }
+.module-header{ background:linear-gradient(135deg,#33691E,#558B2F) !important; }
+.module-tag{ color:var(--gold) !important; }
+.exercise{ border-radius:16px !important; box-shadow:0 3px 14px rgba(0,0,0,.06); border:1px solid rgba(0,0,0,.14) !important; overflow:hidden; }
+.exercise-header{ background:linear-gradient(135deg,#33691E,#558B2F) !important; }
+.exercise-num{ color:var(--gold) !important; }
+.ex-num,.q-num{ background:var(--navy) !important; border-radius:6px !important; }
+.ex-pts-auto,.q-pts-auto{ background:var(--teal) !important; border-radius:6px !important; }
+
+/* ── DRUG BADGES ── */
+.drug-conc{ background:var(--navy) !important; color:#F0F4C3 !important; }
+.definition-label{ color:var(--gold) !important; }
+
+/* ── BOTONES ── */
+.correct-btn,.dl-btn{ background:var(--navy) !important; border-radius:10px !important;
+  box-shadow:0 3px 12px rgba(51,105,30,.3); font-weight:800; }
+.correct-btn:hover,.dl-btn:hover{ background:var(--teal) !important; }
+.nota-bar,.download-box{ border-color:var(--teal) !important; background:var(--teal-light) !important; border-radius:16px !important; }
+.nota-bar-label,.download-box h3{ color:var(--teal) !important; }
+.nota-bar-val{ color:var(--navy) !important; }
+
+@media(max-width:720px){
+  .page{ margin:0; border-radius:0; }
+  .content{ padding:28px 22px !important; }
+  .cover{ padding:36px 22px 30px !important; }
+}
+
+
+
+/* ══ VARIABLES ADICIONALES DE ESTA GUÍA ══ */
+:root{--indigo:#1e3a8a;--indigo-light:#dbeafe;}
+
+/* ══ COMPONENTES PROPIOS — MANEJO DE LÍQUIDOS ══ */
+[data-design="B"] .cover h1,[data-design="B"] .cover h1 em,[data-design="B"] .cover h1 em.ac2{color:var(--navy) !important;}
+[data-design="B"] .cover-subtitle,[data-design="B"] .cover-meta-value{color:var(--gray-600) !important;}
+.cover h1 em.ac2{color:#7ae5b8;}
+.callout.success{background:var(--green-light);border-color:var(--green);}
+.callout.success .callout-title{color:var(--green);}
+.callout.success p{color:#14532d;}
+.yes{color:var(--teal);font-weight:700;}
+.no{color:var(--red);font-weight:700;}
+.parcial{color:var(--amber);font-weight:700;}
+.formula-eq{font-family:var(--mono);font-size:12pt;color:#d8c870;display:block;margin-bottom:7px;line-height:1.5;}
+.formula-vars{font-size:9.5pt;color:rgba(255,255,255,.62);line-height:1.8;}
+.formula-vars span{display:block;}
+.formula-vars b{color:#90d8a8;}
+.fluid-grid{display:grid;grid-template-columns:1fr 1fr;gap:11px;margin:11px 0;}
+.fluid-card{border-radius:8px;overflow:hidden;border:1.5px solid var(--border);}
+.fluid-card-header{padding:9px 13px;font-family:var(--sans);font-size:9pt;font-weight:700;color:white;}
+.fluid-card-body{padding:10px 13px;background:white;font-family:var(--sans);}
+.fc-row{display:flex;gap:6px;margin-bottom:4px;}
+.fc-lbl{font-family:var(--mono);font-size:8.5pt;text-transform:uppercase;color:var(--gray-400);min-width:74px;flex-shrink:0;margin-top:1px;}
+.fc-val{color:#212529;line-height:1.5;font-size:9pt;}
+.mini-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;margin:10px 0;}
+.mini-card{border-radius:7px;padding:10px 12px;border:1px solid var(--border);background:var(--gray-50);}
+.mini-card strong{display:block;font-family:var(--sans);font-size:9pt;color:var(--navy);margin-bottom:4px;}
+.mini-card p{font-size:8.5pt;color:var(--gray-600);line-height:1.5;margin:0;}
+.algo-step{display:flex;gap:13px;margin-bottom:11px;position:relative;}
+.algo-step::before{content:"";position:absolute;left:18px;top:38px;bottom:-11px;width:2px;background:var(--border);}
+.algo-step:last-child::before{display:none;}
+.algo-n{width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:11pt;font-weight:600;color:white;flex-shrink:0;}
+.algo-body{flex:1;padding-bottom:3px;}
+.algo-title{font-family:var(--sans);font-size:9.5pt;font-weight:700;color:var(--navy);margin-bottom:3px;}
+.algo-desc{font-size:9.5pt;color:var(--gray-600);line-height:1.65;}
+.exercise-title{font-family:var(--sans);font-size:10pt;color:white;font-weight:500;flex:1;}
+.exercise-pts{font-family:var(--mono);font-size:9pt;color:white;background:var(--amber);padding:3px 10px;border-radius:4px;white-space:nowrap;}
+.exercise-body{padding:15px 17px;background:white;}
+.patient-card{background:var(--gray-50);border:1px solid var(--border);border-radius:6px;padding:11px 14px;margin-bottom:13px;}
+.patient-title{font-family:var(--sans);font-size:8pt;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--gray-400);margin-bottom:8px;}
+.patient-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:7px;}
+.patient-item{font-family:var(--sans);font-size:9pt;}
+.patient-label{font-size:7.5pt;color:var(--gray-400);text-transform:uppercase;letter-spacing:.05em;display:block;}
+.patient-value{font-weight:600;color:var(--navy);}
+.patient-section{font-family:var(--sans);font-size:8pt;font-weight:600;color:var(--navy-mid);margin:7px 0 3px;text-transform:uppercase;letter-spacing:.05em;}
+.patient-list{font-family:var(--sans);font-size:9pt;color:var(--gray-600);padding-left:13px;}
+.patient-list li{margin-bottom:2px;}
+.question{margin-bottom:13px;}
+.question-label{font-family:var(--sans);font-size:9pt;font-weight:600;color:var(--navy-mid);margin-bottom:7px;display:flex;align-items:flex-start;gap:8px;flex-wrap:wrap;}
+.q-num{font-family:var(--mono);font-size:8pt;color:white;background:var(--navy-mid);padding:2px 7px;border-radius:3px;flex-shrink:0;margin-top:1px;}
+.q-pts-auto{font-family:var(--mono);font-size:7.5pt;color:white;background:var(--teal);padding:2px 6px;border-radius:3px;flex-shrink:0;margin-top:1px;}
+.q-pts-manual{font-family:var(--mono);font-size:7.5pt;color:white;background:var(--amber);padding:2px 6px;border-radius:3px;flex-shrink:0;margin-top:1px;}
+.answer-line{display:flex;align-items:center;gap:8px;margin:6px 0;font-family:var(--sans);font-size:9.5pt;color:var(--gray-600);flex-wrap:wrap;}
+.ans-input{font-family:var(--mono);font-size:10pt;border:none;border-bottom:2px solid var(--navy);background:transparent;color:#212529;text-align:center;outline:none;padding:1px 4px;}
+.ans-input:focus{background:#fffbeb;}
+.ans-sm{width:68px;}
+.ans-md{width:100px;}
+.ans-lg{width:145px;}
+.calc-block{background:#f8f9fa;border:1.5px solid #dee2e6;border-radius:8px;padding:10px 14px;margin:8px 0;}
+.ans-input.fi-ok{background:var(--teal-light);color:var(--teal);border-bottom-color:var(--teal);border-radius:3px;font-weight:700;}
+.ans-input.fi-err{background:var(--red-light);color:var(--red);border-bottom-color:var(--red);border-radius:3px;font-weight:700;text-decoration:underline wavy var(--red);}
+.manual-block-label{font-family:var(--sans);font-size:7.5pt;font-weight:700;color:var(--amber);text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px;}
+.open-question{font-family:var(--sans);font-size:9.5pt;color:#212529;line-height:1.65;margin-bottom:8px;font-weight:500;}
+.open-question-part{font-family:var(--sans);font-size:9.5pt;color:var(--navy-mid);line-height:1.65;margin-bottom:6px;display:flex;gap:8px;}
+.open-question-part-letter{font-family:var(--mono);font-size:8.5pt;color:white;background:var(--navy-mid);padding:1px 6px;border-radius:3px;flex-shrink:0;margin-top:3px;}
+.open-area:focus{border-color:var(--amber);outline:none;}
+.score-note{background:var(--navy);border-radius:8px;padding:12px 18px;margin-bottom:20px;display:flex;align-items:center;gap:16px;flex-wrap:wrap;}
+.exercise{border:1px solid var(--border);border-radius:8px;overflow:hidden;margin-bottom:22px;page-break-inside:avoid;width:100%;}
+.exercise-header{padding:11px 16px;display:flex;align-items:center;gap:14px;flex-wrap:wrap;}
+.exercise-num{font-family:var(--mono);font-size:8.5pt;color:#7dd3c8;font-weight:500;}
+
+@media print{
+  .score-note{display:none !important;}
+  .exercise-header,.formula-block,.fluid-card-header{-webkit-print-color-adjust:exact;print-color-adjust:exact;}
+  .exercise{page-break-inside:avoid;}
+}
+
+/* ══ CAJAS DE FÓRMULA — contraste sobre fondo claro ══ */
+.formula-block{background:var(--gray-50);border:1px solid var(--border);border-left:4px solid var(--navy);border-radius:8px;padding:14px 18px;margin:14px 0;text-align:left;}
+.formula-label{display:block;font-family:var(--sans);font-size:8pt;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--teal);margin-bottom:8px;}
+.formula-eq{display:block;font-family:var(--mono);font-size:11.5pt;font-weight:500;color:var(--navy);background:#fff;border:1px solid var(--border);border-radius:6px;padding:10px 14px;margin-bottom:10px;line-height:1.55;}
+.formula-vars{display:block;font-family:var(--sans);font-size:9.5pt;color:var(--gray-600);line-height:1.7;}
+.formula-vars span{display:block;margin-bottom:4px;}
+.formula-vars span:last-child{margin-bottom:0;}
+.formula-vars b{color:var(--navy);font-weight:700;}
+.formula{color:var(--navy);}
+@media print{
+  .formula-block,.formula-eq{-webkit-print-color-adjust:exact;print-color-adjust:exact;}
+}
+
+/* ══ COMPONENTES PROPIOS — FISIOLOGÍA CARDIOVASCULAR Y RENAL ══ */
+.cover h1 em.ac2{color:#7ae5b8;}
+.resumen-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px;margin:14px 0;}
+.res-card{border-radius:7px;padding:11px 13px;font-size:9.5pt;line-height:1.55;border:1px solid var(--border);font-family:var(--sans);color:#212529;}
+.res-card strong{display:block;margin-bottom:4px;font-size:9.5pt;}
+.res-card.azul{background:var(--teal-light);border-color:var(--teal);}
+.res-card.azul strong{color:var(--teal);}
+.res-card.naranja{background:var(--amber-light);border-color:var(--amber);}
+.res-card.naranja strong{color:var(--amber);}
+.res-card.verde{background:var(--green-light);border-color:var(--green);}
+.res-card.verde strong{color:var(--green);}
+.res-card.lila{background:var(--purple-light);border-color:var(--purple);}
+.res-card.lila strong{color:var(--purple);}
+.res-card.teal{background:var(--teal-light);border-color:var(--teal);}
+.res-card.teal strong{color:var(--teal);}
+.res-card.rojo{background:var(--red-light);border-color:var(--red);}
+.res-card.rojo strong{color:var(--red);}
+
+/* TOC compacto */
+.toc-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:0;}
+.toc-item{display:block;font-family:var(--sans);font-size:8.5pt;color:var(--gray-600);text-decoration:none;padding:8px 11px;background:var(--gray-50);border:1px solid var(--border);border-radius:6px;transition:all .15s;line-height:1.4;}
+.toc-item:hover{background:var(--teal-light);border-color:var(--teal);color:var(--navy);}
+.toc-item b{font-family:var(--mono);color:var(--teal);margin-right:5px;}
+
+/* CALC (reutiliza el patrón calc-block / ans-input ya definido en el sistema) */
+.calc-block{background:#f8f9fa;border:1.5px solid #dee2e6;border-radius:8px;padding:12px 16px;margin:10px 0;}
+.calc-block .answer-line{margin:5px 0;}
+</style>
+</head>
+<body>
+<div class="page">
+<button class="palette-btn" onclick="togglePalette()">🎨</button>
+<div class="palette-panel" id="palettePanel">
+  <div class="palette-panel-title">Paleta de colores</div>
+  <div class="palette-options">
+    <div class="palette-opt po-oceano sel" onclick="setPalette('oceano',this)">Océano</div>
+    <div class="palette-opt po-bosque" onclick="setPalette('bosque',this)">Bosque</div>
+    <div class="palette-opt po-atardecer" onclick="setPalette('atardecer',this)">Atardecer</div>
+    <div class="palette-opt po-pizarra" onclick="setPalette('pizarra',this)">Pizarra</div>
+    <div class="palette-opt po-cereza" onclick="setPalette('cereza',this)">Cereza</div>
+    <div class="palette-opt po-indigo" onclick="setPalette('indigo',this)">Índigo</div>
+  </div>
+</div>
+<div class="design-switcher">
+  <div class="ds-label">Diseño</div>
+  <div class="ds-btns">
+    <button class="ds-btn active" onclick="setDesign('A',this)">A · Clásico</button>
+    <button class="ds-btn" onclick="setDesign('B',this)">B · Editorial</button>
+  </div>
+</div>
+<div class="page-print-header"><span id="phNombre"></span> · <span id="phUniversidad"></span> · <span id="phGuia"></span> · <span id="phFecha"></span></div>
+<div class="print-footer-fixed">
+  <span><strong id="pfNombre"></strong> · <span id="pfUniversidad"></span></span>
+  <span>Guía: <span id="pfGuia"></span> · Dr. Andrés Robayo C.</span>
+  <span id="pfFecha"></span>
+</div>
+<div class="tab-nav">
+  <button class="tab-btn active" onclick="showTab('teoria',this)">📖 Teoría</button>
+  <button class="tab-btn" onclick="showTab('taller',this)">📝 Taller — 5.0 pts</button>
+</div>
+
+<!-- TEORIA TAB -->
+<div class="tab-content active" id="teoria-tab">
+<div class="cover">
+  <div class="cover-tag">Guía de estudio · Fisiología Aplicada a la Anestesiología · Estudiantes de Medicina</div>
+  <div class="cover-rule"></div>
+  <h1>Fisiología <em>Cardiovascular</em><br>y <em class="ac2">Renal</em></h1>
+  <div class="cover-subtitle">Fundamentos hemodinámicos, función cardíaca, microcirculación, circulaciones especiales, fisiología renal, electrofisiología cardíaca, acoplamiento excitación-contracción y sistema nervioso autónomo — con énfasis en los principios físicos, las ecuaciones matemáticas y su aplicación clínica en anestesiología.</div>
+  <div class="cover-meta">
+    <div><span class="cover-meta-label">Autor</span><span class="cover-meta-value">Dr. Andrés Robayo C.</span></div>
+    <div><span class="cover-meta-label">Institución</span><span class="cover-meta-value">Hospital de Kennedy · Hospital de Bosa · Subred Suroccidente</span></div>
+    <div><span class="cover-meta-label">Evidencia</span><span class="cover-meta-value">Guyton & Hall 14ª ed. · West · Levick · Ecuación de Starling revisada (Woodcock 2012)</span></div>
+    <div><span class="cover-meta-label">Nivel</span><span class="cover-meta-value">Estudiantes de Medicina — Rotación Anestesiología</span></div>
+  </div>
+</div>
+<div class="content">
+
+<div class="table-wrap" style="border:none;"><div class="table-caption">Contenido de la guía</div>
+<div class="toc-grid" style="padding:14px;">
+  <a class="toc-item" href="#s1"><b>1</b>Fundamentos Hemodinámicos — Presión, Tensión y Resistencia</a>
+  <a class="toc-item" href="#s2"><b>2</b>Flujo Sanguíneo — Ley de Ohm y Número de Reynolds</a>
+  <a class="toc-item" href="#s3"><b>3</b>Función Cardíaca y Ciclo Cardíaco</a>
+  <a class="toc-item" href="#s4"><b>4</b>Precarga, Poscarga, Frank-Starling y Gasto Cardíaco</a>
+  <a class="toc-item" href="#s5"><b>5</b>Propiedades del Corazón — Los Cinco Tropismos</a>
+  <a class="toc-item" href="#s6"><b>6</b>Elastancia, Distensibilidad y Trabajo Ventricular</a>
+  <a class="toc-item" href="#s7"><b>7</b>Determinantes del Gasto Cardíaco — Análisis Integrado</a>
+  <a class="toc-item" href="#s8"><b>8</b>Microcirculación — Ecuación de Starling y Glicocálix</a>
+  <a class="toc-item" href="#s9"><b>9</b>Circulaciones Especiales y Autorregulación</a>
+  <a class="toc-item" href="#s10"><b>10</b>Fisiología Renal — Filtración Glomerular y TFG</a>
+  <a class="toc-item" href="#s11"><b>11</b>Reabsorción Tubular — Transportadores y Diuréticos</a>
+  <a class="toc-item" href="#s12"><b>12</b>Concentración Urinaria y Regulación Ácido-Base Renal</a>
+  <a class="toc-item" href="#s13"><b>13</b>Potencial de Acción Cardíaco — Fases, Canales y Automatismo</a>
+  <a class="toc-item" href="#s14"><b>14</b>Acoplamiento Excitación-Contracción — Sarcómero, Túbulos T, DHPR, RyR2, SERCA y Relajación</a>
+  <a class="toc-item" href="#s15"><b>15</b>Sistema Nervioso Autónomo — Receptores, Fibras y Efectos Cardiovasculares</a>
+</div></div>
+
+<hr class="divider">
+
+<div class="section" id="s1">
+  <div class="section-header"><span class="section-number">SECCIÓN 1</span><span class="section-title">Fundamentos Hemodinámicos — Presión, Tensión y Resistencia</span></div>
+
+  
+  
+
+    
+      <h3>1.1 Presión Arterial</h3>
+      <p >La <strong>presión</strong> es la fuerza que ejerce la sangre sobre las paredes vasculares por unidad de área. La presión arterial media (PAM) es la presión efectiva de perfusión tisular durante todo el ciclo cardíaco.</p>
+      <div class="formula-block">
+        <span class="formula-label">Presión Arterial Media (PAM)</span>
+        <span class="formula-eq">PAM = PAD + ⅓ (PAS − PAD)</span>
+        <span class="formula-vars">
+          <span><b>PAD</b> = Presión arterial diastólica (mmHg)</span>
+          <span><b>PAS</b> = Presión arterial sistólica (mmHg)</span>
+          <span><b>Ejemplo:</b> PA = 120/80 mmHg → PAM = 80 + ⅓(40) = <b>93 mmHg</b></span>
+          <span><b>Meta clínica UCI:</b> PAM ≥ 65 mmHg para perfusión adecuada de órganos vitales</span>
+        </span>
+      </div>
+      <div class="callout clinical"><div class="callout-title">ℹ Relación fundamental</div><p>PA = GC × RVS — La presión arterial es el producto del gasto cardíaco y la resistencia vascular sistémica. Esta es la ecuación más importante de la hemodinámica sistémica.</p></div>
+    
+
+    
+      <h3>1.2 Ley de Laplace — Tensión de la Pared Vascular</h3>
+      <p >La <strong>tensión (T)</strong> es la fuerza que debe generar la pared de un vaso o ventrículo para soportar la presión interna. Relaciona presión, radio y grosor de la pared.</p>
+      <div class="formula-block">
+        <span class="formula-label">Ley de Laplace — Vaso Cilíndrico</span>
+        <span class="formula-eq">T = (P × r) / h</span>
+        <span class="formula-vars">
+          <span><b>T</b> = Tensión de la pared (dinas/cm o mmHg·cm)</span>
+          <span><b>P</b> = Presión intravascular (mmHg)</span>
+          <span><b>r</b> = Radio interno del vaso (cm)</span>
+          <span><b>h</b> = Grosor de la pared (cm)</span>
+          <span><b>Ejemplo:</b> P = 120 mmHg, r = 2 cm, h = 0.2 cm → T = (120 × 2) / 0.2 = <b>1200 mmHg·cm</b></span>
+        </span>
+      </div>
+      <div class="formula-block">
+        <span class="formula-label">Ley de Laplace — Ventrículo (esfera)</span>
+        <span class="formula-eq">T = (P × r) / (2h)</span>
+        <span class="formula-vars">
+          <span>Aplicada al ventrículo izquierdo como cavidad esférica</span>
+          <span><b>Poscarga ventricular</b> = tensión de la pared en sístole (proporcional a presión × radio)</span>
+        </span>
+      </div>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Situación clínica</th><th>Variable afectada</th><th>Efecto sobre T</th><th>Consecuencia</th></tr></thead>
+        <tbody>
+          <tr><td>Aneurisma aórtico</td><td>↑ radio (r)</td><td>↑ Tensión</td><td>Mayor riesgo de ruptura (ciclo vicioso)</td></tr>
+          <tr><td>Hipertrofia ventricular</td><td>↑ grosor (h)</td><td>↓ Tensión</td><td>Mecanismo adaptativo en HTA crónica</td></tr>
+          <tr><td>Insuficiencia cardíaca dilatada</td><td>↑ r + ↓ h</td><td>↑↑ Tensión</td><td>Mayor consumo de O₂, falla progresiva</td></tr>
+          <tr><td>Vasodilatación terapéutica</td><td>↓ P (poscarga)</td><td>↓ Tensión</td><td>Reduce trabajo cardíaco (nitratos, IECA)</td></tr>
+        </tbody>
+      </table></div>
+    
+
+    
+      <h3>1.3 Ley de Poiseuille — Resistencia Vascular</h3>
+      <p >La <strong>resistencia (R)</strong> es la oposición al flujo sanguíneo. Depende principalmente del radio al cuarto — el parámetro más poderoso del sistema cardiovascular.</p>
+      <div class="formula-block">
+        <span class="formula-label">Ley de Poiseuille — Resistencia Vascular</span>
+        <span class="formula-eq">R = (8ηL) / (πr⁴)</span>
+        <span class="formula-vars">
+          <span><b>R</b> = Resistencia vascular (dinas·s/cm⁵ o mmHg·min/L)</span>
+          <span><b>η</b> = Viscosidad de la sangre (~0.03 poise; normal)</span>
+          <span><b>L</b> = Longitud del vaso (cm)</span>
+          <span><b>r</b> = Radio del vaso (cm) — <b style="color:#C0392B;">influye a la CUARTA POTENCIA</b></span>
+          <span><b>π</b> ≈ 3.14159</span>
+        </span>
+      </div>
+      <div class="callout danger"><div class="callout-title">⚡ La cuarta potencia del radio</div><p>Si el radio de una arteriola se reduce a la mitad (r → r/2), la resistencia aumenta 2⁴ = <strong>16 veces</strong>. Esto explica por qué pequeños cambios en el tono arteriolar tienen efectos enormes sobre la presión arterial y la perfusión tisular.</p></div>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Factor</th><th>Efecto</th><th>Ejemplo clínico</th><th>↑ o ↓ Resistencia</th></tr></thead>
+        <tbody>
+          <tr><td>↓ Radio (vasoconstricción)</td><td>r⁴ disminuye mucho</td><td>Sepsis tardía (vasoplejia → vasodilatadores para evitar isquemia)</td><td>↑↑↑ R</td></tr>
+          <tr><td>↑ Radio (vasodilatación)</td><td>r⁴ aumenta mucho</td><td>Shock séptico, anestesia general</td><td>↓↓↓ R</td></tr>
+          <tr><td>↑ Viscosidad (policitemia)</td><td>η directamente proporcional</td><td>Policitemia vera → HTA, hiperviscosidad</td><td>↑ R</td></tr>
+          <tr><td>↓ Viscosidad (anemia)</td><td>η disminuye</td><td>Anemia grave → flujo turbulento, soplos</td><td>↓ R</td></tr>
+          <tr><td>↑ Longitud</td><td>L directamente proporcional</td><td>Obesidad → mayor lecho vascular</td><td>↑ R (modesto)</td></tr>
+        </tbody>
+      </table></div>
+    
+
+    
+      <h3>1.4 Resistencia Vascular Sistémica (RVS)</h3>
+      <div class="formula-block">
+        <span class="formula-label">Resistencia Vascular Sistémica</span>
+        <span class="formula-eq">RVS = (PAM − PVC) / GC × 80</span>
+        <span class="formula-vars">
+          <span><b>RVS</b> = Resistencia vascular sistémica (dinas·s/cm⁵; normal: 900–1200)</span>
+          <span><b>PAM</b> = Presión arterial media (mmHg)</span>
+          <span><b>PVC</b> = Presión venosa central (mmHg) — presión auricular derecha</span>
+          <span><b>GC</b> = Gasto cardíaco (L/min)</span>
+          <span><b>80</b> = Factor de conversión de mmHg·min/L a dinas·s/cm⁵</span>
+          <span><b>Ejemplo shock séptico:</b> GC = 7 L/min, PAM = 60, PVC = 5 → RVS = (60−5)/7 × 80 = <b>629 dinas·s/cm⁵</b> (↓, vasodilatación)</span>
+        </span>
+      </div>
+    
+
+  
+
+</div>
+
+<hr class="divider">
+
+<div class="section" id="s2">
+  <div class="section-header"><span class="section-number">SECCIÓN 2</span><span class="section-title">Flujo Sanguíneo — Ley de Ohm y Número de Reynolds</span></div>
+
+  
+  
+
+    
+      <h3>2.1 Ley de Ohm Aplicada al Sistema Circulatorio</h3>
+      <p >El flujo sanguíneo es análogo a la corriente eléctrica. La diferencia de presión es la "fuerza impulsora" y la resistencia vascular es la "oposición".</p>
+      <div class="formula-block">
+        <span class="formula-label">Ley de Ohm Circulatoria — Flujo</span>
+        <span class="formula-eq">Q = ΔP / R</span>
+        <span class="formula-vars">
+          <span><b>Q</b> = Flujo sanguíneo (L/min o mL/min)</span>
+          <span><b>ΔP</b> = Diferencia de presión entre entrada y salida (mmHg)</span>
+          <span><b>R</b> = Resistencia vascular (mmHg·min/L)</span>
+          <span><b>Ejemplo:</b> P aórtica = 100 mmHg, P aurícula derecha = 5 mmHg, RVS = 19 mmHg·min/L</span>
+          <span>→ GC = (100 − 5) / 19 ≈ <b>5 L/min</b> (valor normal en reposo)</span>
+        </span>
+      </div>
+      <div class="formula-block">
+        <span class="formula-label">Ley Fundamental de la Hemodinamia</span>
+        <span class="formula-eq">PA = GC × RVS</span>
+        <span class="formula-vars">
+          <span>La presión arterial es el producto del gasto cardíaco y la resistencia vascular sistémica</span>
+          <span><b>Shock cardiogénico:</b> ↓ GC, RVS compensatoriamente ↑ → PA cae igualmente</span>
+          <span><b>Shock séptico:</b> GC normal o ↑, RVS muy ↓ → hipotensión por vasodilatación</span>
+          <span><b>Hipertensión:</b> GC normal, RVS ↑ → hipotensión tratada con vasodilatadores</span>
+        </span>
+      </div>
+    
+
+    
+      <h3>2.2 Flujo Laminar vs. Turbulento — Número de Reynolds</h3>
+      <p >El tipo de flujo determina la eficiencia del transporte sanguíneo. El número de Reynolds (Re) predice matemáticamente cuándo el flujo laminar se vuelve turbulento.</p>
+      <div class="formula-block">
+        <span class="formula-label">Número de Reynolds (Re)</span>
+        <span class="formula-eq">Re = (ρ × v × d) / η</span>
+        <span class="formula-vars">
+          <span><b>Re</b> = Número adimensional (sin unidades)</span>
+          <span><b>ρ</b> = Densidad de la sangre (~1.06 g/cm³)</span>
+          <span><b>v</b> = Velocidad del flujo (cm/s)</span>
+          <span><b>d</b> = Diámetro del vaso (cm)</span>
+          <span><b>η</b> = Viscosidad de la sangre (~0.03 poise)</span>
+          <span><b>Re &lt; 2000:</b> flujo laminar — silencioso, eficiente, capas paralelas</span>
+          <span><b>Re 2000–3000:</b> zona de transición — flujo intermitente</span>
+          <span><b>Re &gt; 3000:</b> flujo turbulento — vórtices, ruidos (soplos), mayor resistencia</span>
+        </span>
+      </div>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Situación clínica</th><th>Mecanismo ↑ Re</th><th>Consecuencia física</th></tr></thead>
+        <tbody>
+          <tr><td>Estenosis valvular</td><td>↑ velocidad en zona estrecha</td><td>Turbulencia → soplo sistólico eyectivo</td></tr>
+          <tr><td>Anemia grave</td><td>↓ viscosidad (η) → ↑ Re</td><td>Soplos funcionales de alto flujo</td></tr>
+          <tr><td>Fiebre / hipertiroidismo</td><td>↑ GC y velocidad</td><td>Soplos funcionales, ruidos circulatorios</td></tr>
+          <tr><td>Aorta normal</td><td>Alta velocidad + gran diámetro</td><td>Turbulencia fisiológica en válvula aórtica (S1)</td></tr>
+        </tbody>
+      </table></div>
+    
+
+  
+
+</div>
+
+<hr class="divider">
+
+<div class="section" id="s3">
+  <div class="section-header"><span class="section-number">SECCIÓN 3</span><span class="section-title">Función Cardíaca y Ciclo Cardíaco</span></div>
+
+  
+  
+
+    
+      <h3>3.1 Ciclo Cardíaco — Fases y Eventos</h3>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Fase</th><th>Válvulas</th><th>Cambio de Volumen</th><th>Cambio de Presión</th><th>Duración aprox.</th></tr></thead>
+        <tbody>
+          <tr><td>1. Llenado ventricular (diástole)</td><td>Mitral abierta · Aórtica cerrada</td><td>VTD: máximo llenado</td><td>↓ presión VI</td><td>~500 ms</td></tr>
+          <tr><td>2. Contracción isovolumétrica</td><td>Todas cerradas</td><td>Sin cambio de volumen</td><td>↑↑ presión VI</td><td>~60 ms</td></tr>
+          <tr><td>3. Eyección ventricular (sístole)</td><td>Aórtica abierta · Mitral cerrada</td><td>Expulsa VS</td><td>Presión VI = PA aórtica</td><td>~200 ms</td></tr>
+          <tr><td>4. Relajación isovolumétrica</td><td>Todas cerradas</td><td>Sin cambio de volumen</td><td>↓↓ presión VI</td><td>~80 ms</td></tr>
+        </tbody>
+      </table></div>
+      <div class="callout clinical"><div class="callout-title">ℹ Ruidos cardíacos</div><p>S1 = cierre de válvulas mitral y tricúspide (inicio sístole). S2 = cierre de válvulas aórtica y pulmonar (inicio diástole). S3 = llenado rápido ventricular (patológico en adultos = falla cardíaca). S4 = contracción auricular activa (rigidez ventricular).</p></div>
+    
+
+    
+      <h3>3.2 Fracción de Eyección</h3>
+      <div class="formula-block">
+        <span class="formula-label">Fracción de Eyección (FE)</span>
+        <span class="formula-eq">FE (%) = (VS / VTD) × 100 = [(VTD − VTS) / VTD] × 100</span>
+        <span class="formula-vars">
+          <span><b>FE</b> = Fracción de eyección (%); normal: 55–70%</span>
+          <span><b>VS</b> = Volumen sistólico = VTD − VTS (mL)</span>
+          <span><b>VTD</b> = Volumen telediastólico = máximo llenado (~120–140 mL)</span>
+          <span><b>VTS</b> = Volumen telesistólico = volumen residual (~50–60 mL)</span>
+          <span><b>Ejemplo:</b> VTD = 130 mL, VTS = 55 mL → VS = 75 mL → FE = (75/130) × 100 = <b>58%</b></span>
+          <span><b>FE &lt; 40%</b> = insuficiencia cardíaca con FE reducida (HFrEF)</span>
+        </span>
+      </div>
+    
+
+  
+
+</div>
+
+<hr class="divider">
+
+<div class="section" id="s4">
+  <div class="section-header"><span class="section-number">SECCIÓN 4</span><span class="section-title">Precarga, Poscarga, Frank-Starling y Gasto Cardíaco</span></div>
+
+  
+  
+
+    
+      <h3>4.1 Precarga, Poscarga y Contractilidad</h3>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Determinante</th><th>Definición física</th><th>Medición clínica</th><th>↑ Produce</th><th>↓ Produce</th></tr></thead>
+        <tbody>
+          <tr><td>Precarga</td><td>Tensión de la pared ventricular al final de la diástole (= grado de estiramiento de las fibras)</td><td>VTD, PVC, presión capilar pulmonar (PCP)</td><td>↑ VS (hasta límite de Frank-Starling)</td><td>↓ VS (hipovolemia)</td></tr>
+          <tr><td>Poscarga</td><td>Tensión sistólica de la pared que el ventrículo debe generar para eyectar (≈ RVS × radio ventricular)</td><td>RVS, presión arterial sistólica, estrés de la pared</td><td>↓ VS, ↑ consumo de O₂</td><td>↑ VS (vasodilatadores)</td></tr>
+          <tr><td>Contractilidad</td><td>Fuerza de contracción independiente de precarga y poscarga. Depende del Ca²⁺ intracelular y del estado de los miofilamentos</td><td>FE, dP/dt máxima, índice de trabajo sistólico</td><td>↑ VS y ↑ FE</td><td>↓ VS (IC, acidosis, betabloqueadores)</td></tr>
+        </tbody>
+      </table></div>
+    
+
+    
+      <h3>4.2 Ley de Frank-Starling</h3>
+      <p >El corazón ajusta su fuerza de contracción de forma intrínseca según el volumen de llenado. A mayor longitud del sarcómero al inicio de la contracción → mayor fuerza generada, hasta un máximo óptimo.</p>
+      <div class="formula-block">
+        <span class="formula-label">Principio de Frank-Starling</span>
+        <span class="formula-eq">VS ∝ Precarga (VTD)  →  hasta un límite óptimo</span>
+        <span class="formula-vars">
+          <span>La relación no es lineal: curva sigmoide con meseta y descenso a precargas muy altas</span>
+          <span><b>Longitud óptima del sarcómero:</b> ~2.0–2.4 μm → máxima superposición actina-miosina</span>
+          <span><b>Mecanismo molecular:</b> mayor estiramiento → ↑ sensibilidad de troponina C al Ca²⁺ → ↑ fuerza</span>
+          <span><b>Hipovolemia:</b> ↓ VTD → ↓ estiramiento → ↓ VS → ↓ GC</span>
+          <span><b>Fluidoterapia:</b> ↑ VTD → ↑ VS → ↑ GC (si ventrículo respondedor)</span>
+          <span><b>Falla cardíaca descompensada:</b> curva desplazada hacia abajo y derecha</span>
+        </span>
+      </div>
+    
+
+    
+      <h3>4.3 Gasto Cardíaco e Índice Cardíaco</h3>
+      <div class="formula-block">
+        <span class="formula-label">Gasto Cardíaco (GC)</span>
+        <span class="formula-eq">GC = VS × FC</span>
+        <span class="formula-vars">
+          <span><b>GC</b> = Gasto cardíaco (L/min); normal: 4–8 L/min</span>
+          <span><b>VS</b> = Volumen sistólico (mL/latido); normal: 60–100 mL</span>
+          <span><b>FC</b> = Frecuencia cardíaca (latidos/min); normal: 60–100 lpm</span>
+          <span><b>Ejemplo:</b> VS = 70 mL, FC = 75 lpm → GC = 70 × 75 = 5250 mL/min ≈ <b>5.25 L/min</b></span>
+        </span>
+      </div>
+      <div class="formula-block">
+        <span class="formula-label">Índice Cardíaco (IC)</span>
+        <span class="formula-eq">IC = GC / SC</span>
+        <span class="formula-vars">
+          <span><b>IC</b> = Índice cardíaco (L/min/m²); normal: 2.5–4.0 L/min/m²</span>
+          <span><b>SC</b> = Superficie corporal (m²) — ajusta por tamaño del paciente</span>
+          <span><b>IC &lt; 2.2 L/min/m²</b> = bajo gasto — indicación de soporte hemodinámico</span>
+          <span><b>IC &gt; 4.0 L/min/m²</b> = estado hiperdinámico (sepsis, fiebre, tirotoxicosis)</span>
+        </span>
+      </div>
+      <div class="formula-block">
+        <span class="formula-label">Ecuación de Fick — Medición indirecta del GC</span>
+        <span class="formula-eq">GC = VO₂ / [(CaO₂ − CvO₂) × 10]</span>
+        <span class="formula-vars">
+          <span><b>VO₂</b> = Consumo de O₂ (mL O₂/min); ~250 mL/min en reposo</span>
+          <span><b>CaO₂</b> = Contenido arterial de O₂ (mL O₂/dL)</span>
+          <span><b>CvO₂</b> = Contenido venoso de O₂ (mL O₂/dL)</span>
+          <span><b>Diferencia arteriovenosa normal:</b> ~5 mL O₂/dL</span>
+          <span><b>En bajo GC:</b> ↑ diferencia a-v (los tejidos extraen más O₂ de menos sangre)</span>
+        </span>
+      </div>
+    
+
+  
+
+</div>
+
+<hr class="divider">
+
+<div class="section" id="s5">
+  <div class="section-header"><span class="section-number">SECCIÓN 5</span><span class="section-title">Propiedades del Corazón — Los Cinco Tropismos</span></div>
+
+  
+  
+    <div class="table-wrap"><table>
+      <thead><tr><th>Propiedad</th><th>Definición</th><th>Fórmula / Medición</th><th>Aumenta con</th><th>Disminuye con</th></tr></thead>
+      <tbody>
+        <tr><td>🔴 Cronotropismo<br>(automatismo)</td><td>Capacidad de generar impulsos eléctricos espontáneos. Determina la FC.</td><td>FC = 1/Intervalo RR(s) × 60</td><td>Simpático (β1), atropina, fiebre, hipovolemia</td><td>Parasimpático (vago), betabloqueadores, hipoxia grave</td></tr>
+        <tr><td>🟠 Inotropismo<br>(contractilidad)</td><td>Fuerza de contracción independiente de precarga/poscarga. Depende del Ca²⁺ intracelular.</td><td>FE, dP/dt max, índice trabajo sistólico</td><td>Catecolaminas, digitálicos, ↑ Ca²⁺, ↑ FC (escalera de Treppe)</td><td>IC, acidosis, betabloqueadores, hipoxia, halogenados</td></tr>
+        <tr><td>🟡 Dromotropismo<br>(conducción)</td><td>Velocidad de conducción del impulso, principalmente en el nodo AV.</td><td>Intervalo PR en ECG (normal 120–200 ms)</td><td>Simpático, isoproterenol, hipertermia</td><td>Parasimpático, bloqueo AV, amiodarona, verapamilo</td></tr>
+        <tr><td>🟢 Batmotropismo<br>(excitabilidad)</td><td>Umbral de excitabilidad del miocardio para responder a un estímulo eléctrico.</td><td>Período refractario (ERP, ARP)</td><td>Hipocalemia, isquemia, simpático</td><td>Hiperpotasemia, hipocalcemia grave (riesgo paro)</td></tr>
+        <tr><td>🔵 Lusitropismo<br>(relajación)</td><td>Capacidad de relajación diastólica activa — recaptación de Ca²⁺ por el retículo sarcoplásmico (SERCA2a).</td><td>Tau (τ) de relajación, E/A en ecocardiograma Doppler</td><td>Betaadrenérgicos (↑ fosforilación de fosfolambano → ↑ SERCA2a)</td><td>Hipertrofia VI, IC diastólica, isquemia, envejecimiento</td></tr>
+      </tbody>
+    </table></div>
+    <div class="callout clinical"><div class="callout-title">ℹ Relación entre tropismos</div><p>Los 5 tropismos no son independientes. La dobutamina, por ejemplo, mejora cronotropismo + inotropismo + lusitropismo simultáneamente (receptores β1). La acidosis deprime inotropismo + lusitropismo + batmotropismo. Comprender estos efectos simultáneos es esencial para elegir el vasopresor o inotrópico correcto en el perioperatorio.</p></div>
+  
+
+</div>
+
+<hr class="divider">
+
+<div class="section" id="s6">
+  <div class="section-header"><span class="section-number">SECCIÓN 6</span><span class="section-title">Elastancia, Distensibilidad y Trabajo Ventricular</span></div>
+
+  
+  
+
+    
+      <h3>6.1 Elastancia y Distensibilidad (Compliance)</h3>
+      <div class="formula-block">
+        <span class="formula-label">Elastancia (E) — Rigidez Ventricular</span>
+        <span class="formula-eq">E = ΔP / ΔV  (mmHg / mL)</span>
+        <span class="formula-vars">
+          <span><b>E</b> = Elastancia (rigidez) — mayor E = mayor rigidez</span>
+          <span><b>ΔP</b> = Cambio de presión intraventricular (mmHg)</span>
+          <span><b>ΔV</b> = Cambio de volumen ventricular (mL)</span>
+          <span><b>Elastancia máxima sistólica (Emax):</b> parámetro de contractilidad intrínseca independiente de precarga/poscarga</span>
+        </span>
+      </div>
+      <div class="formula-block">
+        <span class="formula-label">Distensibilidad o Compliance (C)</span>
+        <span class="formula-eq">C = ΔV / ΔP = 1/E  (mL / mmHg)</span>
+        <span class="formula-vars">
+          <span><b>C</b> = Distensibilidad (compliance) — mayor C = mayor complacencia</span>
+          <span><b>C alta:</b> el ventrículo acepta gran volumen con poco aumento de presión (corazón joven y sano)</span>
+          <span><b>C baja:</b> pequeños incrementos de volumen → grandes aumentos de presión (hipertrofia, fibrosis)</span>
+          <span><b>Normal VI:</b> ~15–25 mL/mmHg en diástole</span>
+        </span>
+      </div>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Condición clínica</th><th>Elastancia (E)</th><th>Compliance (C)</th><th>Consecuencia hemodinámica</th></tr></thead>
+        <tbody>
+          <tr><td>Corazón normal</td><td>Normal</td><td>Normal (~15–25 mL/mmHg)</td><td>Llenado eficiente sin ↑ presiones</td></tr>
+          <tr><td>Hipertrofia VI (HTA, estenosis aórtica)</td><td>↑ E diastólica</td><td>↓ C diastólica</td><td>Falla diastólica, ↑ presiones llenado, congestión pulmonar</td></tr>
+          <tr><td>Miocardiopatía restrictiva</td><td>↑↑ E</td><td>↓↓ C</td><td>Patrón de llenado restrictivo (E/A muy alto), dependiente de precarga</td></tr>
+          <tr><td>IC dilatada</td><td>↓ E sistólica</td><td>↑ C ventricular</td><td>Ventrículo dilatado, FE reducida, bajo GC</td></tr>
+          <tr><td>Taponamiento cardíaco</td><td>↑ E (pericardio rígido)</td><td>↓ C (compresión pericárdica)</td><td>↓ Llenado bilateral → bajo GC → shock obstructivo</td></tr>
+        </tbody>
+      </table></div>
+    
+
+    
+      <h3>6.2 Trabajo Ventricular</h3>
+      <div class="formula-block">
+        <span class="formula-label">Trabajo Sistólico del Ventrículo Izquierdo</span>
+        <span class="formula-eq">W = P × VS  (en unidades clínicas: g·m)</span>
+        <span class="formula-vars">
+          <span><b>W</b> = Trabajo externo por latido</span>
+          <span><b>P</b> = Presión media de eyección (~PAM, mmHg)</span>
+          <span><b>VS</b> = Volumen sistólico (mL)</span>
+          <span><b>Índice de Trabajo Sistólico VI (ITSVI):</b> W/SC = PAM × VS / SC (g·m/m²); normal: 44–68 g·m/m²</span>
+          <span><b>En el bucle P-V:</b> el área interior del bucle presión-volumen = trabajo externo por latido</span>
+          <span><b>Ejemplo:</b> PAM = 93 mmHg, VS = 75 mL → W = 93 × 75 = 6975 mmHg·mL (convertir × 0.0136 = <b>94.9 g·m</b>)</span>
+        </span>
+      </div>
+      <div class="callout warning"><div class="callout-title">⚠ Consumo de O₂ miocárdico (MVO₂)</div><p>MVO₂ es proporcional al <strong>doble producto</strong> (FC × PAS). El trabajo cardíaco tiene un componente de presión (mayor consumo energético) y un componente de volumen (menos costoso). La hipertensión arterial y la taquicardia aumentan el MVO₂ y precipitan isquemia miocárdica, especialmente en coronarias estenóticas.</p></div>
+    
+
+  
+
+</div>
+
+<hr class="divider">
+
+<div class="section" id="s7">
+  <div class="section-header"><span class="section-number">SECCIÓN 7</span><span class="section-title">Determinantes del Gasto Cardíaco — Análisis Integrado</span></div>
+
+  
+  
+    <div class="resumen-grid">
+      <div class="res-card azul"><strong>Precarga</strong>Llenado ventricular → VTD. Regida por Frank-Starling. Optimizar con volumen si ventrículo respondedor. Medir con PVC o ecocardiografía.</div>
+      <div class="res-card naranja"><strong>Poscarga</strong>Resistencia a la eyección ≈ RVS. ↑ HTA/estenosis aórtica → ↓ VS. Reducir con vasodilatadores (nitroprusiato, nitroglicerina, IECA).</div>
+      <div class="res-card verde"><strong>Contractilidad</strong>Fuerza intrínseca del miocardio. ↑ con catecolaminas (dobutamina), ↓ en IC/acidosis. Evaluar con FE y dP/dt.</div>
+      <div class="res-card lila"><strong>Frecuencia Cardíaca</strong>Relación en U invertida: óptima 60–100 lpm. FC muy alta → ↓ llenado diastólico → ↓ GC. FC muy baja → ↓ GC por pocos latidos.</div>
+    </div>
+    <div class="table-wrap"><table>
+      <thead><tr><th>Tipo de shock</th><th>GC</th><th>RVS</th><th>Precarga</th><th>Problema principal</th><th>Tratamiento</th></tr></thead>
+      <tbody>
+        <tr><td>Hipovolémico</td><td>↓↓</td><td>↑↑</td><td>↓↓</td><td>Precarga — déficit de volumen</td><td>Cristaloides, coloides, hemoderivados</td></tr>
+        <tr><td>Cardiogénico</td><td>↓↓</td><td>↑↑</td><td>↑</td><td>Contractilidad — falla de bomba</td><td>Dobutamina, balón de contrapulsación, levosimendán</td></tr>
+        <tr><td>Distributivo (séptico)</td><td>↑ o N</td><td>↓↓</td><td>Variable</td><td>Poscarga — vasodilatación → ↓ RVS</td><td>Norepinefrina (↑ RVS), volumen, antibióticos</td></tr>
+        <tr><td>Obstructivo</td><td>↓↓</td><td>↑</td><td>↓</td><td>Obstrucción mecánica (taponamiento, TEP)</td><td>Pericardiocentesis, trombolíticos, anticoagulación</td></tr>
+      </tbody>
+    </table></div>
+  
+
+</div>
+
+<hr class="divider">
+
+<div class="section" id="s8">
+  <div class="section-header"><span class="section-number">SECCIÓN 8</span><span class="section-title">Microcirculación — Ecuación de Starling y Glicocálix</span></div>
+
+  
+  
+
+    
+      <h3>8.1 Ecuación de Starling Capilar (Modelo Clásico)</h3>
+      <p >El intercambio de líquido entre el capilar y el intersticio depende del balance entre fuerzas hidrostáticas (que empujan) y fuerzas oncóticas (que retienen).</p>
+      <div class="formula-block">
+        <span class="formula-label">Ecuación de Starling Capilar</span>
+        <span class="formula-eq">Jv = Kf × [(Pc − Pi) − σ(πc − πi)]</span>
+        <span class="formula-vars">
+          <span><b>Jv</b> = Flujo de líquido a través de la membrana capilar (mL/min)</span>
+          <span><b>Kf</b> = Coeficiente de filtración (permeabilidad × área de la membrana)</span>
+          <span><b>Pc</b> = Presión hidrostática capilar (~32 mmHg extremo arterial; ~15 mmHg venoso)</span>
+          <span><b>Pi</b> = Presión hidrostática intersticial (~−3 mmHg en tejido normal)</span>
+          <span><b>πc</b> = Presión oncótica capilar (coloidosmótica) (~28 mmHg) → <b>retiene líquido</b></span>
+          <span><b>πi</b> = Presión oncótica intersticial (~8 mmHg)</span>
+          <span><b>σ</b> = Coeficiente de reflexión osmótica (0 = membrana totalmente permeable; 1 = impermeable)</span>
+          <span><b>Jv positivo</b> = filtración (salida del capilar); <b>Jv negativo</b> = reabsorción (vuelta al capilar)</span>
+        </span>
+      </div>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Fuerza</th><th>Dirección</th><th>Valor normal</th><th>Efecto de ↑</th></tr></thead>
+        <tbody>
+          <tr><td>Pc (hidrostática capilar)</td><td>Filtración (salida)</td><td>32 mmHg (arterial) → 15 mmHg (venoso)</td><td>Edema (ICC, obstrucción venosa)</td></tr>
+          <tr><td>Pi (hidrostática intersticial)</td><td>Reabsorción (entrada)</td><td>−3 mmHg (tejido normal)</td><td>Promueve reabsorción (masaje)</td></tr>
+          <tr><td>πc (oncótica capilar)</td><td>Reabsorción (entrada)</td><td>28 mmHg (albúmina ~4 g/dL)</td><td>↑ retención → menos filtración</td></tr>
+          <tr><td>πi (oncótica intersticial)</td><td>Filtración (salida)</td><td>8 mmHg</td><td>Edema (linfedema acumula proteínas)</td></tr>
+        </tbody>
+      </table></div>
+    
+
+    
+      <h3>8.2 Modelo Moderno: Glicocálix Endotelial</h3>
+      <p >El <strong>glicocálix</strong> es una capa de proteoglicanos y glucoproteínas que recubre el endotelio capilar. Modifica fundamentalmente la ecuación de Starling clásica.</p>
+      <div class="callout evidence"><div class="callout-title">🔬 Concepto central</div><p>La presión oncótica que importa no es la del intersticio general (πi), sino la de la fina capa de líquido justo debajo del glicocálix (πsubglicocálix). En condiciones normales, esta capa está casi libre de proteínas → πsubglicocálix ≈ 0 → la fuerza reabsortiva efectiva es mucho mayor de lo que predice el modelo clásico. <strong>En condiciones normales casi todo el flujo capilar es de filtración</strong> y el exceso (~10% = 2–4 L/día) drena por el sistema linfático.</p></div>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Situación clínica</th><th>Efecto sobre glicocálix</th><th>Consecuencia hemodinámica</th></tr></thead>
+        <tbody>
+          <tr><td>Sepsis / inflamación</td><td>Degradación del glicocálix (shedding) por TNF-α, heparanasa</td><td>↑ Kf (permeabilidad) → fuga capilar → edema, hipoalbuminemia, redistribución de fluidos</td></tr>
+          <tr><td>Sobrecarga de cristaloides</td><td>Lavado del glicocálix (dilución)</td><td>Empeora la fuga capilar → edema de tercer espacio, edema pulmonar</td></tr>
+          <tr><td>Albúmina IV</td><td>Restaura πc y ayuda a regenerar glicocálix</td><td>Reduce fuga capilar en pacientes quemados y sépticos seleccionados</td></tr>
+          <tr><td>Isquemia-reperfusión</td><td>Radicales libres → degradación del glicocálix</td><td>Edema de reperfusión post-anoxia o cirugía cardíaca</td></tr>
+        </tbody>
+      </table></div>
+    
+
+  
+
+</div>
+
+<hr class="divider">
+
+<div class="section" id="s9">
+  <div class="section-header"><span class="section-number">SECCIÓN 9</span><span class="section-title">Circulaciones Especiales y Autorregulación</span></div>
+
+  
+  
+
+    
+      <h3>9.1 Circulación Coronaria</h3>
+      <div class="formula-block">
+        <span class="formula-label">Presión de Perfusión Coronaria (PPCor)</span>
+        <span class="formula-eq">PPCor = PAD − PPVI</span>
+        <span class="formula-vars">
+          <span><b>PPCor</b> = Presión de perfusión coronaria (mmHg); normal: ~70–80 mmHg</span>
+          <span><b>PAD</b> = Presión arterial diastólica (mmHg) — el flujo coronario ocurre en diástole</span>
+          <span><b>PPVI</b> = Presión de fin de diástole del ventrículo izquierdo (mmHg); normal: 8–12 mmHg</span>
+          <span><b>En taquicardia:</b> ↓ tiempo de diástole → ↓ PPCor → riesgo isquemia (especialmente con estenosis)</span>
+          <span><b>En IC severa:</b> ↑ PPVI → ↓ PPCor → hipoperfusión subendocárdica</span>
+          <span><b>Extracción de O₂ miocárdico:</b> ~70–80% en reposo (sin reserva → isquemia inmediata ante ↑ demanda)</span>
+        </span>
+      </div>
+    
+
+    
+      <h3>9.2 Circulación Cerebral</h3>
+      <div class="formula-block">
+        <span class="formula-label">Presión de Perfusión Cerebral (PPC)</span>
+        <span class="formula-eq">PPC = PAM − PIC</span>
+        <span class="formula-vars">
+          <span><b>PPC</b> = Presión de perfusión cerebral (mmHg); meta clínica: ≥ 60 mmHg en TCE</span>
+          <span><b>PAM</b> = Presión arterial media (mmHg)</span>
+          <span><b>PIC</b> = Presión intracraneal (mmHg); normal: &lt; 10–15 mmHg</span>
+          <span><b>Autorregulación cerebral:</b> mantiene flujo estable entre PAM 60–150 mmHg</span>
+          <span><b>Hipercapnia (↑ CO₂):</b> vasodilatación → ↑ flujo → ↑ PIC (peligroso en HTEC)</span>
+          <span><b>Hipocapnia (hiperventilación):</b> vasoconstricción → ↓ flujo → ↓ PIC (usado en emergencias HTEC)</span>
+          <span><b>Flujo normal:</b> ~750 mL/min = 15% del GC; consume 20% del O₂ total</span>
+        </span>
+      </div>
+    
+
+    
+      <h3>9.3 Circulación Pulmonar</h3>
+      <div class="formula-block">
+        <span class="formula-label">Resistencia Vascular Pulmonar (RVP)</span>
+        <span class="formula-eq">RVP = (PAPm − PCP) / GC × 80</span>
+        <span class="formula-vars">
+          <span><b>RVP</b> = Resistencia vascular pulmonar (dinas·s/cm⁵); normal: 50–150 (≈ 1/10 de RVS)</span>
+          <span><b>PAPm</b> = Presión arterial pulmonar media (mmHg); normal: ~15 mmHg</span>
+          <span><b>PCP</b> = Presión capilar pulmonar (≈ presión de enclavamiento, PCWP) (mmHg); normal: 8–12 mmHg</span>
+          <span><b>GC</b> = Gasto cardíaco (L/min)</span>
+          <span><b>Mecanismo único:</b> hipoxia alveolar → <b>vasoconstricción pulmonar hipóxica</b> (HPV) → redirige flujo a alvéolos ventilados</span>
+          <span><b>Hipertensión pulmonar:</b> PAPm &gt; 20 mmHg en reposo → RVP elevada → sobrecarga VD</span>
+        </span>
+      </div>
+    
+
+    
+      <h3>9.4 Autorregulación General del Flujo Orgánico</h3>
+      <p >La autorregulación es la capacidad de un órgano de mantener su flujo sanguíneo relativamente constante frente a cambios en la presión de perfusión.</p>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Mecanismo</th><th>Principio físico</th><th>Estímulo</th><th>Respuesta vascular</th></tr></thead>
+        <tbody>
+          <tr><td>Miogénico</td><td>Músculo liso vascular se contrae ante estiramiento mecánico (Ley de Hooke invertida)</td><td>↑ Presión → distensión de la pared arteriolar</td><td>Contracción → ↑ R → mantiene flujo constante</td></tr>
+          <tr><td>Metabólico</td><td>Metabolitos vasoactivos acumulados → ↓ tono vascular (Ley de Ohm: Q = ΔP/R)</td><td>↑ CO₂, ↑ H⁺, ↑ K⁺, ↑ adenosina, ↓ O₂</td><td>Vasodilatación → ↓ R → ↑ flujo tisular</td></tr>
+          <tr><td>Endotelial</td><td>Células endoteliales liberan mediadores según el estrés de cizallamiento (shear stress ∝ Q)</td><td>↑ Flujo → ↑ shear stress</td><td>↑ NO + PGI₂ → vasodilatación dependiente de flujo</td></tr>
+        </tbody>
+      </table></div>
+    
+
+  
+
+</div>
+
+<hr class="divider">
+
+<div class="section" id="s10">
+  <div class="section-header"><span class="section-number">SECCIÓN 10</span><span class="section-title">Fisiología Renal — Filtración Glomerular y TFG</span></div>
+
+  
+  
+
+    
+      <h3>10.1 Fuerzas de Starling en el Glomérulo</h3>
+      <p >La filtración glomerular depende del mismo principio que la Starling capilar, pero con valores distintos. El resultado neto impulsa la TFG.</p>
+      <div class="formula-block">
+        <span class="formula-label">Presión Neta de Filtración Glomerular (PNF)</span>
+        <span class="formula-eq">PNF = (Pgc − Pbc) − (πgc − πbc)</span>
+        <span class="formula-vars">
+          <span><b>Pgc</b> = Presión hidrostática capilar glomerular ≈ 55 mmHg → <b>favorece filtración</b></span>
+          <span><b>Pbc</b> = Presión hidrostática en cápsula de Bowman ≈ 15 mmHg → se opone</span>
+          <span><b>πgc</b> = Presión oncótica plasmática ≈ 30 mmHg → se opone (retiene proteínas)</span>
+          <span><b>πbc</b> ≈ 0 mmHg (filtrado libre de proteínas normalmente)</span>
+          <span><b>PNF</b> = (55 − 15) − (30 − 0) = 40 − 30 = <b>~10 mmHg</b> (impulsa la TFG)</span>
+        </span>
+      </div>
+    
+
+    
+      <h3>10.2 Tasa de Filtración Glomerular (TFG)</h3>
+      <div class="formula-block">
+        <span class="formula-label">Tasa de Filtración Glomerular (TFG)</span>
+        <span class="formula-eq">TFG = Kf × PNF</span>
+        <span class="formula-vars">
+          <span><b>TFG</b> = Tasa de filtración glomerular; normal: ~125 mL/min = 180 L/día</span>
+          <span><b>Kf</b> = Coeficiente de filtración (permeabilidad × superficie capilar glomerular)</span>
+          <span><b>PNF</b> = Presión neta de filtración ≈ 10 mmHg</span>
+          <span><b>Filtración total/día:</b> 125 mL/min × 1440 min = 180 L/día → pero se reabsorbe el 99% → orina: 1–2 L/día</span>
+        </span>
+      </div>
+      <div class="formula-block">
+        <span class="formula-label">Fracción de Filtración (FF)</span>
+        <span class="formula-eq">FF = TFG / FSR × 100%</span>
+        <span class="formula-vars">
+          <span><b>FF</b> = Fracción de filtración; normal: ~20%</span>
+          <span><b>FSR</b> = Flujo sanguíneo renal (~625 mL/min de plasma = FPR)</span>
+          <span><b>Angiotensina II</b> → contrae arteriola eferente → ↑ Pgc → ↑ TFG → ↑ FF</span>
+          <span><b>IECA/ARA-II</b> → dilatan eferente → ↓ Pgc → ↓ FF → nefroprotección (↓ presión intraglomerular)</span>
+        </span>
+      </div>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Factor</th><th>Efecto sobre TFG</th><th>Mecanismo</th><th>Ejemplo clínico</th></tr></thead>
+        <tbody>
+          <tr><td>↑ PA sistémica</td><td>↑ TFG (hasta límite autorregulación)</td><td>↑ Pgc</td><td>HTA no controlada → hiperfiltración → daño glomerular</td></tr>
+          <tr><td>Hipotensión / hipovolemia</td><td>↓ TFG</td><td>↓ Pgc → ↓ PNF</td><td>Shock → LRA prerrenal</td></tr>
+          <tr><td>Angiotensina II</td><td>↑ TFG (moderado)</td><td>Constricción eferente → ↑ Pgc</td><td>Estenosis de arteria renal → hiperaldosteronismo secundario</td></tr>
+          <tr><td>IECA/ARA-II</td><td>↓ TFG (inicial)</td><td>Dilatación eferente → ↓ Pgc</td><td>Nefroprotección en diabéticos proteinúricos</td></tr>
+          <tr><td>AINEs</td><td>↓ TFG en hipoperfusión</td><td>Bloquean PGE₂ (vasodilata aferente) → ↓ FSR</td><td>LRA aguda en hipovolemia, cirugía mayor</td></tr>
+        </tbody>
+      </table></div>
+    
+
+    
+      <h3>10.3 Medición Clínica de la TFG</h3>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Marcador</th><th>Principio</th><th>Ventajas</th><th>Limitaciones</th></tr></thead>
+        <tbody>
+          <tr><td>Inulina</td><td>Filtración libre, sin secreción ni reabsorción tubular → marcador ideal</td><td>Estándar de oro (gold standard)</td><td>No disponible en clínica rutinaria, requiere infusión continua</td></tr>
+          <tr><td>Creatinina</td><td>Filtrada + pequeña secreción tubular → sobreestima TFG ~10–20%</td><td>Práctica, económica, universal</td><td>Depende de masa muscular, tarde en elevarse en LRA (50% TFG perdida antes de cambios)</td></tr>
+          <tr><td>Cistatina C</td><td>Proteína de baja masa molecular (13 kDa) filtrada libremente, reabsorbida y catabolizada por túbulo</td><td>Independiente de masa muscular; más sensible y precoz</td><td>Mayor costo; sube con corticosteroides e hipertiroidismo</td></tr>
+          <tr><td>CKD-EPI</td><td>Fórmula matemática que usa creatinina ± cistatina C, edad, sexo</td><td>Más precisa que MDRD en TFG normales</td><td>Estimación, no medición directa</td></tr>
+        </tbody>
+      </table></div>
+    
+
+  
+
+</div>
+
+<hr class="divider">
+
+<div class="section" id="s11">
+  <div class="section-header"><span class="section-number">SECCIÓN 11</span><span class="section-title">Reabsorción Tubular — Transportadores y Diuréticos</span></div>
+
+  
+  
+    <div class="table-wrap"><table>
+      <thead><tr><th>Segmento</th><th>Transportador clave</th><th>Sustancia reabsorbida</th><th>Mecanismo físico</th><th>Diurético que actúa aquí</th></tr></thead>
+      <tbody>
+        <tr><td>Túbulo proximal (~65%)</td><td>Na⁺/K⁺ ATPasa (basolateral)<br>SGLT2 (apical)<br>NHE3 (apical)<br>AQP-1 (agua)</td><td>Na⁺, glucosa, aminoácidos, HCO₃⁻, agua (isosmótico)</td><td>Transporte activo primario (ATPasa) y secundario acoplado a Na⁺. Ósmosis pasiva del agua.</td><td>Acetazolamida (↓ anhidrasa carbónica → ↓ HCO₃⁻)<br>Inhibidores SGLT2 (empagliflozina)</td></tr>
+        <tr><td>Rama descendente asa Henle</td><td>AQP-1 (agua)<br>Impermeable a solutos</td><td>Solo agua (el filtrado se concentra)</td><td>Ósmosis pasiva: agua sale por gradiente osmótico medular</td><td>Sin diana directa conocida</td></tr>
+        <tr><td>Rama ascendente gruesa asa Henle</td><td>NKCC2 (Na⁺/K⁺/2Cl⁻)</td><td>Na⁺, K⁺, Cl⁻ (impermeable al agua — dilución)</td><td>Cotransporte activo secundario. Genera gradiente osmótico medular (300→1200 mOsm)</td><td><strong>Diuréticos de asa</strong> (furosemida, bumetanida) → bloquean NKCC2</td></tr>
+        <tr><td>Túbulo distal</td><td>NCC (Na⁺/Cl⁻)<br>TRPV5 (Ca²⁺)</td><td>Na⁺, Cl⁻, Ca²⁺ (regulado por PTH)</td><td>Cotransporte activo secundario</td><td><strong>Tiazidas</strong> (hidroclorotiazida) → bloquean NCC → retienen Ca²⁺</td></tr>
+        <tr><td>Túbulo colector</td><td>ENaC (Na⁺ apical)<br>AQP-2 (agua, regulada por ADH)<br>H⁺-ATPasa<br>H⁺/K⁺ ATPasa</td><td>Na⁺, H₂O (bajo ADH), secreción K⁺ y H⁺</td><td>ENaC: difusión a favor de gradiente electroquímico creado por ATPasa. AQP-2 insertada por AMPc (ADH-V2).</td><td>Espironolactona/eplerenona (antialdosterona → ↓ ENaC)<br>Amilorida/triamtereno (bloquean ENaC directamente)</td></tr>
+      </tbody>
+    </table></div>
+    <div class="callout success"><div class="callout-title">✔ Principio físico clave</div><p>Toda reabsorción de solutos crea un gradiente osmótico → el agua sigue por ósmosis a través de acuaporinas (donde existen). Sin ADH, el túbulo colector es impermeable al agua → orina diluida (50–100 mOsm/L). Con ADH, AQP-2 se insertan en la membrana apical → orina concentrada (hasta 1200 mOsm/L).</p></div>
+  
+
+</div>
+
+<hr class="divider">
+
+<div class="section" id="s12">
+  <div class="section-header"><span class="section-number">SECCIÓN 12</span><span class="section-title">Concentración Urinaria y Regulación Ácido-Base Renal</span></div>
+
+  
+  
+
+    
+      <h3>12.1 Mecanismo de Contracorriente</h3>
+      <p >El asa de Henle y los vasos rectos forman un sistema multiplicador de contracorriente que genera y mantiene el gradiente osmótico medular (300 mOsm en córtex → 1200 mOsm en papila).</p>
+      <div class="formula-block">
+        <span class="formula-label">Gradiente Osmótico Medular — Principio</span>
+        <span class="formula-eq">Osmolaridad(papila) ≈ 1200 mOsm/kg H₂O</span>
+        <span class="formula-vars">
+          <span><b>Generado por:</b> reabsorción activa de NaCl en rama ascendente gruesa (NKCC2) sin agua → acumula solutos en médula</span>
+          <span><b>Rama descendente:</b> permeable al agua (AQP-1) → el filtrado se concentra progresivamente al descender</span>
+          <span><b>Vasos rectos (vasa recta):</b> capilares en U que intercambian solutos y agua en contracorriente → mantienen el gradiente sin lavarlo</span>
+          <span><b>Urea (en presencia de ADH):</b> reabsorbida en colector medular → recircula al asa → contribuye ~40–50% al gradiente</span>
+        </span>
+      </div>
+    
+
+    
+      <h3>12.2 Ecuación de Henderson-Hasselbalch</h3>
+      <div class="formula-block">
+        <span class="formula-label">Henderson-Hasselbalch — Sistema Bicarbonato/CO₂</span>
+        <span class="formula-eq">pH = 6.1 + log ([HCO₃⁻] / 0.03 × PaCO₂)</span>
+        <span class="formula-vars">
+          <span><b>pH</b> = normal: 7.35–7.45</span>
+          <span><b>[HCO₃⁻]</b> = bicarbonato plasmático (mEq/L); normal: 22–26 mEq/L — regulado por el riñón</span>
+          <span><b>PaCO₂</b> = presión parcial de CO₂ arterial (mmHg); normal: 35–45 mmHg — regulada por el pulmón</span>
+          <span><b>0.03</b> = coeficiente de solubilidad del CO₂ en plasma (mEq/L/mmHg)</span>
+          <span><b>Ejemplo normal:</b> pH = 6.1 + log (24 / 0.03 × 40) = 6.1 + log(20) = 6.1 + 1.30 = <b>7.40</b></span>
+          <span><b>Riñón:</b> regula [HCO₃⁻] (días). <b>Pulmón:</b> regula PaCO₂ (minutos)</span>
+        </span>
+      </div>
+    
+
+    
+      <h3>12.3 Mecanismos Renales de Regulación Ácido-Base</h3>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Mecanismo</th><th>Segmento</th><th>Transportador</th><th>Resultado neto</th><th>Producción de HCO₃⁻ nuevo</th></tr></thead>
+        <tbody>
+          <tr><td>Reabsorción de HCO₃⁻</td><td>Túbulo proximal (~80%) + asa + distal</td><td>NHE3 secreta H⁺ → reacciona con HCO₃⁻ filtrado → H₂CO₃ → CO₂ (anhidrasa carbónica) → reingresa → HCO₃⁻ a sangre</td><td>Conserva el HCO₃⁻ filtrado</td><td>No (es reciclaje)</td></tr>
+          <tr><td>Excreción de H⁺ como ácido titulable</td><td>Distal y colector</td><td>H⁺-ATPasa y H⁺/K⁺ ATPasa (células intercaladas tipo A)</td><td>Acidificación orina hasta pH 4.5</td><td>Sí: 1 H⁺ excretado = 1 HCO₃⁻ nuevo (vía fosfato: HPO₄²⁻ → H₂PO₄⁻)</td></tr>
+          <tr><td>Amoniogénesis</td><td>Proximal (glutamina → NH₄⁺) + colector (excreción NH₃/NH₄⁺)</td><td>Metabolismo de glutamina → NH₄⁺ + HCO₃⁻ en célula proximal</td><td>NH₄⁺ en orina, HCO₃⁻ nuevo a sangre</td><td>Sí: mecanismo más importante en acidosis crónica</td></tr>
+        </tbody>
+      </table></div>
+      <div class="callout clinical"><div class="callout-title">🔬 Compensaciones pulmonar y renal</div><p>        <strong>Acidosis metabólica:</strong> ↓ HCO₃⁻ → compensación respiratoria: hiperventilación → ↓ PaCO₂ (Regla: PaCO₂ esperada = 1.5 × [HCO₃⁻] + 8 ± 2).<br>
+        <strong>Alcalosis metabólica:</strong> ↑ HCO₃⁻ → hipoventilación → ↑ PaCO₂ (Regla: ↑ PaCO₂ = 0.7 × ↑ HCO₃⁻).<br>
+        <strong>Acidosis respiratoria:</strong> ↑ PaCO₂ → compensación renal: ↑ reabsorción HCO₃⁻ + ↑ amoniogénesis (días).<br>
+        <strong>Alcalosis respiratoria:</strong> ↓ PaCO₂ → compensación renal: ↓ reabsorción HCO₃⁻ → ↑ excreción HCO₃⁻ (días).
+      </p></div>
+    
+
+    
+      <h3>12.4 Regulación Hormonal Renal — Resumen</h3>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Hormona</th><th>Origen</th><th>Estímulo principal</th><th>Efecto renal</th><th>Efecto neto</th></tr></thead>
+        <tbody>
+          <tr><td>Angiotensina II (SRAA)</td><td>Pulmón (ECA)</td><td>↓ PA, ↓ NaCl en mácula densa, ↑ simpático</td><td>Contrae arteriola eferente, estimula aldosterona, ↑ NHE3 proximal</td><td>↑ PA, retención Na⁺/agua, ↑ TFG</td></tr>
+          <tr><td>Aldosterona</td><td>Corteza suprarrenal</td><td>Angiotensina II, ↑ K⁺</td><td>↑ ENaC + Na⁺/K⁺ ATPasa en colector → ↑ Na⁺, ↑ K⁺ excreción, ↑ H⁺ excreción</td><td>↑ Volemia, ↑ PA, hipocalemia, alcalosis</td></tr>
+          <tr><td>ADH (vasopresina)</td><td>Neurohipófisis</td><td>↑ osmolaridad (principal), ↓ volemia</td><td>Receptor V2 → AMPc → ↑ AQP-2 en colector → ↑ reabsorción H₂O libre</td><td>↓ Osmolaridad, orina concentrada, ↑ volemia</td></tr>
+          <tr><td>ANP / BNP</td><td>Aurículas / Ventrículos</td><td>Distensión por sobrecarga de volumen</td><td>Dilata aferente + contrae eferente → ↑ TFG; inhibe ENaC, renina y aldosterona</td><td>Natriuresis, diuresis, ↓ PA, ↓ volemia</td></tr>
+          <tr><td>PTH</td><td>Glándulas paratiroideas</td><td>↓ Ca²⁺, ↑ PO₄³⁻</td><td>↑ Reabsorción Ca²⁺ (TRPV5 distal), ↓ reabsorción PO₄³⁻, activa 1α-hidroxilasa (vitamina D)</td><td>↑ Ca²⁺ sérico, ↓ PO₄³⁻, ↑ vitamina D activa</td></tr>
+          <tr><td>EPO (eritropoyetina)</td><td>Células peritubulares corticales</td><td>Hipoxia → HIF-1α</td><td>Actúa en médula ósea → no efecto tubular directo</td><td>↑ Eritrocitos → ↑ capacidad de O₂</td></tr>
+        </tbody>
+      </table></div>
+    
+
+  
+
+</div>
+
+<hr class="divider">
+
+<div class="section" id="s13">
+  <div class="section-header"><span class="section-number">SECCIÓN 13</span><span class="section-title">Potencial de Acción Cardíaco — Fases, Canales y Automatismo</span></div>
+
+  
+  
+
+    
+      <h3>13.1 Tipos de Células Eléctricas Cardíacas</h3>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Tipo celular</th><th>Potencial de reposo</th><th>Velocidad de conducción</th><th>Canal de Na⁺ rápido</th><th>Función</th></tr></thead>
+        <tbody>
+          <tr><td>Células de respuesta rápida (miocardiocitos auriculares y ventriculares, His-Purkinje)</td><td>−85 a −90 mV</td><td>0.5–4 m/s (Purkinje hasta 4 m/s)</td><td>Sí (Iₙₐ rápido)</td><td>Contracción eficiente y conducción veloz</td></tr>
+          <tr><td>Células de respuesta lenta (nodo SA, nodo AV)</td><td>−40 a −60 mV</td><td>0.02–0.05 m/s</td><td>No (Iₙₐ rápido inactivado)</td><td>Marcapasos y filtro AV</td></tr>
+        </tbody>
+      </table></div>
+    
+
+    
+      <h3>13.2 Fases del Potencial de Acción — Células de Respuesta Rápida (Ventrículo)</h3>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Fase</th><th>Nombre</th><th>Voltaje</th><th>Corriente(s) dominante(s)</th><th>Canal / Transportador</th><th>Relevancia clínica</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Fase 0</strong></td><td>Despolarización rápida</td><td>−90 → +30 mV</td><td>Entrada masiva de Na⁺ (Iₙₐ)</td><td>Canal Na⁺ dependiente de voltaje (Nav1.5) — umbral ≈ −70 mV</td><td>Clase I antiarrítmicos (lidocaína, flecainida) bloquean Nav1.5 → ↓ velocidad conducción (ensancha QRS)</td></tr>
+          <tr><td><strong>Fase 1</strong></td><td>Repolarización inicial rápida</td><td>+30 → 0 mV</td><td>Salida de K⁺ transitoria (Ito)</td><td>Canal K⁺ transitorio (Kv4.2/4.3)</td><td>Escotadura en la cúspide del PA; prominente en epicardio → responsable de la onda J (Brugada)</td></tr>
+          <tr><td><strong>Fase 2</strong></td><td>Meseta (plateau)</td><td>0 → +10 mV</td><td>Entrada lenta de Ca²⁺ (ICaL) ≈ salida de K⁺ (IKr, IKs)</td><td>Canal L-Ca²⁺ (Cav1.2) + canales K⁺ rectificador retardado</td><td>La más larga (~200 ms) — determina el período refractario absoluto. Intervalo QT en el ECG. Bloqueadores Ca²⁺ (verapamilo, diltiacem) actúan aquí. ↑ Ca²⁺ citosólico para CICR.</td></tr>
+          <tr><td><strong>Fase 3</strong></td><td>Repolarización rápida final</td><td>+10 → −90 mV</td><td>Salida neta de K⁺ (IKr, IKs, IK1)</td><td>hERG (IKr) · KCNQ1 (IKs) · Kir2.x (IK1)</td><td>Mutaciones en hERG → LQTS tipo 2 (riesgo torsades). Bloqueadores: amiodarona, sotalol, quinidina. IK1 estabiliza el potencial de reposo.</td></tr>
+          <tr><td><strong>Fase 4</strong></td><td>Reposo / Despolarización diastólica espontánea</td><td>−90 mV (estable en ventrículo)</td><td>IK1 dominante · En marcapasos: If (funny current)</td><td>Kir2.x · HCN4 (If)</td><td>En ventrículo: potencial estable. En SA/AV: despolarización gradual (automatismo). Ivabradina bloquea HCN4 → ↓ FC sin afectar contractilidad.</td></tr>
+        </tbody>
+      </table></div>
+      <div class="callout clinical"><div class="callout-title">ℹ Período refractario absoluto (PRA)</div><p>Coincide con fases 0, 1, 2 y parte de la fase 3 — ningún estímulo puede generar un nuevo PA. Protege al corazón de tétanos. El PRA ventricular (~200–250 ms) es casi igual a la duración de la sístole mecánica, lo que impide la tetanización del miocardio.</p></div>
+    
+
+    
+      <h3>13.3 Potencial de Acción del Nodo SA — Automatismo y Marcapasos</h3>
+      <p >El nodo sinusal carece de canal Na⁺ rápido funcional. Su despolarización diastólica espontánea (fase 4) resulta de la interacción de tres corrientes en lo que se denomina el <strong>"reloj de la membrana"</strong>, complementado por el <strong>"reloj del calcio"</strong> intracelular.</p>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Mecanismo</th><th>Corriente / Proteína</th><th>Acción</th></tr></thead>
+        <tbody>
+          <tr><td>Funny current (If)</td><td>Canal HCN4 (activado por hiperpolarización)</td><td>Entrada de Na⁺ (y un poco K⁺) durante la diástole → despolarización lenta hacia el umbral ≈ −40 mV</td></tr>
+          <tr><td>ICaT (calcio tipo T)</td><td>Cav3.1</td><td>Se activa cerca del umbral → acelera la pendiente final de fase 4 y contribuye al inicio de la fase 0 nodal</td></tr>
+          <tr><td>ICaL (calcio tipo L)</td><td>Cav1.2/1.3</td><td>Genera la fase 0 del nodo SA (lenta, hasta ≈ 0 mV) — sin Nav1.5</td></tr>
+          <tr><td>"Reloj del calcio" (Ca²⁺ clock)</td><td>RyR2 espontáneas → NCX (Na⁺/Ca²⁺ exchanger)</td><td>Liberaciones espontáneas de Ca²⁺ del RS durante la diástole → NCX (3Na⁺ entra, 1Ca²⁺ sale) → corriente de entrada despolarizante</td></tr>
+          <tr><td>Repolarización nodal</td><td>IKr, IKs</td><td>Salida de K⁺ → fase 3 nodal → regreso a −60 mV</td></tr>
+        </tbody>
+      </table></div>
+      <div class="callout warning"><div class="callout-title">⚠ Control autonómico de la frecuencia</div><p>        <strong>Simpático (β1):</strong> ↑ If (más HCN4 activos) + ↑ ICaL + ↑ ICaT → pendiente fase 4 más pronunciada → ↑ FC. También ↑ PKA → fosforila fosfolambano → ↑ SERCA → ↓ duración PA → ↑ cronotropismo y lusitropismo.<br>
+        <strong>Parasimpático (vago / M2):</strong> ↑ IKACh (canal K⁺ activado por ACh, Kir3.1/3.4) → hiperpolarización → pendiente fase 4 menos pronunciada → ↓ FC. Además inhibe adenilato ciclasa → ↓ AMPc → ↓ If.</p></div>
+    
+
+    
+      <h3>13.4 Jerarquía de Marcapasos y Sistema de Conducción</h3>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Estructura</th><th>Frecuencia intrínseca</th><th>Canal marcapasos</th><th>Nota clínica</th></tr></thead>
+        <tbody>
+          <tr><td>Nodo sinoauricular (SA)</td><td>60–100 lpm</td><td>HCN4 (If alto)</td><td>Marcapasos dominante. Disfunción → síndrome del seno enfermo</td></tr>
+          <tr><td>Nodo auriculoventricular (AV)</td><td>40–60 lpm</td><td>HCN4 (If moderado)</td><td>Marcapasos de escape. Bloqueo AV completo → ritmo de la unión a 40–60 lpm</td></tr>
+          <tr><td>Sistema His-Purkinje</td><td>20–40 lpm</td><td>HCN4 (If bajo)</td><td>Escape ventricular. QRS ancho, ritmo lento, inestable</td></tr>
+          <tr><td>Miocardiocito ventricular</td><td>&lt;20 lpm (latente)</td><td>If mínimo</td><td>Solo emerge en isquemia grave o reperfusión</td></tr>
+        </tbody>
+      </table></div>
+    
+
+    
+      <h3>13.5 Correlación ECG — Potencial de Acción</h3>
+      <div class="formula-block">
+        <span class="formula-label">Correlación PA — ECG</span>
+        <span class="formula-eq">Onda P → despolarización auricular (fase 0 SA → conducción intraauricular)</span>
+        <span class="formula-vars">
+          <span><b>Intervalo PR (120–200 ms):</b> retardo en el nodo AV (protección ventricular). ↑ en bloqueo AV. ↓ en WPW.</span>
+          <span><b>QRS (80–120 ms):</b> despolarización ventricular (fase 0 His-Purkinje → miocardiocitos). Se ensancha con bloqueo de rama o Nav1.5 bloqueado.</span>
+          <span><b>Intervalo QT (corregido QTc = QT/√RR):</b> duración total del PA ventricular (fases 0-3). Normal: &lt;440 ms ♂ / &lt;460 ms ♀. ↑ en LQTS, hipocalcemia, amiodarona, antipsicóticos.</span>
+          <span><b>Onda T:</b> repolarización ventricular (fase 3). Invertida en isquemia subepicárdica.</span>
+        </span>
+      </div>
+    
+
+  
+
+</div>
+
+<hr class="divider">
+
+<div class="section" id="s14">
+  <div class="section-header"><span class="section-number">SECCIÓN 14</span><span class="section-title">Acoplamiento Excitación-Contracción — Sarcómero, Túbulos T, DHPR, RyR2, SERCA y Relajación</span></div>
+
+  
+  
+
+    
+      <h3>14.1 El Sarcómero — Unidad Estructural de la Contracción</h3>
+      <p >El sarcómero es la unidad funcional del miocardiocito, delimitada por dos líneas Z consecutivas. Longitud en reposo: 2.0–2.4 µm (longitud óptima para máxima superposición actina-miosina según Frank-Starling).</p>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Proteína</th><th>Localización en el sarcómero</th><th>Función</th><th>Relevancia clínica</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Miosina II (cadena pesada β, MHC-β)</strong></td><td>Filamento grueso — banda A (zona central)</td><td>Motor molecular: cabeza S1 hidroliza ATP (ATPasa de miosina) y forma puentes cruzados con actina. El cuerpo forma el filamento.</td><td>Mutaciones en MYH7 (β-MHC) → CMH (cardiomiopatía hipertrófica). ↓ actividad ATPasa en IC.</td></tr>
+          <tr><td><strong>Actina (F-actina)</strong></td><td>Filamento delgado — banda I y zona de superposición</td><td>Rieles sobre los que camina la miosina. Contiene el surco donde se aloja la tropomiosina.</td><td>Mutaciones en ACTC1 → CMH o CMD.</td></tr>
+          <tr><td><strong>Tropomiosina (Tm)</strong></td><td>Surco de la actina F — 7 monómeros de actina por Tm</td><td>En reposo, bloquea estéricamente el sitio de unión miosina-actina. Desplazada por Ca²⁺ → permite la interacción.</td><td>Mutaciones en TPM1 → CMH.</td></tr>
+          <tr><td><strong>Troponina C (TnC)</strong></td><td>Complejo troponina sobre tropomiosina</td><td>Sensor de Ca²⁺: une 2 iones Ca²⁺ en sitios de baja afinidad (sitios II) → cambio conformacional que desplaza Tm.</td><td>↑ Ca²⁺ citosólico → ↑ unión → ↑ fuerza (base molecular de Frank-Starling: estiramiento ↑ sensibilidad TnC al Ca²⁺).</td></tr>
+          <tr><td><strong>Troponina I (TnI)</strong></td><td>Complejo troponina</td><td>Subunidad inhibidora: mantiene actina-miosina separadas en reposo. Fosforilación por PKA (vía β1) → ↓ afinidad TnC por Ca²⁺ → ↑ velocidad de relajación (lusitropismo).</td><td>cTnI: biomarcador de daño miocárdico (IAM). Fosfo-TnI → relajación más rápida con simpático.</td></tr>
+          <tr><td><strong>Troponina T (TnT)</strong></td><td>Complejo troponina</td><td>Ancora el complejo troponina a la tropomiosina.</td><td>cTnT: biomarcador de IAM. Mutaciones → CMH.</td></tr>
+          <tr><td><strong>Titina (conectina)</strong></td><td>Filamento elástico — desde línea Z hasta banda M</td><td>Muelle molecular: genera fuerza pasiva de restauración (restoring force). Mantiene la centración del filamento grueso. Genera la fuerza diastólica pasiva.</td><td>Mutaciones en TTN (gen más frecuente) → CMD. ↑ rigidez pasiva en IC diastólica. La isoforma N2B más rígida predomina en falla cardíaca.</td></tr>
+          <tr><td><strong>Proteína C de unión a miosina (MyBP-C)</strong></td><td>Banda A — cada 43 nm en el filamento grueso</td><td>Regula la interacción actina-miosina; fosforilación por PKA (simpático) → ↑ velocidad de ciclado de puentes cruzados → ↑ contractilidad.</td><td>Mutaciones en MYBPC3 → CMH (gen más frecuente de CMH, ~40% de casos).</td></tr>
+          <tr><td><strong>Actinina α (α-actinin)</strong></td><td>Línea Z</td><td>Ancla los filamentos de actina entre sarcómeros adyacentes.</td><td>Punto de anclaje para señalización mecánica.</td></tr>
+          <tr><td><strong>Nebulina (nebulin)</strong></td><td>A lo largo del filamento delgado</td><td>Regula la longitud del filamento de actina.</td><td>Mutaciones → miopatía nemalínica (músculo esquelético).</td></tr>
+        </tbody>
+      </table></div>
+    
+
+    
+      <h3>14.2 Acoplamiento Excitación-Contracción (ECC) — Cascada Molecular Completa</h3>
+      <p >El ECC es el proceso por el cual el potencial de acción eléctrico se transforma en fuerza mecánica contráctil. En el cardiocito, el mecanismo central es la <strong>liberación de Ca²⁺ inducida por Ca²⁺ (CICR — Calcium-Induced Calcium Release)</strong>.</p>
+      <div class="callout clinical"><div class="callout-title">ℹ Secuencia completa paso a paso</div><p><strong>1.</strong> El PA de fase 2 activa los <strong>canales L-Ca²⁺ (DHPR/Cav1.2)</strong> ubicados en los túbulos T → entrada de Ca²⁺ extracelular (fracción desencadenante: ~20–30% del Ca²⁺ total).
+        <br><strong>2.</strong> Este Ca²⁺ difunde a las <strong>cisternas del retículo sarcoplásmico (RS)</strong>, que están físicamente adosadas a los túbulos T formando las <strong>díadas</strong> (o tríadas en el músculo esquelético).
+        <br><strong>3.</strong> El Ca²⁺ activating se une a los <strong>receptores de rianodina tipo 2 (RyR2)</strong> en la membrana del RS → apertura de RyR2 → liberación masiva de Ca²⁺ del RS al citosol ("chispa de Ca²⁺" o Ca²⁺ spark). Esta amplificación es ×10 del Ca²⁺ disparador.
+        <br><strong>4.</strong> [Ca²⁺]i sube de ~100 nM (reposo) a ~1 µM (sístole) → TnC une Ca²⁺ → desplazamiento de tropomiosina → sitio activo de actina expuesto.
+        <br><strong>5.</strong> Cabeza de miosina (ADP-Pi unido) se une a actina → liberación de Pi → "golpe de fuerza" (power stroke) → filamentos se deslizan → sarcómero se acorta.
+        <br><strong>6.</strong> ATP se une a miosina → disocia el puente cruzado → miosina ATPasa hidroliza ATP → miosina regresa a la conformación de pre-power stroke.
+      </p></div>
+      <div class="formula-block">
+        <span class="formula-label">Ciclo del Puente Cruzado (Cross-Bridge Cycle)</span>
+        <span class="formula-eq">Miosina·ADP·Pi + Actina → Miosina-Actina + Pi (power stroke) → + ATP → disoción → hidrólisis → Miosina·ADP·Pi</span>
+        <span class="formula-vars">
+          <span><b>Velocidad de ciclado</b> ∝ [Ca²⁺]i × actividad ATPasa de miosina × temperatura</span>
+          <span><b>Fuerza generada</b> ∝ número de puentes cruzados en estado fuerte ("strong-binding") × fuerza por puente</span>
+          <span><b>Rigor mortis:</b> sin ATP, miosina queda unida a actina en estado de rigor (sin disolución)</span>
+          <span><b>Digitálicos:</b> inhiben Na⁺/K⁺-ATPasa → ↑ Na⁺i → ↓ gradiente NCX → ↑ Ca²⁺i → ↑ inotropismo</span>
+        </span>
+      </div>
+    
+
+    
+      <h3>14.3 Túbulos T y la Díada Cardíaca</h3>
+      <p >Los <strong>túbulos transversos (túbulos T)</strong> son invaginaciones de la membrana plasmática que penetran hacia el interior del cardiocito, acercando la membrana a las cisternas del RS terminal. La díada (túbulo T + cisterna de RS) es la unidad de acoplamiento.</p>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Componente</th><th>Proteína clave</th><th>Función en ECC</th></tr></thead>
+        <tbody>
+          <tr><td>Membrana del túbulo T</td><td>Cav1.2 (DHPR — receptor dihidropiridínico)</td><td>Sensor de voltaje + canal de Ca²⁺. En músculo esquelético: DHPR actúa como sensor mecánico directo de RyR1 (sin necesitar Ca²⁺ extracelular). En cardiomiocito: necesita Ca²⁺ extracelular para activar RyR2.</td></tr>
+          <tr><td>Cisterna del RS terminal</td><td>RyR2 (receptor de rianodina tipo 2)</td><td>Canal de Ca²⁺ del RS. Agrupados en clústeres de 4–20 RyR2 frente a cada DHPR. Un aumento local de [Ca²⁺] de ~1–10 µM abre el clúster → Ca²⁺ spark. Mutaciones → TVPC (taquicardia ventricular polimórfica catecolaminérgica)</td></tr>
+          <tr><td>Lumen del RS terminal</td><td>Calsecuestrina (CASQ2)</td><td>Proteína de almacenamiento de Ca²⁺ en el RS (~70% del Ca²⁺ total del RS almacenado en forma tampón). Mutaciones en CASQ2 → TVPC.</td></tr>
+          <tr><td>Proteínas reguladoras de RyR2</td><td>Junctin, Triadin, FKBP12.6 (calstabina)</td><td>Estabilizan RyR2 en el estado cerrado. ↓ FKBP12.6 → RyR2 hiperfosforilados → fuga de Ca²⁺ diastólica → arritmias en IC.</td></tr>
+          <tr><td>Membrana RS longitudinal</td><td>SERCA2a (SR Ca²⁺-ATPase, isoforma 2a)</td><td>Bomba activa: recapta Ca²⁺ del citosol al lumen del RS (2 Ca²⁺ por ATP). Responsable del 70–80% de la remoción de Ca²⁺ citosólico en el ser humano.</td></tr>
+          <tr><td>Regulador de SERCA2a</td><td>Fosfolambano (PLN)</td><td>En estado no fosforilado: inhibe SERCA2a (↓ afinidad por Ca²⁺, ↓ velocidad de bombeo). Fosforilación por PKA (Ser16) y CaMKII (Thr17) → desinhibe SERCA → ↑ recaptación Ca²⁺ → relajación más rápida y mayor llenado del RS → ↑ Ca²⁺ disponible para siguiente sístole.</td></tr>
+        </tbody>
+      </table></div>
+      <div class="callout success"><div class="callout-title">✔ Eje β1-PKA-Fosfolambano — La base molecular del inotrópico y lusitrópico simpático</div><p>        Estimulación β1 → Gs → adenilato ciclasa → ↑ AMPc → PKA activa → fosforila:<br>
+        (1) <b>Canal L-Ca²⁺ (DHPR)</b> → ↑ ICaL → ↑ Ca²⁺ disparador → ↑ CICR → ↑ inotropismo<br>
+        (2) <b>Fosfolambano</b> → desinhibición SERCA2a → ↑ recaptación Ca²⁺ → ↑ lusitropismo (relajación más rápida)<br>
+        (3) <b>Troponina I</b> → ↓ sensibilidad TnC al Ca²⁺ → relajación más rápida<br>
+        (4) <b>MyBP-C</b> → ↑ velocidad de ciclado de puentes cruzados → ↑ inotropismo<br>
+        <b>Resultado neto:</b> ↑ fuerza contráctil + ↑ velocidad de relajación (no se contradicen: el corazón late más fuerte y se relaja más rápido para llenarse mejor a FC alta).</p></div>
+    
+
+    
+      <h3>14.4 Mecanismos de Remoción del Ca²⁺ Citosólico — La Relajación</h3>
+      <p >La relajación diastólica requiere que [Ca²⁺]i caiga de ~1 µM (sístole) a ~100 nM (diástole). Cuatro sistemas compiten para lograrlo (en el ser humano):</p>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Mecanismo</th><th>Proteína</th><th>% remoción Ca²⁺ (humano)</th><th>Energía</th><th>Regulación</th></tr></thead>
+        <tbody>
+          <tr><td><strong>SERCA2a</strong> (retículo sarcoplásmico)</td><td>ATP2A2 — 2 Ca²⁺/ATP</td><td>~70–75%</td><td>Activa (ATP)</td><td>Inhibida por PLN no fosforilado. Activada por PKA y CaMKII (vía β1). ↓ en IC → relajación lenta, ↑ Ca²⁺ diastólico.</td></tr>
+          <tr><td><strong>NCX</strong> (Na⁺/Ca²⁺ exchanger, modo directo)</td><td>SLC8A1 — 3Na⁺ entra / 1Ca²⁺ sale</td><td>~25–28%</td><td>Secundaria (aprovecha gradiente Na⁺ creado por Na⁺/K⁺-ATPasa)</td><td>Electrogénico: genera corriente de entrada (depolarizante). ↑ Na⁺i (intoxicación digitálica) → NCX revierte (modo inverso) → Ca²⁺ entra → ↑ inotropismo.</td></tr>
+          <tr><td><strong>Na⁺/K⁺-ATPasa (NKA)</strong></td><td>ATP1A1 — 3Na⁺ sale / 2K⁺ entra</td><td>Indirecto (mantiene gradiente Na⁺ para NCX)</td><td>Activa (ATP)</td><td>Inhibida por digitálicos (glucósidos cardíacos) → ↑ Na⁺i → ↑ Ca²⁺i vía NCX → ↑ inotropismo. Activada por catecolaminas, aldosterona.</td></tr>
+          <tr><td><strong>Bomba Ca²⁺ de membrana plasmática (PMCA)</strong></td><td>ATP2B — 1Ca²⁺ sale / ATP</td><td>&lt;1–2%</td><td>Activa (ATP)</td><td>Rol menor en el cardiocito. Más relevante en neuronas y células musculares lisas.</td></tr>
+          <tr><td><strong>Mitocondrias (uniportador Ca²⁺)</strong></td><td>MCU (mitochondrial Ca²⁺ uniporter)</td><td>&lt;1% en latido normal</td><td>Electroquímica (ΔΨm)</td><td>Relevante en condiciones patológicas: sobrecarga de Ca²⁺ mitocondrial → apertura MPTP → apoptosis/necrosis (isquemia-reperfusión).</td></tr>
+        </tbody>
+      </table></div>
+      <div class="formula-block">
+        <span class="formula-label">Balance Ca²⁺ en el Cardiocito (estado estacionario)</span>
+        <span class="formula-eq">Ca²⁺ que entra por PA = Ca²⁺ que sale por NCX (modo directo)</span>
+        <span class="formula-vars">
+          <span>En cada latido: SERCA recapta Ca²⁺ al RS ≈ RyR2 libera Ca²⁺ del RS (ciclo interno)</span>
+          <span>NCX exporta = ICaL importa (intercambio con exterior)</span>
+          <span><b>Si NCX no exporta suficiente:</b> sobrecarga de Ca²⁺ → Ca²⁺ sparks espontáneos → corriente transitoria de entrada (Iti) → pospotenciales tardíos (DAD) → arritmias (fibrilación ventricular)</span>
+          <span><b>Disfunción SERCA en IC:</b> ↓ PLN fosforilado → SERCA inhibida → ↑ [Ca²⁺]i diastólico → activación TnC en diástole → ↑ rigidez diastólica + DADs + ↓ reserva de RS para sístole siguiente</span>
+        </span>
+      </div>
+    
+
+    
+      <h3>14.5 Fases del Ciclo Cardíaco — Correlación Mecánica-Eléctrica-Ecocardiográfica</h3>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Fase</th><th>Válvulas</th><th>Volumen VI</th><th>Presión VI</th><th>ECG</th><th>Fonocardiograma / Eco</th><th>Duración</th></tr></thead>
+        <tbody>
+          <tr><td><strong>1. Llenado pasivo rápido</strong></td><td>Mitral abierta · Aórtica cerrada</td><td>↑↑ rápido</td><td>↓ (≈ 5–12 mmHg)</td><td>Post-onda T</td><td>S3 fisiológico (jóvenes) — onda E en Doppler mitral</td><td>~150 ms</td></tr>
+          <tr><td><strong>2. Llenado pasivo lento (diástasis)</strong></td><td>Mitral abierta</td><td>↑ lento</td><td>Estable</td><td>Línea isoeléctrica</td><td>Silencio</td><td>~170 ms</td></tr>
+          <tr><td><strong>3. Patada auricular (kick auricular)</strong></td><td>Mitral abierta</td><td>↑ 15–25 mL (15–20% del VTD)</td><td>Pequeño ↑</td><td>Onda P</td><td>Onda A en Doppler mitral. S4 patológico en rigidez VI</td><td>~80 ms</td></tr>
+          <tr><td><strong>4. Contracción isovolumétrica (CIV)</strong></td><td>Ambas cerradas</td><td>Sin cambio (= VTD)</td><td>0 → 80 mmHg</td><td>QRS (inicio)</td><td>S1 (cierre mitral + tricúspide)</td><td>~60 ms</td></tr>
+          <tr><td><strong>5. Eyección rápida</strong></td><td>Aórtica abierta · Mitral cerrada</td><td>↓↓ rápido (expulsa ~2/3 del VS)</td><td>↑ 80 → 120 mmHg</td><td>QRS (final) → ST</td><td>Click de apertura aórtica — onda de pulso arterial</td><td>~110 ms</td></tr>
+          <tr><td><strong>6. Eyección lenta</strong></td><td>Aórtica abierta</td><td>↓ lento (expulsa el 1/3 restante)</td><td>↓ 120 → 80 mmHg</td><td>Onda T (inicio)</td><td>Silencio relativo</td><td>~180 ms</td></tr>
+          <tr><td><strong>7. Relajación isovolumétrica (RIV)</strong></td><td>Ambas cerradas</td><td>Sin cambio (= VTS)</td><td>80 → 5 mmHg</td><td>Post-onda T</td><td>S2 (cierre aórtica + pulmonar) — click de apertura mitral si EM</td><td>~80 ms</td></tr>
+        </tbody>
+      </table></div>
+      <div class="callout evidence"><div class="callout-title">🔬 El kick auricular en la práctica anestésica</div><p>La fibrilación auricular elimina la contracción auricular coordinada → pérdida del 15–25% del llenado ventricular. En pacientes con rigidez ventricular (HTA crónica, estenosis aórtica, IC diastólica), donde el llenado pasivo está reducido, esta pérdida puede precipitar descompensación hemodinámica grave. La cardioversión a ritmo sinusal es prioritaria en este contexto.</p></div>
+    
+
+  
+
+</div>
+
+<hr class="divider">
+
+<div class="section" id="s15">
+  <div class="section-header"><span class="section-number">SECCIÓN 15</span><span class="section-title">Sistema Nervioso Autónomo — Receptores, Fibras y Efectos Cardiovasculares</span></div>
+
+  
+  
+
+    
+      <h3>15.1 Organización del Sistema Nervioso Autónomo</h3>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Característica</th><th>División Simpática</th><th>División Parasimpática</th></tr></thead>
+        <tbody>
+          <tr><td>Origen neuronal central (preganglionar)</td><td>Médula espinal toracolumbar (T1–L3)</td><td>Tronco encefálico (NC III, VII, IX, X) + médula sacra (S2–S4)</td></tr>
+          <tr><td>Ganglio</td><td>Paravertebral (cadena ganglionar) o prevertebrales (celíaco, mesentérico)</td><td>Cerca o en la pared del órgano diana (ganglio intramural)</td></tr>
+          <tr><td>Fibra preganglionar</td><td>Corta (mielinizada, tipo B) · NT: acetilcolina (ACh) → nAChR en ganglio</td><td>Larga (mielinizada, tipo B) · NT: acetilcolina (ACh) → nAChR en ganglio</td></tr>
+          <tr><td>Fibra posganglionar</td><td>Larga (amielínica, tipo C) · NT: <strong>noradrenalina (NA)</strong> principalmente; excepción: glándulas sudoríparas (ACh) y médula suprarrenal (adrenalina/noradrenalina directamente a sangre)</td><td>Corta (amielínica, tipo C) · NT: <strong>acetilcolina (ACh)</strong></td></tr>
+          <tr><td>Receptor en órgano diana</td><td>Adrenorreceptores (α1, α2, β1, β2, β3)</td><td>Muscarínicos (M1, M2, M3, M4, M5)</td></tr>
+          <tr><td>Neurotransmisor en ganglio (ambos)</td><td colspan="2">ACh → receptor nicotínico (nAChRα3β4 principalmente) → despolarización ganglionar</td></tr>
+          <tr><td>Tono en reposo</td><td>Bajo en corazón, Alto en vasos (vasoconstricción basal)</td><td>Alto en corazón (freno vagal). Bradicardia de reposo en atletas: ↑ tono vagal.</td></tr>
+        </tbody>
+      </table></div>
+    
+
+    
+      <h3>15.2 Receptores Adrenérgicos (Simpático)</h3>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Receptor</th><th>Subtipo / Gen</th><th>Acoplamiento (Gα)</th><th>Señal intracelular</th><th>Localización principal</th><th>Efectos principales</th></tr></thead>
+        <tbody>
+          <tr><td><strong>α1</strong></td><td>α1A, α1B, α1D (ADRA1A/B/D)</td><td>Gq/11</td><td>↑ PLCβ → ↑ IP3 + DAG → ↑ Ca²⁺i + PKC</td><td>Músculo liso vascular (arterias y arteriolas), corazón (leve)</td><td>Vasoconstricción (↑ RVS, ↑ PA) · Inotropismo positivo leve · Midriasis · Contracción esfínter urinario</td></tr>
+          <tr><td><strong>α2</strong></td><td>α2A, α2B, α2C (ADRA2A/B/C)</td><td>Gi/o</td><td>↓ adenilato ciclasa → ↓ AMPc · ↓ Ca²⁺ neuronal (↓ liberación NT)</td><td>Terminal presináptica simpática (autorreceptor) · Plaquetas · SNC · Músculo liso vascular</td><td>Autorreceptor: ↓ liberación de NA (retroalimentación negativa) · Agregación plaquetaria · Sedación/analgesia central (dexmedetomidina, clonidina) · Vasoconstricción vascular (α2 postsináptico)</td></tr>
+          <tr><td><strong>β1</strong></td><td>ADRB1</td><td>Gs</td><td>↑ adenilato ciclasa → ↑ AMPc → ↑ PKA</td><td>Corazón (dominante) · Riñón (células yuxtaglomerulares)</td><td>↑ Cronotropismo · ↑ Inotropismo · ↑ Dromotropismo · ↑ Lusitropismo · ↑ Secreción de renina</td></tr>
+          <tr><td><strong>β2</strong></td><td>ADRB2</td><td>Gs (también Gi en corazón)</td><td>↑ AMPc → PKA · En corazón: señal localizada en caveolas</td><td>Músculo liso bronquial y vascular · Corazón (minoritario) · Músculo esquelético · Útero</td><td>Broncodilatación · Vasodilatación (en músculo esquelético y coronario) · ↑ Glucogenólisis · Relajación uterina · Leve inotropismo (+) en corazón</td></tr>
+          <tr><td><strong>β3</strong></td><td>ADRB3</td><td>Gi / Gs</td><td>↑ NO (vía Gi-NOS) en corazón</td><td>Tejido adiposo (pardo y blanco) · Corazón (recientemente identificado)</td><td>Lipólisis y termogénesis en grasa parda · En corazón: inotropismo negativo leve (vía NO) — posible rol protector en IC frente a hiperactivación simpática crónica</td></tr>
+        </tbody>
+      </table></div>
+      <div class="formula-block">
+        <span class="formula-label">Vía β1 → AMPc → PKA (cascada intracelular simpática cardíaca)</span>
+        <span class="formula-eq">NA/Ad → β1 → Gs → adenilato ciclasa ↑ → ATP → AMPc → PKA activa</span>
+        <span class="formula-vars">
+          <span>PKA fosforila: <b>Cav1.2</b> (↑ ICaL) · <b>Fosfolambano</b> (↑ SERCA) · <b>TnI</b> (↑ lusitropismo) · <b>RyR2</b> (↑ CICR) · <b>MyBP-C</b> (↑ ciclado) · <b>HCN4</b> (↑ If → ↑ FC)</span>
+          <span>AMPc degradado por <b>fosfodiesterasas (PDE3 y PDE4)</b> → inhibición de PDE3 (milrinona, enoximona) → ↑ AMPc → efecto inotrópico sin activar β1</span>
+          <span>Regulación: β-arrestina → desensibilización · Fosforilación por GRK2 (GPCR kinase 2) → internalización del receptor β1. ↑ GRK2 en IC → razón de taquifilaxia a catecolaminas.</span>
+        </span>
+      </div>
+    
+
+    
+      <h3>15.3 Receptores Muscarínicos (Parasimpático)</h3>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Receptor</th><th>Acoplamiento</th><th>Señal</th><th>Localización</th><th>Efectos principales</th></tr></thead>
+        <tbody>
+          <tr><td><strong>M1</strong></td><td>Gq/11</td><td>↑ IP3, DAG, Ca²⁺i</td><td>SNC (hipocampo, corteza) · Glándulas gástricas · Ganglios</td><td>Facilitación cognitiva · ↑ Secreción gástrica · Facilitación ganglionar</td></tr>
+          <tr><td><strong>M2</strong></td><td>Gi/o</td><td>↓ AMPc · ↑ IKACh (canal K⁺ rectificador activado por ACh)</td><td>Corazón (dominante) · Músculo liso · Terminal presináptica parasimpática (autorreceptor)</td><td><b>Cardiaco:</b> ↓ cronotropismo (↑ IKACh → hiperpolarización SA) · ↓ dromotropismo (↓ conducción AV) · ↓ inotropismo auricular · Atropina bloquea M2 → taquicardia</td></tr>
+          <tr><td><strong>M3</strong></td><td>Gq/11</td><td>↑ IP3, Ca²⁺i · ↑ NO endotelial (vía eNOS)</td><td>Músculo liso bronquial y visceral · Glándulas exocrinas · Endotelio vascular</td><td>Broncoconstricción · ↑ Secreción glandular (salivación, sudoración, lagrimeo, broncorrea) · Vasodilat. endotelial indirecta (NO) · Miosis · Contracción detrusor vesical</td></tr>
+          <tr><td><strong>M4</strong></td><td>Gi/o</td><td>↓ AMPc</td><td>SNC (ganglios basales) · Pulmón</td><td>Modulación dopaminérgica · Broncoconstricción leve</td></tr>
+          <tr><td><strong>M5</strong></td><td>Gq/11</td><td>↑ IP3, Ca²⁺i</td><td>SNC (sustancia negra, cerebro medio)</td><td>Vasodilatación cerebral · Recompensa y adicción</td></tr>
+        </tbody>
+      </table></div>
+    
+
+    
+      <h3>15.4 Efectos del SNA en Órganos Clave — Tabla de Doble Inervación</h3>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Órgano</th><th>Efecto Simpático (receptor)</th><th>Efecto Parasimpático (receptor)</th><th>Dominancia en reposo</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Nodo SA (FC)</strong></td><td>↑ FC (β1 → ↑ If, ↑ ICaL)</td><td>↓ FC (M2 → ↑ IKACh → hiperpolarización)</td><td>Parasimpático (tono vagal)</td></tr>
+          <tr><td><strong>Nodo AV (conducción)</strong></td><td>↑ velocidad conducción, ↓ PR (β1)</td><td>↓ velocidad, ↑ PR, bloqueo AV (M2)</td><td>Parasimpático</td></tr>
+          <tr><td><strong>Miocardio ventricular</strong></td><td>↑ Inotropismo (β1), ↑ Lusitropismo</td><td>Efecto mínimo directo (poca inervación vagal ventricular)</td><td>Simpático (bajo tono basal)</td></tr>
+          <tr><td><strong>Arteriolas sistémicas</strong></td><td>Vasoconstricción (α1) — tono basal</td><td>Sin inervación directa (vasodilatación por ↓ simpático)</td><td>Simpático (vasoconstricción tónica)</td></tr>
+          <tr><td><strong>Arterias coronarias</strong></td><td>α1 → vasoconstricción (leve) / β2 → vasodilatación (dominante en ejercicio)</td><td>M3 → vasodilatación endotelial (NO)</td><td>Metabolismo local (adenosina, NO)</td></tr>
+          <tr><td><strong>Bronquios</strong></td><td>↑ Diámetro, ↓ secreción (β2)</td><td>↓ Diámetro, ↑ secreción (M3)</td><td>Parasimpático (leve broncomotor tónico)</td></tr>
+          <tr><td><strong>Pupila</strong></td><td>Midriasis (α1 — m. radial)</td><td>Miosis (M3 — m. esfínter)</td><td>Equilibrio (pupila media ~3–4 mm)</td></tr>
+          <tr><td><strong>Vejiga</strong></td><td>Relajación detrusor + contracción esfínter interno (α1, β3)</td><td>Contracción detrusor + relajación esfínter (M3)</td><td>Parasimpático (micción)</td></tr>
+          <tr><td><strong>Tubo gastrointestinal</strong></td><td>↓ Motilidad y secreción (α2, β2) · ↑ Tono esfínter (α1)</td><td>↑ Motilidad y secreción (M3) · ↓ Tono esfínter (M3)</td><td>Parasimpático + sistema entérico</td></tr>
+          <tr><td><strong>Riñón (renina)</strong></td><td>↑ Secreción de renina (β1 en células yuxtaglomerulares)</td><td>Mínimo efecto directo</td><td>Simpático</td></tr>
+          <tr><td><strong>Glándulas salivales</strong></td><td>↓ Volumen, ↑ viscosidad (α1)</td><td>↑ Volumen, ↓ viscosidad (M3)</td><td>Parasimpático</td></tr>
+          <tr><td><strong>Médula suprarrenal</strong></td><td>Fibras preganglionares colinérgicas → liberación de adrenalina (80%) y noradrenalina (20%) a sangre</td><td>Sin inervación</td><td>Simpático (respuesta de estrés)</td></tr>
+          <tr><td><strong>Hígado</strong></td><td>↑ Glucogenólisis + gluconeogénesis (β2, α1)</td><td>↑ Glucogénesis (M3)</td><td>Simpático en estrés</td></tr>
+          <tr><td><strong>Músculo esquelético</strong></td><td>↑ Glucogenólisis (β2) · Vasodilatación (β2)</td><td>Sin inervación directa</td><td>Simpático en ejercicio</td></tr>
+        </tbody>
+      </table></div>
+    
+
+    
+      <h3>15.5 Neurotransmisión en el Ganglio Autónomo y Cotransmisores</h3>
+      <div class="callout clinical"><div class="callout-title">🔬 Conceptos de neuroanatomía funcional actualizados</div><p>        <strong>Ganglio simpático (transmisión):</strong> Fibra preganglionar (Ach) → nAChRα3β4 → despolarización ganglionar (EPSP rápido) · También neuropéptido Y (NPY), sustancia P → modulación lenta.<br>
+        <strong>Cotransmisores simpáticos posganglionares:</strong> Junto con NA se coliberan ATP (P2X, P2Y en músculo liso → vasoconstricción rápida) y NPY (↑ vasoconstricción, ↓ liberación de NA).<br>
+        <strong>Cotransmisores parasimpáticos:</strong> Junto con ACh se colibera VIP (péptido intestinal vasoactivo) → vasodilatación en glándulas salivales y pene (NO+VIP).<br>
+        <strong>Inactivación de NA:</strong> (1) Recaptación neuronal — transportador NET (blanco de antidepresivos tricíclicos y cocaína) · (2) MAO-A y COMT → metabolismo a ácido vanilmandélico (VMA, medible en orina en feocromocitoma) · (3) Difusión.<br>
+        <strong>Inactivación de ACh:</strong> Acetilcolinesterasa (AChE) en la hendidura sináptica → colina + acetato. Inhibidores de AChE: neostigmina (uso anestésico, reversión de BNM), organofosforados (toxicidad — síndrome muscarínico + nicotínico).</p></div>
+    
+
+    
+      <h3>15.6 Reflejos Autonómicos Cardiovasculares Clave</h3>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Reflejo</th><th>Receptor</th><th>Aferente</th><th>Centro integrador</th><th>Respuesta eferente</th><th>Relevancia clínica</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Barorreceptor arterial</strong></td><td>Mecanorreceptores en seno carotídeo (NC IX) y cayado aórtico (NC X)</td><td>Glossofaríngeo (IX) y Vago (X)</td><td>Núcleo del tracto solitario (NTS) → bulbo ventrolateral</td><td>↑ PA → ↑ impulsos aferentes → ↑ parasimpático + ↓ simpático → ↓ FC + vasodilatación → ↓ PA (homeostasis)</td><td>Hipotensión ortostática (falla del reflejo). Anestesia general y raquídea: ↓ tono simpático → hipotensión. Masaje del seno carotídeo → bradicardia vagal.</td></tr>
+          <tr><td><strong>Bezold-Jarisch</strong></td><td>Quimiorreceptores y mecanorreceptores en ventrículo inferior-posterior (fibras C vagales)</td><td>Vago (X) — fibras C amielínicas</td><td>NTS</td><td>Bradicardia + hipotensión + vasodilatación · Apnea transitoria</td><td>Síncope vasovagal. Activado en infarto inferior (estimulación vagal masiva). Hemorragia severa → paradójicamente bradicardia antes del paro.</td></tr>
+          <tr><td><strong>Quimiorreceptor periférico</strong></td><td>Cuerpo carotídeo y aórtico (↓ PO₂, ↑ PCO₂, ↓ pH)</td><td>NC IX y X</td><td>NTS → centros respiratorio y cardiovascular</td><td>↑ Frecuencia respiratoria · Vasoconstricción periférica simpática · ↓ FC (si no hay hiperventilación)</td><td>Hipoxia aguda → activación quimiorreceptores → vasoconstricción sistémica pero vasodilatación coronaria y cerebral (respuestas preferentes).</td></tr>
+          <tr><td><strong>Reflejo de Cushing</strong></td><td>Isquemia del centro vasomotor bulbar (↑ PIC)</td><td>Mecanosensores centrales</td><td>Centro vasomotor bulbar</td><td>Hipertensión arterial intensa + bradicardia refleja (por barorreceptores) + irregularidad respiratoria</td><td>Tríada de Cushing (HTA + bradicardia + bradipnea) = signo de herniación cerebral inminente. Urgencia neuroquirúrgica.</td></tr>
+        </tbody>
+      </table></div>
+      <div class="callout warning"><div class="callout-title">⚠ Relevancia anestésica del SNA</div><p>La anestesia general suprime los reflejos autonómicos de forma dosis-dependiente. Los opioides y propofol ↑ tono parasimpático → bradicardia e hipotensión. La ketamina estimula el simpático central → ↑ FC, ↑ PA (efecto protector en shock hemorrágico). Los halogenados (sevoflurano, desflurano) ↓ RVS + deprimen miocardio → hipotensión proporcional a la concentración alveolar mínima (CAM). El desflurano a concentraciones rápidamente crecientes activa simpático → taquicardia e hipertensión transitoria.</p></div>
+    
+
+  
+
+</div>
+
+</div><!-- /content -->
+<footer>
+  <div><div class="footer-name">Dr. Andrés Robayo C.</div><div class="footer-title">Médico Anestesiólogo · Hospital de Kennedy · Hospital de Bosa · Subred Suroccidente · Material de uso académico</div></div>
+  <div class="footer-copy">© Dr. Andrés Robayo C. · Todos los derechos reservados<br>Reproducción permitida exclusivamente con fines educativos y con atribución al autor.</div>
+</footer>
+</div><!-- /teoria-tab -->
+
+<!-- TALLER TAB -->
+<div class="tab-content" id="taller-tab">
+<div class="taller-header">
+  <h2>Taller — <em>Fisiología Cardiovascular y Renal</em></h2>
+  <div class="taller-meta">Dr. Andrés Robayo C. · 3 módulos · 5.0 puntos totales · Hospital de Kennedy</div>
+</div>
+<div class="taller-content">
+<div class="alert-yellow">⚠ <strong>Instrucciones:</strong> El feedback de selección múltiple aparece solo al oprimir «Corregir Módulo». En los ejercicios de cálculo, complete todas las casillas del desarrollo — la calificación evalúa tanto los pasos intermedios como el resultado final. Las cajas ámbar son preguntas abiertas calificadas por el docente. Use <strong>punto</strong> como separador decimal.</div>
+
+<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:15px;">
+  <div style="background:#e6f4f2;border:2px solid var(--teal);border-radius:8px;padding:10px 8px;text-align:center;"><div style="font-family:var(--mono);font-size:13pt;font-weight:600;color:var(--teal);">2.0 pts</div><div style="font-family:var(--sans);font-size:7.5pt;color:var(--gray-600);margin-top:3px;">Módulo A — 🤖<br>Conceptos y fórmulas</div></div>
+  <div style="background:#e6f4f2;border:2px solid var(--teal);border-radius:8px;padding:10px 8px;text-align:center;"><div style="font-family:var(--mono);font-size:13pt;font-weight:600;color:var(--teal);">1.5 pts</div><div style="font-family:var(--sans);font-size:7.5pt;color:var(--gray-600);margin-top:3px;">Módulo B — 🤖<br>Cálculos aplicados</div></div>
+  <div style="background:var(--amber-light);border:2px solid var(--amber);border-radius:8px;padding:10px 8px;text-align:center;"><div style="font-family:var(--mono);font-size:13pt;font-weight:600;color:var(--amber);">1.5 pts</div><div style="font-family:var(--sans);font-size:7.5pt;color:var(--gray-600);margin-top:3px;">Módulo C — ✏️<br>Razonamiento integrado</div></div>
+</div>
+<div class="score-note">
+  <span style="font-family:var(--mono);font-size:16pt;font-weight:600;color:#7dd3c8;">5.0 pts</span>
+  <span style="font-family:var(--sans);font-size:9pt;color:rgba(255,255,255,.8);">Módulos A y B 🤖 autocorregibles · Módulo C ✏️ calificado por el docente. Aplique siempre las fórmulas y unidades correctas.</span>
+</div>
+
+<!-- MÓDULO A -->
+<div class="module">
+  <div class="module-header">
+    <span class="module-tag">🤖 AUTOCORREGIBLE</span>
+    <span class="module-title">Módulo A — Conceptos y fórmulas fundamentales</span>
+    <span class="module-pts">2.0 pts</span>
+  </div>
+  <div class="module-body">
+
+    <div class="ex-item">
+      <div class="ex-label"><span class="ex-num">A1</span> Presión Arterial Media <span class="ex-pts">0.25 pts</span></div>
+      <div class="ex-context">Paciente con PA = 140/90 mmHg.</div>
+      <div class="mc-row"><span class="mc-label">PAM calculada:</span>
+        <select class="mc-select" onchange="chk(this,'107 mmHg — PAM = 90 + ⅓(140−90) = 90 + 16.7','fbA1')"><option value="">— elegir —</option><option>107 mmHg — PAM = 90 + ⅓(140−90) = 90 + 16.7</option><option>115 mmHg — promedio simple de PAS y PAD</option><option>140 mmHg — se usa la PAS directamente</option><option>90 mmHg — se usa la PAD directamente</option></select>
+        <span class="fb" id="fbA1"></span>
+      </div>
+    </div>
+
+    <div class="ex-item">
+      <div class="ex-label"><span class="ex-num">A2</span> Ley de Laplace — Aneurisma <span class="ex-pts">0.25 pts</span></div>
+      <div class="ex-context">Un aneurisma aórtico duplica su radio (r → 2r), manteniendo constantes la presión (P) y el grosor de la pared (h).</div>
+      <div class="mc-row"><span class="mc-label">¿Qué ocurre con la tensión de la pared (T)?</span>
+        <select class="mc-select" onchange="chk(this,'Se duplica — T = (P × r)/h es proporcional al radio (relación lineal)','fbA2')"><option value="">— elegir —</option><option>Se duplica — T = (P × r)/h es proporcional al radio (relación lineal)</option><option>Se cuadruplica — T es proporcional a r²</option><option>Se reduce a la mitad — T es inversamente proporcional a r</option><option>No cambia — T depende solo de la presión</option></select>
+        <span class="fb" id="fbA2"></span>
+      </div>
+    </div>
+
+    <div class="ex-item">
+      <div class="ex-label"><span class="ex-num">A3</span> Ley de Poiseuille — Resistencia <span class="ex-pts">0.25 pts</span></div>
+      <div class="ex-context">El radio de una arteriola se reduce a la mitad (vasoconstricción), sin cambios en viscosidad ni longitud.</div>
+      <div class="mc-row"><span class="mc-label">¿Cuánto aumenta la resistencia vascular?</span>
+        <select class="mc-select" onchange="chk(this,'16 veces — R ∝ 1/r⁴, entonces (1/0.5)⁴ = 2⁴ = 16','fbA3')"><option value="">— elegir —</option><option>16 veces — R ∝ 1/r⁴, entonces (1/0.5)⁴ = 2⁴ = 16</option><option>2 veces — relación lineal con el radio</option><option>4 veces — R ∝ 1/r²</option><option>8 veces — R ∝ 1/r³</option></select>
+        <span class="fb" id="fbA3"></span>
+      </div>
+    </div>
+
+    <div class="ex-item">
+      <div class="ex-label"><span class="ex-num">A4</span> Fracción de Eyección <span class="ex-pts">0.25 pts</span></div>
+      <div class="ex-context">Ecocardiograma: VTD = 140 mL, VTS = 60 mL.</div>
+      <div class="mc-row"><span class="mc-label">FE calculada:</span>
+        <select class="mc-select" onchange="chk(this,'57% — VS = 140−60 = 80 mL; FE = (80/140)×100 = 57.1%','fbA4')"><option value="">— elegir —</option><option>57% — VS = 140−60 = 80 mL; FE = (80/140)×100 = 57.1%</option><option>43% — se calcula VTS/VTD</option><option>80% — se usa el VS directamente como porcentaje</option><option>60 mL — no se convierte a porcentaje</option></select>
+        <span class="fb" id="fbA4"></span>
+      </div>
+    </div>
+
+    <div class="ex-item">
+      <div class="ex-label"><span class="ex-num">A5</span> Mecanismo Molecular de Frank-Starling <span class="ex-pts">0.25 pts</span></div>
+      <div class="mc-row"><span class="mc-label">¿Cuál es el mecanismo molecular por el que el estiramiento del sarcómero aumenta la fuerza de contracción?</span>
+        <select class="mc-select" onchange="chk(this,'El estiramiento aumenta la sensibilidad de la troponina C al Ca²⁺, favoreciendo más puentes cruzados','fbA5')"><option value="">— elegir —</option><option>El estiramiento aumenta la sensibilidad de la troponina C al Ca²⁺, favoreciendo más puentes cruzados</option><option>El estiramiento libera más Ca²⁺ directamente del retículo sarcoplásmico</option><option>El estiramiento aumenta la velocidad de conducción del potencial de acción</option><option>El estiramiento inhibe la SERCA2a, prolongando la sístole</option></select>
+        <span class="fb" id="fbA5"></span>
+      </div>
+    </div>
+
+    <div class="ex-item">
+      <div class="ex-label"><span class="ex-num">A6</span> Glicocálix Endotelial en Sepsis <span class="ex-pts">0.25 pts</span></div>
+      <div class="mc-row"><span class="mc-label">¿Qué ocurre con el glicocálix endotelial en la sepsis y cuál es su consecuencia?</span>
+        <select class="mc-select" onchange="chk(this,'Se degrada (shedding) por TNF-α y heparanasa → ↑ permeabilidad capilar → fuga de líquido y edema','fbA6')"><option value="">— elegir —</option><option>Se degrada (shedding) por TNF-α y heparanasa → ↑ permeabilidad capilar → fuga de líquido y edema</option><option>Se engrosa como mecanismo protector → ↓ permeabilidad capilar</option><option>No se afecta — solo cambia en trauma directo del endotelio</option><option>Se regenera espontáneamente en las primeras horas de sepsis</option></select>
+        <span class="fb" id="fbA6"></span>
+      </div>
+    </div>
+
+    <div class="ex-item">
+      <div class="ex-label"><span class="ex-num">A7</span> Angiotensina II y Filtración Glomerular <span class="ex-pts">0.25 pts</span></div>
+      <div class="mc-row"><span class="mc-label">Efecto de la angiotensina II sobre la TFG y la fracción de filtración (FF):</span>
+        <select class="mc-select" onchange="chk(this,'Contrae la arteriola eferente → ↑ Pgc → ↑ TFG (moderado) y ↑ FF','fbA7')"><option value="">— elegir —</option><option>Contrae la arteriola eferente → ↑ Pgc → ↑ TFG (moderado) y ↑ FF</option><option>Contrae la arteriola aferente → ↓ TFG y ↓ FF</option><option>Dilata ambas arteriolas → sin cambio neto en TFG</option><option>No tiene efecto directo sobre la hemodinámica glomerular</option></select>
+        <span class="fb" id="fbA7"></span>
+      </div>
+    </div>
+
+    <div class="ex-item">
+      <div class="ex-label"><span class="ex-num">A8</span> Potencial de Acción Ventricular — Fase 0 <span class="ex-pts">0.25 pts</span></div>
+      <div class="mc-row"><span class="mc-label">¿Qué canal es responsable de la fase 0 (despolarización rápida) en el miocardiocito ventricular?</span>
+        <select class="mc-select" onchange="chk(this,'Canal de Na⁺ dependiente de voltaje (Nav1.5) — entrada masiva de Na⁺','fbA8')"><option value="">— elegir —</option><option>Canal de Na⁺ dependiente de voltaje (Nav1.5) — entrada masiva de Na⁺</option><option>Canal L de Ca²⁺ (Cav1.2)</option><option>Canal HCN4 (corriente If)</option><option>Canal de K⁺ rectificador (IK1)</option></select>
+        <span class="fb" id="fbA8"></span>
+      </div>
+      <button class="correct-btn" onclick="corregir('A',8,['fbA1','fbA2','fbA3','fbA4','fbA5','fbA6','fbA7','fbA8'],2.0)">Corregir Módulo A (2.0 pts)</button>
+    </div>
+  </div>
+</div>
+
+<!-- MÓDULO B -->
+<div class="module">
+  <div class="module-header">
+    <span class="module-tag">🤖 AUTOCORREGIBLE</span>
+    <span class="module-title">Módulo B — Cálculos hemodinámicos y renales aplicados</span>
+    <span class="module-pts">1.5 pts</span>
+  </div>
+  <div class="module-body">
+    <div class="ex-item">
+      <div class="ex-label"><span class="ex-num">B1</span> Presión Arterial Media <span class="ex-pts">0.3 pts</span></div>
+      <div class="ex-context">Paciente con PA = 132/84 mmHg.</div>
+      <div class="calc-block" id="calc-B1"><div class="answer-line">Diferencia PAS−PAD: 132 − 84 = <input data-ans="48" class="ans-input ans-sm" inputmode="decimal" placeholder="?"> mmHg &nbsp;|&nbsp; PAM = 84 + (diferencia ÷ 3) = <input data-ans="100" class="ans-input ans-sm" inputmode="decimal" placeholder="?"> mmHg</div></div>
+      <div class="mc-row"><span class="mc-label">PAM correcta:</span>
+        <select class="mc-select" onchange="chk(this,'100 mmHg','fbB1')"><option value="">— elegir —</option><option>100 mmHg</option><option>108 mmHg</option><option>96 mmHg</option><option>84 mmHg</option></select>
+        <span class="fb" id="fbB1"></span>
+      </div>
+    </div>
+
+    <div class="ex-item">
+      <div class="ex-label"><span class="ex-num">B2</span> Resistencia Vascular Sistémica <span class="ex-pts">0.3 pts</span></div>
+      <div class="ex-context">Paciente en shock: PAM = 78 mmHg, PVC = 6 mmHg, GC = 6 L/min.</div>
+      <div class="calc-block" id="calc-B2"><div class="answer-line">Diferencia PAM−PVC: 78 − 6 = <input data-ans="72" class="ans-input ans-sm" inputmode="decimal" placeholder="?"> mmHg &nbsp;|&nbsp; RVS = (diferencia ÷ GC) × 80 = (? ÷ 6) × 80 = <input data-ans="960" class="ans-input ans-md" inputmode="decimal" placeholder="?"> dinas·s/cm⁵</div></div>
+      <div class="mc-row"><span class="mc-label">RVS correcta:</span>
+        <select class="mc-select" onchange="chk(this,'960 dinas·s/cm⁵ — dentro de rango normal (900–1200)','fbB2')"><option value="">— elegir —</option><option>960 dinas·s/cm⁵ — dentro de rango normal (900–1200)</option><option>1440 dinas·s/cm⁵</option><option>576 dinas·s/cm⁵</option><option>12 dinas·s/cm⁵</option></select>
+        <span class="fb" id="fbB2"></span>
+      </div>
+    </div>
+
+    <div class="ex-item">
+      <div class="ex-label"><span class="ex-num">B3</span> Fracción de Eyección <span class="ex-pts">0.3 pts</span></div>
+      <div class="ex-context">Ecocardiograma: VTD = 125 mL, VTS = 50 mL.</div>
+      <div class="calc-block" id="calc-B3"><div class="answer-line">VS = VTD − VTS = 125 − 50 = <input data-ans="75" class="ans-input ans-sm" inputmode="decimal" placeholder="?"> mL &nbsp;|&nbsp; FE = (VS ÷ VTD) × 100 = <input data-ans="60" class="ans-input ans-sm" inputmode="decimal" placeholder="?"> %</div></div>
+      <div class="mc-row"><span class="mc-label">FE correcta:</span>
+        <select class="mc-select" onchange="chk(this,'60% — función sistólica conservada','fbB3')"><option value="">— elegir —</option><option>60% — función sistólica conservada</option><option>40% — HFrEF</option><option>75 mL — sin convertir a porcentaje</option><option>50% — se usa VTS/VTD</option></select>
+        <span class="fb" id="fbB3"></span>
+      </div>
+    </div>
+
+    <div class="ex-item">
+      <div class="ex-label"><span class="ex-num">B4</span> Ecuación de Fick — Gasto Cardíaco <span class="ex-pts">0.3 pts</span></div>
+      <div class="ex-context">VO₂ = 280 mL O₂/min, CaO₂ = 19 mL O₂/dL, CvO₂ = 14 mL O₂/dL.</div>
+      <div class="calc-block" id="calc-B4"><div class="answer-line">Diferencia a-v de O₂: 19 − 14 = <input data-ans="5" class="ans-input ans-sm" inputmode="decimal" placeholder="?"> mL O₂/dL &nbsp;|&nbsp; GC = VO₂ ÷ (diferencia × 10) = 280 ÷ (? × 10) = <input data-ans="5.6" class="ans-input ans-sm" inputmode="decimal" placeholder="?"> L/min</div></div>
+      <div class="mc-row"><span class="mc-label">GC correcto:</span>
+        <select class="mc-select" onchange="chk(this,'5.6 L/min','fbB4')"><option value="">— elegir —</option><option>5.6 L/min</option><option>56 L/min</option><option>2.8 L/min</option><option>14.7 L/min</option></select>
+        <span class="fb" id="fbB4"></span>
+      </div>
+    </div>
+
+    <div class="ex-item">
+      <div class="ex-label"><span class="ex-num">B5</span> Presión Neta de Filtración Glomerular <span class="ex-pts">0.3 pts</span></div>
+      <div class="ex-context">Pgc = 58 mmHg, Pbc = 18 mmHg, πgc = 32 mmHg, πbc ≈ 0.</div>
+      <div class="calc-block" id="calc-B5"><div class="answer-line">Diferencia hidrostática: Pgc − Pbc = 58 − 18 = <input data-ans="40" class="ans-input ans-sm" inputmode="decimal" placeholder="?"> mmHg &nbsp;|&nbsp; PNF = (diferencia hidrostática) − πgc = ? − 32 = <input data-ans="8" class="ans-input ans-sm" inputmode="decimal" placeholder="?"> mmHg</div></div>
+      <div class="mc-row"><span class="mc-label">PNF correcta:</span>
+        <select class="mc-select" onchange="chk(this,'8 mmHg — impulsa la TFG hacia la cápsula de Bowman','fbB5')"><option value="">— elegir —</option><option>8 mmHg — impulsa la TFG hacia la cápsula de Bowman</option><option>40 mmHg</option><option>72 mmHg</option><option>−8 mmHg — favorecería reabsorción, no filtración</option></select>
+        <span class="fb" id="fbB5"></span>
+      </div>
+      <button class="correct-btn" onclick="corregir('B',5,['fbB1','fbB2','fbB3','fbB4','fbB5'],1.5)">Corregir Módulo B (1.5 pts)</button>
+    </div>
+  </div>
+</div>
+
+<!-- MÓDULO C -->
+<div class="module">
+  <div class="module-header" style="background:var(--amber);">
+    <span class="module-tag" style="color:white;">✏️ DOCENTE</span>
+    <span class="module-title">Módulo C — Razonamiento fisiopatológico integrado</span>
+    <span class="module-pts">1.5 pts</span>
+  </div>
+  <div class="module-body">
+    <div class="manual-block">
+      <div class="manual-block-header">
+        <span class="manual-badge">Calificación docente</span>
+        <span class="manual-pts-badge">0.75 pts</span>
+        <span class="manual-title">C1 · Shock séptico — Análisis hemodinámico completo</span>
+      </div>
+      <div class="manual-note">Paciente en shock séptico: GC = 7.5 L/min, PAM = 58 mmHg, PVC = 4 mmHg.</div>
+      <div class="open-question-part"><span class="open-question-part-letter">a</span><span>Calcule la RVS mostrando cada paso y clasifíquela (normal/baja/alta).</span></div>
+      <div class="open-question-part"><span class="open-question-part-letter">b</span><span>Explique el mecanismo fisiopatológico a nivel del glicocálix endotelial que explica por qué, a pesar de un GC conservado o elevado, este paciente puede desarrollar edema y fuga capilar.</span></div>
+      <div class="open-question-part"><span class="open-question-part-letter">c</span><span>Justifique por qué la norepinefrina (y no la fluidoterapia agresiva aislada) es el tratamiento farmacológico que corrige el problema fisiológico principal identificado en el literal a.</span></div>
+      <textarea class="open-area" style="min-height:130px;" placeholder="Escriba su respuesta aquí..."></textarea>
+    </div>
+
+    <div class="manual-block">
+      <div class="manual-block-header">
+        <span class="manual-badge">Calificación docente</span>
+        <span class="manual-pts-badge">0.75 pts</span>
+        <span class="manual-title">C2 · Paradoja de la insuficiencia cardíaca con FE reducida</span>
+      </div>
+      <div class="manual-note">En la insuficiencia cardíaca con FE reducida (HFrEF), coexisten una activación crónica del eje β1-PKA-fosfolambano y una respuesta contráctil progresivamente menor.</div>
+      <div class="open-question-part"><span class="open-question-part-letter">a</span><span>Explique cómo la activación aguda de la vía β1-PKA-fosfolambano mejora la contractilidad y la relajación (inotropismo y lusitropismo) a nivel molecular.</span></div>
+      <div class="open-question-part"><span class="open-question-part-letter">b</span><span>Explique por qué, a pesar de esta vía, la activación simpática crónica termina siendo perjudicial — integre los conceptos de fosforilación por GRK2, internalización de receptores β1 mediada por β-arrestina y desensibilización.</span></div>
+      <div class="open-question-part"><span class="open-question-part-letter">c</span><span>Relacione este fenómeno con el concepto de elastancia ventricular: ¿qué le ocurre a la curva de elastancia máxima sistólica (Emax) en la HFrEF y qué implicación tiene para la respuesta a inotrópicos como la dobutamina?</span></div>
+      <textarea class="open-area" style="min-height:130px;" placeholder="Escriba su respuesta aquí..."></textarea>
+    </div>
+    <div style="font-family:var(--sans);font-size:8pt;color:var(--gray-400);margin-top:6px;font-style:italic;">Preguntas C1 y C2 calificadas por el docente → Total Módulo C: 1.5 pts</div>
+  </div>
+</div>
+
+<div class="download-box">
+  <h3>↘ Descargar Guía</h3>
+  <p style="font-family:var(--sans);font-size:9pt;color:#212529;margin-bottom:11px;">Complete su nombre y universidad antes de descargar.</p>
+  <div class="input-row">
+    <input class="id-input" id="nomFCV" type="text" placeholder="Nombre completo del estudiante">
+    <input class="id-input" id="univFCV" type="text" placeholder="Universidad / Institución">
+    <button class="dl-btn" onclick="dlPDF()">↓ Descargar PDF</button>
+  </div>
+  <div class="dl-error" id="errFCV">⚠ Por favor complete nombre y universidad antes de descargar.</div>
+</div>
+<div class="nota-bar">
+  <span class="nota-bar-label">Nota acumulada</span>
+  <span class="nota-bar-val" id="notaFCV">0.00 / 3.50</span>
+  <span style="font-family:var(--sans);font-size:8.5pt;color:var(--gray-600);">Autocorregible (Módulos A–B) &nbsp;|&nbsp; <span style="color:var(--amber);font-weight:600;">✏️ 1.5 pts · Módulo C calificado por docente</span></span>
+</div>
+</div>
+</div><!-- /taller-tab -->
+
+</div><!-- /page -->
+
+<script>
+function showTab(id,btn){
+  document.querySelectorAll('.tab-content').forEach(t=>t.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+  document.getElementById(id+'-tab').classList.add('active');
+  btn.classList.add('active');
+}
+function setDesign(d,btn){
+  document.querySelector('.page').dataset.design=d;
+  document.querySelectorAll('.ds-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+}
+function togglePalette(){document.getElementById('palettePanel').classList.toggle('open');}
+function setPalette(p,el){
+  var pg=document.querySelector('.page');
+  pg.dataset.palette=(p==='oceano'?'':p);
+  document.querySelectorAll('.palette-opt').forEach(o=>o.classList.remove('sel'));
+  el.classList.add('sel');
+  document.getElementById('palettePanel').classList.remove('open');
+}
+document.addEventListener('click',function(e){
+  if(!e.target.closest('.palette-btn')&&!e.target.closest('.palette-panel'))
+    document.getElementById('palettePanel').classList.remove('open');
+});
+var answers={};
+function chk(sel,correct,fbId){
+  answers[fbId]={val:sel.value.trim(),correct:correct.trim()};
+  var fb=document.getElementById(fbId);
+  if(fb){fb.textContent='';fb.className='fb';}
+}
+
+// MAPEO: cada casilla de resultado (fbId) -> bloque(s) de cálculo (calc-block) que debe verificarse
+var chainMap={
+  fbB1:['calc-B1'],
+  fbB2:['calc-B2'],
+  fbB3:['calc-B3'],
+  fbB4:['calc-B4'],
+  fbB5:['calc-B5']
+};
+
+// Convierte texto a número, aceptando coma decimal
+function parseNum(str){
+  if(str===undefined||str===null) return NaN;
+  str=String(str).trim().replace(',','.');
+  if(str==='') return NaN;
+  return parseFloat(str);
+}
+// Tolerancia: 3% relativo o 0.01 absoluto (lo que sea mayor)
+function numClose(given,expected){
+  if(isNaN(given)||isNaN(expected)) return false;
+  var tol=Math.max(0.01, Math.abs(expected)*0.03);
+  return Math.abs(given-expected)<=tol;
+}
+// Revisa TODAS las casillas numéricas del bloque de cálculo asociado a una respuesta.
+function checkChains(fbId){
+  var blocks=chainMap[fbId];
+  if(!blocks) return true;
+  var allOk=true;
+  blocks.forEach(function(bid){
+    var block=document.getElementById(bid);
+    if(!block) return;
+    var inputs=block.querySelectorAll('input[data-ans]');
+    inputs.forEach(function(inp){
+      var expected=parseNum(inp.getAttribute('data-ans'));
+      var given=parseNum(inp.value);
+      var ok=numClose(given,expected);
+      inp.classList.remove('fi-ok','fi-err');
+      inp.classList.add(ok?'fi-ok':'fi-err');
+      if(!ok) allOk=false;
+    });
+  });
+  return allOk;
+}
+
+var pts={A:0,B:0};
+function corregir(mod,total,fbIds,maxPts){
+  var ok=0;
+  fbIds.forEach(function(fbId){
+    var fb=document.getElementById(fbId);
+    var ans=answers[fbId];
+    var chainOk=checkChains(fbId);
+    if(!fb)return;
+    if(!ans||!ans.val){fb.textContent='— sin respuesta';fb.className='fb';return;}
+    var selectOk=ans.val===ans.correct;
+    if(selectOk && chainOk){ok++;fb.textContent='✓ correcto';fb.className='fb ok';}
+    else if(selectOk && !chainOk){fb.textContent='✗ cálculo incorrecto (revise las casillas en rojo)';fb.className='fb err';}
+    else{fb.textContent='✗ incorrecto';fb.className='fb err';}
+  });
+  var p=(ok/total)*maxPts;
+  pts[mod]=p;
+  actualizarNotas();
+  alert('Módulo '+mod+' corregido: '+ok+'/'+total+' correctas = '+p.toFixed(2)+' pts autocorregibles');
+}
+function actualizarNotas(){
+  var total=(pts.A||0)+(pts.B||0);
+  var nt=document.getElementById('notaFCV');
+  if(nt)nt.textContent=total.toFixed(2)+' / 3.50';
+}
+function setupPrintAnswers(){
+  document.querySelectorAll('textarea.open-area').forEach(function(ta){
+    var clone=ta.nextElementSibling;
+    if(!clone||!clone.classList.contains('print-answer')){
+      clone=document.createElement('div');
+      clone.className='print-answer';
+      ta.parentNode.insertBefore(clone,ta.nextSibling);
+    }
+    ta.addEventListener('input',function(){clone.textContent=ta.value;});
+  });
+}
+document.addEventListener('DOMContentLoaded',setupPrintAnswers);
+window.addEventListener('beforeprint',function(){
+  document.querySelectorAll('textarea.open-area').forEach(function(ta){
+    var clone=ta.nextElementSibling;
+    if(clone&&clone.classList.contains('print-answer'))clone.textContent=ta.value;
+  });
+});
+function dlPDF(){
+  var nom=document.getElementById('nomFCV').value.trim();
+  var univ=document.getElementById('univFCV').value.trim();
+  if(!nom||!univ){document.getElementById('errFCV').style.display='block';return;}
+  document.getElementById('errFCV').style.display='none';
+  var ahora=new Date();
+  var f=ahora.toLocaleDateString('es-CO',{day:'2-digit',month:'long',year:'numeric'})+' '+ahora.toLocaleTimeString('es-CO',{hour:'2-digit',minute:'2-digit'});
+  ['phNombre','pfNombre'].forEach(function(id){var el=document.getElementById(id);if(el)el.textContent=nom;});
+  ['phUniversidad','pfUniversidad'].forEach(function(id){var el=document.getElementById(id);if(el)el.textContent=univ;});
+  ['phGuia','pfGuia'].forEach(function(id){var el=document.getElementById(id);if(el)el.textContent='Fisiología Cardiovascular y Renal';});
+  ['phFecha','pfFecha'].forEach(function(id){var el=document.getElementById(id);if(el)el.textContent=f;});
+  document.querySelectorAll('.tab-content').forEach(t=>t.classList.remove('active'));
+  document.getElementById('taller-tab').classList.add('active');
+  setTimeout(function(){window.print();},300);
+}
+</script>
+</body>
+</html>
