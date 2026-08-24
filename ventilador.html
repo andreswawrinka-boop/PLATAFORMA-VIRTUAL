@@ -256,11 +256,47 @@ footer { border-top:2px solid rgba(0,0,0,.08); padding:22px 56px 28px; display:f
     height:auto !important; overflow:visible !important; white-space:pre-wrap; word-break:break-word; page-break-inside:avoid;
   }
   .print-answer:empty::after { content:'(sin respuesta)'; color:#adb5bd; font-style:italic; }
+
+  /* ══ SELLO DE VERIFICACIÓN ANTI-PLAGIO ══
+     Código como texto real, visible al imprimir. */
+  .exercise-wm-tag{
+    display:inline-block !important;
+    font-family:var(--mono);
+    font-size:6.5pt;
+    color:var(--gray-600);
+    background:var(--gray-100);
+    border:1px solid var(--gray-400);
+    padding:2px 7px;
+    border-radius:6px;
+    flex-shrink:0;
+    margin-top:1px;
+    letter-spacing:.5px;
+    white-space:nowrap;
+  }
+
+  /* Código repetido frente a CADA pregunta del taller */
+  .question-wm-tag{
+    display:inline-block !important;
+    font-family:var(--mono);
+    font-size:6pt;
+    font-weight:500;
+    color:var(--gray-600);
+    background:var(--gray-100);
+    border:1px solid var(--gray-400);
+    padding:2px 6px;
+    border-radius:6px;
+    flex-shrink:0;
+    margin-left:4px;
+    letter-spacing:.4px;
+    white-space:nowrap;
+  }
 }
 @media screen {
   .page-print-header { display:none; }
   .print-footer-fixed { display:none; }
   .print-answer { display:none !important; }
+  .exercise-wm-tag { display:none !important; }
+  .question-wm-tag { display:none !important; }
 }
 
 </style>
@@ -268,10 +304,10 @@ footer { border-top:2px solid rgba(0,0,0,.08); padding:22px 56px 28px; display:f
 <body>
 <div class="page">
 
-<div class="page-print-header" id="printHeader"><span id="phNombre"></span> · <span id="phUniversidad"></span> · <span id="phGuia"></span> · <span id="phFecha"></span></div>
+<div class="page-print-header" id="printHeader"><span id="phNombre"></span> · <span id="phUniversidad"></span> · <span id="phGuia"></span> · <span id="phFecha"></span> · Código: <strong id="phCodigo"></strong></div>
 <div class="print-footer-fixed" id="printFooter">
   <span><strong id="pfNombre"></strong> · <span id="pfUniversidad"></span></span>
-  <span>Guía: <span id="pfGuia"></span> · Dr. Andrés Robayo C.</span>
+  <span>Guía: <span id="pfGuia"></span> · Dr. Andrés Robayo C. · Código: <strong id="pfCodigo"></strong></span>
   <span id="pfFecha"></span>
 </div>
 
@@ -940,7 +976,42 @@ window.addEventListener('beforeprint',function(){
     if(clone&&clone.classList.contains('print-answer'))clone.textContent=ta.value;
   });
 });
-// PDF DOWNLOAD
+// ══ ANTI-PLAGIO: código de verificación ══
+  // Hash corto y determinístico ligado a nombre + universidad + taller + fecha.
+  // El mismo código se repite en el encabezado y en cada ejercicio.
+  function hashCorto(str){
+    var h = 5381;
+    for(var i=0;i<str.length;i++){
+      h = ((h*33) ^ str.charCodeAt(i)) >>> 0;
+    }
+    return h.toString(36).toUpperCase().slice(0,7);
+  }
+
+  // Inserta (o actualiza) el código dentro del encabezado de cada ejercicio
+  // y frente a CADA pregunta del taller.
+  function estamparCodigoEnEjercicios(codigo){
+    document.querySelectorAll('.exercise-header').forEach(function(h){
+      var tag = h.querySelector('.exercise-wm-tag');
+      if(!tag){
+        tag = document.createElement('span');
+        tag.className = 'exercise-wm-tag';
+        h.appendChild(tag);
+      }
+      tag.textContent = '🔒 ' + codigo;
+    });
+
+    document.querySelectorAll('.question-label').forEach(function(lbl){
+      var tag = lbl.querySelector('.question-wm-tag');
+      if(!tag){
+        tag = document.createElement('span');
+        tag.className = 'question-wm-tag';
+        lbl.appendChild(tag);
+      }
+      tag.textContent = '🔒 ' + codigo;
+    });
+  }
+
+  // PDF DOWNLOAD
 function dlPDF(){
   var nom=document.getElementById('nomT').value.trim();
   var univ=document.getElementById('univT').value.trim();
@@ -952,6 +1023,13 @@ function dlPDF(){
   ['phUniversidad','pfUniversidad'].forEach(id=>{var el=document.getElementById(id);if(el)el.textContent=univ;});
   ['phGuia','pfGuia'].forEach(id=>{var el=document.getElementById(id);if(el)el.textContent='Taller — Ventilador y Sistemas de Oxigenación';});
   ['phFecha','pfFecha'].forEach(id=>{var el=document.getElementById(id);if(el)el.textContent=f;});
+
+  // Código de verificación: cambia si nombre, universidad, taller o fecha no coinciden.
+  var guia='Taller — Ventilador y Sistemas de Oxigenación';
+  var codigo=hashCorto(nom+'|'+univ+'|'+guia+'|'+f);
+  ['phCodigo','pfCodigo'].forEach(id=>{var el=document.getElementById(id);if(el)el.textContent=codigo;});
+  estamparCodigoEnEjercicios(codigo);
+
   document.querySelectorAll('.tab-content').forEach(t=>t.classList.remove('active'));
   document.getElementById('taller-tab').classList.add('active');
   setTimeout(function(){window.print();},300);

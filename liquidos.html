@@ -547,6 +547,27 @@ body{ background:#EEF3E6 !important; font-family:var(--sans); }
 @media print{
   .formula-block,.formula-eq{-webkit-print-color-adjust:exact;print-color-adjust:exact;}
 }
+
+/* IDENTIFICACIÓN INDIVIDUAL ANTI-PLAGIO */
+.anti-plagio-mark{display:none;}
+@media print{
+  .page-print-header strong,.print-footer-fixed strong{
+    font-family:var(--mono);font-weight:700;letter-spacing:.08em;
+  }
+  .anti-plagio-mark{
+    display:block !important;
+    margin-top:6px;
+    font-family:var(--mono);
+    font-size:7pt;
+    color:#495057;
+    letter-spacing:.04em;
+    text-align:right;
+    border-top:1px dashed #ced4da;
+    padding-top:4px;
+    page-break-inside:avoid;
+  }
+}
+@media screen{.anti-plagio-mark{display:none !important;}}
 </style>
 </head>
 <body>
@@ -1492,19 +1513,73 @@ window.addEventListener('beforeprint',function(){
     if(clone&&clone.classList.contains('print-answer'))clone.textContent=ta.value;
   });
 });
+function generarCodigoAL(){
+  if(window.__codigoAL) return window.__codigoAL;
+  var chars='ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
+  var s='AL-';
+  if(window.crypto && crypto.getRandomValues){
+    var a=new Uint32Array(6); crypto.getRandomValues(a);
+    for(var i=0;i<6;i++) s+=chars[a[i]%chars.length];
+  }else{
+    for(var j=0;j<6;j++) s+=chars[Math.floor(Math.random()*chars.length)];
+  }
+  window.__codigoAL=s;
+  return s;
+}
+function aplicarCodigoAntiPlagio(codigo,nom,univ){
+  ['phCodigo','pfCodigo'].forEach(function(id){
+    var el=document.getElementById(id); if(el) el.textContent='Código: '+codigo;
+  });
+  document.querySelectorAll('.anti-plagio-mark').forEach(function(el){el.remove();});
+
+  /* Marca cada ejercicio del taller, incluidos bloques manuales si están dentro de ellos. */
+  document.querySelectorAll('#taller-tab .ex-item').forEach(function(ex,idx){
+    var mark=document.createElement('div');
+    mark.className='anti-plagio-mark';
+    mark.textContent='Identificación individual · '+codigo+' · '+nom+' · '+univ+' · Ejercicio '+(idx+1);
+    ex.appendChild(mark);
+  });
+  document.querySelectorAll('#taller-tab .manual-ex-item').forEach(function(ex,idx){
+    var mark=document.createElement('div');
+    mark.className='anti-plagio-mark';
+    mark.textContent='Identificación individual · '+codigo+' · '+nom+' · '+univ+' · Ejercicio manual '+(idx+1);
+    ex.appendChild(mark);
+  });
+}
 function dlPDF(){
-  var nom=document.getElementById('nomL').value.trim();
-  var univ=document.getElementById('univL').value.trim();
-  if(!nom||!univ){document.getElementById('errL').style.display='block';return;}
-  document.getElementById('errL').style.display='none';
+  var nom=document.getElementById('nomAL').value.trim();
+  var univ=document.getElementById('univAL').value.trim();
+  if(!nom||!univ){
+    var er=document.getElementById('errAL'); if(er) er.style.display='block';
+    return;
+  }
+  var er=document.getElementById('errAL'); if(er) er.style.display='none';
+
+  var codigo=generarCodigoAL();
   var ahora=new Date();
-  var f=ahora.toLocaleDateString('es-CO',{day:'2-digit',month:'long',year:'numeric'})+' '+ahora.toLocaleTimeString('es-CO',{hour:'2-digit',minute:'2-digit'});
-  ['phNombre','pfNombre'].forEach(function(id){var el=document.getElementById(id);if(el)el.textContent=nom;});
-  ['phUniversidad','pfUniversidad'].forEach(function(id){var el=document.getElementById(id);if(el)el.textContent=univ;});
-  ['phGuia','pfGuia'].forEach(function(id){var el=document.getElementById(id);if(el)el.textContent='Taller &#8212; Manejo de L&#237;quidos en Anestesiolog&#237;a';});
-  ['phFecha','pfFecha'].forEach(function(id){var el=document.getElementById(id);if(el)el.textContent=f;});
-  document.querySelectorAll('.tab-content').forEach(t=>t.classList.remove('active'));
-  document.getElementById('taller-tab').classList.add('active');
+  var f=ahora.toLocaleDateString('es-CO',{day:'2-digit',month:'long',year:'numeric'})
+      +' '+ahora.toLocaleTimeString('es-CO',{hour:'2-digit',minute:'2-digit'});
+
+  ['phNombre','pfNombre'].forEach(function(id){
+    var el=document.getElementById(id); if(el) el.textContent=nom;
+  });
+  ['phUniversidad','pfUniversidad'].forEach(function(id){
+    var el=document.getElementById(id); if(el) el.textContent=univ;
+  });
+  ['phGuia','pfGuia'].forEach(function(id){
+    var el=document.getElementById(id); if(el) el.textContent='Taller';
+  });
+  ['phFecha','pfFecha'].forEach(function(id){
+    var el=document.getElementById(id); if(el) el.textContent=f;
+  });
+
+  aplicarCodigoAntiPlagio(codigo,nom,univ);
+
+  var taller=document.getElementById('taller-tab');
+  if(taller){
+    document.querySelectorAll('.tab-content').forEach(function(t){t.classList.remove('active');});
+    taller.classList.add('active');
+  }
   setTimeout(function(){window.print();},300);
 }
 </script>

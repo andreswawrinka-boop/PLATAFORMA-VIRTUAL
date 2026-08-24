@@ -391,14 +391,19 @@ body{ background:#F1ECE8 !important; font-family:var(--sans); }
   margin:6px 0 18px; padding-left:10px; border-left:3px solid var(--teal); }
 @media print{ .ecg-trace{ -webkit-print-color-adjust:exact; print-color-adjust:exact; page-break-inside:avoid; } }
 
+
+/* ANTI-PLAGIO: marcas visibles solo en impresión */
+.anti-code{display:none;}
+@media print{.anti-code{display:inline-flex!important;align-items:center;margin-left:auto;font-family:var(--mono);font-size:7pt;font-weight:700;color:#991b1b;background:#fef2f2;border:1px solid #fca5a5;border-radius:4px;padding:2px 6px;white-space:nowrap;}.page-print-header strong,.print-footer-fixed strong{font-family:var(--mono);font-weight:700;}}
+@media screen{.anti-code{display:none!important;}}
 </style>
 </head>
 <body>
 <div class="page">
-<div class="page-print-header"><span id="phNombre"></span> · <span id="phUniversidad"></span> · <span id="phGuia"></span> · <span id="phFecha"></span></div>
+<div class="page-print-header"><span id="phNombre"></span> · <span id="phUniversidad"></span> · <span id="phGuia"></span> · <span id="phFecha"></span> · Código: <strong id="phCodigo"></strong></div>
 <div class="print-footer-fixed">
   <span><strong id="pfNombre"></strong> · <span id="pfUniversidad"></span></span>
-  <span>Guía: <span id="pfGuia"></span> · Dr. Andrés Robayo C.</span>
+  <span>Guía: <span id="pfGuia"></span> · Dr. Andrés Robayo C. · Código: <strong id="pfCodigo"></strong></span>
   <span id="pfFecha"></span>
 </div>
 <div class="tab-nav">
@@ -1489,6 +1494,21 @@ window.addEventListener('beforeprint',function(){
     if(clone&&clone.classList.contains('print-answer'))clone.textContent=ta.value;
   });
 });
+function generarCodigoAntiPlagio(){
+  var chars='ABCDEFGHJKLMNPQRSTUVWXYZ23456789', s='';
+  if(window.crypto&&crypto.getRandomValues){var a=new Uint32Array(6);crypto.getRandomValues(a);for(var i=0;i<6;i++)s+=chars[a[i]%chars.length];}
+  else{for(var j=0;j<6;j++)s+=chars[Math.floor(Math.random()*chars.length)];}
+  return 'AN-'+s;
+}
+function aplicarMarcaAntiPlagio(codigo){
+  ['phCodigo','pfCodigo'].forEach(function(id){var e=document.getElementById(id);if(e)e.textContent=codigo;});
+  document.querySelectorAll('#taller-tab .module-header').forEach(function(h){
+    var tag=h.querySelector('.anti-code'); if(!tag){tag=document.createElement('span');tag.className='anti-code';h.appendChild(tag);} tag.textContent='🔒 '+codigo;
+  });
+  document.querySelectorAll('#taller-tab .ex-label').forEach(function(h){
+    var tag=h.querySelector('.anti-code'); if(!tag){tag=document.createElement('span');tag.className='anti-code';h.appendChild(tag);} tag.textContent='🔒 '+codigo;
+  });
+}
 function dlPDF(){
   var nom=document.getElementById('nomE').value.trim();
   var univ=document.getElementById('univE').value.trim();
@@ -1500,6 +1520,8 @@ function dlPDF(){
   ['phUniversidad','pfUniversidad'].forEach(id=>{var el=document.getElementById(id);if(el)el.textContent=univ;});
   ['phGuia','pfGuia'].forEach(id=>{var el=document.getElementById(id);if(el)el.textContent='Taller — Electrocardiografía · Dr. Andrés Robayo C.';});
   ['phFecha','pfFecha'].forEach(id=>{var el=document.getElementById(id);if(el)el.textContent=f;});
+  var codigo=generarCodigoAntiPlagio();
+  aplicarMarcaAntiPlagio(codigo);
   document.querySelectorAll('.tab-content').forEach(t=>t.classList.remove('active'));
   document.getElementById('taller-tab').classList.add('active');
   setTimeout(function(){window.print();},300);

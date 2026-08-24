@@ -489,6 +489,27 @@ h4{font-family:var(--sans);font-size:9pt;font-weight:600;color:var(--gray-600);m
 .open-question-part-letter{font-family:var(--mono);font-size:8.5pt;color:white;background:var(--navy-mid);padding:1px 6px;border-radius:3px;flex-shrink:0;margin-top:3px;height:fit-content;}
 .open-area:focus{border-color:var(--amber);outline:none;}
 .score-note{background:var(--navy);border-radius:8px;padding:12px 18px;margin-bottom:22px;display:flex;align-items:center;gap:16px;flex-wrap:wrap;}
+
+/* IDENTIFICACIÓN INDIVIDUAL ANTI-PLAGIO */
+.anti-plagio-mark{display:none;}
+@media print{
+  .page-print-header strong,.print-footer-fixed strong{
+    font-family:var(--mono);font-weight:700;letter-spacing:.08em;
+  }
+  .anti-plagio-mark{
+    display:block !important;
+    margin-top:6px;
+    font-family:var(--mono);
+    font-size:7pt;
+    color:#495057;
+    letter-spacing:.04em;
+    text-align:right;
+    border-top:1px dashed #ced4da;
+    padding-top:4px;
+    page-break-inside:avoid;
+  }
+}
+@media screen{.anti-plagio-mark{display:none !important;}}
 </style>
 </head>
 <body>
@@ -514,10 +535,10 @@ h4{font-family:var(--sans);font-size:9pt;font-weight:600;color:var(--gray-600);m
   </div>
 </div>
 
-<div class="page-print-header"><span id="phNombre"></span> · <span id="phUniversidad"></span> · <span id="phGuia"></span> · <span id="phFecha"></span></div>
+<div class="page-print-header"><span id="phNombre"></span> · <span id="phUniversidad"></span> · <span id="phGuia"></span> · <span id="phFecha"></span> · <strong id="phCodigo"></strong></div>
 <div class="print-footer-fixed">
   <span><strong id="pfNombre"></strong> · <span id="pfUniversidad"></span></span>
-  <span>Guía: <span id="pfGuia"></span> · Dr. Andrés Robayo C.</span>
+  <span>Guía: <span id="pfGuia"></span> · Dr. Andrés Robayo C. · <strong id="pfCodigo"></strong></span>
   <span id="pfFecha"></span>
 </div>
 
@@ -1245,19 +1266,73 @@ window.addEventListener('beforeprint',function(){
   });
 });
 
+function generarCodigoAL(){
+  if(window.__codigoAL) return window.__codigoAL;
+  var chars='ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
+  var s='AL-';
+  if(window.crypto && crypto.getRandomValues){
+    var a=new Uint32Array(6); crypto.getRandomValues(a);
+    for(var i=0;i<6;i++) s+=chars[a[i]%chars.length];
+  }else{
+    for(var j=0;j<6;j++) s+=chars[Math.floor(Math.random()*chars.length)];
+  }
+  window.__codigoAL=s;
+  return s;
+}
+function aplicarCodigoAntiPlagio(codigo,nom,univ){
+  ['phCodigo','pfCodigo'].forEach(function(id){
+    var el=document.getElementById(id); if(el) el.textContent='Código: '+codigo;
+  });
+  document.querySelectorAll('.anti-plagio-mark').forEach(function(el){el.remove();});
+
+  /* Marca cada ejercicio del taller, incluidos bloques manuales si están dentro de ellos. */
+  document.querySelectorAll('#taller-tab .ex-item').forEach(function(ex,idx){
+    var mark=document.createElement('div');
+    mark.className='anti-plagio-mark';
+    mark.textContent='Identificación individual · '+codigo+' · '+nom+' · '+univ+' · Ejercicio '+(idx+1);
+    ex.appendChild(mark);
+  });
+  document.querySelectorAll('#taller-tab .manual-ex-item').forEach(function(ex,idx){
+    var mark=document.createElement('div');
+    mark.className='anti-plagio-mark';
+    mark.textContent='Identificación individual · '+codigo+' · '+nom+' · '+univ+' · Ejercicio manual '+(idx+1);
+    ex.appendChild(mark);
+  });
+}
 function dlPDF(){
-  var nom=document.getElementById('nomH').value.trim();
-  var univ=document.getElementById('univH').value.trim();
-  if(!nom||!univ){document.getElementById('errH').style.display='block';return;}
-  document.getElementById('errH').style.display='none';
+  var nom=document.getElementById('nomAL').value.trim();
+  var univ=document.getElementById('univAL').value.trim();
+  if(!nom||!univ){
+    var er=document.getElementById('errAL'); if(er) er.style.display='block';
+    return;
+  }
+  var er=document.getElementById('errAL'); if(er) er.style.display='none';
+
+  var codigo=generarCodigoAL();
   var ahora=new Date();
-  var f=ahora.toLocaleDateString('es-CO',{day:'2-digit',month:'long',year:'numeric'})+' '+ahora.toLocaleTimeString('es-CO',{hour:'2-digit',minute:'2-digit'});
-  ['phNombre','pfNombre'].forEach(id=>{var el=document.getElementById(id);if(el)el.textContent=nom;});
-  ['phUniversidad','pfUniversidad'].forEach(id=>{var el=document.getElementById(id);if(el)el.textContent=univ;});
-  ['phGuia','pfGuia'].forEach(id=>{var el=document.getElementById(id);if(el)el.textContent='Taller — Agentes Hipnóticos en Anestesia';});
-  ['phFecha','pfFecha'].forEach(id=>{var el=document.getElementById(id);if(el)el.textContent=f;});
-  document.querySelectorAll('.tab-content').forEach(t=>t.classList.remove('active'));
-  document.getElementById('taller-tab').classList.add('active');
+  var f=ahora.toLocaleDateString('es-CO',{day:'2-digit',month:'long',year:'numeric'})
+      +' '+ahora.toLocaleTimeString('es-CO',{hour:'2-digit',minute:'2-digit'});
+
+  ['phNombre','pfNombre'].forEach(function(id){
+    var el=document.getElementById(id); if(el) el.textContent=nom;
+  });
+  ['phUniversidad','pfUniversidad'].forEach(function(id){
+    var el=document.getElementById(id); if(el) el.textContent=univ;
+  });
+  ['phGuia','pfGuia'].forEach(function(id){
+    var el=document.getElementById(id); if(el) el.textContent='Taller';
+  });
+  ['phFecha','pfFecha'].forEach(function(id){
+    var el=document.getElementById(id); if(el) el.textContent=f;
+  });
+
+  aplicarCodigoAntiPlagio(codigo,nom,univ);
+
+  var taller=document.getElementById('taller-tab');
+  if(taller){
+    document.querySelectorAll('.tab-content').forEach(function(t){t.classList.remove('active');});
+    taller.classList.add('active');
+  }
   setTimeout(function(){window.print();},300);
 }
 </script>

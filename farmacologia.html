@@ -346,6 +346,28 @@ footer{border-top:2px solid var(--navy);padding:20px 56px 26px;display:flex;just
 .footer-copy{font-family:var(--sans);font-size:7.5pt;color:var(--gray-400);text-align:right;line-height:1.5;}
 
 /* PRINT */
+
+  /* ── CÓDIGO DE VERIFICACIÓN / ANTI-PLAGIO ── */
+  .module-wm-tag,
+  .question-wm-tag{display:none;}
+  @media print {
+    .module-wm-tag,
+    .question-wm-tag{
+      display:inline-flex !important;
+      align-items:center;
+      margin-left:auto;
+      font-family:var(--mono);
+      font-size:7pt;
+      font-weight:700;
+      color:#991b1b;
+      background:#fef2f2;
+      border:1px solid #fca5a5;
+      border-radius:4px;
+      padding:2px 6px;
+      white-space:nowrap;
+    }
+  }
+
 @media print {
   .tab-nav,.palette-btn,.palette-panel,.design-switcher,.correct-btn,.download-box,.nota-bar{display:none !important;}
   .tab-content{display:none !important;}
@@ -468,10 +490,10 @@ body{ background:#EEF3E6 !important; font-family:var(--sans); }
 <body>
 <div class="page">
 
-<div class="page-print-header" id="printHeader"><span id="phNombre"></span> · <span id="phUniversidad"></span> · <span id="phGuia"></span> · <span id="phFecha"></span></div>
+<div class="page-print-header" id="printHeader"><span id="phNombre"></span> · <span id="phUniversidad"></span> · <span id="phGuia"></span> · <span id="phFecha"></span> · Código: <strong id="phCodigo"></strong></div>
 <div class="print-footer-fixed" id="printFooter">
   <span><strong id="pfNombre"></strong> · <span id="pfUniversidad"></span></span>
-  <span>Guía: <span id="pfGuia"></span> · Dr. Andrés Robayo C.</span>
+  <span>Guía: <span id="pfGuia"></span> · Dr. Andrés Robayo C. · Código: <strong id="pfCodigo"></strong></span>
   <span id="pfFecha"></span>
 </div>
 
@@ -1503,6 +1525,41 @@ window.addEventListener('beforeprint',function(){
   });
 });
 
+// ══ ANTI-PLAGIO: código de verificación ══
+// Hash corto y determinístico ligado a nombre + universidad + taller + fecha.
+// El mismo código se repite en encabezado, módulos y CADA pregunta.
+function hashCorto(str){
+  var h = 5381;
+  for(var i=0;i<str.length;i++){
+    h = ((h*33) ^ str.charCodeAt(i)) >>> 0;
+  }
+  return h.toString(36).toUpperCase().slice(0,7);
+}
+
+function estamparCodigoEnPreguntas(codigo){
+  // Frente a cada módulo.
+  document.querySelectorAll('#taller-tab .module-header').forEach(function(h){
+    var tag=h.querySelector('.module-wm-tag');
+    if(!tag){
+      tag=document.createElement('span');
+      tag.className='module-wm-tag';
+      h.appendChild(tag);
+    }
+    tag.textContent='🔒 '+codigo;
+  });
+
+  // Frente a CADA pregunta/ejercicio individual.
+  document.querySelectorAll('#taller-tab .ex-label').forEach(function(lbl){
+    var tag=lbl.querySelector('.question-wm-tag');
+    if(!tag){
+      tag=document.createElement('span');
+      tag.className='question-wm-tag';
+      lbl.appendChild(tag);
+    }
+    tag.textContent='🔒 '+codigo;
+  });
+}
+
 // PDF DOWNLOAD
 function dlPDF(){
   var nom=document.getElementById('nomF').value.trim();
@@ -1515,6 +1572,13 @@ function dlPDF(){
   ['phUniversidad','pfUniversidad'].forEach(id=>{var el=document.getElementById(id);if(el)el.textContent=univ;});
   ['phGuia','pfGuia'].forEach(id=>{var el=document.getElementById(id);if(el)el.textContent='Taller — Farmacología Clínica: Cálculos, Diluciones e Infusiones';});
   ['phFecha','pfFecha'].forEach(id=>{var el=document.getElementById(id);if(el)el.textContent=f;});
+
+  // Código de verificación: cambia si nombre, universidad, taller o fecha no coinciden.
+  var guia='Taller — Farmacología Clínica: Cálculos, Diluciones e Infusiones';
+  var codigo=hashCorto(nom+'|'+univ+'|'+guia+'|'+f);
+  ['phCodigo','pfCodigo'].forEach(id=>{var el=document.getElementById(id);if(el)el.textContent=codigo;});
+  estamparCodigoEnPreguntas(codigo);
+
   document.querySelectorAll('.tab-content').forEach(t=>t.classList.remove('active'));
   document.getElementById('taller-tab').classList.add('active');
   setTimeout(function(){window.print();},300);

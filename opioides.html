@@ -237,6 +237,30 @@ footer { border-top:2px solid rgba(0,0,0,.08); padding:22px 56px 28px; display:f
 }
 
 /* ══ PRINT ══ */
+
+  /* ── CÓDIGO DE VERIFICACIÓN / ANTI-PLAGIO ── */
+  .exercise-wm-tag,
+  .question-wm-tag{
+    display:none;
+  }
+  @media print {
+    .exercise-wm-tag,
+    .question-wm-tag{
+      display:inline-flex !important;
+      align-items:center;
+      margin-left:auto;
+      font-family:var(--mono);
+      font-size:7pt;
+      font-weight:700;
+      color:#991b1b;
+      background:#fef2f2;
+      border:1px solid #fca5a5;
+      border-radius:4px;
+      padding:2px 6px;
+      white-space:nowrap;
+    }
+  }
+
 @media print {
   .tab-nav,.palette-btn,.palette-panel,.design-switcher,.correct-btn,.download-box,.nota-bar,.score-note { display:none !important; }
   .tab-content { display:none !important; }
@@ -268,10 +292,10 @@ footer { border-top:2px solid rgba(0,0,0,.08); padding:22px 56px 28px; display:f
 <body>
 <div class="page">
 
-<div class="page-print-header"><span id="phNombre"></span> · <span id="phUniversidad"></span> · <span id="phGuia"></span> · <span id="phFecha"></span></div>
+<div class="page-print-header"><span id="phNombre"></span> · <span id="phUniversidad"></span> · <span id="phGuia"></span> · <span id="phFecha"></span> · Código: <strong id="phCodigo"></strong></div>
 <div class="print-footer-fixed">
   <span><strong id="pfNombre"></strong> · <span id="pfUniversidad"></span></span>
-  <span>Guía: <span id="pfGuia"></span> · Dr. Andrés Robayo C.</span>
+  <span>Guía: <span id="pfGuia"></span> · Dr. Andrés Robayo C. · Código: <strong id="pfCodigo"></strong></span>
   <span id="pfFecha"></span>
 </div>
 
@@ -919,7 +943,52 @@ window.addEventListener('beforeprint',function(){
 });
 
 // PDF DOWNLOAD
+
+// ══ ANTI-PLAGIO: código de verificación ══
+function hashCorto(str){
+  var h = 5381;
+  for(var i=0;i<str.length;i++){
+    h = ((h*33) ^ str.charCodeAt(i)) >>> 0;
+  }
+  return h.toString(36).toUpperCase().slice(0,7);
+}
+
+function estamparCodigo(codigo){
+  document.querySelectorAll('#taller-tab .ex-label').forEach(function(h){
+    var tag=h.querySelector('.exercise-wm-tag');
+    if(!tag){
+      tag=document.createElement('span');
+      tag.className='exercise-wm-tag';
+      h.appendChild(tag);
+    }
+    tag.textContent='🔒 '+codigo;
+  });
+
+  document.querySelectorAll('#taller-tab .question-label').forEach(function(lbl){
+    var tag=lbl.querySelector('.question-wm-tag');
+    if(!tag){
+      tag=document.createElement('span');
+      tag.className='question-wm-tag';
+      lbl.appendChild(tag);
+    }
+    tag.textContent='🔒 '+codigo;
+  });
+}
+
 function dlPDF(){
+  var guia='Opioides en Anestesia y Analgesia';
+  var nomEl=document.getElementById('idNombre');
+  var univEl=document.getElementById('idUniversidad');
+  var nom=nomEl ? nomEl.value.trim() : '';
+  var univ=univEl ? univEl.value.trim() : '';
+  var fecha=new Date().toLocaleDateString('es-CO');
+  var codigo=hashCorto(nom+'|'+univ+'|'+guia+'|'+fecha);
+  ['phCodigo','pfCodigo'].forEach(function(id){
+    var el=document.getElementById(id);
+    if(el) el.textContent=codigo;
+  });
+  estamparCodigo(codigo);
+
   var nom=document.getElementById('nomO').value.trim();
   var univ=document.getElementById('univO').value.trim();
   if(!nom||!univ){document.getElementById('errO').style.display='block';return;}

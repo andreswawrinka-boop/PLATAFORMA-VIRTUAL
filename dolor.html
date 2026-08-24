@@ -334,15 +334,43 @@ body{ background:#F8F0E6 !important; font-family:var(--sans); }
   .cover{ padding:36px 22px 30px !important; }
 }
 
+
+/* ── CÓDIGO DE VERIFICACIÓN / ANTI-PLAGIO ── */
+.anti-code-mark{display:none;}
+@media print{
+  .anti-code-mark{
+    display:inline-block !important;
+    margin-left:auto;
+    padding:2px 6px;
+    border:1px solid #fca5a5;
+    border-radius:4px;
+    background:#fef2f2;
+    color:#991b1b;
+    font-family:var(--mono);
+    font-size:7pt;
+    font-weight:700;
+    line-height:1.2;
+    white-space:nowrap;
+  }
+  .ex-label .anti-code-mark{flex-shrink:0;}
+  .mc-label .anti-code-mark,
+  .open-question .anti-code-mark{
+    vertical-align:middle;
+    margin-left:8px;
+  }
+}
+@media screen{
+  .anti-code-mark{display:none !important;}
+}
 </style>
 </head>
 <body>
 <div class="page">
 
-<div class="page-print-header"><span id="phNombre"></span> · <span id="phUniversidad"></span> · <span id="phGuia"></span> · <span id="phFecha"></span></div>
+<div class="page-print-header"><span id="phNombre"></span> · <span id="phUniversidad"></span> · <span id="phGuia"></span> · <span id="phFecha"></span> · Código: <strong id="phCodigo"></strong></div>
 <div class="print-footer-fixed">
   <span><strong id="pfNombre"></strong> · <span id="pfUniversidad"></span></span>
-  <span>Guía: <span id="pfGuia"></span> · Dr. Andrés Robayo C.</span>
+  <span>Guía: <span id="pfGuia"></span> · Dr. Andrés Robayo C. · Código: <strong id="pfCodigo"></strong></span>
   <span id="pfFecha"></span>
 </div>
 
@@ -1337,6 +1365,37 @@ window.addEventListener('beforeprint',function(){
     if(clone&&clone.classList.contains('print-answer'))clone.textContent=ta.value;
   });
 });
+
+// ── Identificación individual para impresión ──
+function antiHash(str){
+  var h=5381;
+  for(var i=0;i<str.length;i++) h=((h*33)^str.charCodeAt(i))>>>0;
+  return h.toString(36).toUpperCase().slice(0,7);
+}
+function antiCodeText(codigo){
+  var s=document.createElement('span');
+  s.className='anti-code-mark';
+  s.textContent='🔒 '+codigo;
+  return s;
+}
+function aplicarCodigoAntiPlagio(codigo){
+  document.querySelectorAll('.anti-code-mark').forEach(function(x){x.remove();});
+
+  // Código frente a cada ejercicio.
+  document.querySelectorAll('#taller-tab .ex-label').forEach(function(el){
+    el.appendChild(antiCodeText(codigo));
+  });
+
+  // Código frente a cada pregunta de selección múltiple.
+  document.querySelectorAll('#taller-tab .mc-label').forEach(function(el){
+    el.appendChild(antiCodeText(codigo));
+  });
+
+  // Código frente a cada pregunta abierta.
+  document.querySelectorAll('#taller-tab .open-question').forEach(function(el){
+    el.appendChild(antiCodeText(codigo));
+  });
+}
 function dlPDF(){
   var nom=document.getElementById('nomD').value.trim();
   var univ=document.getElementById('univD').value.trim();
@@ -1350,7 +1409,14 @@ function dlPDF(){
   ['phFecha','pfFecha'].forEach(id=>{var el=document.getElementById(id);if(el)el.textContent=f;});
   document.querySelectorAll('.tab-content').forEach(t=>t.classList.remove('active'));
   document.getElementById('taller-tab').classList.add('active');
-  setTimeout(function(){window.print();},300);
+  
+  var codigo=antiHash(nom+'|'+univ+'|Manejo Farmacológico del Dolor|'+f);
+  ['phCodigo','pfCodigo'].forEach(function(id){
+    var el=document.getElementById(id);
+    if(el) el.textContent=codigo;
+  });
+  aplicarCodigoAntiPlagio(codigo);
+setTimeout(function(){window.print();},300);
 }
 </script>
 </body>
