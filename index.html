@@ -750,7 +750,7 @@ En caso de inasistencia por calamidad doméstica o enfermedad, debes notificarlo
 
 Hablando del Manual de Normas: te pedimos que lo leas detenidamente. Allí encontrarás todos los lineamientos de conducta, presentación personal, uso de dispositivos, y demás reglamentos del servicio. Es de lectura obligatoria antes del inicio de la rotación.
 
-En la sección de Notas encontrarás la ponderación de calificaciones de tu universidad. La nota académica de la rotación se distribuye así: el cuarenta por ciento corresponde a la realización del total de talleres asignados según tu universidad, el treinta por ciento al Seminario de Integración Clínica, y el treinta por ciento restante al Examen Final. Recuerda que además cuentas con un Formato de Calificación Diaria que debes hacer firmar cada día por el anestesiólogo de la sala asignada. Este formato evalúa los componentes práctico y conductual, y debe ser entregado al final de tu rotación.
+En la sección de Notas encontrarás la ponderación de calificaciones de tu universidad. La nota académica de la rotación se distribuye así: el veinte por ciento corresponde a la realización del total de talleres asignados según tu universidad, el cuarenta por ciento al Seminario de Integración Clínica, y el cuarenta por ciento restante al Examen Final. Recuerda que además cuentas con un Formato de Calificación Diaria que debes hacer firmar cada día por el anestesiólogo de la sala asignada. Este formato evalúa los componentes práctico y conductual, y debe ser entregado al final de tu rotación.
 
 Estamos muy contentos de tenerte en nuestro servicio. Esperamos que esta rotación sea una experiencia de aprendizaje significativa y enriquecedora. Bienvenido.`;
 
@@ -772,8 +772,8 @@ const LINEAMIENTOS = [
    texto:'Horario regular entre semana: siete a cuatro. Turno nocturno entre semana: ingreso a las siete, preturno hasta la una, reingreso a las siete de la noche hasta las siete del día siguiente, con posturno completo. Turnos nocturnos de fin de semana y festivos: siete de la noche a siete de la mañana con posturno. Fin de semana diurno: siete a cinco, sala libre disponible.'},
   {icon:'🚨', title:'Inasistencias', sub:'Notificar el mismo día del evento', color:'#f0abcc',
    texto:'Las inasistencias por calamidad doméstica o enfermedad deben notificarse el mismo día del evento. La ruta de notificación está en el Manual de Normas del Servicio.'},
-  {icon:'📊', title:'Notas y calificación diaria', sub:'Talleres 40% · Seminario 30% · Examen 30%', color:'#7ec8f5',
-   texto:'La nota se distribuye así: 40% talleres asignados por universidad, 30% Seminario de Integración Clínica, 30% Examen Final. Además debes hacer firmar el Formato de Calificación Diaria cada día. Si los días superan las casillas, imprime otro formato y entrega todos al final. Enmendaduras o fraudes son causal de pérdida de la rotación. Llegadas tarde repetitivas implican nota conductual de 2.0.'},
+  {icon:'📊', title:'Notas y calificación diaria', sub:'Talleres 20% · Seminario 40% · Examen 40%', color:'#7ec8f5',
+   texto:'La nota se distribuye así: 20% talleres asignados por universidad, 40% Seminario de Integración Clínica, 40% Examen Final. Además debes hacer firmar el Formato de Calificación Diaria cada día. Si los días superan las casillas, imprime otro formato y entrega todos al final. Enmendaduras o fraudes son causal de pérdida de la rotación. Llegadas tarde repetitivas implican nota conductual de 2.0.'},
 ];
 
 // Renderizar tarjetas
@@ -1463,7 +1463,7 @@ const SHARED_HTML = `
       <div style="width:58px;height:58px;border-radius:50%;background:rgba(255,255,255,.15);border:2px solid rgba(255,255,255,.4);display:flex;align-items:center;justify-content:center;font-size:27px;flex-shrink:0">🩺</div>
       <div style="flex:1">
         <div style="font-family:'Bebas Neue',sans-serif;font-size:25px;letter-spacing:1.5px;color:#fff">Instrucciones del Seminario · El Paciente que No Podemos Perder</div>
-        <div style="font-family:'Hanken Grotesk',sans-serif;font-size:14px;color:rgba(255,255,255,.85);font-weight:600;margin-top:4px">Formato libro · 6 páginas · Léelo antes del día del seminario · Vale el 30% de tu nota</div>
+        <div style="font-family:'Hanken Grotesk',sans-serif;font-size:14px;color:rgba(255,255,255,.85);font-weight:600;margin-top:4px">Formato libro · 6 páginas · Léelo antes del día del seminario · Vale el 40% de tu nota</div>
         <div style="display:flex;gap:8px;margin-top:10px;flex-wrap:wrap">
           <span style="font-family:'Hanken Grotesk',sans-serif;font-size:12px;font-weight:800;background:rgba(0,0,0,.3);border-radius:7px;padding:4px 10px;color:#FFD740">7 temas</span>
           <span style="font-family:'Hanken Grotesk',sans-serif;font-size:12px;font-weight:800;background:rgba(0,0,0,.3);border-radius:7px;padding:4px 10px;color:#FFD740">6 ruletas</span>
@@ -1487,7 +1487,7 @@ const SHARED_HTML = `
       <div class="sec-stripe" style="background:#7C3AED"></div>
       <div class="sec-info">
         <div class="sec-label">Examen Final</div>
-        <div class="sec-desc">Evaluación teórica de cierre de la rotación · vale el 30% de la nota final</div>
+        <div class="sec-desc">Evaluación teórica de cierre de la rotación · vale el 40% de la nota final</div>
       </div>
       <div class="sec-tag">Presencial</div>
     </div>
@@ -1500,10 +1500,10 @@ const SHARED_HTML = `
         </div>
         <div style="flex:1">
           <div style="font-family:'Bebas Neue',sans-serif;font-size:26px;letter-spacing:1.5px;color:#fff">Examen Final de la Rotación</div>
-          <div style="font-family:'Hanken Grotesk',sans-serif;font-size:14px;color:rgba(255,255,255,.85);font-weight:600;margin-top:3px">Presencial · en plataforma virtual · 30% de la nota final</div>
+          <div style="font-family:'Hanken Grotesk',sans-serif;font-size:14px;color:rgba(255,255,255,.85);font-weight:600;margin-top:3px">Presencial · en plataforma virtual · 40% de la nota final</div>
         </div>
         <div style="flex-shrink:0;text-align:center;background:rgba(255,255,255,.15);border:1.5px solid rgba(255,255,255,.35);border-radius:12px;padding:10px 18px">
-          <div style="font-family:'Bebas Neue',sans-serif;font-size:30px;letter-spacing:1px;color:#FFD740;line-height:1">30%</div>
+          <div style="font-family:'Bebas Neue',sans-serif;font-size:30px;letter-spacing:1px;color:#FFD740;line-height:1">40%</div>
           <div style="font-family:'Hanken Grotesk',sans-serif;font-size:11px;font-weight:800;letter-spacing:1px;text-transform:uppercase;color:rgba(255,255,255,.75)">de la nota</div>
         </div>
       </div>
@@ -1728,7 +1728,7 @@ const SHARED_HTML = `
 
     <details class="faq-item" style="--faq-c:#00796B">
       <summary><span class="faq-q-ico">📊</span>¿Cómo se compone mi nota final?<span class="faq-chev">▶</span></summary>
-      <div class="faq-body"><b>40%</b> talleres asignados · <b>30%</b> Seminario de Integración Clínica · <b>30%</b> Examen Final. Además, el Formato de Calificación Diaria evalúa los componentes práctico y conductual.</div>
+      <div class="faq-body"><b>20%</b> talleres asignados · <b>40%</b> Seminario de Integración Clínica · <b>40%</b> Examen Final. Además, el Formato de Calificación Diaria evalúa los componentes práctico y conductual.</div>
     </details>
 
     <details class="faq-item" style="--faq-c:#B71C1C">
@@ -2043,7 +2043,7 @@ document.addEventListener('keydown', ev=>{
   <div style="width:74px;height:74px;border-radius:50%;background:rgba(255,255,255,.15);border:2px solid rgba(255,255,255,.4);display:flex;align-items:center;justify-content:center;font-size:34px;margin-bottom:20px">🩺</div>
   <div style="font-family:'Hanken Grotesk',sans-serif;font-size:12px;font-weight:800;letter-spacing:3px;text-transform:uppercase;color:rgba(255,255,255,.65);margin-bottom:14px">Seminario de Integración Clínica</div>
   <div style="font-family:'Bebas Neue',sans-serif;font-size:42px;letter-spacing:2px;line-height:1.05;margin-bottom:10px">El Paciente que<br>No Podemos Perder</div>
-  <div style="font-family:'Hanken Grotesk',sans-serif;font-size:15px;color:rgba(255,255,255,.85);line-height:1.7;max-width:400px;margin-bottom:22px">Instrucciones completas del seminario. Léelas antes del día de la actividad — vale el <b style="color:#FFD740">30%</b> de tu nota de rotación.</div>
+  <div style="font-family:'Hanken Grotesk',sans-serif;font-size:15px;color:rgba(255,255,255,.85);line-height:1.7;max-width:400px;margin-bottom:22px">Instrucciones completas del seminario. Léelas antes del día de la actividad — vale el <b style="color:#FFD740">40%</b> de tu nota de rotación.</div>
   <div style="display:flex;gap:8px;flex-wrap:wrap;justify-content:center">
     <span style="font-family:'Hanken Grotesk',sans-serif;font-size:13px;font-weight:800;background:rgba(0,0,0,.3);border:1.5px solid rgba(255,255,255,.3);border-radius:8px;padding:5px 13px;color:#FFD740">7 temas</span>
     <span style="font-family:'Hanken Grotesk',sans-serif;font-size:13px;font-weight:800;background:rgba(0,0,0,.3);border:1.5px solid rgba(255,255,255,.3);border-radius:8px;padding:5px 13px;color:#FFD740">6 ruletas</span>
@@ -2066,7 +2066,7 @@ document.addEventListener('keydown', ev=>{
   <p>Fentanilo, morfina, remifentanilo y naloxona. FK, FD y reversión.</p>
   <h3>⚗️ Bloqueantes Neuromusculares</h3>
   <p>Rocuronio, succinilcolina, sugammadex y neostigmina.</p>
-</div><div class="nb-pfoot"><span>Seminario de Integración Clínica · 30% de la nota</span><span>Página 1 de 5</span></div></div><div class="nb-page sb" data-sp="2"><div class="nb-phead"><span class="lbl">2 · ¿Cómo funciona el seminario?</span><span class="tag">Seminario · El Paciente que No Podemos Perder</span></div><div class="nb-pbody">
+</div><div class="nb-pfoot"><span>Seminario de Integración Clínica · 40% de la nota</span><span>Página 1 de 5</span></div></div><div class="nb-page sb" data-sp="2"><div class="nb-phead"><span class="lbl">2 · ¿Cómo funciona el seminario?</span><span class="tag">Seminario · El Paciente que No Podemos Perder</span></div><div class="nb-pbody">
   <p>La dinámica es por turnos aleatorios, gestionada por el docente desde la herramienta interactiva:</p>
   <h3>🎓 Registro inicial</h3>
   <p>El docente registra a todos los estudiantes al inicio. Cada uno queda con un <b>chip de color</b> propio que lo identifica durante toda la sesión.</p>
@@ -2076,7 +2076,7 @@ document.addEventListener('keydown', ev=>{
   <p>El cronómetro se activa automáticamente con el tiempo asignado a esa ruleta. El estudiante debe responder dentro del tiempo.</p>
   <h3>👁 Revelar respuesta</h3>
   <p>El docente presiona <b>Revelar respuesta</b> para mostrar la solución correcta con todos los cálculos hechos para el paciente del caso.</p>
-</div><div class="nb-pfoot"><span>Seminario de Integración Clínica · 30% de la nota</span><span>Página 2 de 5</span></div></div><div class="nb-page sb" data-sp="3"><div class="nb-phead"><span class="lbl">3 · Las 6 ruletas · temas y tiempos</span><span class="tag">Seminario · El Paciente que No Podemos Perder</span></div><div class="nb-pbody">
+</div><div class="nb-pfoot"><span>Seminario de Integración Clínica · 40% de la nota</span><span>Página 2 de 5</span></div></div><div class="nb-page sb" data-sp="3"><div class="nb-phead"><span class="lbl">3 · Las 6 ruletas · temas y tiempos</span><span class="tag">Seminario · El Paciente que No Podemos Perder</span></div><div class="nb-pbody">
   <p>Cada turno cae en una de estas seis ruletas, cada una con su propio tiempo de respuesta:</p>
   <table>
     <tr><th>Ruleta</th><th>Qué evalúa</th><th>Tiempo</th></tr>
@@ -2088,7 +2088,7 @@ document.addEventListener('keydown', ev=>{
     <tr><td><b>🩺 Caso Clínico</b></td><td>3 preguntas de razonamiento preanestésico</td><td>3:00</td></tr>
   </table>
   <div class="nb-note"><b>→</b> El tiempo corre desde que se revela la pregunta. Organiza tu respuesta mentalmente antes de empezar a hablar.</div>
-</div><div class="nb-pfoot"><span>Seminario de Integración Clínica · 30% de la nota</span><span>Página 3 de 5</span></div></div><div class="nb-page sb" data-sp="4"><div class="nb-phead"><span class="lbl">4 · Sistema de evaluación · nota sobre 5.0</span><span class="tag">Seminario · El Paciente que No Podemos Perder</span></div><div class="nb-pbody">
+</div><div class="nb-pfoot"><span>Seminario de Integración Clínica · 40% de la nota</span><span>Página 3 de 5</span></div></div><div class="nb-page sb" data-sp="4"><div class="nb-phead"><span class="lbl">4 · Sistema de evaluación · nota sobre 5.0</span><span class="tag">Seminario · El Paciente que No Podemos Perder</span></div><div class="nb-pbody">
   <p>La nota depende <b>únicamente de la calidad de la respuesta</b> a la pregunta de la ruleta:</p>
   <table>
     <tr><th>Nota</th><th>Criterio</th></tr>
@@ -2099,7 +2099,7 @@ document.addEventListener('keydown', ev=>{
     <tr><td><b>🟢 5.0</b></td><td>Respuesta completa, precisa y con dosis calculada para el paciente</td></tr>
   </table>
   <div class="nb-alert"><b>Nota final:</b> si un estudiante tiene varios turnos, su nota es el <b>promedio de todos sus turnos</b>. El docente exporta las notas al final con un clic.</div>
-</div><div class="nb-pfoot"><span>Seminario de Integración Clínica · 30% de la nota</span><span>Página 4 de 5</span></div></div><div class="nb-page sb" data-sp="5"><div class="nb-phead"><span class="lbl">5 · Reglas importantes · no olvidar</span><span class="tag">Seminario · El Paciente que No Podemos Perder</span></div><div class="nb-pbody">
+</div><div class="nb-pfoot"><span>Seminario de Integración Clínica · 40% de la nota</span><span>Página 4 de 5</span></div></div><div class="nb-page sb" data-sp="5"><div class="nb-phead"><span class="lbl">5 · Reglas importantes · no olvidar</span><span class="tag">Seminario · El Paciente que No Podemos Perder</span></div><div class="nb-pbody">
   <h3>⚡ Robo de punto</h3>
   <p>Si el estudiante sorteado falla, cualquier otro puede <b>levantar la mano</b> y responder. El docente registra el robo con el botón correspondiente y ese punto pasa a quien respondió correctamente.</p>
   <h3>💊 Farmacología siempre</h3>
@@ -2108,7 +2108,7 @@ document.addEventListener('keydown', ev=>{
   <h3>🎲 Paciente aleatorio</h3>
   <p>Cada ruleta genera un paciente distinto con peso, talla, sexo, edad y condición clínica al azar. <b>Los cálculos cambian en cada turno</b> — no sirve memorizar un resultado.</p>
   <div class="nb-note"><b>→ En resumen:</b> prepara los 7 temas, domina el cálculo de dosis, y responde con seguridad dentro del tiempo. El seminario premia el razonamiento clínico aplicado, no la memoria.</div>
-</div><div class="nb-pfoot"><span>Seminario de Integración Clínica · 30% de la nota</span><span>Página 5 de 5</span></div></div>
+</div><div class="nb-pfoot"><span>Seminario de Integración Clínica · 40% de la nota</span><span>Página 5 de 5</span></div></div>
     </div>
     <div class="nb-nav">
       <button class="nb-btn" id="sb-prev" onclick="sbNav(-1)">← Anterior</button>
@@ -2247,9 +2247,9 @@ document.addEventListener('keydown', ev=>{
   <p>La nota académica de la rotación se distribuye así:</p>
   <table>
     <tr><th>Componente</th><th>Peso</th></tr>
-    <tr><td><b>Talleres asignados</b></td><td><b>40%</b></td></tr>
-    <tr><td><b>Seminario de Integración Clínica</b></td><td><b>30%</b></td></tr>
-    <tr><td><b>Examen Final</b></td><td><b>30%</b></td></tr>
+    <tr><td><b>Talleres asignados</b></td><td><b>20%</b></td></tr>
+    <tr><td><b>Seminario de Integración Clínica</b></td><td><b>40%</b></td></tr>
+    <tr><td><b>Examen Final</b></td><td><b>40%</b></td></tr>
   </table>
   <h3>Formato de Calificación Diaria</h3>
   <p>Hazlo firmar <b>cada día</b> por el anestesiólogo de la sala asignada. Al finalizar la rotación entrégalo al <b>Dr. Robayo</b> o al <b>Dr. Geovanny Rodríguez</b>.</p>
