@@ -1300,13 +1300,13 @@ function aplicarCodigoAntiPlagio(codigo,nom,univ){
   });
 }
 function dlPDF(){
-  var nom=document.getElementById('nomH').value.trim();
-  var univ=document.getElementById('univH').value.trim();
+  var nom=document.getElementById('nomAL').value.trim();
+  var univ=document.getElementById('univAL').value.trim();
   if(!nom||!univ){
-    var er=document.getElementById('errH'); if(er) er.style.display='block';
+    var er=document.getElementById('errAL'); if(er) er.style.display='block';
     return;
   }
-  var er=document.getElementById('errH'); if(er) er.style.display='none';
+  var er=document.getElementById('errAL'); if(er) er.style.display='none';
 
   var codigo=generarCodigoAL();
   var ahora=new Date();
