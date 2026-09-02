@@ -236,7 +236,10 @@ footer { border-top:2px solid rgba(0,0,0,.08); padding:22px 56px 28px; display:f
   .two-col { grid-template-columns:1fr; }
 }
 
-/* ══ PRINT ══ */
+/* ══ IDENTIFICACIÓN Y MARCA DE AGUA PDF ══ */
+.pdf-watermark { display:none; }
+.print-score-id { display:none; }
+
 @media print {
   .tab-nav,.palette-btn,.palette-panel,.design-switcher,.correct-btn,.download-box,.nota-bar { display:none !important; }
   .tab-content { display:none !important; }
@@ -244,59 +247,97 @@ footer { border-top:2px solid rgba(0,0,0,.08); padding:22px 56px 28px; display:f
   #teoria-tab { display:none !important; }
   body { font-size:10pt; background:#fff; }
   .page { max-width:none; margin:0; border-radius:0; box-shadow:none; border:none; }
-  .cover,.taller-header,.exercise-header,.score-note,.stat-pill,.definition,.callout.das { -webkit-print-color-adjust:exact; print-color-adjust:exact; }
-  .exercise { page-break-inside:avoid; }
   .taller-content { padding:20px 40px; }
-  .page-print-header { display:block !important; font-family:var(--sans); font-size:8pt; color:var(--gray-600); padding:8px 40px; border-bottom:1px solid var(--border); background:var(--gray-50); }
-  .print-footer-fixed { display:flex !important; position:fixed; bottom:0; left:0; right:0; background:var(--gray-50); border-top:1px solid var(--border); padding:5px 40px; font-family:var(--sans); font-size:7.5pt; color:var(--gray-600); justify-content:space-between; }
+  .taller-header,.exercise-header,.score-note,.stat-pill,.definition,.callout.das {
+    -webkit-print-color-adjust:exact; print-color-adjust:exact;
+  }
+  .exercise { page-break-inside:avoid; }
+
+  .page-print-header {
+    display:block !important;
+    font-family:var(--sans);
+    font-size:8pt;
+    color:var(--gray-600);
+    padding:8px 40px;
+    border-bottom:1px solid var(--border);
+    background:var(--gray-50);
+  }
+  .print-footer-fixed { display:none !important; }
+
+  .pdf-watermark {
+    display:block !important;
+    position:fixed;
+    z-index:9999;
+    top:42%;
+    left:8%;
+    width:84%;
+    text-align:center;
+    transform:rotate(-32deg);
+    font-family:'DM Mono',monospace;
+    font-size:24pt;
+    font-weight:700;
+    letter-spacing:3px;
+    color:rgba(0,131,143,.075);
+    pointer-events:none;
+    white-space:normal;
+  }
+  .pdf-watermark small {
+    display:block;
+    font-family:'DM Sans',system-ui,sans-serif;
+    font-size:10pt;
+    letter-spacing:1px;
+    margin-top:8px;
+  }
+
+  .print-score-id {
+    display:flex !important;
+    align-items:center;
+    justify-content:space-between;
+    gap:18px;
+    margin:10px 0 16px;
+    padding:10px 14px;
+    border:1.5px solid var(--navy);
+    border-radius:8px;
+    background:#f4fbfb;
+    font-family:'DM Sans',system-ui,sans-serif;
+    font-size:9pt;
+    page-break-inside:avoid;
+  }
+  .print-score-id strong { color:var(--navy); }
+  .print-score-id .print-note {
+    font-family:'DM Mono',monospace;
+    font-size:13pt;
+    font-weight:700;
+    color:#012A32;
+  }
+
   textarea.open-area { display:none !important; }
   .print-answer {
-    display:block !important; font-family:'DM Sans',system-ui,sans-serif; font-size:9.5pt; color:#212529;
-    line-height:1.6; border:1.5px solid #dee2e6; border-radius:5px; padding:8px 12px; min-height:60px;
-    height:auto !important; overflow:visible !important; white-space:pre-wrap; word-break:break-word; page-break-inside:avoid;
+    display:block !important;
+    font-family:'DM Sans',system-ui,sans-serif;
+    font-size:9.5pt;
+    color:#212529;
+    line-height:1.6;
+    border:1.5px solid #dee2e6;
+    border-radius:5px;
+    padding:8px 12px;
+    min-height:60px;
+    height:auto !important;
+    overflow:visible !important;
+    white-space:pre-wrap;
+    word-break:break-word;
+    page-break-inside:avoid;
   }
-  .print-answer:empty::after { content:'(sin respuesta)'; color:#adb5bd; font-style:italic; }
-
-  /* ══ SELLO DE VERIFICACIÓN ANTI-PLAGIO ══
-     Código como texto real, visible al imprimir. */
-  .exercise-wm-tag{
-    display:inline-block !important;
-    font-family:var(--mono);
-    font-size:6.5pt;
-    color:var(--gray-600);
-    background:var(--gray-100);
-    border:1px solid var(--gray-400);
-    padding:2px 7px;
-    border-radius:6px;
-    flex-shrink:0;
-    margin-top:1px;
-    letter-spacing:.5px;
-    white-space:nowrap;
-  }
-
-  /* Código repetido frente a CADA pregunta del taller */
-  .question-wm-tag{
-    display:inline-block !important;
-    font-family:var(--mono);
-    font-size:6pt;
-    font-weight:500;
-    color:var(--gray-600);
-    background:var(--gray-100);
-    border:1px solid var(--gray-400);
-    padding:2px 6px;
-    border-radius:6px;
-    flex-shrink:0;
-    margin-left:4px;
-    letter-spacing:.4px;
-    white-space:nowrap;
+  .print-answer:empty::after {
+    content:'(sin respuesta)';
+    color:#adb5bd;
+    font-style:italic;
   }
 }
 @media screen {
   .page-print-header { display:none; }
   .print-footer-fixed { display:none; }
   .print-answer { display:none !important; }
-  .exercise-wm-tag { display:none !important; }
-  .question-wm-tag { display:none !important; }
 }
 
 </style>
@@ -305,10 +346,12 @@ footer { border-top:2px solid rgba(0,0,0,.08); padding:22px 56px 28px; display:f
 <div class="page">
 
 <div class="page-print-header" id="printHeader"><span id="phNombre"></span> · <span id="phUniversidad"></span> · <span id="phGuia"></span> · <span id="phFecha"></span> · Código: <strong id="phCodigo"></strong></div>
-<div class="print-footer-fixed" id="printFooter">
-  <span><strong id="pfNombre"></strong> · <span id="pfUniversidad"></span></span>
-  <span>Guía: <span id="pfGuia"></span> · Dr. Andrés Robayo C. · Código: <strong id="pfCodigo"></strong></span>
-  <span id="pfFecha"></span>
+<div class="print-footer-fixed" id="printFooter"></div>
+<div class="pdf-watermark" id="pdfWatermark">DOCUMENTO INDIVIDUAL · <span id="wmCode"></span><small id="wmStudent"></small></div>
+<div class="print-score-id" id="printScoreId">
+  <span><strong>Estudiante:</strong> <span id="printStudent"></span></span>
+  <span><strong>Código único:</strong> <span id="printCode"></span></span>
+  <span><strong>Nota autocalificable:</strong> <span class="print-note" id="printScore">0.00 / 2.70</span></span>
 </div>
 
 <!-- TAB NAV -->
@@ -554,9 +597,8 @@ footer { border-top:2px solid rgba(0,0,0,.08); padding:22px 56px 28px; display:f
 </div>
 <div class="taller-content">
 
-<div class="alert-yellow">⚠ <strong>Instrucciones:</strong> Complete las casillas de cálculo y los desplegables autocorregibles antes de oprimir "Corregir Ejercicio". Las preguntas abiertas (ámbar) son calificadas por el docente. Incluya unidades en cada cálculo.</div>
+<div class="alert-yellow">⚠ <strong>Instrucciones:</strong> Complete las casillas de cálculo. En cada casilla numérica se indica el formato o rango orientativo de respuesta; el valor ingresado se autocorrige. Se retiraron los desplegables redundantes de cálculo. Los <strong>desplegables se conservan únicamente para interpretación y razonamiento clínico</strong>. Las preguntas abiertas (ámbar) son calificadas por el docente. Incluya unidades en cada cálculo.</div>
 
-<!-- SCORE BANNER -->
 <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin-bottom:16px;">
   <div style="background:#e6f4f2;border:2px solid var(--teal);border-radius:8px;padding:10px 8px;text-align:center;"><div style="font-family:var(--mono);font-size:13pt;font-weight:600;color:var(--teal);">1.0</div><div style="font-family:var(--sans);font-size:7.5pt;color:var(--gray-600);margin-top:3px;">Ejercicio 1<br>Programación</div></div>
   <div style="background:#e6f4f2;border:2px solid var(--teal);border-radius:8px;padding:10px 8px;text-align:center;"><div style="font-family:var(--mono);font-size:13pt;font-weight:600;color:var(--teal);">1.0</div><div style="font-family:var(--sans);font-size:7.5pt;color:var(--gray-600);margin-top:3px;">Ejercicio 2<br>Hipercapnia</div></div>
@@ -566,323 +608,291 @@ footer { border-top:2px solid rgba(0,0,0,.08); padding:22px 56px 28px; display:f
 </div>
 <div class="score-note">
   <span style="font-family:var(--mono);font-size:16pt;font-weight:600;color:#4DD0E1;">5.0 pts</span>
-  <span>Cada ejercicio: parte autocorregible 🤖 + parte de razonamiento clínico ✏️ calificada por docente. El feedback de selección múltiple aparece solo al oprimir "Corregir Ejercicio".</span>
+  <span>Cada ejercicio combina autocorrección 🤖 y razonamiento clínico ✏️. Los desplegables aparecen solo cuando evalúan interpretación o decisión clínica.</span>
 </div>
 
-<!-- ═══ EJERCICIO 1 ═══ -->
 <div class="exercise">
-  <div class="exercise-header">
-    <span class="exercise-num">EJERCICIO 1</span>
-    <span class="exercise-title">Programación inicial — Mujer · Gastrectomía laparoscópica</span>
-    <span class="exercise-pts">1.0 pt</span>
-  </div>
+  <div class="exercise-header"><span class="exercise-num">EJERCICIO 1</span><span class="exercise-title">Programación inicial — Mujer · Gastrectomía laparoscópica</span><span class="exercise-pts">1.0 pt</span></div>
   <div class="exercise-body">
     <div class="patient-card">
-      <div class="patient-item"><span class="patient-label">Sexo / Edad</span><span class="patient-value">Femenino · 38 años</span></div>
-      <div class="patient-item"><span class="patient-label">Talla</span><span class="patient-value">163 cm</span></div>
-      <div class="patient-item"><span class="patient-label">Peso real</span><span class="patient-value">59 kg</span></div>
+      <div class="patient-item"><span class="patient-label">Sexo / Edad</span><span class="patient-value">Femenino · 42 años</span></div>
+      <div class="patient-item"><span class="patient-label">Talla</span><span class="patient-value">165 cm</span></div>
+      <div class="patient-item"><span class="patient-label">Peso real</span><span class="patient-value">64 kg</span></div>
       <div class="patient-item"><span class="patient-label">Procedimiento</span><span class="patient-value">Gastrectomía laparoscópica</span></div>
       <div class="patient-item"><span class="patient-label">ASA</span><span class="patient-value">II</span></div>
     </div>
-
-    <!-- 1A: Calcular PI -->
     <div class="question">
       <div class="question-label">1A. Calcule el Peso Ideal (fórmula de Devine) <span class="q-pts-auto">🤖 0.20 pts</span></div>
-      <div class="answer-line">
-        PI = 45.5 + 0.9 × (
-        <input class="ans-input ans-sm" inputmode="decimal" placeholder="talla" data-ans="163" data-tol="0">
-        −152) =
-        <input class="ans-input ans-md" inputmode="decimal" placeholder="resultado" data-ans="55.4" data-tol="0.2">
-        <span>kg</span>
-      </div>
-      <div class="mc-row"><span class="mc-label">Resultado correcto del PI:</span>
-        <select class="mc-select" onchange="chk(this,'55.4 kg','fb1a')"><option value="">— elegir —</option><option>48.2 kg</option><option>52.7 kg</option><option>55.4 kg</option><option>58.6 kg</option></select>
-        <span class="fb" id="fb1a"></span>
-      </div>
+      <div class="answer-line">PI = 45.5 + 0.9 × (<input class="ans-input ans-sm" inputmode="decimal" placeholder="p. ej. 160–170" data-ans="165" data-tol="0"> −152) = <input class="ans-input ans-md" inputmode="decimal" placeholder="resultado (kg)" data-ans="57.2" data-tol="0.2"> <span>kg</span></div>
+      <div class="calc-hint">Posibles formatos: talla en cm y resultado con 1 decimal. No se usa el peso real para este cálculo.</div>
     </div>
-
-    <!-- 1B: Vt -->
     <div class="question">
       <div class="question-label">1B. Calcule el rango de Vt protector para cirugía abdominal <span class="q-pts-auto">🤖 0.20 pts</span></div>
-      <div class="answer-line">
-        Vt mínimo (6 mL/kg PI): <input class="ans-input ans-sm" inputmode="decimal" placeholder="?" data-ans="332" data-tol="2"> mL &nbsp;|&nbsp;
-        Vt máximo (8 mL/kg PI): <input class="ans-input ans-sm" inputmode="decimal" placeholder="?" data-ans="443" data-tol="2"> mL
-      </div>
-      <div class="mc-row"><span class="mc-label">Rango Vt correcto:</span>
-        <select class="mc-select" onchange="chk(this,'332 – 443 mL','fb1b')"><option value="">— elegir —</option><option>289 – 386 mL</option><option>310 – 413 mL</option><option>332 – 443 mL</option><option>354 – 472 mL</option></select>
-        <span class="fb" id="fb1b"></span>
-      </div>
+      <div class="answer-line">Vt mínimo (6 mL/kg PI): <input class="ans-input ans-sm" inputmode="decimal" placeholder="≈ 300–360" data-ans="343.2" data-tol="2"> mL &nbsp;|&nbsp; Vt máximo (8 mL/kg PI): <input class="ans-input ans-sm" inputmode="decimal" placeholder="≈ 420–480" data-ans="457.6" data-tol="2"> mL</div>
+      <div class="calc-hint">Posibles respuestas: números de tres cifras en mL; calcule a partir del PI.</div>
     </div>
-
-    <!-- 1C: Parámetros -->
     <div class="question">
       <div class="question-label">1C. Seleccione los parámetros iniciales correctos para esta paciente <span class="q-pts-auto">🤖 0.20 pts</span></div>
-      <div class="mc-row"><span class="mc-label">PEEP inicial recomendada:</span>
-        <select class="mc-select" onchange="chk(this,'5 cmH₂O','fb1c1')"><option value="">— elegir —</option><option>0 cmH₂O</option><option>3 cmH₂O</option><option>5 cmH₂O</option><option>10 cmH₂O</option></select>
-        <span class="fb" id="fb1c1"></span>
+      <div class="mc-row"><span class="mc-label">PEEP inicial razonable:</span>
+        <select class="mc-select" onchange="chk(this,'5 cmH₂O — punto de partida habitual, con posterior individualización','fb1c1')">
+          <option value="">— elegir —</option>
+          <option>0 cmH₂O — sin PEEP</option>
+          <option>5 cmH₂O — punto de partida habitual, con posterior individualización</option>
+          <option>12 cmH₂O — usar de rutina en todo paciente</option>
+          <option>20 cmH₂O — para prevenir cualquier atelectasia</option>
+        </select><span class="fb" id="fb1c1"></span>
       </div>
-      <div class="mc-row"><span class="mc-label">FiO₂ inicial recomendada:</span>
-        <select class="mc-select" onchange="chk(this,'0.40','fb1c2')"><option value="">— elegir —</option><option>0.21</option><option>0.40</option><option>0.80</option><option>1.0</option></select>
-        <span class="fb" id="fb1c2"></span>
+      <div class="mc-row"><span class="mc-label">FiO₂ inicial:</span>
+        <select class="mc-select" onchange="chk(this,'0.40 — evitar hiperoxia innecesaria y titular según SpO₂/oxigenación','fb1c2')">
+          <option value="">— elegir —</option>
+          <option>0.21 — aire ambiente desde la inducción</option>
+          <option>0.40 — evitar hiperoxia innecesaria y titular según SpO₂/oxigenación</option>
+          <option>1.00 durante toda la cirugía sin reevaluación</option>
+          <option>0.10 — para prevenir toxicidad por oxígeno</option>
+        </select><span class="fb" id="fb1c2"></span>
       </div>
     </div>
-
-    <!-- 1D: Driving Pressure — MANUAL -->
     <div class="question">
-      <div class="question-label">1D. ¿Qué es la Driving Pressure y por qué es clínicamente relevante en cirugía abdominal? <span class="q-pts-manual">✏️ 0.40 pts · docente</span></div>
-      <div class="manual-block">
-        <div class="manual-block-label">✏️ CALIFICACIÓN DOCENTE — 0.40 pts</div>
-        <div class="open-question-part"><span class="open-question-part-letter">a</span><span>Defina la Driving Pressure (ΔP) y escriba su fórmula. ¿Cuál es el umbral de seguridad según la evidencia actual?</span></div>
-        <div class="open-question-part"><span class="open-question-part-letter">b</span><span>¿Por qué la ΔP es el predictor más robusto de VILI (lesión pulmonar inducida por ventilador)?</span></div>
-        <div class="open-question-part"><span class="open-question-part-letter">c</span><span>¿Cuál es su relevancia específica en esta paciente sometida a gastrectomía laparoscópica? ¿Cómo la monitorizaría?</span></div>
-        <textarea class="open-area" placeholder="Escriba su respuesta aquí..."></textarea>
-      </div>
-    </div>
-    <button class="correct-btn" onclick="corregir('E1',['fb1a','fb1b','fb1c1','fb1c2'],0.6,this)">Corregir Ejercicio 1 — Parte autocorregible (0.60 pts)</button>
+  <div class="question-label">1D. ¿Qué es la Driving Pressure y por qué es clínicamente relevante en cirugía abdominal? <span class="q-pts-manual">✏️ 0.40 pts · docente</span></div>
+  <div class="manual-block">
+    <div class="manual-block-label">✏️ CALIFICACIÓN DOCENTE — 0.40 pts</div>
+    <div class="open-question-part"><span class="open-question-part-letter">a</span><span>Defina la Driving Pressure (ΔP) y escriba su fórmula. ¿Cuál es el umbral de seguridad según la evidencia actual?</span></div>
+    <div class="open-question-part"><span class="open-question-part-letter">b</span><span>¿Por qué la ΔP es el predictor más robusto de VILI (lesión pulmonar inducida por ventilador)?</span></div>
+    <div class="open-question-part"><span class="open-question-part-letter">c</span><span>¿Cuál es su relevancia específica en esta paciente sometida a gastrectomía laparoscópica? ¿Cómo la monitorizaría?</span></div>
+    <textarea class="open-area" placeholder="Escriba su respuesta aquí..."></textarea>
+  </div>
+</div>
+    <button class="correct-btn" onclick="corregir('E1',['fb1c1','fb1c2'],0.60,this)">Corregir Ejercicio 1 — Parte autocorregible (0.60 pts)</button>
     <div style="font-family:var(--sans);font-size:8pt;color:var(--gray-400);margin-top:6px;font-style:italic;">Pregunta 1D calificada por el docente (0.40 pts) → Total Ejercicio 1: 1.00 pt</div>
   </div>
 </div>
 
-<!-- ═══ EJERCICIO 2 ═══ -->
 <div class="exercise">
-  <div class="exercise-header">
-    <span class="exercise-num">EJERCICIO 2</span>
-    <span class="exercise-title">Hipercapnia intraoperatoria — Análisis y ajuste</span>
-    <span class="exercise-pts">1.0 pt</span>
-  </div>
+  <div class="exercise-header"><span class="exercise-num">EJERCICIO 2</span><span class="exercise-title">Hipercapnia intraoperatoria — Análisis y ajuste</span><span class="exercise-pts">1.0 pt</span></div>
   <div class="exercise-body">
     <div class="patient-card">
-      <div class="patient-item"><span class="patient-label">Sexo / Edad</span><span class="patient-value">Masculino · 55 años</span></div>
-      <div class="patient-item"><span class="patient-label">Talla</span><span class="patient-value">168 cm</span></div>
-      <div class="patient-item"><span class="patient-label">Peso real</span><span class="patient-value">72 kg</span></div>
+      <div class="patient-item"><span class="patient-label">Sexo / Edad</span><span class="patient-value">Masculino · 60 años</span></div>
+      <div class="patient-item"><span class="patient-label">Talla</span><span class="patient-value">170 cm</span></div>
+      <div class="patient-item"><span class="patient-label">Peso real</span><span class="patient-value">78 kg</span></div>
       <div class="patient-item"><span class="patient-label">EtCO₂</span><span class="patient-value" style="color:#991b1b;">54 mmHg</span></div>
       <div class="patient-item"><span class="patient-label">Vt / FR</span><span class="patient-value">420 mL / 12 rpm</span></div>
-      <div class="patient-item"><span class="patient-label">PEEP / Pplat</span><span class="patient-value">5 cmH₂O / 24 cmH₂O</span></div>
+      <div class="patient-item"><span class="patient-label">PEEP / Pplat</span><span class="patient-value">6 cmH₂O / 23 cmH₂O</span></div>
     </div>
-
     <div class="question">
       <div class="question-label">2A. Calcule el PI, verifique si el Vt está en rango protector y calcule el VM actual <span class="q-pts-auto">🤖 0.25 pts</span></div>
-      <div class="answer-line">PI = 50 + 0.9×(<input class="ans-input ans-sm" inputmode="decimal" placeholder="talla" data-ans="168" data-tol="0">−152) = <input class="ans-input ans-sm" inputmode="decimal" placeholder="?" data-ans="64.4" data-tol="0.2"> kg</div>
-      <div class="answer-line">Vt/kg PI = 420÷<input class="ans-input ans-sm" inputmode="decimal" placeholder="PI" data-ans="64.4" data-tol="0.2"> = <input class="ans-input ans-sm" inputmode="decimal" placeholder="?" data-ans="6.5" data-tol="0.15"> mL/kg &nbsp;|&nbsp; VM = 420×12 = <input class="ans-input ans-sm" inputmode="decimal" placeholder="?" data-ans="5040" data-tol="0"> mL/min</div>
-      <div class="mc-row"><span class="mc-label">PI correcto:</span>
-        <select class="mc-select" onchange="chk(this,'64.4 kg','fb2a1')"><option value="">— elegir —</option><option>60.2 kg</option><option>64.4 kg</option><option>68.4 kg</option><option>72.0 kg</option></select>
-        <span class="fb" id="fb2a1"></span>
-      </div>
-      <div class="mc-row"><span class="mc-label">¿Vt en rango protector?</span>
-        <select class="mc-select" onchange="chk(this,'Sí — 6.5 mL/kg PI (rango 6–8 mL/kg)','fb2a2')"><option value="">— elegir —</option><option>No — Vt excede el rango protector</option><option>Sí — 6.5 mL/kg PI (rango 6–8 mL/kg)</option><option>Sí — pero apenas en el límite superior</option></select>
-        <span class="fb" id="fb2a2"></span>
-      </div>
+      <div class="answer-line">PI = 50 + 0.9×(<input class="ans-input ans-sm" inputmode="decimal" placeholder="talla" data-ans="170" data-tol="0">−152) = <input class="ans-input ans-sm" inputmode="decimal" placeholder="resultado (kg)" data-ans="66.2" data-tol="0.2"> kg</div>
+      <div class="answer-line">Vt/kg PI = 420÷<input class="ans-input ans-sm" inputmode="decimal" placeholder="PI" data-ans="66.2" data-tol="0.2"> = <input class="ans-input ans-sm" inputmode="decimal" placeholder="≈ 6–7" data-ans="6.3" data-tol="0.15"> mL/kg &nbsp;|&nbsp; VM = 420×12 = <input class="ans-input ans-sm" inputmode="decimal" placeholder="≈ 4,000–5,500" data-ans="5040" data-tol="20"> mL/min</div>
+      <div class="calc-hint">Posibles respuestas: PI con 1 decimal, Vt/kg con 1 decimal y VM como número entero.</div>
     </div>
-
     <div class="question">
       <div class="question-label">2B. Calcule la Driving Pressure e interprete <span class="q-pts-auto">🤖 0.15 pts</span></div>
-      <div class="answer-line">ΔP = Pplat − PEEP = <input class="ans-input ans-sm" inputmode="decimal" placeholder="?" data-ans="24" data-tol="0"> − <input class="ans-input ans-sm" inputmode="decimal" placeholder="?" data-ans="5" data-tol="0"> = <input class="ans-input ans-sm" inputmode="decimal" placeholder="?" data-ans="19" data-tol="0"> cmH₂O</div>
-      <div class="mc-row"><span class="mc-label">ΔP correcto e interpretación:</span>
-        <select class="mc-select" onchange="chk(this,'19 cmH₂O — en rango seguro (&lt;15 cmH₂O aceptable, monitor)','fb2b')"><option value="">— elegir —</option><option>19 cmH₂O — en rango seguro (&lt;15 cmH₂O aceptable, monitor)</option><option>19 cmH₂O — fuera de rango, requiere ajuste inmediato</option><option>29 cmH₂O — fuera de rango</option><option>14 cmH₂O — en rango seguro</option></select>
-        <span class="fb" id="fb2b"></span>
+      <div class="answer-line">ΔP = Pplat − PEEP = <input class="ans-input ans-sm" inputmode="decimal" placeholder="Pplat" data-ans="23" data-tol="0"> − <input class="ans-input ans-sm" inputmode="decimal" placeholder="PEEP" data-ans="6" data-tol="0"> = <input class="ans-input ans-sm" inputmode="decimal" placeholder="resultado" data-ans="17" data-tol="0"> cmH₂O</div>
+      <div class="calc-hint">Posibles respuestas: enteros; compare con el objetivo de ΔP ≤15 cmH₂O.</div>
+      <div class="mc-row"><span class="mc-label">¿Qué interpretación es clínicamente más apropiada?</span>
+        <select class="mc-select" onchange="chk(this,'17 cmH₂O — por encima del objetivo de ≤15; revisar Vt, PEEP y mecánica pulmonar','fb2b')">
+          <option value="">— elegir —</option>
+          <option>17 cmH₂O — por encima del objetivo de ≤15; revisar Vt, PEEP y mecánica pulmonar</option>
+          <option>17 cmH₂O — normal y sin necesidad de reevaluación</option>
+          <option>11 cmH₂O — dentro del objetivo</option>
+          <option>23 cmH₂O — corresponde a la Pplat</option>
+        </select><span class="fb" id="fb2b"></span>
       </div>
     </div>
-
     <div class="question">
       <div class="question-label">2C. ¿Cuál es el ajuste de primera elección para corregir la hipercapnia (EtCO₂ 54 mmHg)? <span class="q-pts-auto">🤖 0.20 pts</span></div>
       <div class="mc-row"><span class="mc-label">Ajuste principal:</span>
-        <select class="mc-select" onchange="chk(this,'Aumentar FR (↑ volumen minuto sin cambiar Vt protector)','fb2c')"><option value="">— elegir —</option><option>Aumentar Vt a 10 mL/kg PI</option><option>Aumentar FR (↑ volumen minuto sin cambiar Vt protector)</option><option>Disminuir FR</option><option>Aumentar PEEP a 10 cmH₂O</option></select>
-        <span class="fb" id="fb2c"></span>
+        <select class="mc-select" onchange="chk(this,'Aumentar FR de forma progresiva, manteniendo Vt protector y vigilando auto-PEEP','fb2c')">
+          <option value="">— elegir —</option>
+          <option>Aumentar Vt por encima de 8 mL/kg para normalizar rápidamente el EtCO₂</option>
+          <option>Aumentar FR de forma progresiva, manteniendo Vt protector y vigilando auto-PEEP</option>
+          <option>Disminuir FR para retener más CO₂</option>
+          <option>Aumentar FiO₂ como tratamiento directo de la hipercapnia</option>
+        </select><span class="fb" id="fb2c"></span>
       </div>
     </div>
-
     <div class="question">
-      <div class="question-label">2D. Causas posibles de hipercapnia intraoperatoria y razonamiento clínico <span class="q-pts-manual">✏️ 0.40 pts · docente</span></div>
-      <div class="manual-block">
-        <div class="manual-block-label">✏️ CALIFICACIÓN DOCENTE — 0.40 pts</div>
-        <div class="open-question-part"><span class="open-question-part-letter">a</span><span>Liste al menos 4 causas posibles de hipercapnia intraoperatoria en este paciente (EtCO₂ = 54 mmHg).</span></div>
-        <div class="open-question-part"><span class="open-question-part-letter">b</span><span>Explique por qué se recomienda aumentar la FR antes que el Vt para corregir la hipercapnia, desde el punto de vista de la ventilación protectora.</span></div>
-        <textarea class="open-area" placeholder="Escriba su respuesta aquí..."></textarea>
-      </div>
-    </div>
-    <button class="correct-btn" onclick="corregir('E2',['fb2a1','fb2a2','fb2b','fb2c'],0.6,this)">Corregir Ejercicio 2 — Parte autocorregible (0.60 pts)</button>
+  <div class="question-label">2D. Causas posibles de hipercapnia intraoperatoria y razonamiento clínico <span class="q-pts-manual">✏️ 0.40 pts · docente</span></div>
+  <div class="manual-block">
+    <div class="manual-block-label">✏️ CALIFICACIÓN DOCENTE — 0.40 pts</div>
+    <div class="open-question-part"><span class="open-question-part-letter">a</span><span>Liste al menos 4 causas posibles de hipercapnia intraoperatoria en este paciente (EtCO₂ = 54 mmHg).</span></div>
+    <div class="open-question-part"><span class="open-question-part-letter">b</span><span>Explique por qué se recomienda aumentar la FR antes que el Vt para corregir la hipercapnia, desde el punto de vista de la ventilación protectora.</span></div>
+    <textarea class="open-area" placeholder="Escriba su respuesta aquí..."></textarea>
+  </div>
+</div>
+    <button class="correct-btn" onclick="corregir('E2',['fb2b','fb2c'],0.60,this)">Corregir Ejercicio 2 — Parte autocorregible (0.60 pts)</button>
     <div style="font-family:var(--sans);font-size:8pt;color:var(--gray-400);margin-top:6px;font-style:italic;">Pregunta 2D calificada por el docente (0.40 pts) → Total Ejercicio 2: 1.00 pt</div>
   </div>
 </div>
 
-<!-- ═══ EJERCICIO 3 ═══ -->
 <div class="exercise">
-  <div class="exercise-header">
-    <span class="exercise-num">EJERCICIO 3</span>
-    <span class="exercise-title">Paciente con obesidad — Cálculo e interpretación</span>
-    <span class="exercise-pts">1.0 pt</span>
-  </div>
+  <div class="exercise-header"><span class="exercise-num">EJERCICIO 3</span><span class="exercise-title">Paciente con obesidad — Cálculo e interpretación</span><span class="exercise-pts">1.0 pt</span></div>
   <div class="exercise-body">
     <div class="patient-card">
-      <div class="patient-item"><span class="patient-label">Sexo / Edad</span><span class="patient-value">Femenino · 47 años</span></div>
-      <div class="patient-item"><span class="patient-label">Talla</span><span class="patient-value">158 cm</span></div>
-      <div class="patient-item"><span class="patient-label">Peso real</span><span class="patient-value">96 kg</span></div>
-      <div class="patient-item"><span class="patient-label">Ppico</span><span class="patient-value" style="color:#b85c00;">40 cmH₂O</span></div>
-      <div class="patient-item"><span class="patient-label">Pplat</span><span class="patient-value">26 cmH₂O</span></div>
+      <div class="patient-item"><span class="patient-label">Sexo / Edad</span><span class="patient-value">Femenino · 52 años</span></div>
+      <div class="patient-item"><span class="patient-label">Talla</span><span class="patient-value">160 cm</span></div>
+      <div class="patient-item"><span class="patient-label">Peso real</span><span class="patient-value">108 kg</span></div>
+      <div class="patient-item"><span class="patient-label">Ppico</span><span class="patient-value" style="color:#b85c00;">39 cmH₂O</span></div>
+      <div class="patient-item"><span class="patient-label">Pplat</span><span class="patient-value">24 cmH₂O</span></div>
       <div class="patient-item"><span class="patient-label">PEEP</span><span class="patient-value">8 cmH₂O</span></div>
     </div>
-
     <div class="question">
       <div class="question-label">3A. Calcule el IMC e identifique el grado de obesidad <span class="q-pts-auto">🤖 0.15 pts</span></div>
-      <div class="answer-line">IMC = 96 ÷ (1.58²) = 96 ÷ <input class="ans-input ans-sm" inputmode="decimal" placeholder="?" data-ans="2.4964" data-tol="0.02"> = <input class="ans-input ans-sm" inputmode="decimal" placeholder="?" data-ans="38.5" data-tol="0.2"> kg/m²</div>
-      <div class="mc-row"><span class="mc-label">IMC y clasificación:</span>
-        <select class="mc-select" onchange="chk(this,'38.5 kg/m² — Obesidad grado II','fb3a')"><option value="">— elegir —</option><option>32.4 kg/m² — Obesidad grado I</option><option>38.5 kg/m² — Obesidad grado II</option><option>40.7 kg/m² — Obesidad grado III</option><option>35.1 kg/m² — Sobrepeso</option></select>
-        <span class="fb" id="fb3a"></span>
+      <div class="answer-line">IMC = 108 ÷ (1.60²) = 108 ÷ <input class="ans-input ans-sm" inputmode="decimal" placeholder="≈ 2.5" data-ans="2.56" data-tol="0.02"> = <input class="ans-input ans-sm" inputmode="decimal" placeholder="≈ 42" data-ans="42.2" data-tol="0.2"> kg/m²</div>
+      <div class="calc-hint">Posibles respuestas: divisor con 2 decimales y resultado con 1 decimal.</div>
+      <div class="mc-row"><span class="mc-label">Clasificación clínica:</span>
+        <select class="mc-select" onchange="chk(this,'42.2 kg/m² — Obesidad grado III','fb3a')">
+          <option value="">— elegir —</option>
+          <option>35.0 kg/m² — Obesidad grado II</option>
+          <option>38.5 kg/m² — Obesidad grado II</option>
+          <option>42.2 kg/m² — Obesidad grado III</option>
+          <option>47.0 kg/m² — Obesidad grado III</option>
+        </select><span class="fb" id="fb3a"></span>
       </div>
     </div>
-
     <div class="question">
       <div class="question-label">3B. Calcule el PI y el rango de Vt protector correcto <span class="q-pts-auto">🤖 0.20 pts</span></div>
-      <div class="answer-line">PI (mujer 158 cm) = 45.5 + 0.9×(<input class="ans-input ans-sm" inputmode="decimal" placeholder="?" data-ans="158" data-tol="0"> − 152) = <input class="ans-input ans-sm" inputmode="decimal" placeholder="?" data-ans="50.9" data-tol="0.2"> kg</div>
-      <div class="mc-row"><span class="mc-label">PI correcto:</span>
-        <select class="mc-select" onchange="chk(this,'50.9 kg','fb3b1')"><option value="">— elegir —</option><option>45.5 kg</option><option>50.9 kg</option><option>56.3 kg</option><option>96.0 kg</option></select>
-        <span class="fb" id="fb3b1"></span>
-      </div>
-      <div class="mc-row"><span class="mc-label">Rango Vt correcto (6–8 mL/kg PI):</span>
-        <select class="mc-select" onchange="chk(this,'305 – 407 mL','fb3b2')"><option value="">— elegir —</option><option>305 – 407 mL</option><option>576 – 768 mL</option><option>273 – 364 mL</option><option>420 – 560 mL</option></select>
-        <span class="fb" id="fb3b2"></span>
-      </div>
+      <div class="answer-line">PI (mujer 160 cm) = 45.5 + 0.9×(<input class="ans-input ans-sm" inputmode="decimal" placeholder="talla" data-ans="160" data-tol="0"> − 152) = <input class="ans-input ans-sm" inputmode="decimal" placeholder="resultado (kg)" data-ans="52.7" data-tol="0.2"> kg</div>
+      <div class="answer-line">Vt 6–8 mL/kg PI: <input class="ans-input ans-sm" inputmode="decimal" placeholder="≈ 300–350" data-ans="316.2" data-tol="2"> – <input class="ans-input ans-sm" inputmode="decimal" placeholder="≈ 400–450" data-ans="421.6" data-tol="2"> mL</div>
+      <div class="calc-hint">Posibles respuestas: PI con 1 decimal; rango de Vt en mL usando PI.</div>
+      
     </div>
-
     <div class="question">
       <div class="question-label">3C. Calcule la Driving Pressure e interprete <span class="q-pts-auto">🤖 0.20 pts</span></div>
-      <div class="answer-line">ΔP = <input class="ans-input ans-sm" inputmode="decimal" placeholder="Pplat" data-ans="26" data-tol="0"> − <input class="ans-input ans-sm" inputmode="decimal" placeholder="PEEP" data-ans="8" data-tol="0"> = <input class="ans-input ans-sm" inputmode="decimal" placeholder="?" data-ans="18" data-tol="0"> cmH₂O</div>
-      <div class="mc-row"><span class="mc-label">ΔP e interpretación:</span>
-        <select class="mc-select" onchange="chk(this,'18 cmH₂O — en rango aceptable para paciente obesa con PEEP alta','fb3c')"><option value="">— elegir —</option><option>18 cmH₂O — en rango aceptable para paciente obesa con PEEP alta</option><option>18 cmH₂O — peligrosa, requiere reducción inmediata de Vt</option><option>34 cmH₂O — peligrosa</option><option>8 cmH₂O — en rango excelente</option></select>
-        <span class="fb" id="fb3c"></span>
+      <div class="answer-line">ΔP = <input class="ans-input ans-sm" inputmode="decimal" placeholder="Pplat" data-ans="24" data-tol="0"> − <input class="ans-input ans-sm" inputmode="decimal" placeholder="PEEP" data-ans="8" data-tol="0"> = <input class="ans-input ans-sm" inputmode="decimal" placeholder="resultado" data-ans="16" data-tol="0"> cmH₂O</div>
+      <div class="calc-hint">Posibles respuestas: enteros; compare con el objetivo de ≤15 cmH₂O.</div>
+      <div class="mc-row"><span class="mc-label">Interpretación:</span>
+        <select class="mc-select" onchange="chk(this,'16 cmH₂O — ligeramente por encima del objetivo; valorar reducción de Vt y/o ajuste individualizado de PEEP','fb3c')">
+          <option value="">— elegir —</option>
+          <option>16 cmH₂O — ligeramente por encima del objetivo; valorar reducción de Vt y/o ajuste individualizado de PEEP</option>
+          <option>16 cmH₂O — aceptable por tratarse de obesidad, sin reevaluación</option>
+          <option>8 cmH₂O — corresponde a la PEEP</option>
+          <option>24 cmH₂O — corresponde a la Pplat</option>
+        </select><span class="fb" id="fb3c"></span>
       </div>
     </div>
-
     <div class="question">
-      <div class="question-label">3D. ¿Por qué en la obesidad se usa PI y no peso real? ¿Qué explica el Ppico elevado con Pplat normal? <span class="q-pts-manual">✏️ 0.45 pts · docente</span></div>
-      <div class="manual-block">
-        <div class="manual-block-label">✏️ CALIFICACIÓN DOCENTE — 0.45 pts</div>
-        <div class="open-question-part"><span class="open-question-part-letter">a</span><span>¿Por qué se usa el Peso Ideal y no el peso real para calcular el Vt en la paciente obesa? Argumente con base en la fisiología pulmonar.</span></div>
-        <div class="open-question-part"><span class="open-question-part-letter">b</span><span>En esta paciente el Ppico es 40 cmH₂O pero el Pplat es 26 cmH₂O. ¿Qué tipo de problema indica esta diferencia y cuáles son las causas posibles en el contexto de la obesidad?</span></div>
-        <textarea class="open-area" placeholder="Escriba su respuesta aquí..."></textarea>
-      </div>
-    </div>
-    <button class="correct-btn" onclick="corregir('E3',['fb3a','fb3b1','fb3b2','fb3c'],0.55,this)">Corregir Ejercicio 3 — Parte autocorregible (0.55 pts)</button>
+  <div class="question-label">3D. ¿Por qué en la obesidad se usa PI y no peso real? ¿Qué explica el Ppico elevado con Pplat normal? <span class="q-pts-manual">✏️ 0.45 pts · docente</span></div>
+  <div class="manual-block">
+    <div class="manual-block-label">✏️ CALIFICACIÓN DOCENTE — 0.45 pts</div>
+    <div class="open-question-part"><span class="open-question-part-letter">a</span><span>¿Por qué se usa el Peso Ideal y no el peso real para calcular el Vt en la paciente obesa? Argumente con base en la fisiología pulmonar.</span></div>
+    <div class="open-question-part"><span class="open-question-part-letter">b</span><span>En esta paciente el Ppico es 40 cmH₂O pero el Pplat es 26 cmH₂O. ¿Qué tipo de problema indica esta diferencia y cuáles son las causas posibles en el contexto de la obesidad?</span></div>
+    <textarea class="open-area" placeholder="Escriba su respuesta aquí..."></textarea>
+  </div>
+</div>
+    <button class="correct-btn" onclick="corregir('E3',['fb3a','fb3c'],0.55,this)">Corregir Ejercicio 3 — Parte autocorregible (0.55 pts)</button>
     <div style="font-family:var(--sans);font-size:8pt;color:var(--gray-400);margin-top:6px;font-style:italic;">Pregunta 3D calificada por el docente (0.45 pts) → Total Ejercicio 3: 1.00 pt</div>
   </div>
 </div>
 
-<!-- ═══ EJERCICIO 4 ═══ -->
 <div class="exercise">
-  <div class="exercise-header">
-    <span class="exercise-num">EJERCICIO 4</span>
-    <span class="exercise-title">Disminución brusca de compliance — Posible causa quirúrgica</span>
-    <span class="exercise-pts">1.0 pt</span>
-  </div>
+  <div class="exercise-header"><span class="exercise-num">EJERCICIO 4</span><span class="exercise-title">Disminución brusca de compliance — Posible causa quirúrgica</span><span class="exercise-pts">1.0 pt</span></div>
   <div class="exercise-body">
     <div class="patient-card">
-      <div class="patient-item"><span class="patient-label">Sexo / Edad</span><span class="patient-value">Masculino · 62 años</span></div>
-      <div class="patient-item"><span class="patient-label">Talla / Peso real</span><span class="patient-value">174 cm / 80 kg</span></div>
-      <div class="patient-item"><span class="patient-label">Vt programado</span><span class="patient-value">480 mL</span></div>
-      <div class="patient-item"><span class="patient-label">PEEP</span><span class="patient-value">5 cmH₂O</span></div>
-      <div class="patient-item"><span class="patient-label">Pplat</span><span class="patient-value" style="color:#991b1b;">32 cmH₂O</span></div>
-      <div class="patient-item"><span class="patient-label">Ppico</span><span class="patient-value" style="color:#991b1b;">35 cmH₂O</span></div>
+      <div class="patient-item"><span class="patient-label">Sexo / Edad</span><span class="patient-value">Masculino · 59 años</span></div>
+      <div class="patient-item"><span class="patient-label">Talla / Peso real</span><span class="patient-value">176 cm / 83 kg</span></div>
+      <div class="patient-item"><span class="patient-label">Vt programado</span><span class="patient-value">450 mL</span></div>
+      <div class="patient-item"><span class="patient-label">PEEP</span><span class="patient-value">6 cmH₂O</span></div>
+      <div class="patient-item"><span class="patient-label">Pplat</span><span class="patient-value" style="color:#991b1b;">31 cmH₂O</span></div>
+      <div class="patient-item"><span class="patient-label">Ppico</span><span class="patient-value" style="color:#991b1b;">38 cmH₂O</span></div>
     </div>
-
     <div class="question">
       <div class="question-label">4A. Calcule PI, Vt/kg PI y determine si el Vt está en rango protector <span class="q-pts-auto">🤖 0.20 pts</span></div>
-      <div class="answer-line">PI = 50 + 0.9×(<input class="ans-input ans-sm" inputmode="decimal" placeholder="talla" data-ans="174" data-tol="0">−152) = <input class="ans-input ans-sm" inputmode="decimal" placeholder="?" data-ans="69.8" data-tol="0.2"> kg</div>
-      <div class="answer-line">Vt/kg PI = 480÷<input class="ans-input ans-sm" inputmode="decimal" placeholder="PI" data-ans="69.8" data-tol="0.2"> = <input class="ans-input ans-sm" inputmode="decimal" placeholder="?" data-ans="6.9" data-tol="0.15"> mL/kg</div>
-      <div class="mc-row"><span class="mc-label">PI correcto:</span>
-        <select class="mc-select" onchange="chk(this,'69.8 kg','fb4a1')"><option value="">— elegir —</option><option>65.2 kg</option><option>69.8 kg</option><option>74.3 kg</option><option>80.0 kg</option></select>
-        <span class="fb" id="fb4a1"></span>
-      </div>
+      <div class="answer-line">PI = 50 + 0.9×(<input class="ans-input ans-sm" inputmode="decimal" placeholder="talla" data-ans="176" data-tol="0">−152) = <input class="ans-input ans-sm" inputmode="decimal" placeholder="resultado (kg)" data-ans="71.6" data-tol="0.2"> kg</div>
+      <div class="answer-line">Vt/kg PI = 450÷<input class="ans-input ans-sm" inputmode="decimal" placeholder="PI" data-ans="71.6" data-tol="0.2"> = <input class="ans-input ans-sm" inputmode="decimal" placeholder="≈ 6–7" data-ans="6.3" data-tol="0.15"> mL/kg</div>
+      <div class="calc-hint">Posibles respuestas: PI con 1 decimal y Vt/kg con 1 decimal.</div>
       <div class="mc-row"><span class="mc-label">¿Vt en rango protector?</span>
-        <select class="mc-select" onchange="chk(this,'Sí — 6.9 mL/kg PI (dentro del rango 6–8 mL/kg)','fb4a2')"><option value="">— elegir —</option><option>No — Vt excede el límite</option><option>Sí — 6.9 mL/kg PI (dentro del rango 6–8 mL/kg)</option><option>Sí — 8.0 mL/kg PI (límite superior)</option></select>
-        <span class="fb" id="fb4a2"></span>
+        <select class="mc-select" onchange="chk(this,'Sí — aproximadamente 6.3 mL/kg PI; el problema principal es la Pplat/ΔP elevada','fb4a2')">
+          <option value="">— elegir —</option>
+          <option>Sí — aproximadamente 6.3 mL/kg PI; el problema principal es la Pplat/ΔP elevada</option>
+          <option>No — 450 mL equivale a un Vt excesivo por peso real</option>
+          <option>No — cualquier Vt mayor de 400 mL está contraindicado</option>
+        </select><span class="fb" id="fb4a2"></span>
       </div>
     </div>
-
     <div class="question">
       <div class="question-label">4B. Calcule la Driving Pressure y la Compliance dinámica <span class="q-pts-auto">🤖 0.20 pts</span></div>
-      <div class="answer-line">ΔP = <input class="ans-input ans-sm" inputmode="decimal" placeholder="Pplat" data-ans="32" data-tol="0">−<input class="ans-input ans-sm" inputmode="decimal" placeholder="PEEP" data-ans="5" data-tol="0"> = <input class="ans-input ans-sm" inputmode="decimal" placeholder="?" data-ans="27" data-tol="0"> cmH₂O</div>
-      <div class="answer-line">C = 480÷(<input class="ans-input ans-sm" inputmode="decimal" placeholder="Pplat" data-ans="32" data-tol="0">−<input class="ans-input ans-sm" inputmode="decimal" placeholder="PEEP" data-ans="5" data-tol="0">) = <input class="ans-input ans-sm" inputmode="decimal" placeholder="?" data-ans="17.8" data-tol="0.3"> mL/cmH₂O</div>
+      <div class="answer-line">ΔP = <input class="ans-input ans-sm" inputmode="decimal" placeholder="Pplat" data-ans="31" data-tol="0">−<input class="ans-input ans-sm" inputmode="decimal" placeholder="PEEP" data-ans="6" data-tol="0"> = <input class="ans-input ans-sm" inputmode="decimal" placeholder="resultado" data-ans="25" data-tol="0"> cmH₂O</div>
+      <div class="answer-line">C = 450÷(<input class="ans-input ans-sm" inputmode="decimal" placeholder="Pplat" data-ans="31" data-tol="0">−<input class="ans-input ans-sm" inputmode="decimal" placeholder="PEEP" data-ans="6" data-tol="0">) = <input class="ans-input ans-sm" inputmode="decimal" placeholder="≈ 18" data-ans="18" data-tol="0.5"> mL/cmH₂O</div>
+      <div class="calc-hint">Posibles respuestas: ΔP entero y compliance con 1 decimal.</div>
       <div class="mc-row"><span class="mc-label">ΔP e interpretación:</span>
-        <select class="mc-select" onchange="chk(this,'27 cmH₂O — por encima del límite (>15), riesgo VILI','fb4b1')"><option value="">— elegir —</option><option>27 cmH₂O — por encima del límite (>15), riesgo VILI</option><option>27 cmH₂O — en rango aceptable</option><option>37 cmH₂O — fuera de rango</option><option>22 cmH₂O — en rango aceptable</option></select>
-        <span class="fb" id="fb4b1"></span>
-      </div>
-      <div class="mc-row"><span class="mc-label">Compliance dinámica:</span>
-        <select class="mc-select" onchange="chk(this,'17.8 mL/cmH₂O — severamente reducida (normal 50–100)','fb4b2')"><option value="">— elegir —</option><option>17.8 mL/cmH₂O — severamente reducida (normal 50–100)</option><option>48.0 mL/cmH₂O — levemente reducida</option><option>96.0 mL/cmH₂O — normal</option><option>12.5 mL/cmH₂O — muy baja</option></select>
-        <span class="fb" id="fb4b2"></span>
+        <select class="mc-select" onchange="chk(this,'25 cmH₂O — claramente por encima del objetivo de ≤15 y con Pplat >30; requiere reevaluación inmediata','fb4b1')">
+          <option value="">— elegir —</option>
+          <option>25 cmH₂O — claramente por encima del objetivo de ≤15 y con Pplat &gt;30; requiere reevaluación inmediata</option>
+          <option>25 cmH₂O — aceptable porque el Vt está en 6–8 mL/kg</option>
+          <option>19 cmH₂O — corresponde a la compliance</option>
+          <option>6 cmH₂O — corresponde a la ΔP</option>
+        </select><span class="fb" id="fb4b1"></span>
       </div>
     </div>
-
     <div class="question">
-      <div class="question-label">4C. ¿Qué ajuste inmediato realiza y qué causas investiga? <span class="q-pts-manual">✏️ 0.60 pts · docente</span></div>
-      <div class="manual-block">
-        <div class="manual-block-label">✏️ CALIFICACIÓN DOCENTE — 0.60 pts</div>
-        <div class="open-question-part"><span class="open-question-part-letter">a</span><span>La ΔP actual está por encima del límite seguro. ¿Qué ajuste de Vt realizaría para llevarla a rango seguro? Muestre el cálculo paso a paso.</span></div>
-        <div class="open-question-part"><span class="open-question-part-letter">b</span><span>Tanto el Ppico como el Pplat están elevados en este paciente. ¿Qué tipo de problema fisiopatológico indica esto? Liste al menos 4 causas intraoperatorias posibles y describa la conducta inmediata.</span></div>
-        <textarea class="open-area" style="min-height:100px;" placeholder="Escriba su respuesta aquí..."></textarea>
-      </div>
-    </div>
-    <button class="correct-btn" onclick="corregir('E4',['fb4a1','fb4a2','fb4b1','fb4b2'],0.4,this)">Corregir Ejercicio 4 — Parte autocorregible (0.40 pts)</button>
+  <div class="question-label">4C. ¿Qué ajuste inmediato realiza y qué causas investiga? <span class="q-pts-manual">✏️ 0.60 pts · docente</span></div>
+  <div class="manual-block">
+    <div class="manual-block-label">✏️ CALIFICACIÓN DOCENTE — 0.60 pts</div>
+    <div class="open-question-part"><span class="open-question-part-letter">a</span><span>La ΔP actual está por encima del límite seguro. ¿Qué ajuste de Vt realizaría para llevarla a rango seguro? Muestre el cálculo paso a paso.</span></div>
+    <div class="open-question-part"><span class="open-question-part-letter">b</span><span>Tanto el Ppico como el Pplat están elevados en este paciente. ¿Qué tipo de problema fisiopatológico indica esto? Liste al menos 4 causas intraoperatorias posibles y describa la conducta inmediata.</span></div>
+    <textarea class="open-area" style="min-height:100px;" placeholder="Escriba su respuesta aquí..."></textarea>
+  </div>
+</div>
+    <button class="correct-btn" onclick="corregir('E4',['fb4a2','fb4b1'],0.40,this)">Corregir Ejercicio 4 — Parte autocorregible (0.40 pts)</button>
     <div style="font-family:var(--sans);font-size:8pt;color:var(--gray-400);margin-top:6px;font-style:italic;">Pregunta 4C calificada por el docente (0.60 pts) → Total Ejercicio 4: 1.00 pt</div>
   </div>
 </div>
 
-<!-- ═══ EJERCICIO 5 ═══ -->
 <div class="exercise">
-  <div class="exercise-header">
-    <span class="exercise-num">EJERCICIO 5</span>
-    <span class="exercise-title">Paciente pediátrico — Programación y corrección de hipocapnia</span>
-    <span class="exercise-pts">1.0 pt</span>
-  </div>
+  <div class="exercise-header"><span class="exercise-num">EJERCICIO 5</span><span class="exercise-title">Paciente pediátrico — Programación y corrección de hipocapnia</span><span class="exercise-pts">1.0 pt</span></div>
   <div class="exercise-body">
     <div class="patient-card">
-      <div class="patient-item"><span class="patient-label">Edad / Sexo</span><span class="patient-value">Niña sana · 8 años</span></div>
-      <div class="patient-item"><span class="patient-label">Peso</span><span class="patient-value">26 kg</span></div>
-      <div class="patient-item"><span class="patient-label">Talla</span><span class="patient-value">128 cm</span></div>
+      <div class="patient-item"><span class="patient-label">Edad / Sexo</span><span class="patient-value">Niña sana · 6 años</span></div>
+      <div class="patient-item"><span class="patient-label">Peso</span><span class="patient-value">22 kg</span></div>
+      <div class="patient-item"><span class="patient-label">Talla</span><span class="patient-value">118 cm</span></div>
       <div class="patient-item"><span class="patient-label">EtCO₂</span><span class="patient-value" style="color:#991b1b;">22 mmHg</span></div>
       <div class="patient-item"><span class="patient-label">Procedimiento</span><span class="patient-value">Apendicectomía laparoscópica</span></div>
     </div>
-
     <div class="question">
       <div class="question-label">5A. Calcule el rango de Vt adecuado para esta niña <span class="q-pts-auto">🤖 0.20 pts</span></div>
-      <div class="answer-line">Vt 8 mL/kg: <input class="ans-input ans-sm" inputmode="decimal" placeholder="?" data-ans="208" data-tol="0"> mL &nbsp;|&nbsp; Vt 10 mL/kg: <input class="ans-input ans-sm" inputmode="decimal" placeholder="?" data-ans="260" data-tol="0"> mL</div>
-      <div class="mc-row"><span class="mc-label">Rango de Vt correcto:</span>
-        <select class="mc-select" onchange="chk(this,'208 – 260 mL','fb5a')"><option value="">— elegir —</option><option>156 – 195 mL</option><option>208 – 260 mL</option><option>260 – 325 mL</option><option>180 – 225 mL</option></select>
-        <span class="fb" id="fb5a"></span>
-      </div>
+      <div class="answer-line">Vt 6 mL/kg: <input class="ans-input ans-sm" inputmode="decimal" placeholder="≈ 100–150" data-ans="132" data-tol="0"> mL &nbsp;|&nbsp; Vt 8 mL/kg: <input class="ans-input ans-sm" inputmode="decimal" placeholder="≈ 150–200" data-ans="176" data-tol="0"> mL</div>
+      <div class="calc-hint">Posibles respuestas: valores enteros en mL; use 6–8 mL/kg como rango protector orientativo.</div>
     </div>
-
     <div class="question">
       <div class="question-label">5B. ¿Qué FR y grupo etario corresponde? <span class="q-pts-auto">🤖 0.15 pts</span></div>
-      <div class="mc-row"><span class="mc-label">FR correcta para escolar 6–12 años:</span>
-        <select class="mc-select" onchange="chk(this,'16–22 rpm (escolar)','fb5b')"><option value="">— elegir —</option><option>25–35 rpm (lactante)</option><option>20–25 rpm (preescolar)</option><option>16–22 rpm (escolar)</option><option>12–18 rpm (adolescente)</option></select>
-        <span class="fb" id="fb5b"></span>
+      <div class="mc-row"><span class="mc-label">Grupo etario y FR orientativa:</span>
+        <select class="mc-select" onchange="chk(this,'Escolar (6–12 años) — 16–22 rpm','fb5b')">
+          <option value="">— elegir —</option>
+          <option>Lactante — 25–35 rpm</option>
+          <option>Preescolar — 20–25 rpm</option>
+          <option>Escolar (6–12 años) — 16–22 rpm</option>
+          <option>Adolescente — 12–18 rpm</option>
+        </select><span class="fb" id="fb5b"></span>
       </div>
     </div>
-
     <div class="question">
       <div class="question-label">5C. EtCO₂ = 22 mmHg (hipocapnia severa). ¿Cuál es el ajuste correcto? <span class="q-pts-auto">🤖 0.20 pts</span></div>
       <div class="mc-row"><span class="mc-label">Acción correcta:</span>
-        <select class="mc-select" onchange="chk(this,'Disminuir FR — reducir volumen minuto para ↑ PaCO₂','fb5c')"><option value="">— elegir —</option><option>Aumentar FR — para normalizar CO₂</option><option>Disminuir FR — reducir volumen minuto para ↑ PaCO₂</option><option>Aumentar FiO₂ — la hipocapnia es por hipoxia</option><option>Aumentar PEEP — mejorar oxigenación</option></select>
-        <span class="fb" id="fb5c"></span>
+        <select class="mc-select" onchange="chk(this,'Disminuir la ventilación minuto, habitualmente reduciendo FR y reevaluando el EtCO₂','fb5c')">
+          <option value="">— elegir —</option>
+          <option>Aumentar FR para bajar aún más el EtCO₂</option>
+          <option>Disminuir la ventilación minuto, habitualmente reduciendo FR y reevaluando el EtCO₂</option>
+          <option>Aumentar FiO₂ como tratamiento específico de la hipocapnia</option>
+          <option>Aumentar PEEP para corregir directamente el CO₂</option>
+        </select><span class="fb" id="fb5c"></span>
       </div>
     </div>
-
     <div class="question">
-      <div class="question-label">5D. Explique las consecuencias clínicas de la hipocapnia en esta paciente pediátrica <span class="q-pts-manual">✏️ 0.45 pts · docente</span></div>
-      <div class="manual-block">
-        <div class="manual-block-label">✏️ CALIFICACIÓN DOCENTE — 0.45 pts</div>
-        <div class="open-question">Mencione al menos 3 consecuencias clínicas de la hipocapnia severa (EtCO₂ = 22 mmHg) en esta niña de 8 años. Para cada consecuencia explique el mecanismo fisiológico subyacente y por qué es especialmente relevante en el paciente pediátrico.</div>
-        <textarea class="open-area" placeholder="Escriba su respuesta aquí..."></textarea>
-      </div>
-    </div>
-    <button class="correct-btn" onclick="corregir('E5',['fb5a','fb5b','fb5c'],0.55,this)">Corregir Ejercicio 5 — Parte autocorregible (0.55 pts)</button>
+  <div class="question-label">5D. Explique las consecuencias clínicas de la hipocapnia en esta paciente pediátrica <span class="q-pts-manual">✏️ 0.45 pts · docente</span></div>
+  <div class="manual-block">
+    <div class="manual-block-label">✏️ CALIFICACIÓN DOCENTE — 0.45 pts</div>
+    <div class="open-question">Mencione al menos 3 consecuencias clínicas de la hipocapnia severa (EtCO₂ = 22 mmHg) en esta niña de 8 años. Para cada consecuencia explique el mecanismo fisiológico subyacente y por qué es especialmente relevante en el paciente pediátrico.</div>
+    <textarea class="open-area" placeholder="Escriba su respuesta aquí..."></textarea>
+  </div>
+</div>
+    <button class="correct-btn" onclick="corregir('E5',['fb5b','fb5c'],0.55,this)">Corregir Ejercicio 5 — Parte autocorregible (0.55 pts)</button>
     <div style="font-family:var(--sans);font-size:8pt;color:var(--gray-400);margin-top:6px;font-style:italic;">Pregunta 5D calificada por el docente (0.45 pts) → Total Ejercicio 5: 1.00 pt</div>
   </div>
 </div>
 
 <div class="download-box">
   <h3>📥 Descargar Taller</h3>
-  <p style="font-family:var(--sans);font-size:9pt;color:#212529;margin-bottom:12px;">Complete su nombre y universidad antes de descargar.</p>
+  <p style="font-family:var(--sans);font-size:9pt;color:#212529;margin-bottom:12px;">Complete su nombre y universidad antes de descargar. El PDF incorpora una marca de agua individual, código único y nota autocalificable.</p>
   <div class="input-row">
     <input class="id-input" id="nomT" type="text" placeholder="Nombre completo del estudiante">
     <input class="id-input" id="univT" type="text" placeholder="Universidad / Institución">
@@ -891,73 +901,83 @@ footer { border-top:2px solid rgba(0,0,0,.08); padding:22px 56px 28px; display:f
   <div class="dl-error" id="errT">⚠ Por favor complete nombre y universidad antes de descargar.</div>
 </div>
 <div class="nota-bar">
-  <span class="nota-bar-label">Nota acumulada</span>
-  <span class="nota-bar-val" id="notaTotal">0.00 / 5.00</span>
-  <span style="font-family:var(--sans);font-size:8.5pt;color:var(--gray-600);">Autocorregible (ejercicios 1–5) &nbsp;|&nbsp; <span style="color:var(--amber);font-weight:600;">✏️ Preguntas D calificadas por docente</span></span>
+  <span class="nota-bar-label">Nota autocalificable</span>
+  <span class="nota-bar-val" id="notaTotal">0.00 / 2.70</span>
+  <span style="font-family:var(--sans);font-size:8.5pt;color:var(--gray-600);">Autocorregible (ejercicios 1–5) &nbsp;|&nbsp; <span style="color:var(--amber);font-weight:600;">✏️ 2.30 pts · razonamiento clínico y preguntas abiertas calificadas por docente</span></span>
 </div>
 </div>
 </div><!-- /taller-tab -->
 
-</div><!-- /page -->
-
 <script>
-// TABS
 function showTab(id,btn){
-  document.querySelectorAll('.tab-content').forEach(t=>t.classList.remove('active'));
-  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+  document.querySelectorAll('.tab-content').forEach(function(t){t.classList.remove('active');});
+  document.querySelectorAll('.tab-btn').forEach(function(b){b.classList.remove('active');});
   document.getElementById(id+'-tab').classList.add('active');
   btn.classList.add('active');
 }
-// AUTOCORRECT — solo almacena, muestra al corregir
+
+/* AUTOCORRECT */
 var answers={};
 function chk(sel,correct,fbId){
   answers[fbId]={val:sel.value.trim(),correct:correct.trim()};
   var fb=document.getElementById(fbId);
   if(fb){fb.textContent='';fb.className='fb';}
 }
-// SCORE
-var pts={E1:0,E2:0,E3:0,E4:0,E5:0};
+
+var pts={taller:{E1:0,E2:0,E3:0,E4:0,E5:0}};
+
+function marcarCasilla(inp,estado){
+  inp.classList.remove('ci-ok','ci-bad','ci-empty','num-ok','num-err','num-empty');
+  if(estado==='ok') inp.classList.add('num-ok');
+  else if(estado==='bad') inp.classList.add('num-err');
+  else if(estado==='empty') inp.classList.add('num-empty');
+}
+
 function corregir(ex,fbIds,maxPts,btn){
   var container=btn.closest('.exercise');
-  var numInputs=container?container.querySelectorAll('input[data-ans]'):[];
-  var totalItems=fbIds.length+numInputs.length;
-  var ok=0, okDrop=0, okNum=0, emptyDrop=0, emptyNum=0;
-  // Dropdowns
+  var inputs=container?container.querySelectorAll('input[data-ans]'):[];
+  var total=0,ok=0,okSel=0,totSel=0,okNum=0,totNum=0;
+
   fbIds.forEach(function(fbId){
-    var fb=document.getElementById(fbId);
-    var ans=answers[fbId];
+    if(!fbId)return;
+    totSel++; total++;
+    var fb=document.getElementById(fbId), ans=answers[fbId];
     if(!fb)return;
-    if(!ans||!ans.val){fb.textContent='— sin respuesta';fb.className='fb';emptyDrop++;return;}
-    if(ans.val===ans.correct){ok++;okDrop++;fb.textContent='✓ correcto';fb.className='fb ok';}
+    if(!ans||!ans.val){fb.textContent='— sin respuesta';fb.className='fb';return;}
+    if(ans.val===ans.correct){ok++;okSel++;fb.textContent='✓ correcto';fb.className='fb ok';}
     else{fb.textContent='✗ incorrecto';fb.className='fb err';}
   });
-  // Numeric inputs
-  numInputs.forEach(function(inp){
+
+  inputs.forEach(function(inp){
+    total++;totNum++;
     var expected=parseFloat(inp.getAttribute('data-ans'));
     var tol=parseFloat(inp.getAttribute('data-tol')||'0.5');
-    var raw=(inp.value||'').replace(',','.').trim();
-    inp.classList.remove('num-ok','num-err','num-empty');
-    if(raw===''){inp.classList.add('num-empty');emptyNum++;return;}
+    var raw=(inp.value||'').trim().replace(',','.');
+    if(raw===''){marcarCasilla(inp,'empty');return;}
     var val=parseFloat(raw);
-    if(isNaN(val)){inp.classList.add('num-err');return;}
-    if(Math.abs(val-expected)<=tol){ok++;okNum++;inp.classList.add('num-ok');}
-    else{inp.classList.add('num-err');}
+    if(!isNaN(val)&&Math.abs(val-expected)<=tol){ok++;okNum++;marcarCasilla(inp,'ok');}
+    else{marcarCasilla(inp,'bad');}
   });
-  var p=(ok/totalItems)*maxPts;
-  pts[ex]=p;
+
+  var p=total?(ok/total)*maxPts:0;
+  pts.taller[ex]=p;
   actualizarNotas();
-  var msg=ex+' corregido:\n'+
-    '  • Desplegables: '+okDrop+'/'+fbIds.length+(emptyDrop?' ('+emptyDrop+' sin responder)':'')+'\n'+
-    '  • Cálculos numéricos: '+okNum+'/'+numInputs.length+(emptyNum?' ('+emptyNum+' sin responder)':'')+'\n'+
-    '  → Total: '+ok+'/'+totalItems+' = '+p.toFixed(2)+' pts autocorregibles';
+
+  var msg='Ejercicio '+ex+' corregido: '+ok+'/'+total+' aciertos = '+p.toFixed(2)+' pts';
+  if(totNum) msg+='\n  • Desplegables: '+okSel+'/'+totSel+'\n  • Casillas numéricas: '+okNum+'/'+totNum;
   alert(msg);
 }
+
 function actualizarNotas(){
-  var total=Object.values(pts).reduce(function(a,b){return a+b;},0);
+  var t=pts.taller;
+  var total=(t.E1||0)+(t.E2||0)+(t.E3||0)+(t.E4||0)+(t.E5||0);
   var nt=document.getElementById('notaTotal');
-  if(nt)nt.textContent=total.toFixed(2)+' / 5.00';
+  if(nt)nt.textContent=total.toFixed(2)+' / 2.70';
+  var ps=document.getElementById('printScore');
+  if(ps)ps.textContent=total.toFixed(2)+' / 2.70';
 }
-// PRINT ANSWER CLONES
+
+/* PRINT ANSWER CLONES */
 function setupPrintAnswers(){
   document.querySelectorAll('textarea.open-area').forEach(function(ta){
     var clone=ta.nextElementSibling;
@@ -970,67 +990,53 @@ function setupPrintAnswers(){
   });
 }
 document.addEventListener('DOMContentLoaded',setupPrintAnswers);
+document.addEventListener('DOMContentLoaded',function(){
+  document.querySelectorAll('input[data-ans]').forEach(function(inp){
+    inp.addEventListener('input',function(){marcarCasilla(inp,null);});
+  });
+});
 window.addEventListener('beforeprint',function(){
   document.querySelectorAll('textarea.open-area').forEach(function(ta){
     var clone=ta.nextElementSibling;
     if(clone&&clone.classList.contains('print-answer'))clone.textContent=ta.value;
   });
 });
-// ══ ANTI-PLAGIO: código de verificación ══
-  // Hash corto y determinístico ligado a nombre + universidad + taller + fecha.
-  // El mismo código se repite en el encabezado y en cada ejercicio.
-  function hashCorto(str){
-    var h = 5381;
-    for(var i=0;i<str.length;i++){
-      h = ((h*33) ^ str.charCodeAt(i)) >>> 0;
-    }
-    return h.toString(36).toUpperCase().slice(0,7);
-  }
 
-  // Inserta (o actualiza) el código dentro del encabezado de cada ejercicio
-  // y frente a CADA pregunta del taller.
-  function estamparCodigoEnEjercicios(codigo){
-    document.querySelectorAll('.exercise-header').forEach(function(h){
-      var tag = h.querySelector('.exercise-wm-tag');
-      if(!tag){
-        tag = document.createElement('span');
-        tag.className = 'exercise-wm-tag';
-        h.appendChild(tag);
-      }
-      tag.textContent = '🔒 ' + codigo;
-    });
+/* Código único para cada PDF */
+function generarCodigoUnico(){
+  var ahora=new Date();
+  var base=ahora.getTime().toString(36).toUpperCase();
+  var aleatorio=(window.crypto&&crypto.getRandomValues)?(function(){
+    var a=new Uint32Array(2);crypto.getRandomValues(a);
+    return (a[0].toString(36)+a[1].toString(36)).toUpperCase();
+  })():Math.random().toString(36).substring(2,10).toUpperCase();
+  return 'AR-VNT-'+base.slice(-6)+'-'+aleatorio.slice(0,6);
+}
 
-    document.querySelectorAll('.question-label').forEach(function(lbl){
-      var tag = lbl.querySelector('.question-wm-tag');
-      if(!tag){
-        tag = document.createElement('span');
-        tag.className = 'question-wm-tag';
-        lbl.appendChild(tag);
-      }
-      tag.textContent = '🔒 ' + codigo;
-    });
-  }
-
-  // PDF DOWNLOAD
 function dlPDF(){
   var nom=document.getElementById('nomT').value.trim();
   var univ=document.getElementById('univT').value.trim();
   if(!nom||!univ){document.getElementById('errT').style.display='block';return;}
   document.getElementById('errT').style.display='none';
+
   var ahora=new Date();
   var f=ahora.toLocaleDateString('es-CO',{day:'2-digit',month:'long',year:'numeric'})+' '+ahora.toLocaleTimeString('es-CO',{hour:'2-digit',minute:'2-digit'});
-  ['phNombre','pfNombre'].forEach(id=>{var el=document.getElementById(id);if(el)el.textContent=nom;});
-  ['phUniversidad','pfUniversidad'].forEach(id=>{var el=document.getElementById(id);if(el)el.textContent=univ;});
-  ['phGuia','pfGuia'].forEach(id=>{var el=document.getElementById(id);if(el)el.textContent='Taller — Ventilador y Sistemas de Oxigenación';});
-  ['phFecha','pfFecha'].forEach(id=>{var el=document.getElementById(id);if(el)el.textContent=f;});
+  var codigo=generarCodigoUnico();
+  var nota=document.getElementById('notaTotal')?document.getElementById('notaTotal').textContent:'0.00 / 2.70';
 
-  // Código de verificación: cambia si nombre, universidad, taller o fecha no coinciden.
-  var guia='Taller — Ventilador y Sistemas de Oxigenación';
-  var codigo=hashCorto(nom+'|'+univ+'|'+guia+'|'+f);
-  ['phCodigo','pfCodigo'].forEach(id=>{var el=document.getElementById(id);if(el)el.textContent=codigo;});
-  estamparCodigoEnEjercicios(codigo);
+  var phNombre=document.getElementById('phNombre');if(phNombre)phNombre.textContent=nom;
+  var phUniversidad=document.getElementById('phUniversidad');if(phUniversidad)phUniversidad.textContent=univ;
+  var phGuia=document.getElementById('phGuia');if(phGuia)phGuia.textContent='Taller — Ventilador y Sistemas de Oxigenación';
+  var phFecha=document.getElementById('phFecha');if(phFecha)phFecha.textContent=f;
+  var phCodigo=document.getElementById('phCodigo');if(phCodigo)phCodigo.textContent=codigo;
 
-  document.querySelectorAll('.tab-content').forEach(t=>t.classList.remove('active'));
+  var wmCode=document.getElementById('wmCode');if(wmCode)wmCode.textContent=codigo;
+  var wmStudent=document.getElementById('wmStudent');if(wmStudent)wmStudent.textContent=nom+' · '+univ;
+  var printStudent=document.getElementById('printStudent');if(printStudent)printStudent.textContent=nom;
+  var printCode=document.getElementById('printCode');if(printCode)printCode.textContent=codigo;
+  var printScore=document.getElementById('printScore');if(printScore)printScore.textContent=nota;
+
+  document.querySelectorAll('.tab-content').forEach(function(t){t.classList.remove('active');});
   document.getElementById('taller-tab').classList.add('active');
   setTimeout(function(){window.print();},300);
 }

@@ -580,9 +580,38 @@ body{ background:#EEF3E6 !important; font-family:var(--sans); }
 .anti-code{display:none;}
 @media print{.anti-code{display:inline-flex!important;align-items:center;margin-left:auto;font-family:var(--mono);font-size:7pt;font-weight:700;color:#991b1b;background:#fef2f2;border:1px solid #fca5a5;border-radius:4px;padding:2px 6px;white-space:nowrap;}.page-print-header strong,.print-footer-fixed strong{font-family:var(--mono);font-weight:700;}}
 @media screen{.anti-code{display:none!important;}}
+
+/* === IDENTIFICACION Y NOTA EN PDF === */
+.print-watermark{display:none;}
+.print-first-note{display:none;}
+@media print{
+  .print-watermark{
+    display:block !important; position:fixed !important; left:50% !important; top:52% !important;
+    transform:translate(-50%,-50%) rotate(-32deg) !important; width:92% !important;
+    text-align:center !important; font-family:var(--sans) !important; font-size:34pt !important;
+    line-height:1.35 !important; font-weight:800 !important; letter-spacing:.045em !important;
+    color:rgba(51,105,30,.13) !important; z-index:9999 !important; pointer-events:none !important;
+  }
+  .print-watermark *{color:inherit !important;}
+  .page{position:relative !important;}
+  .page > *:not(.print-watermark){position:relative;z-index:1;}
+  .print-first-note{
+    display:block !important; margin:0 0 16px 0 !important; padding:10px 16px !important;
+    border:1.5px solid var(--teal) !important; border-radius:8px !important; background:#fff !important;
+    color:var(--navy) !important; font-family:var(--sans) !important; font-size:10pt !important;
+    font-weight:700 !important; line-height:1.35 !important; page-break-inside:avoid !important; break-inside:avoid !important;
+  }
+  .print-first-note strong{font-family:var(--mono) !important;}
+}
+@media screen{.print-watermark,.print-first-note{display:none !important;}}
 </style>
 </head>
 <body>
+<div class="print-watermark" id="printWatermarkFCV">
+  <div id="wmNombreFCV"></div>
+  <div id="wmUniversidadFCV"></div>
+  <div id="wmCodigoFCV"></div>
+</div>
 <div class="page">
 <button class="palette-btn" onclick="togglePalette()">🎨</button>
 <div class="palette-panel" id="palettePanel">
@@ -1669,6 +1698,7 @@ body{ background:#EEF3E6 !important; font-family:var(--sans); }
 
 <!-- TALLER TAB -->
 <div class="tab-content" id="taller-tab">
+<div class="print-first-note" id="printNotaFCV">Nota autocalificable: <strong id="printNotaFCVVal">0.00 / 3.50 pts</strong></div>
 <div class="taller-header">
   <h2>Taller — <em>Fisiología Cardiovascular y Renal</em></h2>
   <div class="taller-meta">Dr. Andrés Robayo C. · 3 módulos · 5.0 puntos totales · Hospital de Kennedy</div>
@@ -1979,8 +2009,11 @@ function corregir(mod,total,fbIds,maxPts){
 }
 function actualizarNotas(){
   var total=(pts.A||0)+(pts.B||0);
+  var txt=total.toFixed(2)+' / 3.50';
   var nt=document.getElementById('notaFCV');
-  if(nt)nt.textContent=total.toFixed(2)+' / 3.50';
+  if(nt)nt.textContent=txt;
+  var pn=document.getElementById('printNotaFCVVal');
+  if(pn)pn.textContent=txt+' pts';
 }
 function setupPrintAnswers(){
   document.querySelectorAll('textarea.open-area').forEach(function(ta){
@@ -2028,6 +2061,13 @@ function dlPDF(){
   ['phFecha','pfFecha'].forEach(function(id){var el=document.getElementById(id);if(el)el.textContent=f;});
   var codigo=generarCodigoAntiPlagio();
   aplicarMarcaAntiPlagio(codigo);
+  var wmN=document.getElementById('wmNombreFCV');
+  var wmU=document.getElementById('wmUniversidadFCV');
+  var wmC=document.getElementById('wmCodigoFCV');
+  if(wmN)wmN.textContent=nom;
+  if(wmU)wmU.textContent=univ;
+  if(wmC)wmC.textContent='Código: '+codigo;
+  actualizarNotas();
   document.querySelectorAll('.tab-content').forEach(t=>t.classList.remove('active'));
   document.getElementById('taller-tab').classList.add('active');
   setTimeout(function(){window.print();},300);

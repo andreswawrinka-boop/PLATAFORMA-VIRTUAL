@@ -239,26 +239,65 @@ footer{border-top:2px solid var(--navy);padding:18px 56px 24px;display:flex;just
 .footer-copy{font-family:var(--sans);font-size:7.5pt;color:var(--gray-400);text-align:right;line-height:1.5;}
 
 
-/* ── CÓDIGO DE VERIFICACIÓN / ANTI-PLAGIO ── */
-.exercise-wm-tag,.question-wm-tag{display:none;}
+/* ── MARCA DE AGUA PERSONALIZADA PARA EL PDF ── */
+.print-watermark,.print-first-note{display:none;}
 @media print{
-  .exercise-wm-tag,.question-wm-tag{
-    display:inline-flex !important;
-    align-items:center;
-    margin-left:auto;
-    font-family:var(--mono);
-    font-size:7pt;
-    font-weight:700;
-    color:#991b1b;
-    background:#fef2f2;
-    border:1px solid #fca5a5;
-    border-radius:4px;
-    padding:2px 6px;
-    white-space:nowrap;
+  .exercise-wm-tag,.question-wm-tag{display:none !important;}
+  .print-watermark{
+    display:block !important;
+    position:fixed;
+    left:50%;
+    top:50%;
+    width:78%;
+    transform:translate(-50%,-50%) rotate(-28deg);
+    z-index:9999;
+    pointer-events:none;
+    text-align:center;
+    font-family:var(--sans);
+    color:#00695C;
+    opacity:.12;
+    line-height:1.25;
   }
+  .print-watermark .wm-line{
+    font-size:25pt;
+    font-weight:800;
+    letter-spacing:.04em;
+    overflow-wrap:anywhere;
+  }
+  .print-watermark .wm-code{
+    margin-top:8px;
+    font-family:var(--mono);
+    font-size:15pt;
+    font-weight:700;
+    letter-spacing:.08em;
+  }
+  .print-first-note{
+    display:flex !important;
+    align-items:center;
+    gap:16px;
+    margin:0 0 18px;
+    padding:11px 15px;
+    border:1.5px solid #009688;
+    border-radius:10px;
+    background:#E0F2F1;
+    color:#00695C;
+    font-family:var(--sans);
+    page-break-inside:avoid;
+  }
+  .print-first-note span{
+    font-size:8pt;
+    font-weight:800;
+    letter-spacing:.08em;
+  }
+  .print-first-note strong{
+    font-family:var(--mono);
+    font-size:16pt;
+    color:#0B2545;
+  }
+  .print-first-note small{font-size:8pt;color:#566573;}
 }
 @media print{
-  .tab-nav,.palette-btn,.palette-panel,.design-switcher,.correct-btn,.download-box,.nota-bar{display:none !important;}
+  .tab-nav,.palette-btn,.palette-panel,.design-switcher,.correct-btn,.download-box,.nota-bar,.page-print-header,.print-footer-fixed{display:none !important;}
   .tab-content{display:none !important;}
   #taller-tab{display:block !important;}
   body{font-size:10pt;}
@@ -368,6 +407,11 @@ body{ background:#EAF3F1 !important; font-family:var(--sans); }
 </style>
 </head>
 <body>
+<div class="print-watermark" aria-hidden="true">
+  <div class="wm-line"><span id="wmNombre"></span></div>
+  <div class="wm-line"><span id="wmUniversidad"></span></div>
+  <div class="wm-code">Código: <span id="wmCodigo"></span></div>
+</div>
 <div class="page">
 <div class="page-print-header"><span id="phNombre"></span> · <span id="phUniversidad"></span> · <span id="phGuia"></span> · <span id="phFecha"></span> · Código: <strong id="phCodigo"></strong></div>
 <div class="print-footer-fixed">
@@ -945,6 +989,8 @@ body{ background:#EAF3F1 !important; font-family:var(--sans); }
 </div>
 <div class="taller-content">
 
+<div class="print-first-note" id="printFirstNote"><span>NOTA AUTOCORREGIBLE</span><strong id="printNotaNVPO">0.00 / 3.50 pts</strong><small>Módulos A + C · resultado registrado al descargar</small></div>
+
 <div class="alert-yellow">
   🤖 <strong>Módulo A</strong> (2.5 pts) — Selección múltiple autocorregible. Presione <em>Corregir Módulo A</em> al terminar. &nbsp;|&nbsp; ✏️ <strong>Módulo B</strong> (2.5 pts) — Preguntas abiertas calificadas por el docente.
 </div>
@@ -960,7 +1006,7 @@ body{ background:#EAF3F1 !important; font-family:var(--sans); }
 
     <div class="ex-item">
       <div class="ex-label"><span class="ex-num">Ej 1</span> Ondansetrón adulto y niño <span class="ex-pts-auto">2 preg · 0.5 pts</span></div>
-      <div class="ex-context"><strong>Caso A:</strong> Mujer 68 kg, colecistectomía laparoscópica, Apfel 3. <strong>Caso B:</strong> Niño 4 años, 16 kg, cirugía de estrabismo, Eberhart 3. Ampolla: Ondansetrón 4 mg/2 mL (2 mg/mL).</div>
+      <div class="ex-context"><strong>Caso A:</strong> Hombre 61 años, 75 kg, herniorrafia laparoscópica, Apfel 2. <strong>Caso B:</strong> Niño 6 años, 16 kg, amigdalectomía, Eberhart 2. Ampolla: Ondansetrón 4 mg/2 mL (2 mg/mL).</div>
       <div class="mc-row"><span class="mc-label">Caso A – Dosis y momento correcto:</span>
         <select class="mc-select" onchange="chk(this,'4 mg = 2 mL al cierre','fbA1')">
           <option value="">— elegir —</option>
@@ -983,7 +1029,7 @@ body{ background:#EAF3F1 !important; font-family:var(--sans); }
 
     <div class="ex-item">
       <div class="ex-label"><span class="ex-num">Ej 2</span> Dexametasona: DM tipo 2 + lactante <span class="ex-pts-auto">2 preg · 0.5 pts</span></div>
-      <div class="ex-context">Ampolla: Dexametasona 4 mg/mL. <strong>Caso A:</strong> Adulto 72 kg, DM tipo 2 controlada, cesárea electiva. <strong>Caso B:</strong> Lactante 14 meses, 9.5 kg, hernia inguinal bilateral.</div>
+      <div class="ex-context">Ampolla: Dexametasona 4 mg/mL. <strong>Caso A:</strong> Mujer 66 kg, DM tipo 2 controlada con dieta, histerectomía laparoscópica electiva. <strong>Caso B:</strong> Lactante 18 meses, 9.5 kg, reparación de hernia umbilical.</div>
       <div class="mc-row"><span class="mc-label">Caso A – Dosis y momento correcto:</span>
         <select class="mc-select" onchange="chk(this,'4-8 mg IV a la inducción, monitorear glucemia','fbA2')">
           <option value="">— elegir —</option>
@@ -1006,7 +1052,7 @@ body{ background:#EAF3F1 !important; font-family:var(--sans); }
 
     <div class="ex-item">
       <div class="ex-label"><span class="ex-num">Ej 3</span> Metoclopramida pediátrica + dilución <span class="ex-pts-auto">2 preg · 0.5 pts</span></div>
-      <div class="ex-context">Ampolla: Metoclopramida 10 mg/2 mL (5 mg/mL). <strong>Caso A:</strong> Niño 8 años, 27 kg. NVPO en PACU. <strong>Caso B:</strong> Adolescente 15 años, 52 kg. Ondansetrón no disponible.</div>
+      <div class="ex-context">Ampolla: Metoclopramida 10 mg/2 mL (5 mg/mL). <strong>Caso A:</strong> Niño 7 años, 27 kg. Náusea y vómito en PACU tras cirugía de hernia. <strong>Caso B:</strong> Adolescente 16 años, 52 kg. Ondansetrón no disponible.</div>
       <div class="mc-row"><span class="mc-label">Caso A – Dosis (0.1 mg/kg × 27 kg) y dilución:</span>
         <select class="mc-select" onchange="chk(this,'2.7 mg = 0.54 mL, diluir a 10 mL SSN','fbA3')">
           <option value="">— elegir —</option>
@@ -1029,7 +1075,7 @@ body{ background:#EAF3F1 !important; font-family:var(--sans); }
 
     <div class="ex-item">
       <div class="ex-label"><span class="ex-num">Ej 4</span> Estratificación Apfel + protocolo de profilaxis <span class="ex-pts-auto">2 preg · 0.5 pts</span></div>
-      <div class="ex-context"><strong>Paciente:</strong> Mujer 34 años, 58 kg, no fumadora, antecedente de NVPO severo y cinetosis. Colecistectomía laparoscópica electiva 60 min. AG con sevoflurano + fentanilo. Ampollas: Ondansetrón 4 mg/2 mL · Dexametasona 4 mg/mL · Haloperidol 5 mg/mL.</div>
+      <div class="ex-context"><strong>Paciente:</strong> Mujer 47 años, 64 kg, no fumadora, antecedente de NVPO y cinetosis. Histerectomía laparoscópica electiva de 75 min. AG con sevoflurano + fentanilo. Ampollas: Ondansetrón 4 mg/2 mL · Dexametasona 4 mg/mL · Haloperidol 5 mg/mL.</div>
       <div class="mc-row"><span class="mc-label">Score de Apfel y nivel de riesgo:</span>
         <select class="mc-select" onchange="chk(this,'Apfel 4 → riesgo muy alto ~80%','fbA4a')">
           <option value="">— elegir —</option>
@@ -1052,7 +1098,7 @@ body{ background:#EAF3F1 !important; font-family:var(--sans); }
 
     <div class="ex-item">
       <div class="ex-label"><span class="ex-num">Ej 5</span> NVPO en gestante: cesárea bajo raquianestesia <span class="ex-pts-auto">2 preg · 0.5 pts</span></div>
-      <div class="ex-context"><strong>Paciente:</strong> Mujer 28 años, 70 kg, 38 semanas. Cesárea urgencia bajo raquianestesia. Hipotensión PAS 78 mmHg + náusea severa a los 5 min. Oxitocina 10 UI IV en bolo al nacer el bebé. Disponible: Ondansetrón 4 mg/2 mL · Efedrina 50 mg/10 mL · Fenilefrina 100 mcg/mL.</div>
+      <div class="ex-context"><strong>Paciente:</strong> Mujer 32 años, 76 kg, 39 semanas. Cesárea de urgencia bajo raquianestesia. Hipotensión PAS 80 mmHg + náusea intensa a los 6 min. Oxitocina 10 UI IV administrada en bolo al nacimiento. Disponible: Ondansetrón 4 mg/2 mL · Efedrina 50 mg/10 mL · Fenilefrina 100 mcg/mL.</div>
       <div class="mc-row"><span class="mc-label">Causa más probable y tratamiento prioritario:</span>
         <select class="mc-select" onchange="chk(this,'Hipotensión espinal → vasoconstrictor (efedrina/fenilefrina) primero','fbA5a')">
           <option value="">— elegir —</option>
@@ -1075,7 +1121,7 @@ body{ background:#EAF3F1 !important; font-family:var(--sans); }
 
     <div class="ex-item">
       <div class="ex-label"><span class="ex-num">Ej 6</span> Granisetrón pediátrico + Dexametasona: dilución combinada <span class="ex-pts-auto">2 preg · 0.5 pts</span></div>
-      <div class="ex-context">Ampollas: Granisetrón 1 mg/mL (ampolla 3 mL = 3 mg) · Dexametasona 4 mg/mL. <strong>Paciente:</strong> Niña 9 años, 31 kg. Adenoamigdalectomía. Eberhart 3. Antecedente VPOP.</div>
+      <div class="ex-context">Ampollas: Granisetrón 1 mg/mL (ampolla 3 mL = 3 mg) · Dexametasona 4 mg/mL. <strong>Paciente:</strong> Niño 10 años, 31 kg. Cirugía de paladar, Eberhart 3. Antecedente de VPOP.</div>
       <div class="mc-row"><span class="mc-label">Granisetrón: dosis (0.04 mg/kg × 31 kg) y volumen:</span>
         <select class="mc-select" onchange="chk(this,'1.24 mg = 1.24 mL diluir a 10 mL SSN al cierre','fbA6a')">
           <option value="">— elegir —</option>
@@ -1098,7 +1144,7 @@ body{ background:#EAF3F1 !important; font-family:var(--sans); }
 
     <div class="ex-item">
       <div class="ex-label"><span class="ex-num">Ej 7</span> NVPO refractario + rescate con haloperidol <span class="ex-pts-auto">2 preg · 0.5 pts</span></div>
-      <div class="ex-context"><strong>Paciente:</strong> Hombre 55 años, 82 kg. Cirugía colorrectal laparoscópica 3 h. Recibió: dexametasona 8 mg + ondansetrón 4 mg. Morfina PCA. A las 6 h: vómitos intensos sin respuesta a ondansetrón rescate 4 mg IV. Ampolla: Haloperidol 5 mg/mL.</div>
+      <div class="ex-context"><strong>Paciente:</strong> Mujer 49 años, 68 kg. Cirugía ginecológica laparoscópica 2.5 h. Recibió: dexametasona 8 mg + ondansetrón 4 mg. Analgesia con morfina PCA. A las 6 h: vómitos intensos sin respuesta a ondansetrón rescate 4 mg IV. Ampolla: Haloperidol 5 mg/mL.</div>
       <div class="mc-row"><span class="mc-label">Por qué NO repetir ondansetrón y qué clase usar:</span>
         <select class="mc-select" onchange="chk(this,'Receptores 5-HT₃ saturados → usar antagonista D₂ (haloperidol/droperidol)','fbA7a')">
           <option value="">— elegir —</option>
@@ -1121,7 +1167,7 @@ body{ background:#EAF3F1 !important; font-family:var(--sans); }
 
     <div class="ex-item">
       <div class="ex-label"><span class="ex-num">Ej 8</span> Neonato: piloromiotomía, dexametasona de precisión <span class="ex-pts-auto">2 preg · 0.5 pts</span></div>
-      <div class="ex-context"><strong>Paciente:</strong> Neonato 28 días, 3.2 kg. Piloromiotomía de Ramstedt bajo AG con sevoflurano. Riesgo VPOP &gt;50%. Disponible: Ondansetrón 2 mg/mL · Dexametasona 4 mg/mL.</div>
+      <div class="ex-context"><strong>Paciente:</strong> Neonato de 21 días, 3.2 kg. Cirugía abdominal para corrección de atresia intestinal bajo AG con sevoflurano. Riesgo de VPOP &gt;50%. Disponible: Ondansetrón 2 mg/mL · Dexametasona 4 mg/mL.</div>
       <div class="mc-row"><span class="mc-label">¿Está indicado ondansetrón en neonato de 28 días?</span>
         <select class="mc-select" onchange="chk(this,'No recomendado de rutina en neonatos; usar dexametasona','fbA8a')">
           <option value="">— elegir —</option>
@@ -1374,8 +1420,11 @@ function corregir(mod,total,fbIds,maxPts){
   alert('Módulo '+mod+' corregido: '+ok+'/'+total+' correctas = '+p.toFixed(2)+' pts');
 }
 function actualizarNotas(){
+  var total=((pts.A||0)+(pts.C||0)).toFixed(2);
   var nt=document.getElementById('notaNVPO');
-  if(nt)nt.textContent=((pts.A||0)+(pts.C||0)).toFixed(2)+' / 3.50';
+  if(nt)nt.textContent=total+' / 3.50';
+  var pn=document.getElementById('printNotaNVPO');
+  if(pn)pn.textContent=total+' / 3.50 pts';
 }
 function setupPrintAnswers(){
   document.querySelectorAll('textarea.open-area').forEach(function(ta){
@@ -1395,50 +1444,46 @@ window.addEventListener('beforeprint',function(){
   });
 });
 function dlPDF(){
-  var guia='Náuseas y Vómito Postoperatorio (NVPO / PONV)';
-  var nomEl=document.getElementById('idNombre');
-  var univEl=document.getElementById('idUniversidad');
-  var nom=nomEl ? nomEl.value.trim() : '';
-  var univ=univEl ? univEl.value.trim() : '';
-  var fecha=new Date().toLocaleDateString('es-CO');
-  var codigo=hashCorto(nom+'|'+univ+'|'+guia+'|'+fecha);
-  ['phCodigo','pfCodigo'].forEach(function(id){
-    var el=document.getElementById(id); if(el) el.textContent=codigo;
-  });
-  estamparCodigo(codigo);
-
   var nom=document.getElementById('nomN').value.trim();
   var univ=document.getElementById('univN').value.trim();
   if(!nom||!univ){document.getElementById('errN').style.display='block';return;}
   document.getElementById('errN').style.display='none';
+
+  var guia='Náuseas y Vómito Postoperatorio (NVPO / PONV)';
   var ahora=new Date();
+  var fechaCorta=ahora.toLocaleDateString('es-CO');
+  var codigo=hashCorto(nom+'|'+univ+'|'+guia+'|'+fechaCorta);
   var f=ahora.toLocaleDateString('es-CO',{day:'2-digit',month:'long',year:'numeric'})+' '+ahora.toLocaleTimeString('es-CO',{hour:'2-digit',minute:'2-digit'});
-  ['phNombre','pfNombre'].forEach(id=>{var el=document.getElementById(id);if(el)el.textContent=nom;});
-  ['phUniversidad','pfUniversidad'].forEach(id=>{var el=document.getElementById(id);if(el)el.textContent=univ;});
-  ['phGuia','pfGuia'].forEach(id=>{var el=document.getElementById(id);if(el)el.textContent='Taller — NVPO · Dr. Andrés Robayo C.';});
-  ['phFecha','pfFecha'].forEach(id=>{var el=document.getElementById(id);if(el)el.textContent=f;});
-  document.querySelectorAll('.tab-content').forEach(t=>t.classList.remove('active'));
+
+  ['phNombre','pfNombre'].forEach(function(id){var el=document.getElementById(id);if(el)el.textContent=nom;});
+  ['phUniversidad','pfUniversidad'].forEach(function(id){var el=document.getElementById(id);if(el)el.textContent=univ;});
+  ['phGuia','pfGuia'].forEach(function(id){var el=document.getElementById(id);if(el)el.textContent='Taller — NVPO · Dr. Andrés Robayo C.';});
+  ['phFecha','pfFecha'].forEach(function(id){var el=document.getElementById(id);if(el)el.textContent=f;});
+  ['phCodigo','pfCodigo'].forEach(function(id){var el=document.getElementById(id);if(el)el.textContent=codigo;});
+
+  var wmN=document.getElementById('wmNombre');
+  var wmU=document.getElementById('wmUniversidad');
+  var wmC=document.getElementById('wmCodigo');
+  if(wmN)wmN.textContent=nom;
+  if(wmU)wmU.textContent=univ;
+  if(wmC)wmC.textContent=codigo;
+
+  actualizarNotas();
+  document.querySelectorAll('.tab-content').forEach(function(t){t.classList.remove('active');});
   document.getElementById('taller-tab').classList.add('active');
   setTimeout(function(){window.print();},300);
 }
 
-// ══ ANTI-PLAGIO: código de verificación ══
+// Código de verificación: solo se integra en la marca de agua,
+// nunca como etiqueta repetida en cada ejercicio.
 function hashCorto(str){
   var h=5381;
   for(var i=0;i<str.length;i++) h=((h*33)^str.charCodeAt(i))>>>0;
   return h.toString(36).toUpperCase().slice(0,7);
 }
 function estamparCodigo(codigo){
-  document.querySelectorAll('#taller-tab .ex-label').forEach(function(h){
-    var tag=h.querySelector('.exercise-wm-tag');
-    if(!tag){tag=document.createElement('span');tag.className='exercise-wm-tag';h.appendChild(tag);}
-    tag.textContent='🔒 '+codigo;
-  });
-  document.querySelectorAll('#taller-tab .question-label').forEach(function(lbl){
-    var tag=lbl.querySelector('.question-wm-tag');
-    if(!tag){tag=document.createElement('span');tag.className='question-wm-tag';lbl.appendChild(tag);}
-    tag.textContent='🔒 '+codigo;
-  });
+  var wmC=document.getElementById('wmCodigo');
+  if(wmC)wmC.textContent=codigo;
 }
 </script>
 </body>

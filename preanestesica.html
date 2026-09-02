@@ -299,10 +299,57 @@ footer { border-top:2px solid rgba(0,0,0,.08); padding:22px 56px 28px; display:f
   .print-answer { display:none !important; }
 }
 
+
+/* ══ IDENTIFICACIÓN PDF ══ */
+.print-watermark,.print-first-note{display:none;}
+@media print{
+  .print-watermark{
+    display:flex !important;
+    position:fixed;
+    z-index:9999;
+    left:50%; top:50%;
+    transform:translate(-50%,-50%) rotate(-32deg);
+    width:88%;
+    justify-content:center;
+    align-items:center;
+    gap:18px;
+    text-align:center;
+    font-family:var(--mono);
+    font-size:19pt;
+    font-weight:800;
+    letter-spacing:1.2px;
+    color:rgba(106,27,154,.18);
+    white-space:nowrap;
+    pointer-events:none;
+  }
+  .print-watermark span{display:inline-block;}
+  .print-watermark strong{font-weight:900;}
+  .print-first-note{
+    display:block !important;
+    margin:0 0 14px;
+    padding:9px 14px;
+    border:1.5px solid #7B1FA2;
+    border-radius:9px;
+    background:#F3E5F5;
+    color:#4527A0;
+    font-family:var(--mono);
+    font-size:9pt;
+    font-weight:800;
+    position:relative;
+    z-index:20;
+  }
+  .tab-nav,.palette-btn,.palette-panel,.design-switcher,.correct-btn,.download-box,.nota-bar,.score-note{display:none !important;}
+  .tab-content{display:none !important;}
+  #taller-tab{display:block !important;}
+  #teoria-tab{display:none !important;}
+  .taller-content{padding:20px 40px;}
+}
+@media screen{.print-watermark,.print-first-note{display:none !important;}}
 </style>
 </head>
 <body>
 <div class="page">
+<div class="print-watermark" aria-hidden="true"><span id="wmNombre"></span><span id="wmUniversidad"></span><span>Código: <strong id="wmCodigo"></strong></span></div>
 
 <div class="page-print-header"><span id="phNombre"></span> · <span id="phUniversidad"></span> · <span id="phGuia"></span> · <span id="phFecha"></span> · Código: <strong id="phCodigo"></strong></div>
 <div class="print-footer-fixed">
@@ -613,353 +660,277 @@ footer { border-top:2px solid rgba(0,0,0,.08); padding:22px 56px 28px; display:f
 <div class="tab-content" id="taller-tab">
 <div class="taller-header">
   <h2>Taller — <em>Valoración Preanestésica</em></h2>
-  <div class="taller-meta">Dr. Andrés Robayo C. · 2 casos clínicos · 5.0 puntos totales · Hospital de Kennedy</div>
+  <div class="taller-meta">4 retos clínicos · 5.0 puntos · decide, prioriza y justifica antes de entrar a quirófano</div>
 </div>
+
 <div class="taller-content">
-<div class="alert-yellow">⚠ <strong>Instrucciones:</strong> Aplique los criterios de la evidencia más reciente (ASA 2023, AHA/ACC 2024, ESC 2022). El feedback de selección múltiple aparece solo al oprimir "Corregir Caso". Todo el taller es 100% autocorregible.</div>
+<div class="print-first-note" id="printNotaPre">Nota autocalificable: 0.00 / 5.00 pts</div>
 
-<!-- SCORE BANNER -->
-<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:16px;">
-  <div style="background:#e6f4f2;border:2px solid var(--teal);border-radius:8px;padding:12px 16px;">
-    <div style="font-family:var(--mono);font-size:13pt;font-weight:600;color:var(--teal);">2.5 pts</div>
-    <div style="font-family:var(--sans);font-size:8pt;color:var(--gray-600);margin-top:4px;">Caso 1 — Mujer 58 años<br>Pancreatitis / Whipple electivo</div>
-  </div>
-  <div style="background:#e6f4f2;border:2px solid var(--teal);border-radius:8px;padding:12px 16px;">
-    <div style="font-family:var(--mono);font-size:13pt;font-weight:600;color:var(--teal);">2.5 pts</div>
-    <div style="font-family:var(--sans);font-size:8pt;color:var(--gray-600);margin-top:4px;">Caso 2 — Hombre 72 años<br>Tumor de colon / urgencia</div>
-  </div>
-</div>
-<div class="score-note">
-  <span style="font-family:var(--mono);font-size:16pt;font-weight:600;color:#CE93D8;">5.0 pts</span>
-  <span style="font-family:var(--sans);font-size:9pt;color:rgba(255,255,255,.8);">Cada caso: selección múltiple 🤖 100% autocorregible, incluyendo el razonamiento clínico integrado. Justifique siempre con criterios de las guías actuales.</span>
-</div>
+<div class="alert-yellow">⚠ <strong>Cómo trabajar:</strong> cada reto representa una decisión real de valoración preanestésica. No busque “la prueba de rutina”: primero determine el riesgo, después la capacidad funcional, identifique condiciones que cambian la conducta y finalmente decida qué optimizar. Las respuestas se corrigen al finalizar cada reto.</div>
 
-<!-- ══ CASO 1 ══ -->
+<!-- RETO 1 -->
 <div class="exercise">
   <div class="exercise-header">
-    <span class="exercise-num">CASO CLÍNICO 1</span>
-    <span class="exercise-title">Mujer 58 años — Pancreatoduodenectomía (Whipple) electiva por tumor periampular</span>
-    <span class="exercise-pts">2.5 pts</span>
+    <span class="exercise-num">RETO 1 · TRIAJE</span>
+    <span class="exercise-title">¿Puede entrar a quirófano sin ampliar estudios?</span>
+    <span class="exercise-pts">1.25 pts</span>
   </div>
   <div class="exercise-body">
     <div class="patient-card">
-      <div class="patient-title">Historia clínica</div>
+      <div class="patient-title">Paciente A · cirugía electiva</div>
       <div class="patient-grid">
-        <div class="patient-item"><span class="patient-label">Sexo / Edad</span><span class="patient-value">Femenina · 58 años</span></div>
-        <div class="patient-item"><span class="patient-label">Procedimiento</span><span class="patient-value">Whipple (pancreatoduodenectomía)</span></div>
-        <div class="patient-item"><span class="patient-label">TA / FC</span><span class="patient-value">148/90 mmHg · 88 lpm</span></div>
+        <div class="patient-item"><span class="patient-label">Edad</span><span class="patient-value">46 años</span></div>
+        <div class="patient-item"><span class="patient-label">Cirugía</span><span class="patient-value">Colecistectomía laparoscópica</span></div>
+        <div class="patient-item"><span class="patient-label">Signos vitales</span><span class="patient-value">PA 128/76 · FC 72</span></div>
       </div>
-      <div class="patient-section">Antecedentes</div>
       <ul class="patient-list">
-        <li>HTA en tratamiento con enalapril — <strong>no controlada</strong> (TA 148/90)</li>
-        <li>Diabetes mellitus tipo 2 en tratamiento con <strong>insulina</strong></li>
-        <li>Obesidad (IMC 32)</li>
-        <li>Creatinina: 1.4 mg/dL · eGFR estimado: 52 ml/min/1.73m²</li>
-        <li>Sin historia de IAM, ICC ni ACV</li>
-        <li>Ecocardiograma reciente: FEVI 60%, sin valvulopatías</li>
-      </ul>
-      <div class="patient-section">Evaluación funcional</div>
-      <ul class="patient-list">
-        <li>Sube un piso de escaleras sin detenerse</li>
-        <li>Camina 5–6 cuadras en llano sin disnea</li>
-        <li>No hace ejercicio formal pero es independiente para todas las AVD</li>
+        <li>HTA controlada con losartán. Sin diabetes, enfermedad renal ni cardiopatía conocida.</li>
+        <li>Sube dos pisos por escaleras y camina 40 minutos sin disnea ni dolor torácico.</li>
+        <li>Examen cardiopulmonar normal. IMC 27 kg/m². No síntomas nuevos.</li>
       </ul>
     </div>
-
     <div class="question">
-      <div class="question-label"><span class="q-num">C1·P1</span> Clasifique el ASA de esta paciente <span class="q-pts-auto">🤖 0.30 pts</span></div>
-      <div class="mc-row"><span class="mc-label">Clasificación ASA:</span>
-        <select class="mc-select" onchange="chk(this,'ASA III — múltiples comorbilidades con limitación funcional: HTA no controlada + DM insulino-requirente + obesidad + eGFR reducido','fbC1P1')">
-          <option value="">— elegir —</option>
-          <option>ASA II — comorbilidades leves bien controladas</option>
-          <option>ASA III — múltiples comorbilidades con limitación funcional: HTA no controlada + DM insulino-requirente + obesidad + eGFR reducido</option>
-          <option>ASA IV — condiciones que amenazan la vida</option>
-          <option>ASA V — paciente moribundo</option>
-        </select>
-        <span class="fb" id="fbC1P1"></span>
+      <div class="question-label"><span class="q-num">1.1</span> Estado físico ASA <span class="q-pts-auto">🤖 0.25 pts</span></div>
+      <div class="mc-row"><span class="mc-label">Clasificación más apropiada:</span>
+        <select class="mc-select" onchange="chk(this,'ASA II','fbR1Q1')">
+          <option value="">— elegir —</option><option>ASA I</option><option>ASA II</option><option>ASA III</option><option>ASA II-E</option>
+        </select><span class="fb" id="fbR1Q1"></span>
       </div>
     </div>
-
     <div class="question">
-      <div class="question-label"><span class="q-num">C1·P2</span> Calcule el RCRI — identifique cada factor <span class="q-pts-auto">🤖 0.40 pts</span></div>
-      <div class="mc-row"><span class="mc-label">¿Cuenta "tipo de cirugía" (Whipple)?</span>
-        <select class="mc-select" onchange="chk(this,'Sí — pancreatoduodenectomía es cirugía intraperitoneal mayor de alto riesgo (+1 pt RCRI)','fbC1P2a')">
-          <option value="">— elegir —</option>
-          <option>No — es una cirugía abdominal menor</option>
-          <option>Sí — pancreatoduodenectomía es cirugía intraperitoneal mayor de alto riesgo (+1 pt RCRI)</option>
-          <option>Solo si hay complicaciones intraoperatorias</option>
-        </select>
-        <span class="fb" id="fbC1P2a"></span>
-      </div>
-      <div class="mc-row"><span class="mc-label">¿Cuenta "disfunción renal"? (eGFR 52)</span>
-        <select class="mc-select" onchange="chk(this,'Sí — eGFR < 60 ml/min cuenta como disfunción renal según actualización ESC 2022 (+1 pt)','fbC1P2b')">
-          <option value="">— elegir —</option>
-          <option>No — creatinina es 1.4 mg/dL, por debajo del umbral clásico de 2.0</option>
-          <option>Sí — eGFR < 60 ml/min cuenta como disfunción renal según actualización ESC 2022 (+1 pt)</option>
-          <option>Solo si la creatinina supera 2.0 mg/dL</option>
-        </select>
-        <span class="fb" id="fbC1P2b"></span>
-      </div>
-      <div class="mc-row"><span class="mc-label">Puntaje RCRI total correcto:</span>
-        <select class="mc-select" onchange="chk(this,'RCRI = 3 (cirugía alto riesgo + DM insulina + disfunción renal eGFR<60)','fbC1P2c')">
-          <option value="">— elegir —</option>
-          <option>RCRI = 1 (solo DM insulina)</option>
-          <option>RCRI = 2 (DM insulina + cirugía alto riesgo)</option>
-          <option>RCRI = 3 (cirugía alto riesgo + DM insulina + disfunción renal eGFR<60)</option>
-          <option>RCRI = 4 (incluye HTA como factor)</option>
-        </select>
-        <span class="fb" id="fbC1P2c"></span>
+      <div class="question-label"><span class="q-num">1.2</span> Capacidad funcional <span class="q-pts-auto">🤖 0.25 pts</span></div>
+      <div class="mc-row"><span class="mc-label">La historia funcional sugiere:</span>
+        <select class="mc-select" onchange="chk(this,'Capacidad funcional ≥4 METs, sin síntomas limitantes','fbR1Q2')">
+          <option value="">— elegir —</option><option>Capacidad funcional <4 METs</option><option>Capacidad funcional ≥4 METs, sin síntomas limitantes</option><option>Capacidad funcional desconocida</option><option>Limitación funcional por angina</option>
+        </select><span class="fb" id="fbR1Q2"></span>
       </div>
     </div>
-
     <div class="question">
-      <div class="question-label"><span class="q-num">C1·P3</span> Capacidad funcional e interpretación <span class="q-pts-auto">🤖 0.20 pts</span></div>
-      <div class="mc-row"><span class="mc-label">METs estimados y clasificación:</span>
-        <select class="mc-select" onchange="chk(this,'4–7 METs — capacidad funcional moderada (sube escaleras + camina 5-6 cuadras)','fbC1P3')">
-          <option value="">— elegir —</option>
-          <option>&lt;4 METs — baja capacidad, no tolera esfuerzo básico</option>
-          <option>4–7 METs — capacidad funcional moderada (sube escaleras + camina 5-6 cuadras)</option>
-          <option>&gt;10 METs — excelente capacidad funcional</option>
-          <option>No evaluable en esta paciente</option>
-        </select>
-        <span class="fb" id="fbC1P3"></span>
+      <div class="question-label"><span class="q-num">1.3</span> RCRI <span class="q-pts-auto">🤖 0.25 pts</span></div>
+      <div class="mc-row"><span class="mc-label">Puntaje RCRI:</span>
+        <select class="mc-select" onchange="chk(this,'RCRI = 0','fbR1Q3')">
+          <option value="">— elegir —</option><option>RCRI = 1</option><option>RCRI = 2</option><option>RCRI = 0</option><option>RCRI = 3</option>
+        </select><span class="fb" id="fbR1Q3"></span>
       </div>
     </div>
-
-        <div class="question">
-      <div class="question-label"><span class="q-num">C1·P4</span> Conducta preoperatoria según RCRI = 3 en cirugía de alto riesgo <span class="q-pts-auto">🤖 0.20 pts</span></div>
-      <div class="mc-row"><span class="mc-label">Conducta más apropiada según guías:</span>
-        <select class="mc-select" onchange="chk(this,'Solicitar BNP/NT-proBNP + evaluación cardiológica especializada + optimizar HTA antes de cirugía','fbC1P4')">
-          <option value="">— elegir —</option>
-          <option>Proceder sin estudios adicionales — FEVI normal es suficiente</option>
-          <option>Solicitar BNP/NT-proBNP + evaluación cardiológica especializada + optimizar HTA antes de cirugía</option>
-          <option>Cancelar definitivamente — RCRI ≥3 contraindica la cirugía</option>
-          <option>Solo solicitar ECG de rutina y proceder</option>
-        </select>
-        <span class="fb" id="fbC1P4"></span>
-      </div>
-    </div>
-
     <div class="question">
-      <div class="question-label"><span class="q-num">C1·P5</span> Ayuno preoperatorio — cirugía a las 8:00 am <span class="q-pts-auto">🤖 0.20 pts</span></div>
-      <div class="mc-row"><span class="mc-label">Hora de suspensión de líquidos claros:</span>
-        <select class="mc-select" onchange="chk(this,'6:00 am — puede tomar líquidos claros hasta 2 horas antes (ASA 2023)','fbC1P5a')">
-          <option value="">— elegir —</option>
-          <option>12:00 am (medianoche) — ayuno completo desde la noche anterior</option>
-          <option>6:00 am — puede tomar líquidos claros hasta 2 horas antes (ASA 2023)</option>
-          <option>4:00 am — ayuno de 4 horas para líquidos</option>
-          <option>10:00 pm — solo 10 horas de ayuno de líquidos</option>
-        </select>
-        <span class="fb" id="fbC1P5a"></span>
-      </div>
-      <div class="mc-row"><span class="mc-label">Hora de suspensión de sólidos (comida normal):</span>
-        <select class="mc-select" onchange="chk(this,'12:00 am (medianoche) — mínimo 8 horas para comida con grasa; 6 horas para comida ligera','fbC1P5b')">
-          <option value="">— elegir —</option>
-          <option>6:00 am — 2 horas son suficientes</option>
-          <option>4:00 am — 4 horas para sólidos</option>
-          <option>12:00 am (medianoche) — mínimo 8 horas para comida con grasa; 6 horas para comida ligera</option>
-          <option>10:00 pm — 10 horas garantizan seguridad</option>
-        </select>
-        <span class="fb" id="fbC1P5b"></span>
+      <div class="question-label"><span class="q-num">1.4</span> ¿Qué estudio cardiovascular adicional cambia la conducta? <span class="q-pts-auto">🤖 0.25 pts</span></div>
+      <div class="mc-row"><span class="mc-label">Conducta:</span>
+        <select class="mc-select" onchange="chk(this,'No requiere prueba de esfuerzo ni ecocardiograma de rutina por estos datos','fbR1Q4')">
+          <option value="">— elegir —</option><option>Solicitar prueba de esfuerzo a todos</option><option>Solicitar ecocardiograma por tener HTA</option><option>No requiere prueba de esfuerzo ni ecocardiograma de rutina por estos datos</option><option>Cancelar la cirugía hasta completar cardiología</option>
+        </select><span class="fb" id="fbR1Q4"></span>
       </div>
     </div>
-
     <div class="question">
-      <div class="question-label"><span class="q-num">C1·P6</span> Razonamiento integrado — Riesgo perioperatorio global <span class="q-pts-auto">🤖 1.20 pts</span></div>
-      <div class="mc-row"><span class="mc-label">a) ¿Cuáles son los tres factores de mayor peso en el riesgo perioperatorio global de esta paciente?</span>
-        <select class="mc-select" onchange="chk(this,'Cirugía de alto riesgo (Whipple) + DM insulino-requirente + disfunción renal (eGFR 52) — los tres suman al RCRI y definen el perfil ASA III','fbC1P6a')">
-          <option value="">— elegir —</option>
-          <option>Cirugía de alto riesgo (Whipple) + DM insulino-requirente + disfunción renal (eGFR 52) — los tres suman al RCRI y definen el perfil ASA III</option>
-          <option>Obesidad + HTA no controlada + edad avanzada — son los únicos factores relevantes en RCRI</option>
-          <option>FEVI 60% + capacidad funcional + IMC — determinan por sí solos el riesgo cardíaco</option>
-          <option>HTA no controlada + edad + sexo femenino — son los factores de mayor peso según RCRI</option>
-        </select>
-        <span class="fb" id="fbC1P6a"></span>
+      <div class="question-label"><span class="q-num">1.5</span> Medicación antihipertensiva <span class="q-pts-auto">🤖 0.25 pts</span></div>
+      <div class="mc-row"><span class="mc-label">Sobre el losartán:</span>
+        <select class="mc-select" onchange="chk(this,'Individualizar su manejo perioperatorio según protocolo institucional y riesgo de hipotensión','fbR1Q5')">
+          <option value="">— elegir —</option><option>Duplicar la dosis la noche anterior</option><option>Suspenderlo durante una semana</option><option>Individualizar su manejo perioperatorio según protocolo institucional y riesgo de hipotensión</option><option>Administrarlo obligatoriamente justo antes de la inducción</option>
+        </select><span class="fb" id="fbR1Q5"></span>
       </div>
-      <div class="mc-row"><span class="mc-label">b) ¿Por qué el eGFR de 52 cambia el puntaje RCRI respecto al uso de creatinina 1.4 mg/dL?</span>
-        <select class="mc-select" onchange="chk(this,'ESC 2022 usa eGFR &lt;60 mL/min como umbral de disfunción renal, en vez del umbral clásico de creatinina &gt;2.0 mg/dL — con eGFR 52 esta paciente sí suma el punto aunque su creatinina no lo hubiera hecho bajo el criterio antiguo','fbC1P6b')">
-          <option value="">— elegir —</option>
-          <option>ESC 2022 usa eGFR &lt;60 mL/min como umbral de disfunción renal, en vez del umbral clásico de creatinina &gt;2.0 mg/dL — con eGFR 52 esta paciente sí suma el punto aunque su creatinina no lo hubiera hecho bajo el criterio antiguo</option>
-          <option>La creatinina de 1.4 es más sensible que el eGFR para predecir riesgo renal perioperatorio</option>
-          <option>El eGFR no tiene relación con el puntaje RCRI, solo la creatinina cuenta en cualquier versión de la escala</option>
-          <option>La actualización ESC 2022 eliminó la disfunción renal como factor del RCRI</option>
-        </select>
-        <span class="fb" id="fbC1P6b"></span>
-      </div>
-      <div class="mc-row"><span class="mc-label">c) La paciente tiene FEVI 60%. ¿Eso descarta riesgo cardíaco perioperatorio?</span>
-        <select class="mc-select" onchange="chk(this,'No — una FEVI normal no descarta riesgo cardíaco perioperatorio; el RCRI y la capacidad funcional evalúan riesgo isquémico y de complicaciones independientemente de la función sistólica','fbC1P6c')">
-          <option value="">— elegir —</option>
-          <option>No — una FEVI normal no descarta riesgo cardíaco perioperatorio; el RCRI y la capacidad funcional evalúan riesgo isquémico y de complicaciones independientemente de la función sistólica</option>
-          <option>Sí — FEVI ≥55% excluye cualquier riesgo cardiovascular perioperatorio</option>
-          <option>Sí — solo la FEVI reducida (&lt;40%) es relevante en la valoración preanestésica</option>
-          <option>No, pero solo importa en cirugía cardíaca, no en cirugía general</option>
-        </select>
-        <span class="fb" id="fbC1P6c"></span>
-      </div>
-      <button class="correct-btn" onclick="corregir('C1',11,['fbC1P1','fbC1P2a','fbC1P2b','fbC1P2c','fbC1P3','fbC1P4','fbC1P5a','fbC1P5b','fbC1P6a','fbC1P6b','fbC1P6c'],2.5)">Corregir Caso 1 — Selección múltiple (2.50 pts autocorregibles)</button>
     </div>
+    <button class="correct-btn" onclick="corregir('R1',5,['fbR1Q1','fbR1Q2','fbR1Q3','fbR1Q4','fbR1Q5'],1.25)">Corregir Reto 1</button>
   </div>
 </div>
 
-<!-- ══ CASO 2 ══ -->
+<!-- RETO 2 -->
 <div class="exercise">
   <div class="exercise-header">
-    <span class="exercise-num">CASO CLÍNICO 2</span>
-    <span class="exercise-title">Hombre 72 años — Colectomía de urgencia por obstrucción intestinal por tumor de colon</span>
-    <span class="exercise-pts">2.5 pts</span>
+    <span class="exercise-num">RETO 2 · DETECTA EL RIESGO OCULTO</span>
+    <span class="exercise-title">La cirugía es sencilla… el paciente no tanto</span>
+    <span class="exercise-pts">1.25 pts</span>
   </div>
   <div class="exercise-body">
     <div class="patient-card">
-      <div class="patient-title">Historia clínica</div>
+      <div class="patient-title">Paciente B · cirugía electiva</div>
       <div class="patient-grid">
-        <div class="patient-item"><span class="patient-label">Sexo / Edad</span><span class="patient-value">Masculino · 72 años</span></div>
-        <div class="patient-item"><span class="patient-label">Procedimiento</span><span class="patient-value">Colectomía izq. urgente (obstrucción)</span></div>
-        <div class="patient-item"><span class="patient-label">TA / FC</span><span class="patient-value">100/60 mmHg · 108 lpm irregular</span></div>
+        <div class="patient-item"><span class="patient-label">Edad</span><span class="patient-value">69 años</span></div>
+        <div class="patient-item"><span class="patient-label">Cirugía</span><span class="patient-value">Herniorrafia abdominal</span></div>
+        <div class="patient-item"><span class="patient-label">PA / FC</span><span class="patient-value">146/82 · 78</span></div>
       </div>
-      <div class="patient-section">Antecedentes</div>
       <ul class="patient-list">
-        <li>IAM hace <strong>5 semanas</strong> (manejado con stent coronario)</li>
-        <li>Insuficiencia cardíaca con FEVI 38% (documentada post-IAM)</li>
-        <li>FA con respuesta ventricular moderada (FC 108 lpm irregular)</li>
-        <li>Sin DM ni ECV previo</li>
-        <li>Creatinina: 1.8 mg/dL · eGFR: 44 ml/min/1.73m²</li>
-      </ul>
-      <div class="patient-section">Situación actual</div>
-      <ul class="patient-list">
-        <li>Obstrucción intestinal completa — vómito fecaloide — distensión abdominal</li>
-        <li>Signos de sepsis (T 38.8°C, FC 108, TA 100/60 a pesar de 1L cristaloides)</li>
-        <li>No puede evaluarse capacidad funcional por el cuadro agudo</li>
+        <li>Diabetes tipo 2 tratada con insulina basal. HTA. Sin IAM, IC ni enfermedad cerebrovascular conocida.</li>
+        <li>Camina lentamente una cuadra y debe detenerse por disnea; estima capacidad funcional cercana a 3 METs.</li>
+        <li>Refiere disnea de esfuerzo nueva en los últimos 2 meses. Auscultación sin hallazgos agudos.</li>
       </ul>
     </div>
-
     <div class="question">
-      <div class="question-label"><span class="q-num">C2·P1</span> Clasifique el ASA incluyendo el sufijo de urgencia <span class="q-pts-auto">🤖 0.30 pts</span></div>
-      <div class="mc-row"><span class="mc-label">Clasificación ASA correcta:</span>
-        <select class="mc-select" onchange="chk(this,'ASA IV-E — IAM reciente (<3 meses) + ICC descompensada + sepsis + urgencia quirúrgica','fbC2P1')">
-          <option value="">— elegir —</option>
-          <option>ASA III-E — comorbilidades graves pero controladas</option>
-          <option>ASA IV-E — IAM reciente (&lt;3 meses) + ICC descompensada + sepsis + urgencia quirúrgica</option>
-          <option>ASA V-E — paciente moribundo sin posibilidad de cirugía</option>
-          <option>ASA II-E — solo la urgencia aumenta el riesgo</option>
-        </select>
-        <span class="fb" id="fbC2P1"></span>
+      <div class="question-label"><span class="q-num">2.1</span> ASA <span class="q-pts-auto">🤖 0.25 pts</span></div>
+      <div class="mc-row"><span class="mc-label">Clasificación:</span>
+        <select class="mc-select" onchange="chk(this,'ASA III','fbR2Q1')">
+          <option value="">— elegir —</option><option>ASA II</option><option>ASA III</option><option>ASA IV</option><option>ASA II-E</option>
+        </select><span class="fb" id="fbR2Q1"></span>
       </div>
     </div>
-
     <div class="question">
-      <div class="question-label"><span class="q-num">C2·P2</span> Calcule el RCRI — identifique todos los factores <span class="q-pts-auto">🤖 0.40 pts</span></div>
-      <div class="mc-row"><span class="mc-label">¿La colectomía de urgencia con sepsis cuenta como cirugía de alto riesgo?</span>
-        <select class="mc-select" onchange="chk(this,'Sí — colectomía de urgencia con sepsis es intraperitoneal mayor de alto riesgo (+1 pt)','fbC2P2a')">
-          <option value="">— elegir —</option>
-          <option>No — una colectomía es de riesgo intermedio siempre</option>
-          <option>Sí — colectomía de urgencia con sepsis es intraperitoneal mayor de alto riesgo (+1 pt)</option>
-          <option>Solo si es cirugía abierta, no laparoscópica</option>
-        </select>
-        <span class="fb" id="fbC2P2a"></span>
-      </div>
-      <div class="mc-row"><span class="mc-label">¿La FA cuenta como factor RCRI?</span>
-        <select class="mc-select" onchange="chk(this,'No — la FA no es factor del RCRI (no es cardiopatía isquémica ni ICC per se como criterio independiente)','fbC2P2b')">
-          <option value="">— elegir —</option>
-          <option>Sí — cualquier arritmia cardíaca cuenta como factor</option>
-          <option>No — la FA no es factor del RCRI (no es cardiopatía isquémica ni ICC per se como criterio independiente)</option>
-          <option>Sí — FA con FC elevada equivale a ICC descompensada</option>
-        </select>
-        <span class="fb" id="fbC2P2b"></span>
-      </div>
-      <div class="mc-row"><span class="mc-label">Puntaje RCRI total correcto:</span>
-        <select class="mc-select" onchange="chk(this,'RCRI = 4 (cirugía alto riesgo + cardiopatía isquémica + ICC + disfunción renal eGFR<60)','fbC2P2c')">
-          <option value="">— elegir —</option>
-          <option>RCRI = 2 (cirugía + cardiopatía isquémica)</option>
-          <option>RCRI = 3 (cirugía + cardiopatía isquémica + ICC)</option>
-          <option>RCRI = 4 (cirugía alto riesgo + cardiopatía isquémica + ICC + disfunción renal eGFR&lt;60)</option>
-          <option>RCRI = 5 (incluye FA y sepsis como factores adicionales)</option>
-        </select>
-        <span class="fb" id="fbC2P2c"></span>
+      <div class="question-label"><span class="q-num">2.2</span> RCRI <span class="q-pts-auto">🤖 0.25 pts</span></div>
+      <div class="mc-row"><span class="mc-label">¿Qué factor suma al RCRI?</span>
+        <select class="mc-select" onchange="chk(this,'Uso de insulina','fbR2Q2')">
+          <option value="">— elegir —</option><option>Edad mayor de 65 años por sí sola</option><option>HTA controlada</option><option>Uso de insulina</option><option>Herniorrafia por sí sola</option>
+        </select><span class="fb" id="fbR2Q2"></span>
       </div>
     </div>
-
     <div class="question">
-      <div class="question-label"><span class="q-num">C2·P3</span> El IAM de 5 semanas — ¿condición de alto riesgo? <span class="q-pts-auto">🤖 0.20 pts</span></div>
-      <div class="mc-row"><span class="mc-label">¿El IAM de hace 5 semanas representa una condición de alto riesgo?</span>
-        <select class="mc-select" onchange="chk(this,'Sí — IAM en los últimos 30 días es condición de alto riesgo que normalmente indica posponer cirugía electiva','fbC2P3')">
-          <option value="">— elegir —</option>
-          <option>No — ya fue tratado con stent, el riesgo está controlado</option>
-          <option>Sí — IAM en los últimos 30 días es condición de alto riesgo que normalmente indica posponer cirugía electiva</option>
-          <option>Solo si es IAM sin revascularización</option>
-          <option>No — el umbral clínico es 3 meses, no 30 días</option>
-        </select>
-        <span class="fb" id="fbC2P3"></span>
+      <div class="question-label"><span class="q-num">2.3</span> Señal de alarma <span class="q-pts-auto">🤖 0.25 pts</span></div>
+      <div class="mc-row"><span class="mc-label">¿Qué dato merece aclaración antes de operar?</span>
+        <select class="mc-select" onchange="chk(this,'Disnea de esfuerzo nueva con capacidad funcional reducida','fbR2Q3')">
+          <option value="">— elegir —</option><option>La edad aislada</option><option>Disnea de esfuerzo nueva con capacidad funcional reducida</option><option>La presión arterial 146/82 aislada</option><option>Que la cirugía sea abdominal</option>
+        </select><span class="fb" id="fbR2Q3"></span>
       </div>
     </div>
-
     <div class="question">
-      <div class="question-label"><span class="q-num">C2·P4</span> ¿Se debe posponer esta cirugía dado el IAM reciente? <span class="q-pts-auto">🤖 0.30 pts</span></div>
-      <div class="mc-row"><span class="mc-label">Conducta más adecuada en este caso específico:</span>
-        <select class="mc-select" onchange="chk(this,'No se puede posponer — la urgencia vital (obstrucción + sepsis) obliga a proceder con máxima optimización posible','fbC2P4')">
-          <option value="">— elegir —</option>
-          <option>Posponer 4 semanas más hasta cumplir 3 meses post-IAM</option>
-          <option>No se puede posponer — la urgencia vital (obstrucción + sepsis) obliga a proceder con máxima optimización posible</option>
-          <option>Cancelar definitivamente — el riesgo cardíaco es inaceptable</option>
-          <option>Proceder sin ninguna evaluación adicional urgente</option>
-        </select>
-        <span class="fb" id="fbC2P4"></span>
+      <div class="question-label"><span class="q-num">2.4</span> Prueba complementaria <span class="q-pts-auto">🤖 0.25 pts</span></div>
+      <div class="mc-row"><span class="mc-label">La mejor lógica es:</span>
+        <select class="mc-select" onchange="chk(this,'Evaluar primero la causa de la disnea y el riesgo cardiovascular; el estudio debe responder una pregunta clínica concreta','fbR2Q4')">
+          <option value="">— elegir —</option><option>Solicitar todos los exámenes disponibles</option><option>Ignorar la disnea porque la cirugía es de bajo riesgo</option><option>Evaluar primero la causa de la disnea y el riesgo cardiovascular; el estudio debe responder una pregunta clínica concreta</option><option>Cancelar indefinidamente la cirugía</option>
+        </select><span class="fb" id="fbR2Q4"></span>
       </div>
     </div>
-
     <div class="question">
-      <div class="question-label"><span class="q-num">C2·P5</span> Ayuno en cirugía de urgencia — consideración especial <span class="q-pts-auto">🤖 0.20 pts</span></div>
-      <div class="mc-row"><span class="mc-label">¿Cómo se maneja el ayuno preoperatorio en este caso?</span>
-        <select class="mc-select" onchange="chk(this,'El estómago se considera siempre lleno en urgencia — usar ISR independientemente del tiempo de ayuno referido','fbC2P5')">
-          <option value="">— elegir —</option>
-          <option>Esperar 6 horas de ayuno antes de proceder aunque sea urgencia</option>
-          <option>El estómago se considera siempre lleno en urgencia — usar ISR independientemente del tiempo de ayuno referido</option>
-          <option>Si el paciente refiere no haber comido en 8 horas, es seguro proceder normalmente</option>
-          <option>La obstrucción intestinal vacía el estómago, por lo que no es necesaria la ISR</option>
-        </select>
-        <span class="fb" id="fbC2P5"></span>
+      <div class="question-label"><span class="q-num">2.5</span> Principio educativo <span class="q-pts-auto">🤖 0.25 pts</span></div>
+      <div class="mc-row"><span class="mc-label">¿Qué NO debe hacerse?</span>
+        <select class="mc-select" onchange="chk(this,'Pedir pruebas indiscriminadas solo por edad o por cumplir una lista de chequeo','fbR2Q5')">
+          <option value="">— elegir —</option><option>Precisar capacidad funcional</option><option>Revisar antecedentes cardiovasculares</option><option>Pedir pruebas indiscriminadas solo por edad o por cumplir una lista de chequeo</option><option>Buscar síntomas nuevos</option>
+        </select><span class="fb" id="fbR2Q5"></span>
       </div>
     </div>
+    <button class="correct-btn" onclick="corregir('R2',5,['fbR2Q1','fbR2Q2','fbR2Q3','fbR2Q4','fbR2Q5'],1.25)">Corregir Reto 2</button>
+  </div>
+</div>
 
-    <div class="question">
-      <div class="question-label"><span class="q-num">C2·P6</span> Razonamiento clínico integrado — Balance riesgo/beneficio <span class="q-pts-auto">🤖 1.10 pts</span></div>
-      <div class="mc-row"><span class="mc-label">a) Este paciente tiene IAM de 5 semanas. Explique el balance riesgo-beneficio y por qué la urgencia modifica la conducta habitual:</span>
-        <select class="mc-select" onchange="chk(this,'La urgencia vital (obstrucción intestinal + sepsis) supera el riesgo de posponer por el IAM reciente — no se debe posponer una cirugía de emergencia por un criterio pensado para cirugía electiva, ya que la mortalidad de no operar es mayor que el riesgo cardíaco de operar','fbC2P6a')">
-          <option value="">— elegir —</option>
-          <option>La urgencia vital (obstrucción intestinal + sepsis) supera el riesgo de posponer por el IAM reciente — no se debe posponer una cirugía de emergencia por un criterio pensado para cirugía electiva, ya que la mortalidad de no operar es mayor que el riesgo cardíaco de operar</option>
-          <option>El balance riesgo-beneficio favorece posponer, aun con obstrucción y sepsis, hasta cumplir 3 meses post-IAM</option>
-          <option>La sepsis reduce el riesgo cardíaco relativo, por lo que ya no aplica el criterio de IAM reciente</option>
-          <option>Debe realizarse manejo conservador con sonda nasogástrica indefinida para evitar la cirugía</option>
-        </select>
-        <span class="fb" id="fbC2P6a"></span>
+<!-- RETO 3 -->
+<div class="exercise">
+  <div class="exercise-header">
+    <span class="exercise-num">RETO 3 · NO TODO SE PUEDE “OPTIMIZAR EN QUIRÓFANO”</span>
+    <span class="exercise-title">Reconoce una condición que obliga a cambiar el plan</span>
+    <span class="exercise-pts">1.25 pts</span>
+  </div>
+  <div class="exercise-body">
+    <div class="patient-card">
+      <div class="patient-title">Paciente C · cirugía electiva</div>
+      <div class="patient-grid">
+        <div class="patient-item"><span class="patient-label">Edad</span><span class="patient-value">74 años</span></div>
+        <div class="patient-item"><span class="patient-label">Cirugía</span><span class="patient-value">Colectomía oncológica</span></div>
+        <div class="patient-item"><span class="patient-label">PA / FC</span><span class="patient-value">104/64 · 108</span></div>
       </div>
-      <div class="mc-row"><span class="mc-label">b) Optimizaciones mínimas en los 30–60 minutos previos a quirófano:</span>
-        <select class="mc-select" onchange="chk(this,'Reanimación con cristaloides guiada + corrección de electrolitos + inicio de antibióticos de amplio espectro + preparación de vasopresores/inotrópicos disponibles','fbC2P6b')">
-          <option value="">— elegir —</option>
-          <option>Reanimación con cristaloides guiada + corrección de electrolitos + inicio de antibióticos de amplio espectro + preparación de vasopresores/inotrópicos disponibles</option>
-          <option>Suspender todos los medicamentos cardíacos y esperar mejoría espontánea de la sepsis</option>
-          <option>Solo administrar analgesia y trasladar a quirófano sin más intervenciones</option>
-          <option>Transfundir hemoderivados de rutina sin indicación específica antes de cualquier cirugía de urgencia</option>
-        </select>
-        <span class="fb" id="fbC2P6b"></span>
-      </div>
-      <div class="mc-row"><span class="mc-label">c) Inductor anestésico de elección para la ISR (FEVI 38%, TA 100/60):</span>
-        <select class="mc-select" onchange="chk(this,'Etomidato — mínima depresión miocárdica y estabilidad hemodinámica, ideal en paciente con FEVI reducida e hipotensión','fbC2P6c')">
-          <option value="">— elegir —</option>
-          <option>Etomidato — mínima depresión miocárdica y estabilidad hemodinámica, ideal en paciente con FEVI reducida e hipotensión</option>
-          <option>Propofol — de elección por su rápido inicio de acción a pesar del riesgo de hipotensión severa</option>
-          <option>Tiopental — el estándar histórico, seguro en falla cardíaca descompensada</option>
-          <option>Ketamina en monoterapia sin ajuste — la taquicardia inducida es beneficiosa en shock séptico con ICC</option>
-        </select>
-        <span class="fb" id="fbC2P6c"></span>
-      </div>
-      <button class="correct-btn" onclick="corregir('C2',10,['fbC2P1','fbC2P2a','fbC2P2b','fbC2P2c','fbC2P3','fbC2P4','fbC2P5','fbC2P6a','fbC2P6b','fbC2P6c'],2.5)">Corregir Caso 2 — Selección múltiple (2.50 pts autocorregibles)</button>
+      <ul class="patient-list">
+        <li>Insuficiencia cardíaca con FEVI 30%. Cardiopatía isquémica conocida.</li>
+        <li>En la última semana: ortopnea, aumento de 3 kg y edema progresivo de miembros inferiores.</li>
+        <li>Disnea al caminar dentro de casa. Crepitantes bibasales y edema con fóvea.</li>
+      </ul>
     </div>
+    <div class="question">
+      <div class="question-label"><span class="q-num">3.1</span> ¿El paciente está clínicamente estable? <span class="q-pts-auto">🤖 0.25 pts</span></div>
+      <div class="mc-row"><span class="mc-label">Interpretación:</span>
+        <select class="mc-select" onchange="chk(this,'No; los datos sugieren insuficiencia cardíaca descompensada','fbR3Q1')">
+          <option value="">— elegir —</option><option>Sí, porque la PA es mayor de 100 mmHg</option><option>No; los datos sugieren insuficiencia cardíaca descompensada</option><option>Sí, porque la FEVI es conocida</option><option>No, pero solo por la edad</option>
+        </select><span class="fb" id="fbR3Q1"></span>
+      </div>
+    </div>
+    <div class="question">
+      <div class="question-label"><span class="q-num">3.2</span> ASA <span class="q-pts-auto">🤖 0.25 pts</span></div>
+      <div class="mc-row"><span class="mc-label">Clasificación más apropiada:</span>
+        <select class="mc-select" onchange="chk(this,'ASA IV','fbR3Q2')">
+          <option value="">— elegir —</option><option>ASA II</option><option>ASA III</option><option>ASA IV</option><option>ASA V</option>
+        </select><span class="fb" id="fbR3Q2"></span>
+      </div>
+    </div>
+    <div class="question">
+      <div class="question-label"><span class="q-num">3.3</span> Conducta antes de una cirugía electiva <span class="q-pts-auto">🤖 0.25 pts</span></div>
+      <div class="mc-row"><span class="mc-label">Decisión:</span>
+        <select class="mc-select" onchange="chk(this,'Diferir la cirugía y optimizar la insuficiencia cardíaca antes de proceder','fbR3Q3')">
+          <option value="">— elegir —</option><option>Proceder y tratar la congestión después de la inducción</option><option>Diferir la cirugía y optimizar la insuficiencia cardíaca antes de proceder</option><option>Solo aumentar líquidos IV</option><option>Dar un sedante y reevaluar en quirófano</option>
+        </select><span class="fb" id="fbR3Q3"></span>
+      </div>
+    </div>
+    <div class="question">
+      <div class="question-label"><span class="q-num">3.4</span> ¿Qué hallazgo cambia más la conducta? <span class="q-pts-auto">🤖 0.25 pts</span></div>
+      <div class="mc-row"><span class="mc-label">Prioridad clínica:</span>
+        <select class="mc-select" onchange="chk(this,'Síntomas recientes de congestión: ortopnea, aumento rápido de peso y edema','fbR3Q4')">
+          <option value="">— elegir —</option><option>FEVI 30% aislada y estable</option><option>Edad de 74 años</option><option>Síntomas recientes de congestión: ortopnea, aumento rápido de peso y edema</option><option>Ser candidato a colectomía</option>
+        </select><span class="fb" id="fbR3Q4"></span>
+      </div>
+    </div>
+    <div class="question">
+      <div class="question-label"><span class="q-num">3.5</span> Principio de seguridad <span class="q-pts-auto">🤖 0.25 pts</span></div>
+      <div class="mc-row"><span class="mc-label">La valoración preanestésica sirve para:</span>
+        <select class="mc-select" onchange="chk(this,'Detectar problemas modificables y decidir si el momento de la cirugía es apropiado','fbR3Q5')">
+          <option value="">— elegir —</option><option>Autorizar automáticamente a todo paciente</option><option>Detectar problemas modificables y decidir si el momento de la cirugía es apropiado</option><option>Reemplazar la evaluación del cirujano</option><option>Solicitar ECG y laboratorios a todos por igual</option>
+        </select><span class="fb" id="fbR3Q5"></span>
+      </div>
+    </div>
+    <button class="correct-btn" onclick="corregir('R3',5,['fbR3Q1','fbR3Q2','fbR3Q3','fbR3Q4','fbR3Q5'],1.25)">Corregir Reto 3</button>
+  </div>
+</div>
+
+<!-- RETO 4 -->
+<div class="exercise">
+  <div class="exercise-header">
+    <span class="exercise-num">RETO 4 · CAMBIA EL CHIP</span>
+    <span class="exercise-title">Urgencia: ¿qué riesgos no puedes olvidar?</span>
+    <span class="exercise-pts">1.25 pts</span>
+  </div>
+  <div class="exercise-body">
+    <div class="patient-card">
+      <div class="patient-title">Paciente D · cirugía no diferible</div>
+      <div class="patient-grid">
+        <div class="patient-item"><span class="patient-label">Edad</span><span class="patient-value">77 años</span></div>
+        <div class="patient-item"><span class="patient-label">Cirugía</span><span class="patient-value">Laparotomía por obstrucción intestinal</span></div>
+        <div class="patient-item"><span class="patient-label">Estado</span><span class="patient-value">TA 92/58 · FC 116</span></div>
+      </div>
+      <ul class="patient-list">
+        <li>FA anticoagulada con apixabán. ERC con eGFR 38 ml/min/1.73 m².</li>
+        <li>Vómitos repetidos, distensión abdominal y última ingesta hace 4 horas.</li>
+        <li>Leucocitosis, fiebre 38.4 °C y lactato elevado. La cirugía se considera no diferible.</li>
+      </ul>
+    </div>
+    <div class="question">
+      <div class="question-label"><span class="q-num">4.1</span> ASA + urgencia <span class="q-pts-auto">🤖 0.25 pts</span></div>
+      <div class="mc-row"><span class="mc-label">Clasificación:</span>
+        <select class="mc-select" onchange="chk(this,'ASA IV-E','fbR4Q1')">
+          <option value="">— elegir —</option><option>ASA III</option><option>ASA III-E</option><option>ASA IV-E</option><option>ASA V-E</option>
+        </select><span class="fb" id="fbR4Q1"></span>
+      </div>
+    </div>
+    <div class="question">
+      <div class="question-label"><span class="q-num">4.2</span> Riesgo de aspiración <span class="q-pts-auto">🤖 0.25 pts</span></div>
+      <div class="mc-row"><span class="mc-label">Interpretación del ayuno:</span>
+        <select class="mc-select" onchange="chk(this,'Debe considerarse de alto riesgo de aspiración por obstrucción y vómitos; el ayuno referido no lo hace de bajo riesgo','fbR4Q2')">
+          <option value="">— elegir —</option><option>Cuatro horas son suficientes para proceder como paciente de bajo riesgo</option><option>La obstrucción disminuye el riesgo de aspiración</option><option>Debe considerarse de alto riesgo de aspiración por obstrucción y vómitos; el ayuno referido no lo hace de bajo riesgo</option><option>Solo importa la última comida sólida</option>
+        </select><span class="fb" id="fbR4Q2"></span>
+      </div>
+    </div>
+    <div class="question">
+      <div class="question-label"><span class="q-num">4.3</span> Prioridad de estabilización <span class="q-pts-auto">🤖 0.25 pts</span></div>
+      <div class="mc-row"><span class="mc-label">Antes de inducir, la prioridad es:</span>
+        <select class="mc-select" onchange="chk(this,'Reanimación guiada, antibióticos cuando estén indicados, corrección de alteraciones y preparación hemodinámica sin retrasar innecesariamente la cirugía','fbR4Q3')">
+          <option value="">— elegir —</option><option>Esperar normalización completa de todos los laboratorios</option><option>Reanimación guiada, antibióticos cuando estén indicados, corrección de alteraciones y preparación hemodinámica sin retrasar innecesariamente la cirugía</option><option>Administrar solo un sedante</option><option>Suspender toda intervención hasta que desaparezca la fiebre</option>
+        </select><span class="fb" id="fbR4Q3"></span>
+      </div>
+    </div>
+    <div class="question">
+      <div class="question-label"><span class="q-num">4.4</span> Anticoagulación <span class="q-pts-auto">🤖 0.25 pts</span></div>
+      <div class="mc-row"><span class="mc-label">Respecto al apixabán:</span>
+        <select class="mc-select" onchange="chk(this,'Determinar última dosis, función renal y riesgo hemorrágico; si la cirugía no puede esperar, individualizar reversión según protocolo y disponibilidad','fbR4Q4')">
+          <option value="">— elegir —</option><option>No requiere consideración porque es anticoagulante oral</option><option>Debe esperar siempre 7 días antes de operar</option><option>Determinar última dosis, función renal y riesgo hemorrágico; si la cirugía no puede esperar, individualizar reversión según protocolo y disponibilidad</option><option>Administrar una dosis adicional antes de la inducción</option>
+        </select><span class="fb" id="fbR4Q4"></span>
+      </div>
+    </div>
+    <div class="question">
+      <div class="question-label"><span class="q-num">4.5</span> Decisión global <span class="q-pts-auto">🤖 0.25 pts</span></div>
+      <div class="mc-row"><span class="mc-label">La mejor estrategia es:</span>
+        <select class="mc-select" onchange="chk(this,'Proceder con optimización simultánea y plan anestésico de alto riesgo; la urgencia modifica el balance riesgo-beneficio','fbR4Q5')">
+          <option value="">— elegir —</option><option>Cancelar definitivamente por ASA IV</option><option>Esperar un ayuno convencional antes de operar</option><option>Proceder con optimización simultánea y plan anestésico de alto riesgo; la urgencia modifica el balance riesgo-beneficio</option><option>Proceder sin ninguna optimización porque es una urgencia</option>
+        </select><span class="fb" id="fbR4Q5"></span>
+      </div>
+    </div>
+    <button class="correct-btn" onclick="corregir('R4',5,['fbR4Q1','fbR4Q2','fbR4Q3','fbR4Q4','fbR4Q5'],1.25)">Corregir Reto 4</button>
   </div>
 </div>
 
 <div class="download-box">
   <h3>📥 Descargar Taller</h3>
-  <p style="font-family:var(--sans);font-size:9pt;color:#212529;margin-bottom:12px;">Complete su nombre y universidad antes de descargar.</p>
+  <p style="font-family:var(--sans);font-size:9pt;color:#212529;margin-bottom:12px;">Complete su nombre y universidad antes de descargar. El PDF llevará identificación individual en marca de agua.</p>
   <div class="input-row">
     <input class="id-input" id="nomP" type="text" placeholder="Nombre completo del estudiante">
     <input class="id-input" id="univP" type="text" placeholder="Universidad / Institución">
@@ -968,9 +939,9 @@ footer { border-top:2px solid rgba(0,0,0,.08); padding:22px 56px 28px; display:f
   <div class="dl-error" id="errP">⚠ Por favor complete nombre y universidad antes de descargar.</div>
 </div>
 <div class="nota-bar">
-  <span class="nota-bar-label">Nota acumulada</span>
+  <span class="nota-bar-label">Nota autocalificable</span>
   <span class="nota-bar-val" id="notaPre">0.00 / 5.00</span>
-  <span style="font-family:var(--sans);font-size:8.5pt;color:var(--gray-600);">100% autocorregible (casos 1–2)</span>
+  <span style="font-family:var(--sans);font-size:8.5pt;color:var(--gray-600);">4 retos · 20 decisiones clínicas</span>
 </div>
 </div>
 </div><!-- /taller-tab -->
@@ -990,8 +961,7 @@ function chk(sel,correct,fbId){
   var fb=document.getElementById(fbId);
   if(fb){fb.textContent='';fb.className='fb';}
 }
-
-var pts={C1:0,C2:0};
+var pts={R1:0,R2:0,R3:0,R4:0};
 function corregir(mod,total,fbIds,maxPts){
   var ok=0;
   fbIds.forEach(function(fbId){
@@ -1001,19 +971,20 @@ function corregir(mod,total,fbIds,maxPts){
     if(!ans||!ans.val){fb.textContent='— sin respuesta';fb.className='fb';return;}
     var correct=ans.val===ans.correct;
     if(correct){ok++;fb.textContent='✓ correcto';fb.className='fb ok';}
-    else{fb.textContent='✗ incorrecto';fb.className='fb err';}
+    else{fb.textContent='✗ revisa la decisión';fb.className='fb err';}
   });
   var p=(ok/total)*maxPts;
   pts[mod]=p;
   actualizarNotas();
-  alert('Caso '+mod+' corregido: '+ok+'/'+total+' correctas = '+p.toFixed(2)+' pts autocorregibles');
+  alert(mod+' corregido: '+ok+'/'+total+' decisiones correctas = '+p.toFixed(2)+' pts');
 }
 function actualizarNotas(){
-  var total=(pts.C1||0)+(pts.C2||0);
+  var total=(pts.R1||0)+(pts.R2||0)+(pts.R3||0)+(pts.R4||0);
   var nt=document.getElementById('notaPre');
+  var pn=document.getElementById('printNotaPre');
   if(nt)nt.textContent=total.toFixed(2)+' / 5.00';
+  if(pn)pn.textContent='Nota autocalificable: '+total.toFixed(2)+' / 5.00 pts';
 }
-
 function setupPrintAnswers(){
   document.querySelectorAll('textarea.open-area').forEach(function(ta){
     var clone=ta.nextElementSibling;
@@ -1026,42 +997,12 @@ function setupPrintAnswers(){
   });
 }
 document.addEventListener('DOMContentLoaded',setupPrintAnswers);
-window.addEventListener('beforeprint',function(){
-  document.querySelectorAll('textarea.open-area').forEach(function(ta){
-    var clone=ta.nextElementSibling;
-    if(clone&&clone.classList.contains('print-answer'))clone.textContent=ta.value;
-  });
-});
+window.addEventListener('beforeprint',function(){ actualizarNotas(); });
 
-// ══ ANTI-PLAGIO: código de verificación ══
 function hashCorto(str){
-  var h = 5381;
-  for(var i=0;i<str.length;i++){
-    h = ((h*33) ^ str.charCodeAt(i)) >>> 0;
-  }
+  var h=5381;
+  for(var i=0;i<str.length;i++) h=((h*33)^str.charCodeAt(i))>>>0;
   return h.toString(36).toUpperCase().slice(0,7);
-}
-
-function estamparCodigo(codigo){
-  document.querySelectorAll('#taller-tab .exercise-header').forEach(function(h){
-    var tag=h.querySelector('.exercise-wm-tag');
-    if(!tag){
-      tag=document.createElement('span');
-      tag.className='exercise-wm-tag';
-      h.appendChild(tag);
-    }
-    tag.textContent='🔒 '+codigo;
-  });
-
-  document.querySelectorAll('#taller-tab .question-label').forEach(function(lbl){
-    var tag=lbl.querySelector('.question-wm-tag');
-    if(!tag){
-      tag=document.createElement('span');
-      tag.className='question-wm-tag';
-      lbl.appendChild(tag);
-    }
-    tag.textContent='🔒 '+codigo;
-  });
 }
 
 function dlPDF(){
@@ -1071,16 +1012,14 @@ function dlPDF(){
   document.getElementById('errP').style.display='none';
   var ahora=new Date();
   var f=ahora.toLocaleDateString('es-CO',{day:'2-digit',month:'long',year:'numeric'})+' '+ahora.toLocaleTimeString('es-CO',{hour:'2-digit',minute:'2-digit'});
-  ['phNombre','pfNombre'].forEach(id=>{var el=document.getElementById(id);if(el)el.textContent=nom;});
-  ['phUniversidad','pfUniversidad'].forEach(id=>{var el=document.getElementById(id);if(el)el.textContent=univ;});
-  ['phGuia','pfGuia'].forEach(id=>{var el=document.getElementById(id);if(el)el.textContent='Taller — Valoración Preanestésica';});
-  ['phFecha','pfFecha'].forEach(id=>{var el=document.getElementById(id);if(el)el.textContent=f;});
-
-  var guia='Valoración Preanestésica';
-  var codigo=hashCorto(nom+'|'+univ+'|'+guia+'|'+f);
-  ['phCodigo','pfCodigo'].forEach(id=>{var el=document.getElementById(id);if(el)el.textContent=codigo;});
-  estamparCodigo(codigo);
-  document.querySelectorAll('.tab-content').forEach(t=>t.classList.remove('active'));
+  ['phNombre','pfNombre','wmNombre'].forEach(function(id){var el=document.getElementById(id);if(el)el.textContent=nom;});
+  ['phUniversidad','pfUniversidad','wmUniversidad'].forEach(function(id){var el=document.getElementById(id);if(el)el.textContent=univ;});
+  ['phGuia','pfGuia'].forEach(function(id){var el=document.getElementById(id);if(el)el.textContent='Taller — Valoración Preanestésica';});
+  ['phFecha','pfFecha'].forEach(function(id){var el=document.getElementById(id);if(el)el.textContent=f;});
+  var codigo=hashCorto(nom+'|'+univ+'|Valoración Preanestésica|'+f);
+  ['phCodigo','pfCodigo','wmCodigo'].forEach(function(id){var el=document.getElementById(id);if(el)el.textContent=codigo;});
+  actualizarNotas();
+  document.querySelectorAll('.tab-content').forEach(function(t){t.classList.remove('active');});
   document.getElementById('taller-tab').classList.add('active');
   setTimeout(function(){window.print();},300);
 }

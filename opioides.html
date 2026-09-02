@@ -271,8 +271,10 @@ footer { border-top:2px solid rgba(0,0,0,.08); padding:22px 56px 28px; display:f
   .cover,.taller-header,.module-header,.receptor-header,.stat-pill,.definition,.callout.das { -webkit-print-color-adjust:exact; print-color-adjust:exact; }
   .module { page-break-inside:avoid; }
   .taller-content { padding:20px 40px; }
-  .page-print-header { display:block !important; font-family:var(--sans); font-size:8pt; color:var(--gray-600); padding:8px 40px; border-bottom:1px solid var(--border); background:var(--gray-50); }
-  .print-footer-fixed { display:flex !important; position:fixed; bottom:0; left:0; right:0; background:var(--gray-50); border-top:1px solid var(--border); padding:5px 40px; font-family:var(--sans); font-size:7.5pt; color:var(--gray-600); justify-content:space-between; }
+  .page-print-header { display:block !important; font-family:var(--sans); font-size:8pt; color:var(--gray-600); padding:8px 40px; border-bottom:1px solid var(--border); background:var(--gray-50); position:relative; z-index:3; }
+  .print-footer-fixed { display:flex !important; position:fixed; bottom:0; left:0; right:0; background:var(--gray-50); border-top:1px solid var(--border); padding:5px 40px; font-family:var(--sans); font-size:7.5pt; color:var(--gray-600); justify-content:space-between; position:fixed; z-index:3; }
+  #print-watermark { display:block !important; position:fixed; left:50%; top:52%; transform:translate(-50%,-50%) rotate(-28deg); font-family:var(--mono); font-size:42pt; font-weight:800; letter-spacing:5px; color:#991b1b; opacity:.10; white-space:nowrap; z-index:2; pointer-events:none; }
+  #taller-tab, .taller-header, .taller-content { position:relative; z-index:1; }
   textarea.open-area { display:none !important; }
   .print-answer {
     display:block !important; font-family:'DM Sans',system-ui,sans-serif; font-size:9.5pt; color:#212529;
@@ -282,6 +284,7 @@ footer { border-top:2px solid rgba(0,0,0,.08); padding:22px 56px 28px; display:f
   .print-answer:empty::after { content:'(sin respuesta)'; color:#adb5bd; font-style:italic; }
 }
 @media screen {
+  #print-watermark { display:none !important; }
   .page-print-header { display:none; }
   .print-footer-fixed { display:none; }
   .print-answer { display:none !important; }
@@ -290,9 +293,10 @@ footer { border-top:2px solid rgba(0,0,0,.08); padding:22px 56px 28px; display:f
 </style>
 </head>
 <body>
+<div id="print-watermark" aria-hidden="true">OPIOIDES · CÓDIGO <span id="wmCodigo">—</span></div>
 <div class="page">
 
-<div class="page-print-header"><span id="phNombre"></span> · <span id="phUniversidad"></span> · <span id="phGuia"></span> · <span id="phFecha"></span> · Código: <strong id="phCodigo"></strong></div>
+<div class="page-print-header"><span id="phNombre"></span> · <span id="phUniversidad"></span> · <span id="phGuia"></span> · <span id="phFecha"></span> · Código: <strong id="phCodigo"></strong> · <strong>Nota autocalificable: <span id="phNota">0.00 / 3.75</span></strong></div>
 <div class="print-footer-fixed">
   <span><strong id="pfNombre"></strong> · <span id="pfUniversidad"></span></span>
   <span>Guía: <span id="pfGuia"></span> · Dr. Andrés Robayo C. · Código: <strong id="pfCodigo"></strong></span>
@@ -613,43 +617,27 @@ footer { border-top:2px solid rgba(0,0,0,.08); padding:22px 56px 28px; display:f
     <span class="module-pts">🤖 1.0 pt · 100% autocorregible</span>
   </div>
   <div class="module-body">
-  <div class="alert-yellow" style="margin-bottom:12px;">Complete las casillas de cálculo y seleccione el resultado correcto en cada desplegable. <strong>Usar punto como separador decimal.</strong> <strong>La calificación evalúa tanto las casillas de cálculo como la respuesta final</strong> — completar solo el resultado sin desarrollar el cálculo correcto se marcará como incorrecto. El feedback (con casillas en verde/rojo) aparece al oprimir "Corregir Módulo".</div>
+  <div class="alert-yellow" style="margin-bottom:12px;">Desarrolle cada cálculo directamente en las casillas. <strong>Usar punto como separador decimal.</strong> Ya no hay desplegables para los resultados numéricos: la calificación se realiza sobre el desarrollo y el resultado de las casillas. El feedback aparece al oprimir "Corregir Módulo".</div>
 
     <div class="ex-item">
-      <div class="ex-label"><span class="ex-num">A1</span> Morfina — Dosis de carga para analgesia postoperatoria &nbsp;<span class="ex-pts-auto">🤖 0.25 pts</span></div>
-      <div class="ex-context">Paciente femenina, <strong>58 kg</strong>, histerectomía abierta. Se prescribe morfina IV <strong>0.1 mg/kg</strong>. Presentación disponible: <strong>ampolla 10 mg/mL</strong>.</div>
-      <div class="calc-block" id="calc-A1"><div class="answer-line">Dosis total: <input data-ans="0.1" class="ans-input ans-sm" inputmode="decimal" placeholder="mg/kg"> × <input data-ans="58" class="ans-input ans-sm" inputmode="decimal" placeholder="kg"> = <input data-ans="5.8" class="ans-input ans-sm" inputmode="decimal" placeholder="? mg"> mg &nbsp;|&nbsp; Volumen: <input data-ans="5.8" class="ans-input ans-sm" inputmode="decimal" placeholder="mg"> ÷ <input data-ans="10" class="ans-input ans-sm" inputmode="decimal" placeholder="mg/mL"> = <input data-ans="0.58" class="ans-input ans-sm" inputmode="decimal" placeholder="? mL"> mL</div></div>
-      <div class="mc-row"><span class="mc-label">Dosis y volumen correctos:</span>
-        <select class="mc-select" onchange="chk(this,'5.8 mg · 0.58 mL','fbA1')"><option value="">— elegir —</option><option>4.5 mg · 0.45 mL</option><option>5.8 mg · 0.58 mL</option><option>5.8 mg · 5.8 mL</option><option>0.58 mg · 0.058 mL</option></select>
-        <span class="fb" id="fbA1"></span>
-      </div>
+      <div class="ex-label"><span class="ex-num">A1</span> Morfina — Dosis para analgesia postoperatoria &nbsp;<span class="ex-pts-auto">🤖 0.25 pts</span><span class="fb" id="fbA1"></span></div>
+      <div class="ex-context">Paciente masculino, <strong>72 kg</strong>, postoperatorio inmediato de artroplastia total de rodilla. Se prescribe morfina IV <strong>0.08 mg/kg</strong> para analgesia titulada. Presentación disponible: <strong>ampolla 10 mg/mL</strong>.</div>
+      <div class="calc-block" id="calc-A1"><div class="answer-line">Dosis total: <input data-ans="0.08" class="ans-input ans-sm" inputmode="decimal" placeholder="mg/kg"> × <input data-ans="72" class="ans-input ans-sm" inputmode="decimal" placeholder="kg"> = <input data-ans="5.76" class="ans-input ans-sm" inputmode="decimal" placeholder="? mg"> mg &nbsp;|&nbsp; Volumen: <input data-ans="5.76" class="ans-input ans-sm" inputmode="decimal" placeholder="mg"> ÷ <input data-ans="10" class="ans-input ans-sm" inputmode="decimal" placeholder="mg/mL"> = <input data-ans="0.576" class="ans-input ans-sm" inputmode="decimal" placeholder="? mL"> mL</div></div>
     </div>
 
     <div class="ex-item">
-      <div class="ex-label"><span class="ex-num">A2</span> Hidromorfona — Dosis equivalente desde morfina &nbsp;<span class="ex-pts-auto">🤖 0.25 pts</span></div>
-      <div class="ex-context">El mismo paciente del A1 presenta alergia a la morfina. El médico decide rotar a hidromorfona IV. La potencia relativa hidromorfona:morfina es <strong>5:1</strong> (1 mg hidromorfona = 5 mg morfina). Presentación: <strong>ampolla 2 mg/mL</strong>.</div>
-      <div class="calc-block" id="calc-A2"><div class="answer-line">Dosis hidromorfona = 5.8 mg morfina ÷ 5 = <input data-ans="1.16" class="ans-input ans-sm" inputmode="decimal" placeholder="? mg"> mg &nbsp;|&nbsp; Volumen: <input data-ans="1.16" class="ans-input ans-sm" inputmode="decimal" placeholder="mg"> ÷ 2 mg/mL = <input data-ans="0.58" class="ans-input ans-sm" inputmode="decimal" placeholder="? mL"> mL</div></div>
-      <div class="mc-row"><span class="mc-label">Dosis y volumen de hidromorfona:</span>
-        <select class="mc-select" onchange="chk(this,'1.16 mg · 0.58 mL','fbA2')"><option value="">— elegir —</option><option>2.9 mg · 1.45 mL</option><option>1.16 mg · 0.58 mL</option><option>0.58 mg · 0.29 mL</option><option>5.8 mg · 2.9 mL</option></select>
-        <span class="fb" id="fbA2"></span>
-      </div>
+      <div class="ex-label"><span class="ex-num">A2</span> Hidromorfona — Conversión equianalgésica desde morfina &nbsp;<span class="ex-pts-auto">🤖 0.25 pts</span><span class="fb" id="fbA2"></span></div>
+      <div class="ex-context">Paciente femenina, <strong>64 kg</strong>, con dolor intenso en recuperación tras cirugía abdominal. La dosis calculada de morfina IV es de <strong>6.4 mg</strong>; por antecedente de intolerancia a morfina se decide utilizar hidromorfona IV. Para este ejercicio, la guía establece una potencia relativa hidromorfona:morfina de <strong>5:1</strong> (1 mg de hidromorfona = 5 mg de morfina). Presentación: <strong>ampolla 2 mg/mL</strong>.</div>
+      <div class="calc-block" id="calc-A2"><div class="answer-line">Dosis hidromorfona = 6.4 mg morfina ÷ 5 = <input data-ans="1.28" class="ans-input ans-sm" inputmode="decimal" placeholder="? mg"> mg &nbsp;|&nbsp; Volumen: <input data-ans="1.28" class="ans-input ans-sm" inputmode="decimal" placeholder="mg"> ÷ 2 mg/mL = <input data-ans="0.64" class="ans-input ans-sm" inputmode="decimal" placeholder="? mL"> mL</div></div>
     </div>
 
     <div class="ex-item">
-      <div class="ex-label"><span class="ex-num">A3</span> Remifentanilo — Velocidad de infusión TIVA &nbsp;<span class="ex-pts-auto">🤖 0.50 pts</span></div>
-      <div class="ex-context">Paciente masculino, <strong>82 kg</strong>, para colecistectomía laparoscópica en TIVA. Infusión de remifentanilo a <strong>0.2 µg/kg/min</strong>. Preparación: <strong>2 mg liofilizado + 100 mL SSN 0.9%</strong> = concentración 20 µg/mL.</div>
-      <div class="calc-block" id="calc-A3a"><div class="answer-line">Dosis/min: <input data-ans="0.2" class="ans-input ans-sm" inputmode="decimal" placeholder="µg/kg/min"> × <input data-ans="82" class="ans-input ans-sm" inputmode="decimal" placeholder="kg"> = <input data-ans="16.4" class="ans-input ans-sm" inputmode="decimal" placeholder="?"> µg/min</div></div>
-      <div class="calc-block" id="calc-A3b"><div class="answer-line">Vel. (mL/h): µg/min × 60 ÷ conc (µg/mL) = <input data-ans="16.4" class="ans-input ans-sm" inputmode="decimal" placeholder="µg/min"> × 60 ÷ <input data-ans="20" class="ans-input ans-sm" inputmode="decimal" placeholder="20"> = <input data-ans="49.2" class="ans-input ans-sm" inputmode="decimal" placeholder="? mL/h"> mL/h</div></div>
-      <div class="mc-row"><span class="mc-label">Dosis/min correcta:</span>
-        <select class="mc-select" onchange="chk(this,'16.4 µg/min','fbA3a')"><option value="">— elegir —</option><option>8.2 µg/min</option><option>16.4 µg/min</option><option>82 µg/min</option><option>0.164 µg/min</option></select>
-        <span class="fb" id="fbA3a"></span>
-      </div>
-      <div class="mc-row"><span class="mc-label">Velocidad de infusión correcta:</span>
-        <select class="mc-select" onchange="chk(this,'49.2 mL/h','fbA3b')"><option value="">— elegir —</option><option>24.6 mL/h</option><option>49.2 mL/h</option><option>16.4 mL/h</option><option>98.4 mL/h</option></select>
-        <span class="fb" id="fbA3b"></span>
-      </div>
-      <button class="correct-btn" onclick="corregir('A',4,['fbA1','fbA2','fbA3a','fbA3b'],1.0)">Corregir Módulo A (1.0 pt)</button>
+      <div class="ex-label"><span class="ex-num">A3</span> Remifentanilo — Velocidad de infusión durante TIVA &nbsp;<span class="ex-pts-auto">🤖 0.50 pts</span><span class="fb" id="fbA3"></span></div>
+      <div class="ex-context">Paciente femenina, <strong>68 kg</strong>, para resección laparoscópica bajo TIVA. Se indica remifentanilo a <strong>0.15 µg/kg/min</strong>. Preparación: <strong>2 mg liofilizado + 100 mL de SSN 0.9%</strong>, con concentración de trabajo de <strong>20 µg/mL</strong>.</div>
+      <div class="calc-block" id="calc-A3a"><div class="answer-line">Dosis/min: <input data-ans="0.15" class="ans-input ans-sm" inputmode="decimal" placeholder="µg/kg/min"> × <input data-ans="68" class="ans-input ans-sm" inputmode="decimal" placeholder="kg"> = <input data-ans="10.2" class="ans-input ans-sm" inputmode="decimal" placeholder="?"> µg/min</div></div>
+      <div class="calc-block" id="calc-A3b"><div class="answer-line">Vel. (mL/h): µg/min × 60 ÷ conc (µg/mL) = <input data-ans="10.2" class="ans-input ans-sm" inputmode="decimal" placeholder="µg/min"> × 60 ÷ <input data-ans="20" class="ans-input ans-sm" inputmode="decimal" placeholder="20"> = <input data-ans="30.6" class="ans-input ans-sm" inputmode="decimal" placeholder="? mL/h"> mL/h</div></div>
     </div>
+    <button class="correct-btn" onclick="corregirCalculosA()">Corregir Módulo A (1.0 pt)</button>
   </div>
 </div>
 
@@ -896,6 +884,35 @@ function checkChains(fbId){
   return allOk;
 }
 
+// MÓDULO A — corrección exclusivamente sobre las casillas de cálculo
+function corregirCalculosA(){
+  var groups=[
+    {id:'fbA1',blocks:['calc-A1'],pts:.25},
+    {id:'fbA2',blocks:['calc-A2'],pts:.25},
+    {id:'fbA3',blocks:['calc-A3a','calc-A3b'],pts:.50}
+  ];
+  var earned=0;
+  groups.forEach(function(g){
+    var allOk=true;
+    g.blocks.forEach(function(bid){
+      var block=document.getElementById(bid);
+      if(!block)return;
+      block.querySelectorAll('input[data-ans]').forEach(function(inp){
+        var ok=numClose(parseNum(inp.value),parseNum(inp.getAttribute('data-ans')));
+        inp.classList.remove('fi-ok','fi-err');
+        inp.classList.add(ok?'fi-ok':'fi-err');
+        if(!ok)allOk=false;
+      });
+    });
+    var fb=document.getElementById(g.id);
+    if(fb){fb.textContent=allOk?'✓ cálculo correcto':'✗ revise las casillas en rojo';fb.className='fb '+(allOk?'ok':'err');}
+    if(allOk)earned+=g.pts;
+  });
+  pts.A=earned;
+  actualizarNotas();
+  alert('Módulo A corregido: '+earned.toFixed(2)+' / 1.00 pt');
+}
+
 // SCORE
 var pts={A:0,B:0,C:0,D:0};
 function corregir(mod,total,fbIds,maxPts){
@@ -920,6 +937,8 @@ function actualizarNotas(){
   var total=(pts.A||0)+(pts.B||0)+(pts.C||0)+(pts.D||0);
   var nt=document.getElementById('notaTotal');
   if(nt)nt.textContent=total.toFixed(2)+' / 3.75';
+  var ph=document.getElementById('phNota');
+  if(ph)ph.textContent=total.toFixed(2)+' / 3.75';
 }
 
 // PRINT ANSWER CLONES
@@ -977,8 +996,8 @@ function estamparCodigo(codigo){
 
 function dlPDF(){
   var guia='Opioides en Anestesia y Analgesia';
-  var nomEl=document.getElementById('idNombre');
-  var univEl=document.getElementById('idUniversidad');
+  var nomEl=document.getElementById('nomO');
+  var univEl=document.getElementById('univO');
   var nom=nomEl ? nomEl.value.trim() : '';
   var univ=univEl ? univEl.value.trim() : '';
   var fecha=new Date().toLocaleDateString('es-CO');
@@ -988,9 +1007,7 @@ function dlPDF(){
     if(el) el.textContent=codigo;
   });
   estamparCodigo(codigo);
-
-  var nom=document.getElementById('nomO').value.trim();
-  var univ=document.getElementById('univO').value.trim();
+  var wm=document.getElementById('wmCodigo'); if(wm)wm.textContent=codigo;
   if(!nom||!univ){document.getElementById('errO').style.display='block';return;}
   document.getElementById('errO').style.display='none';
   var ahora=new Date();

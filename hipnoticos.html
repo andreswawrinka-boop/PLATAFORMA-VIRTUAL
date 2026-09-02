@@ -338,9 +338,11 @@ footer{border-top:2px solid var(--navy);padding:20px 56px 26px;display:flex;just
 .footer-title{font-family:var(--sans);font-size:8pt;color:var(--gray-400);}
 .footer-copy{font-family:var(--sans);font-size:7.5pt;color:var(--gray-400);text-align:right;line-height:1.5;}
 
-/* PRINT */
+/* PRINT — identificación y marca de agua */
+.pdf-watermark,.print-score-id{display:none;}
+
 @media print {
-  .tab-nav,.palette-btn,.palette-panel,.design-switcher,.correct-btn,.download-box,.nota-bar{display:none !important;}
+  .tab-nav,.palette-btn,.palette-panel,.design-switcher,.correct-btn,.download-box{display:none !important;}
   .tab-content{display:none !important;}
   #taller-tab{display:block !important;}
   #teoria-tab{display:none !important;}
@@ -348,8 +350,55 @@ footer{border-top:2px solid var(--navy);padding:20px 56px 26px;display:flex;just
   .cover,.module-header,.drug-header,.worked{-webkit-print-color-adjust:exact;print-color-adjust:exact;}
   .module{page-break-inside:avoid;}
   .taller-content{padding:20px 40px;}
+
+  /* Encabezado y nota: en flujo normal, solo una vez. */
   .page-print-header{display:block !important;font-family:var(--sans);font-size:8pt;color:var(--gray-600);padding:8px 40px;border-bottom:1px solid var(--border);background:var(--gray-50);}
-  .print-footer-fixed{display:flex !important;position:fixed;bottom:0;left:0;right:0;background:var(--gray-50);border-top:1px solid var(--border);padding:5px 40px;font-family:var(--sans);font-size:7.5pt;color:var(--gray-600);justify-content:space-between;}
+  .nota-bar{display:none !important;}
+  .print-first-page{display:block !important;position:relative;}
+  .print-score-id{
+    display:flex !important;
+    align-items:center;
+    justify-content:space-between;
+    gap:16px;
+    margin:10px 40px 16px;
+    padding:9px 13px;
+    border:1.5px solid #166534;
+    border-radius:8px;
+    background:#f4fbf6 !important;
+    font-family:'DM Sans',system-ui,sans-serif;
+    font-size:8.5pt;
+    page-break-inside:avoid;
+    break-inside:avoid;
+    position:relative;
+    z-index:2;
+  }
+  .print-score-id strong{color:#166534;}
+  .print-score-id .print-note{font-family:'DM Mono',monospace;font-size:13pt;font-weight:700;color:#123b20;}
+
+  /* MARCA DE AGUA: fixed = se repite automáticamente en TODAS las páginas.
+     Queda en una capa propia, sin participar en el flujo ni desplazar contenido. */
+  .pdf-watermark{
+    display:block !important;
+    position:fixed !important;
+    top:38%;
+    left:5%;
+    width:90%;
+    text-align:center;
+    transform:rotate(-32deg);
+    transform-origin:center center;
+    font-family:'DM Mono',monospace;
+    font-size:30pt;
+    font-weight:700;
+    letter-spacing:3px;
+    line-height:1.25;
+    color:rgba(51,105,30,.14) !important;
+    opacity:1 !important;
+    pointer-events:none !important;
+    white-space:normal;
+    z-index:99999 !important;
+  }
+  .pdf-watermark small{display:block;font-family:'DM Sans',system-ui,sans-serif;font-size:10pt;letter-spacing:1px;margin-top:8px;}
+
   textarea.open-area{display:none !important;}
   .print-answer{display:block !important;font-family:'DM Sans',system-ui,sans-serif;font-size:9.5pt;color:#212529;line-height:1.6;border:1.5px solid #dee2e6;border-radius:5px;padding:8px 12px;min-height:60px;height:auto !important;overflow:visible !important;white-space:pre-wrap;word-break:break-word;page-break-inside:avoid;}
   .print-answer:empty::after{content:'(sin respuesta)';color:#adb5bd;font-style:italic;}
@@ -510,6 +559,7 @@ h4{font-family:var(--sans);font-size:9pt;font-weight:600;color:var(--gray-600);m
   }
 }
 @media screen{.anti-plagio-mark{display:none !important;}}
+
 </style>
 </head>
 <body>
@@ -906,6 +956,14 @@ h4{font-family:var(--sans);font-size:9pt;font-weight:600;color:var(--gray-600);m
   <h2>Taller — <em>Agentes Hipnóticos en Anestesia</em></h2>
   <div class="taller-meta">Dr. Andrés Robayo C. · Módulos A · B · 5.0 puntos totales · Hospital de Kennedy</div>
 </div>
+<!-- Identificación individual: bloque en flujo normal para que NO se repita ni se superponga -->
+<div class="print-first-page" id="printFirstPage">
+  <div class="pdf-watermark" id="pdfWatermark">COPIA INDIVIDUAL · <span id="wmCode"></span><small id="wmStudent"></small></div>
+  <div class="print-score-id" id="printScoreId">
+    <span><strong>Estudiante:</strong> <span id="printStudent"></span></span>
+    <span><strong>Código único:</strong> <span id="printCode"></span></span>
+    <span><strong>Nota:</strong> <span class="print-note" id="printScore">0.00 / 2.50</span></span>
+  </div>
 <div class="taller-content">
 <div class="alert-yellow">⚠ <strong>Instrucciones:</strong> El feedback de selección múltiple aparece solo al oprimir "Corregir Módulo". Las cajas ámbar son preguntas abiertas calificadas por el docente. Muestre las unidades en cada cálculo.</div>
 
@@ -933,23 +991,19 @@ h4{font-family:var(--sans);font-size:9pt;font-weight:600;color:var(--gray-600);m
     <span class="module-pts">🤖 2.5 pts · 0.5 pts c/u</span>
   </div>
   <div class="module-body">
-  <div class="alert-yellow" style="margin-bottom:14px;">Complete las casillas de cálculo y seleccione el resultado correcto. Muestre el procedimiento con unidades. <strong>Usar punto como separador decimal.</strong> <strong>La calificación evalúa tanto las casillas de cálculo como la respuesta final</strong> — completar solo el resultado sin desarrollar el cálculo correcto se marcará como incorrecto. El feedback (con casillas en verde/rojo) aparece al oprimir "Corregir Módulo".</div>
+  <div class="alert-yellow" style="margin-bottom:14px;">Complete las casillas de cálculo y seleccione el resultado correcto. Muestre el procedimiento con unidades. <strong>Usar punto como separador decimal.</strong> <strong>La calificación evalúa las casillas de cálculo</strong> — complete todo el procedimiento y respete las unidades. El feedback (con casillas en verde/rojo) aparece al oprimir "Corregir Módulo".</div>
 
     <!-- A1 PROPOFOL -->
     <div class="ex-item">
       <div class="ex-label"><span class="ex-num">A1</span> Propofol — Inducción en paciente geriátrico &nbsp;<span class="ex-pts-auto">🤖 0.5 pts</span></div>
-      <div class="ex-context">Paciente <strong>femenina, 78 años, 62 kg</strong>, programada para colecistectomía laparoscópica electiva. ASA III. Se decide inducción con propofol 1% (10 mg/mL). Use la dosis recomendada para paciente geriátrico.</div>
+      <div class="ex-context">Paciente <strong>masculino, 72 años, 72 kg</strong>, programado para resección transuretral electiva. ASA III. Se decide inducción con propofol 1% (10 mg/mL). Use la dosis recomendada para paciente geriátrico.</div>
       <div class="calc-block" id="calc-A1">
       <div class="answer-line">
-        Dosis geriátrica (1–1.5 mg/kg): mínima = <input data-ans="62" class="ans-input ans-sm" inputmode="decimal" placeholder="? mg"> mg · máxima = <input data-ans="93" class="ans-input ans-sm" inputmode="decimal" placeholder="? mg"> mg
+        Dosis geriátrica (1–1.5 mg/kg): mínima = <input data-ans="72" class="ans-input ans-sm" inputmode="decimal" placeholder="? mg"> mg · máxima = <input data-ans="108" class="ans-input ans-sm" inputmode="decimal" placeholder="? mg"> mg
       </div>
       <div class="answer-line">
-        Volumen propofol 1% (10 mg/mL): mínimo = <input data-ans="6.2" class="ans-input ans-sm" inputmode="decimal" placeholder="? mL"> mL · máximo = <input data-ans="9.3" class="ans-input ans-sm" inputmode="decimal" placeholder="? mL"> mL
+        Volumen propofol 1% (10 mg/mL): mínimo = <input data-ans="7.2" class="ans-input ans-sm" inputmode="decimal" placeholder="? mL"> mL · máximo = <input data-ans="10.8" class="ans-input ans-sm" inputmode="decimal" placeholder="? mL"> mL
       </div>
-      </div>
-      <div class="mc-row"><span class="mc-label">Rango de dosis y volumen correctos:</span>
-        <select class="mc-select" onchange="chk(this,'62 – 93 mg → 6.2 – 9.3 mL','fbA1')"><option value="">— elegir —</option><option>93 – 155 mg → 9.3 – 15.5 mL</option><option>62 – 93 mg → 6.2 – 9.3 mL</option><option>31 – 62 mg → 3.1 – 6.2 mL</option><option>124 – 155 mg → 12.4 – 15.5 mL</option></select>
-        <span class="fb" id="fbA1"></span>
       </div>
       <div class="mc-row"><span class="mc-label">¿Por qué se reduce la dosis en esta paciente?</span>
         <select class="mc-select" onchange="chk(this,'Mayor sensibilidad por ↑ fracción libre (↓ albúmina) y ↓ clearance hepático','fbA1b')"><option value="">— elegir —</option><option>Porque tiene mayor volumen de distribución</option><option>Mayor sensibilidad por ↑ fracción libre (↓ albúmina) y ↓ clearance hepático</option><option>Porque el propofol 1% es más concentrado en ancianos</option></select>
@@ -960,18 +1014,14 @@ h4{font-family:var(--sans);font-size:9pt;font-weight:600;color:var(--gray-600);m
     <!-- A2 KETAMINA -->
     <div class="ex-item">
       <div class="ex-label"><span class="ex-num">A2</span> Ketamina — Analgesia subanestésica en dolor agudo &nbsp;<span class="ex-pts-auto">🤖 0.5 pts</span></div>
-      <div class="ex-context">Paciente <strong>masculino, 85 kg</strong>, trauma torácico cerrado, dolor EVA 9/10 en urgencias. Se decide ketamina subanestésica IV para analgesia. Ampolla disponible: 50 mg/mL.</div>
+      <div class="ex-context">Paciente <strong>femenina, 64 kg</strong>, fractura de fémur con dolor EVA 9/10 en urgencias. Se decide ketamina subanestésica IV para analgesia. Ampolla disponible: 50 mg/mL.</div>
       <div class="calc-block" id="calc-A2">
       <div class="answer-line">
-        Dosis mínima (0.1 mg/kg): <input data-ans="8.5" class="ans-input ans-sm" inputmode="decimal" placeholder="?"> mg ÷ 50 mg/mL = <input data-ans="0.17" class="ans-input ans-sm" inputmode="decimal" placeholder="?"> mL
+        Dosis mínima (0.1 mg/kg): <input data-ans="6.4" class="ans-input ans-sm" inputmode="decimal" placeholder="?"> mg ÷ 50 mg/mL = <input data-ans="0.128" class="ans-input ans-sm" inputmode="decimal" placeholder="?"> mL
       </div>
       <div class="answer-line">
-        Dosis máxima (0.5 mg/kg): <input data-ans="42.5" class="ans-input ans-sm" inputmode="decimal" placeholder="?"> mg ÷ 50 mg/mL = <input data-ans="0.85" class="ans-input ans-sm" inputmode="decimal" placeholder="?"> mL
+        Dosis máxima (0.5 mg/kg): <input data-ans="32" class="ans-input ans-sm" inputmode="decimal" placeholder="?"> mg ÷ 50 mg/mL = <input data-ans="0.64" class="ans-input ans-sm" inputmode="decimal" placeholder="?"> mL
       </div>
-      </div>
-      <div class="mc-row"><span class="mc-label">Rango correcto (mg y mL):</span>
-        <select class="mc-select" onchange="chk(this,'8.5 – 42.5 mg → 0.17 – 0.85 mL','fbA2')"><option value="">— elegir —</option><option>8.5 – 42.5 mg → 0.17 – 0.85 mL</option><option>85 – 425 mg → 1.7 – 8.5 mL</option><option>4.25 – 17 mg → 0.085 – 0.34 mL</option><option>17 – 85 mg → 0.34 – 1.7 mL</option></select>
-        <span class="fb" id="fbA2"></span>
       </div>
       <div class="mc-row"><span class="mc-label">¿Por qué ketamina en lugar de morfina en este caso?</span>
         <select class="mc-select" onchange="chk(this,'Ketamina preserva ventilación y no produce hipotensión — ideal en trauma torácico con riesgo respiratorio','fbA2b')"><option value="">— elegir —</option><option>Ketamina tiene menor duración de acción</option><option>Ketamina preserva ventilación y no produce hipotensión — ideal en trauma torácico con riesgo respiratorio</option><option>Ketamina no requiere acceso IV</option></select>
@@ -982,21 +1032,17 @@ h4{font-family:var(--sans);font-size:9pt;font-weight:600;color:var(--gray-600);m
     <!-- A3 ETOMIDATO -->
     <div class="ex-item">
       <div class="ex-label"><span class="ex-num">A3</span> Etomidato — ISR en shock cardiogénico &nbsp;<span class="ex-pts-auto">🤖 0.5 pts</span></div>
-      <div class="ex-context">Paciente <strong>masculino, 70 kg</strong>, infarto agudo de miocardio con falla cardíaca aguda. FEVI estimada 25%. Requiere ISR urgente para intubación. Etomidato disponible: 2 mg/mL (vial 10 mL).</div>
+      <div class="ex-context">Paciente <strong>femenina, 58 kg</strong>, estenosis aórtica crítica con hipotensión y edema pulmonar. Requiere ISR urgente para intubación. FEVI estimada 30%. Etomidato disponible: 2 mg/mL (vial 10 mL).</div>
       <div class="calc-block" id="calc-A3">
       <div class="answer-line">
-        Dosis (0.2–0.3 mg/kg): mínima = <input data-ans="14" class="ans-input ans-sm" inputmode="decimal" placeholder="?"> mg · máxima = <input data-ans="21" class="ans-input ans-sm" inputmode="decimal" placeholder="?"> mg
+        Dosis (0.2–0.3 mg/kg): mínima = <input data-ans="11.6" class="ans-input ans-sm" inputmode="decimal" placeholder="?"> mg · máxima = <input data-ans="17.4" class="ans-input ans-sm" inputmode="decimal" placeholder="?"> mg
       </div>
       <div class="answer-line">
-        Volumen (a 2 mg/mL): mínimo = <input data-ans="7" class="ans-input ans-sm" inputmode="decimal" placeholder="?"> mL · máximo = <input data-ans="10.5" class="ans-input ans-sm" inputmode="decimal" placeholder="?"> mL de vial de <input data-ans="10" class="ans-input ans-sm" inputmode="decimal" placeholder="?"> mL
+        Volumen (a 2 mg/mL): mínimo = <input data-ans="5.8" class="ans-input ans-sm" inputmode="decimal" placeholder="?"> mL · máximo = <input data-ans="8.7" class="ans-input ans-sm" inputmode="decimal" placeholder="?"> mL de vial de <input data-ans="10" class="ans-input ans-sm" inputmode="decimal" placeholder="?"> mL
       </div>
-      </div>
-      <div class="mc-row"><span class="mc-label">Dosis, volumen y fracción del vial correctos:</span>
-        <select class="mc-select" onchange="chk(this,'14 – 21 mg → 7 – 10.5 mL del vial de 10 mL','fbA3')"><option value="">— elegir —</option><option>7 – 10.5 mg → 3.5 – 5.25 mL del vial de 10 mL</option><option>14 – 21 mg → 7 – 10.5 mL del vial de 10 mL</option><option>21 – 28 mg → 10.5 – 14 mL del vial de 10 mL</option><option>4.2 – 6.3 mg → 2.1 – 3.15 mL del vial de 10 mL</option></select>
-        <span class="fb" id="fbA3"></span>
       </div>
       <div class="mc-row"><span class="mc-label">¿Por qué se elige etomidato y no propofol en este paciente?</span>
-        <select class="mc-select" onchange="chk(this,'Etomidato no produce depresión miocárdica significativa — propofol causaría hipotensión severa con FEVI 25%','fbA3b')"><option value="">— elegir —</option><option>Etomidato tiene mayor duración de acción</option><option>Etomidato no produce depresión miocárdica significativa — propofol causaría hipotensión severa con FEVI 25%</option><option>Etomidato proporciona mejor analgesia</option></select>
+        <select class="mc-select" onchange="chk(this,'Etomidato no produce depresión miocárdica significativa — propofol causaría hipotensión severa con FEVI 30%','fbA3b')"><option value="">— elegir —</option><option>Etomidato tiene mayor duración de acción</option><option>Etomidato no produce depresión miocárdica significativa — propofol causaría hipotensión severa con FEVI 30%</option><option>Etomidato proporciona mejor analgesia</option></select>
         <span class="fb" id="fbA3b"></span>
       </div>
     </div>
@@ -1004,7 +1050,7 @@ h4{font-family:var(--sans);font-size:9pt;font-weight:600;color:var(--gray-600);m
     <!-- A4 TIOPENTAL -->
     <div class="ex-item">
       <div class="ex-label"><span class="ex-num">A4</span> Tiopental — Reconstitución y cálculo &nbsp;<span class="ex-pts-auto">🤖 0.5 pts</span></div>
-      <div class="ex-context">Paciente <strong>masculino, 68 kg</strong>. UCI neurológica. Se decide coma barbitúrico para hipertensión intracraneal refractaria. Dispone de un vial de tiopental sódico 1 g. Lo reconstituye con <strong>40 mL de agua estéril</strong>.</div>
+      <div class="ex-context">Paciente <strong>femenina, 74 kg</strong>. UCI neurológica. Se requiere tiopental para control de hipertensión intracraneal refractaria. Dispone de un vial de tiopental sódico 1 g y lo reconstituye con <strong>40 mL de agua estéril</strong>.</div>
       <div class="calc-block" id="calc-A4a">
       <div class="answer-line">
         Concentración: 1.000 mg ÷ <input data-ans="40" class="ans-input ans-sm" inputmode="decimal" placeholder="?"> mL = <input data-ans="25" class="ans-input ans-sm" inputmode="decimal" placeholder="?"> mg/mL
@@ -1012,26 +1058,18 @@ h4{font-family:var(--sans);font-size:9pt;font-weight:600;color:var(--gray-600);m
       </div>
       <div class="calc-block" id="calc-A4b">
       <div class="answer-line">
-        Dosis inducción (3–5 mg/kg): mínima = <input data-ans="204" class="ans-input ans-sm" inputmode="decimal" placeholder="?"> mg · máxima = <input data-ans="340" class="ans-input ans-sm" inputmode="decimal" placeholder="?"> mg
+        Dosis inducción (3–5 mg/kg): mínima = <input data-ans="222" class="ans-input ans-sm" inputmode="decimal" placeholder="?"> mg · máxima = <input data-ans="370" class="ans-input ans-sm" inputmode="decimal" placeholder="?"> mg
       </div>
       <div class="answer-line">
-        Volumen: mínimo = <input data-ans="8.16" class="ans-input ans-sm" inputmode="decimal" placeholder="?"> mL · máximo = <input data-ans="13.6" class="ans-input ans-sm" inputmode="decimal" placeholder="?"> mL
+        Volumen: mínimo = <input data-ans="8.88" class="ans-input ans-sm" inputmode="decimal" placeholder="?"> mL · máximo = <input data-ans="14.8" class="ans-input ans-sm" inputmode="decimal" placeholder="?"> mL
       </div>
       </div>
-      <div class="mc-row"><span class="mc-label">Concentración tras reconstitución con 40 mL:</span>
-        <select class="mc-select" onchange="chk(this,'25 mg/mL (2.5%)','fbA4a')"><option value="">— elegir —</option><option>50 mg/mL (5%)</option><option>25 mg/mL (2.5%)</option><option>20 mg/mL (2%)</option><option>10 mg/mL (1%)</option></select>
-        <span class="fb" id="fbA4a"></span>
       </div>
-      <div class="mc-row"><span class="mc-label">Volumen para dosis de inducción (3–5 mg/kg, 68 kg):</span>
-        <select class="mc-select" onchange="chk(this,'204 – 340 mg → 8.16 – 13.6 mL','fbA4b')"><option value="">— elegir —</option><option>102 – 170 mg → 4.08 – 6.8 mL</option><option>204 – 340 mg → 8.16 – 13.6 mL</option><option>340 – 510 mg → 13.6 – 20.4 mL</option><option>204 – 340 mg → 4.08 – 6.8 mL</option></select>
-        <span class="fb" id="fbA4b"></span>
-      </div>
-    </div>
 
     <!-- A5 MIDAZOLAM -->
     <div class="ex-item">
       <div class="ex-label"><span class="ex-num">A5</span> Midazolam — Premedicación + reversión con flumazenil &nbsp;<span class="ex-pts-auto">🤖 0.5 pts</span></div>
-      <div class="ex-context">Paciente <strong>femenina, 55 kg</strong>, histeroscopia ambulatoria. Premedicación con midazolam IV. Ampolla disponible: <strong>15 mg / 3 mL</strong>. Al final del procedimiento presenta somnolencia excesiva y se decide revertir con flumazenil (0.1 mg/mL).</div>
+      <div class="ex-context">Paciente <strong>masculino, 70 kg</strong>, colonoscopia ambulatoria. Premedicación con midazolam IV. Ampolla disponible: <strong>15 mg / 3 mL</strong>. Al final del procedimiento presenta sedación excesiva y se decide revertir con flumazenil (0.1 mg/mL).</div>
       <div class="calc-block" id="calc-A5a">
       <div class="answer-line">
         Concentración ampolla midazolam: 15 mg ÷ 3 mL = <input data-ans="5" class="ans-input ans-sm" inputmode="decimal" placeholder="?"> mg/mL
@@ -1039,22 +1077,10 @@ h4{font-family:var(--sans);font-size:9pt;font-weight:600;color:var(--gray-600);m
       </div>
       <div class="calc-block" id="calc-A5b">
       <div class="answer-line">
-        Dosis premedicación (0.02–0.05 mg/kg): <input data-ans="1.1" class="ans-input ans-sm" inputmode="decimal" placeholder="?"> – <input data-ans="2.75" class="ans-input ans-sm" inputmode="decimal" placeholder="?"> mg → <input data-ans="0.22" class="ans-input ans-sm" inputmode="decimal" placeholder="?"> – <input data-ans="0.55" class="ans-input ans-sm" inputmode="decimal" placeholder="?"> mL
+        Dosis premedicación (0.02–0.05 mg/kg): <input data-ans="1.4" class="ans-input ans-sm" inputmode="decimal" placeholder="?"> – <input data-ans="3.5" class="ans-input ans-sm" inputmode="decimal" placeholder="?"> mg → <input data-ans="0.28" class="ans-input ans-sm" inputmode="decimal" placeholder="?"> – <input data-ans="0.7" class="ans-input ans-sm" inputmode="decimal" placeholder="?"> mL
       </div>
       </div>
-      <div class="mc-row"><span class="mc-label">Concentración de la ampolla:</span>
-        <select class="mc-select" onchange="chk(this,'5 mg/mL','fbA5a')"><option value="">— elegir —</option><option>1 mg/mL</option><option>5 mg/mL</option><option>10 mg/mL</option><option>15 mg/mL</option></select>
-        <span class="fb" id="fbA5a"></span>
-      </div>
-      <div class="mc-row"><span class="mc-label">Dosis y volumen de premedicación correctos:</span>
-        <select class="mc-select" onchange="chk(this,'1.1 – 2.75 mg → 0.22 – 0.55 mL','fbA5b')"><option value="">— elegir —</option><option>2.75 – 5.5 mg → 0.55 – 1.1 mL</option><option>1.1 – 2.75 mg → 0.22 – 0.55 mL</option><option>0.55 – 1.1 mg → 0.11 – 0.22 mL</option><option>5.5 – 8.25 mg → 1.1 – 1.65 mL</option></select>
-        <span class="fb" id="fbA5b"></span>
-      </div>
-      <div class="mc-row"><span class="mc-label">Primera dosis de flumazenil para reversión:</span>
-        <select class="mc-select" onchange="chk(this,'0.2 mg IV en 15 s (2 mL de la solución 0.1 mg/mL)','fbA5c')"><option value="">— elegir —</option><option>1 mg IV en bolo único</option><option>0.2 mg IV en 15 s (2 mL de la solución 0.1 mg/mL)</option><option>0.5 mg IV en 30 s</option><option>0.1 mg IV en 60 s</option></select>
-        <span class="fb" id="fbA5c"></span>
-      </div>
-      <button class="correct-btn" onclick="corregir('A',10,['fbA1','fbA1b','fbA2','fbA2b','fbA3','fbA3b','fbA4a','fbA4b','fbA5a','fbA5b','fbA5c'],2.5)">Corregir Módulo A (2.5 pts)</button>
+      <button class="correct-btn" onclick="corregirA()">Corregir Módulo A (2.5 pts)</button>
     </div>
   </div>
 </div>
@@ -1080,7 +1106,7 @@ h4{font-family:var(--sans);font-size:9pt;font-weight:600;color:var(--gray-600);m
 
     <div class="ex-item">
       <div class="ex-label"><span class="ex-num">B2</span> Síndrome de infusión de propofol (PRIS) &nbsp;<span class="ex-pts-manual">✏️ 0.5 pts · docente</span></div>
-      <div class="ex-context">Paciente en UCI recibe propofol a 5 mg/kg/h por 60 horas. Al tercer día presenta: acidosis metabólica grave, CK 45.000 U/L, mioglobinuria, nuevo bloqueo de rama izquierda en ECG y TA 70/40 a pesar de vasopresores.</div>
+      <div class="ex-context">Paciente en UCI recibe propofol a 4.8 mg/kg/h durante 72 horas para sedación prolongada. Presenta acidosis metabólica con lactato elevado, CK 38.000 U/L, mioglobinuria, arritmia ventricular de nueva aparición y TA 68/38 a pesar de soporte vasopresor.</div>
       <div class="manual-block">
         <div class="manual-block-label">✏️ Calificación docente — 0.5 pts</div>
         <div class="open-question">¿Cuál es el diagnóstico? Explique el mecanismo fisiopatológico del PRIS (qué ocurre a nivel mitocondrial) y describa la conducta inmediata con justificación de cada paso.</div>
@@ -1138,6 +1164,7 @@ h4{font-family:var(--sans);font-size:9pt;font-weight:600;color:var(--gray-600);m
   <span style="font-family:var(--sans);font-size:8.5pt;color:var(--gray-600);">Autocorregible (Módulo A) &nbsp;|&nbsp; <span style="color:var(--amber);font-weight:600;">✏️ 2.50 pts · Módulo B calificado por docente</span></span>
 </div>
 </div>
+</div><!-- /print-first-page -->
 </div><!-- /taller-tab -->
 
 </div><!-- /page -->
@@ -1222,24 +1249,54 @@ function checkChains(fbId){
 }
 
 var pts={A:0};
-function corregir(mod,total,fbIds,maxPts){
+
+/* CORRECCIÓN MÓDULO A
+   Los desplegables se conservan únicamente en preguntas de razonamiento.
+   Los ejercicios de cálculo se califican directamente a partir de sus casillas numéricas. */
+function corregirA(){
+  var ejercicios=[
+    {name:'A1', blocks:['calc-A1'], fb:'fbA1b'},
+    {name:'A2', blocks:['calc-A2'], fb:'fbA2b'},
+    {name:'A3', blocks:['calc-A3'], fb:'fbA3b'},
+    {name:'A4', blocks:['calc-A4a','calc-A4b'], fb:null},
+    {name:'A5', blocks:['calc-A5a','calc-A5b'], fb:null}
+  ];
   var ok=0;
-  fbIds.forEach(function(fbId){
-    var fb=document.getElementById(fbId);
-    var ans=answers[fbId];
-    var chainOk=checkChains(fbId);
-    if(!fb)return;
-    if(!ans||!ans.val){fb.textContent='— sin respuesta';fb.className='fb';return;}
-    var selectOk=ans.val===ans.correct;
-    if(selectOk && chainOk){ok++;fb.textContent='✓ correcto';fb.className='fb ok';}
-    else if(selectOk && !chainOk){fb.textContent='✗ cálculo incorrecto (revise las casillas en rojo)';fb.className='fb err';}
-    else{fb.textContent='✗ incorrecto';fb.className='fb err';}
+  ejercicios.forEach(function(ex){
+    var calcOk=true;
+    ex.blocks.forEach(function(bid){
+      var block=document.getElementById(bid);
+      if(!block)return;
+      block.querySelectorAll('input[data-ans]').forEach(function(inp){
+        var expected=parseNum(inp.getAttribute('data-ans'));
+        var given=parseNum(inp.value);
+        var good=numClose(given,expected);
+        inp.classList.remove('fi-ok','fi-err');
+        inp.classList.add(good?'fi-ok':'fi-err');
+        if(!good)calcOk=false;
+      });
+    });
+
+    var reasoningOk=true;
+    if(ex.fb){
+      var ans=answers[ex.fb];
+      var fb=document.getElementById(ex.fb);
+      reasoningOk=!!(ans && ans.val && ans.val===ans.correct);
+      if(fb){
+        fb.textContent=reasoningOk?'✓ correcto':'✗ incorrecto';
+        fb.className='fb '+(reasoningOk?'ok':'err');
+      }
+    }
+
+    if(calcOk && reasoningOk) ok++;
   });
-  var p=(ok/total)*maxPts;
-  pts[mod]=p;
+
+  var p=(ok/ejercicios.length)*2.5;
+  pts.A=p;
   actualizarNotas();
-  alert('Módulo '+mod+' corregido: '+ok+'/'+total+' correctas = '+p.toFixed(2)+' pts autocorregibles');
+  alert('Módulo A corregido: '+ok+'/'+ejercicios.length+' ejercicios completos = '+p.toFixed(2)+' pts autocorregibles');
 }
+
 function actualizarNotas(){
   var total=pts.A||0;
   var nt=document.getElementById('notaHip');
@@ -1269,7 +1326,7 @@ window.addEventListener('beforeprint',function(){
 function generarCodigoAL(){
   if(window.__codigoAL) return window.__codigoAL;
   var chars='ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
-  var s='AL-';
+  var s='HN-';
   if(window.crypto && crypto.getRandomValues){
     var a=new Uint32Array(6); crypto.getRandomValues(a);
     for(var i=0;i<6;i++) s+=chars[a[i]%chars.length];
@@ -1280,6 +1337,8 @@ function generarCodigoAL(){
   return s;
 }
 function aplicarCodigoAntiPlagio(codigo,nom,univ){
+  var wm=document.getElementById('pdfWatermark');
+  if(wm) wm.textContent='COPIA INDIVIDUAL · '+codigo+' · '+nom;
   ['phCodigo','pfCodigo'].forEach(function(id){
     var el=document.getElementById(id); if(el) el.textContent='Código: '+codigo;
   });
@@ -1320,13 +1379,23 @@ function dlPDF(){
     var el=document.getElementById(id); if(el) el.textContent=univ;
   });
   ['phGuia','pfGuia'].forEach(function(id){
-    var el=document.getElementById(id); if(el) el.textContent='Taller';
+    var el=document.getElementById(id); if(el) el.textContent='Taller — Agentes Hipnóticos en Anestesia';
   });
   ['phFecha','pfFecha'].forEach(function(id){
     var el=document.getElementById(id); if(el) el.textContent=f;
   });
 
-  aplicarCodigoAntiPlagio(codigo,nom,univ);
+  var wm=document.getElementById('pdfWatermark');
+  if(wm){
+    var wc=document.getElementById('wmCode'); if(wc) wc.textContent=codigo;
+    var ws=document.getElementById('wmStudent'); if(ws) ws.textContent=nom+' · '+univ;
+  }
+
+  var ps=document.getElementById('printStudent'); if(ps) ps.textContent=nom;
+  var pc=document.getElementById('printCode'); if(pc) pc.textContent=codigo;
+  var pscore=document.getElementById('printScore');
+  var nota=document.getElementById('notaHip') ? document.getElementById('notaHip').textContent : '0.00 / 2.50';
+  if(pscore) pscore.textContent=nota;
 
   var taller=document.getElementById('taller-tab');
   if(taller){

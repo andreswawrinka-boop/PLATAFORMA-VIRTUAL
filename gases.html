@@ -372,6 +372,11 @@ body{ background:#F6EAF0 !important; font-family:var(--sans); }
 .seccion-numero{ background:rgba(255,255,255,.24) !important; font-family:var(--mono); }
 .seccion-titulo{ font-family:'Bebas Neue',sans-serif !important; font-size:19pt !important; font-weight:400 !important; letter-spacing:1.2px; }
 
+/* AJUSTE DE ANCHO — igual al taller NVPO */
+.page{max-width:960px !important;margin:22px auto 60px !important;width:100%;}
+.contenedor{max-width:none !important;padding:42px 56px 56px !important;}
+@media(max-width:720px){.contenedor{padding:28px 22px 40px !important;}}
+
 /* ── TALLER ── */
 .taller-header{ background:var(--hero-grad) !important; }
 .taller-header h2{ font-family:'Bebas Neue',sans-serif !important; letter-spacing:2px; }
@@ -404,10 +409,38 @@ body{ background:#F6EAF0 !important; font-family:var(--sans); }
 .anti-code{display:none;}
 @media print{.anti-code{display:inline-flex!important;align-items:center;margin-left:auto;font-family:var(--mono);font-size:7pt;font-weight:700;color:#991b1b;background:#fef2f2;border:1px solid #fca5a5;border-radius:4px;padding:2px 6px;white-space:nowrap;}.page-print-header strong,.print-footer-fixed strong{font-family:var(--mono);font-weight:700;}}
 @media screen{.anti-code{display:none!important;}}
+
+/* AJUSTE DEFINITIVO — TALLER CON EL MISMO ANCHO VISIBLE QUE TEORÍA */
+.page{max-width:860px !important;width:100% !important;margin:22px auto 60px !important;box-sizing:border-box !important;}
+#taller-tab{display:block;box-sizing:border-box !important;width:860px !important;max-width:100% !important;margin:0 auto !important;}
+#taller-tab .taller-header,
+#taller-tab .taller-content{box-sizing:border-box !important;width:100% !important;max-width:860px !important;margin-left:auto !important;margin-right:auto !important;}
+@media(max-width:860px){
+  .page{width:100% !important;margin-left:auto !important;margin-right:auto !important;}
+  #taller-tab{width:100% !important;max-width:100% !important;}
+  #taller-tab .taller-header,
+  #taller-tab .taller-content{width:100% !important;max-width:100% !important;}
+}
+
+
+/* IMPRESIÓN · MARCA DE AGUA EN TODAS LAS PÁGINAS + NOTA SOLO EN LA PRIMERA */
+.print-watermark,.print-first-score{display:none;}
+@media print{
+  .print-watermark{display:flex!important;position:fixed!important;inset:0!important;z-index:999999!important;pointer-events:none!important;align-items:center!important;justify-content:center!important;}
+  .print-watermark-inner{transform:rotate(-31deg);text-align:center;font-family:var(--sans);font-weight:800;color:rgba(80,80,80,.105);font-size:28pt;line-height:1.35;letter-spacing:.04em;white-space:nowrap;}
+  .print-watermark-inner span{display:block;}
+  .print-watermark-inner .wm-code{font-family:var(--mono);font-size:18pt;letter-spacing:.14em;}
+  .print-first-score{display:flex!important;margin:14px 0 0!important;padding:10px 14px!important;border:1.5px solid rgba(255,255,255,.65)!important;border-radius:9px!important;background:rgba(255,255,255,.13)!important;align-items:center!important;gap:12px!important;width:max-content!important;max-width:100%!important;position:relative!important;z-index:2!important;page-break-inside:avoid!important;}
+  .print-first-score-label{font-family:var(--sans);font-size:8pt;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:#fff;}
+  .print-first-score-value{font-family:var(--mono);font-size:15pt;font-weight:800;color:#fff;}
+}
+
 </style>
 </head>
 <body>
 <div class="page">
+<div class="print-watermark" aria-hidden="true"><div class="print-watermark-inner"><span id="wmNombre"></span><span id="wmUniversidad"></span><span class="wm-code" id="wmCodigo"></span></div></div>
+
 <div class="page-print-header"><span id="phNombre"></span> · <span id="phUniversidad"></span> · <span id="phGuia"></span> · <span id="phFecha"></span> · Código: <strong id="phCodigo"></strong></div>
 <div class="print-footer-fixed">
   <span><strong id="pfNombre"></strong> · <span id="pfUniversidad"></span></span>
@@ -934,6 +967,7 @@ body{ background:#F6EAF0 !important; font-family:var(--sans); }
 <div class="taller-header">
   <h2>Taller Calificado – <em>Gases Arteriales</em></h2>
   <div class="taller-meta">6.0 puntos · 8 casos clínicos + 5 cálculos · Interpretación sistemática · Dr. Andrés Robayo C.</div>
+  <div class="print-first-score"><span class="print-first-score-label">Nota autocorregible</span><span class="print-first-score-value" id="printNotaGA">0.00 / 3.50</span></div>
 </div>
 <div class="taller-content">
 
@@ -953,7 +987,7 @@ body{ background:#F6EAF0 !important; font-family:var(--sans); }
     <!-- CASO 1 -->
     <div class="ex-item">
       <div class="ex-label"><span class="ex-num">Caso 1</span> Postoperatorio de laparotomía — Bogotá, 2.640 msnm <span class="ex-pts-auto">2 preg · 0.625 pts</span></div>
-      <div class="ex-context"><strong>Paciente:</strong> Hombre 52 años, postoperatorio de colectomía laparoscópica 4 horas antes. Recibió 4 L de SS 0.9% intraoperatoria. Lúcido, sin disnea.</div>
+      <div class="ex-context"><strong>Paciente:</strong> Hombre 59 años, postoperatorio de resección laparoscópica de colon 5 horas antes. Durante la cirugía recibió 4 L de SS 0.9%. Está despierto, hemodinámicamente estable y sin disnea.</div>
       <div class="gas-vals">
         <div class="gv-item"><span class="gv-param">pH</span><span class="gv-val anormal">7.26</span><span class="gv-unit">—</span></div>
         <div class="gv-item"><span class="gv-param">PaCO₂</span><span class="gv-val">28</span><span class="gv-unit">mmHg</span></div>
@@ -987,7 +1021,7 @@ body{ background:#F6EAF0 !important; font-family:var(--sans); }
     <!-- CASO 2 -->
     <div class="ex-item">
       <div class="ex-label"><span class="ex-num">Caso 2</span> EPOC exacerbado en UCI — Bogotá <span class="ex-pts-auto">2 preg · 0.625 pts</span></div>
-      <div class="ex-context"><strong>Paciente:</strong> Mujer 68 años, EPOC GOLD III conocida, residente de Bogotá toda su vida. Ingresa por disnea aguda, fiebre y expectoración purulenta.</div>
+      <div class="ex-context"><strong>Paciente:</strong> Mujer 71 años, EPOC GOLD III conocida, residente de Bogotá desde hace décadas. Ingresa por aumento progresivo de disnea, fiebre y mayor volumen de esputo purulento.</div>
       <div class="gas-vals">
         <div class="gv-item"><span class="gv-param">pH</span><span class="gv-val anormal">7.31</span><span class="gv-unit">—</span></div>
         <div class="gv-item"><span class="gv-param">PaCO₂</span><span class="gv-val anormal">68</span><span class="gv-unit">mmHg</span></div>
@@ -1020,7 +1054,7 @@ body{ background:#F6EAF0 !important; font-family:var(--sans); }
     <!-- CASO 3 -->
     <div class="ex-item">
       <div class="ex-label"><span class="ex-num">Caso 3</span> Shock séptico con trastorno mixto — Stewart <span class="ex-pts-auto">2 preg · 0.625 pts</span></div>
-      <div class="ex-context"><strong>Paciente:</strong> Hombre 61 años, peritonitis por perforación intestinal. Sepsis grave. Albúmina 1.8 g/dL. Recibió 3 L de Ringer Lactato.</div>
+      <div class="ex-context"><strong>Paciente:</strong> Hombre 57 años, peritonitis secundaria a perforación de colon. Shock séptico en reanimación inicial. Albúmina 1.8 g/dL. Recibió 3 L de Ringer Lactato.</div>
       <div class="gas-vals">
         <div class="gv-item"><span class="gv-param">pH</span><span class="gv-val anormal">7.20</span><span class="gv-unit">—</span></div>
         <div class="gv-item"><span class="gv-param">PaCO₂</span><span class="gv-val">26</span><span class="gv-unit">mmHg</span></div>
@@ -1053,7 +1087,7 @@ body{ background:#F6EAF0 !important; font-family:var(--sans); }
     <!-- CASO 4 -->
     <div class="ex-item">
       <div class="ex-label"><span class="ex-num">Caso 4</span> Hiperventilación mecánica + aspiración gástrica — trastorno mixto <span class="ex-pts-auto">2 preg · 0.625 pts</span></div>
-      <div class="ex-context"><strong>Paciente:</strong> Mujer 44 años, ventilada mecánicamente tras cirugía de fosa posterior. PEEP 5 cmH₂O. La enfermera reporta que aspiró 200 mL de contenido gástrico por SNG durante la noche. VC 540 mL (peso ideal 60 kg).</div>
+      <div class="ex-context"><strong>Paciente:</strong> Mujer 49 años, ventilada mecánicamente en UCI tras cirugía de columna cervical. PEEP 5 cmH₂O. Durante la noche presentó drenaje de 200 mL de contenido gástrico por sonda nasogástrica. VC 540 mL (peso ideal 60 kg).</div>
       <div class="gas-vals">
         <div class="gv-item"><span class="gv-param">pH</span><span class="gv-val anormal">7.58</span><span class="gv-unit">—</span></div>
         <div class="gv-item"><span class="gv-param">PaCO₂</span><span class="gv-val anormal">28</span><span class="gv-unit">mmHg</span></div>
@@ -1086,7 +1120,7 @@ body{ background:#F6EAF0 !important; font-family:var(--sans); }
     <!-- CASO 5 -->
     <div class="ex-item">
       <div class="ex-label"><span class="ex-num">Caso 5</span> Cetoacidosis diabética con gap delta-delta <span class="ex-pts-auto">2 preg · 0.625 pts</span></div>
-      <div class="ex-context"><strong>Paciente:</strong> Mujer 28 años, DM tipo 1. Ingresa con vómitos a repetición desde hace 3 días, glucemia 480 mg/dL. Sin diarrea. Na⁺ 136, Cl⁻ 94 mEq/L.</div>
+      <div class="ex-context"><strong>Paciente:</strong> Mujer 35 años, DM tipo 1, consulta por poliuria, vómitos repetidos y dolor abdominal de 24 horas de evolución. Glucemia 480 mg/dL. Sin diarrea. Na⁺ 136, Cl⁻ 94 mEq/L.</div>
       <div class="gas-vals">
         <div class="gv-item"><span class="gv-param">pH</span><span class="gv-val anormal">7.18</span><span class="gv-unit">—</span></div>
         <div class="gv-item"><span class="gv-param">PaCO₂</span><span class="gv-val anormal">22</span><span class="gv-unit">mmHg</span></div>
@@ -1119,7 +1153,7 @@ body{ background:#F6EAF0 !important; font-family:var(--sans); }
     <!-- CASO 6 -->
     <div class="ex-item">
       <div class="ex-label"><span class="ex-num">Caso 6</span> SDRA moderado — PaFi y SaFi en Bogotá <span class="ex-pts-auto">2 preg · 0.625 pts</span></div>
-      <div class="ex-context"><strong>Paciente:</strong> Hombre 55 años, ventilado mecánicamente en UCI de Bogotá. SDRA por neumonía. FiO₂ actual: 0.55. SpO₂ 89%.</div>
+      <div class="ex-context"><strong>Paciente:</strong> Mujer 63 años, ventilada mecánicamente en UCI de Bogotá por SDRA secundario a neumonía adquirida en la comunidad. FiO₂ actual: 0.55. SpO₂ 89%.</div>
       <div class="gas-vals">
         <div class="gv-item"><span class="gv-param">pH</span><span class="gv-val">7.36</span><span class="gv-unit">—</span></div>
         <div class="gv-item"><span class="gv-param">PaCO₂</span><span class="gv-val">42</span><span class="gv-unit">mmHg</span></div>
@@ -1152,7 +1186,7 @@ body{ background:#F6EAF0 !important; font-family:var(--sans); }
     <!-- CASO 7 -->
     <div class="ex-item">
       <div class="ex-label"><span class="ex-num">Caso 7</span> Hipoventilación pura vs enfermedad pulmonar — Gradiente A–a <span class="ex-pts-auto">2 preg · 0.625 pts</span></div>
-      <div class="ex-context"><strong>Paciente:</strong> Hombre 38 años, en postoperatorio inmediato de colecistectomía laparoscópica. Recibió morfina 10 mg IV. Somnoliento, FR 8 rpm. Bogotá 2.640 msnm. Pb estimada 560 mmHg, FiO₂ 0.21.</div>
+      <div class="ex-context"><strong>Paciente:</strong> Mujer 42 años, en recuperación inmediata tras artroscopia de rodilla. Recibió morfina 10 mg IV para analgesia. Está somnolienta, FR 8 rpm. Bogotá 2.640 msnm. Pb estimada 560 mmHg, FiO₂ 0.21.</div>
       <div class="gas-vals">
         <div class="gv-item"><span class="gv-param">pH</span><span class="gv-val anormal">7.28</span><span class="gv-unit">—</span></div>
         <div class="gv-item"><span class="gv-param">PaCO₂</span><span class="gv-val anormal">62</span><span class="gv-unit">mmHg</span></div>
@@ -1184,7 +1218,7 @@ body{ background:#F6EAF0 !important; font-family:var(--sans); }
     <!-- CASO 8 -->
     <div class="ex-item">
       <div class="ex-label"><span class="ex-num">Caso 8</span> Paro cardiorrespiratorio recuperado — trastorno mixto grave <span class="ex-pts-auto">2 preg · 0.625 pts</span></div>
-      <div class="ex-context"><strong>Paciente:</strong> Mujer 58 años, paro cardiorrespiratorio recuperado tras 12 min de RCP. Ventilada mecánicamente. FiO₂ 1.0 post-reanimación.</div>
+      <div class="ex-context"><strong>Paciente:</strong> Hombre 64 años, paro cardiorrespiratorio extrahospitalario recuperado tras 12 min de RCP. Se encuentra intubado y ventilado mecánicamente. FiO₂ 1.0 inmediatamente después de la reanimación.</div>
       <div class="gas-vals">
         <div class="gv-item"><span class="gv-param">pH</span><span class="gv-val anormal">6.98</span><span class="gv-unit">—</span></div>
         <div class="gv-item"><span class="gv-param">PaCO₂</span><span class="gv-val anormal">58</span><span class="gv-unit">mmHg</span></div>
@@ -1450,7 +1484,9 @@ function corregir(mod,total,fbIds,maxPts){
 }
 function actualizarNotas(){
   var nt=document.getElementById('notaGA');
-  if(nt)nt.textContent=((pts.A||0)+(pts.C||0)).toFixed(2)+' / 3.50';
+  var nota=((pts.A||0)+(pts.C||0)).toFixed(2)+' / 3.50';
+  if(nt)nt.textContent=nota;
+  var pn=document.getElementById('printNotaGA');if(pn)pn.textContent=nota;
 }
 function setupPrintAnswers(){
   document.querySelectorAll('textarea.open-area').forEach(function(ta){
@@ -1491,12 +1527,14 @@ function dlPDF(){
   document.getElementById('errG').style.display='none';
   var ahora=new Date();
   var f=ahora.toLocaleDateString('es-CO',{day:'2-digit',month:'long',year:'numeric'})+' '+ahora.toLocaleTimeString('es-CO',{hour:'2-digit',minute:'2-digit'});
-  ['phNombre','pfNombre'].forEach(id=>{var el=document.getElementById(id);if(el)el.textContent=nom;});
-  ['phUniversidad','pfUniversidad'].forEach(id=>{var el=document.getElementById(id);if(el)el.textContent=univ;});
+  ['phNombre','pfNombre','wmNombre'].forEach(id=>{var el=document.getElementById(id);if(el)el.textContent=nom;});
+  ['phUniversidad','pfUniversidad','wmUniversidad'].forEach(id=>{var el=document.getElementById(id);if(el)el.textContent=univ;});
   ['phGuia','pfGuia'].forEach(id=>{var el=document.getElementById(id);if(el)el.textContent='Taller — Gases Arteriales · Dr. Andrés Robayo C.';});
   ['phFecha','pfFecha'].forEach(id=>{var el=document.getElementById(id);if(el)el.textContent=f;});
   var codigo=generarCodigoAntiPlagio();
   aplicarMarcaAntiPlagio(codigo);
+  var wmC=document.getElementById('wmCodigo');if(wmC)wmC.textContent='Código: '+codigo;
+  actualizarNotas();
   document.querySelectorAll('.tab-content').forEach(t=>t.classList.remove('active'));
   document.getElementById('taller-tab').classList.add('active');
   setTimeout(function(){window.print();},300);

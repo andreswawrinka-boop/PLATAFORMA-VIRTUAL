@@ -280,11 +280,64 @@ footer{border-top:2px solid var(--navy);padding:18px 40px 24px;display:flex;just
   textarea.open-area{display:none!important;}
   .print-answer{display:block!important;font-family:'DM Sans',system-ui,sans-serif;font-size:9.5pt;color:#212529;line-height:1.6;border:1.5px solid #dee2e6;border-radius:5px;padding:8px 12px;min-height:60px;overflow:visible!important;white-space:pre-wrap;word-break:break-word;page-break-inside:avoid;}
   .print-answer:empty::after{content:'(sin respuesta)';color:#adb5bd;font-style:italic;}
+
+  /* Marca de agua: fija para repetirse en TODAS las páginas impresas/PDF.
+     Se mantiene tenue y no captura clics ni altera el flujo del documento. */
+  .print-watermark{
+    display:flex!important;
+    position:fixed!important;
+    inset:0!important;
+    z-index:9999!important;
+    pointer-events:none!important;
+    align-items:center!important;
+    justify-content:center!important;
+    transform:none!important;
+    opacity:.115!important;
+    font-family:var(--sans)!important;
+    color:#5D4037!important;
+    text-align:center!important;
+    font-weight:700!important;
+    letter-spacing:.08em!important;
+    line-height:1.65!important;
+    -webkit-print-color-adjust:exact!important;
+    print-color-adjust:exact!important;
+  }
+  .print-watermark-inner{
+    transform:rotate(-28deg)!important;
+    font-size:15pt!important;
+    padding:18px 34px!important;
+    border:2px solid currentColor!important;
+    border-radius:8px!important;
+    background:transparent!important;
+    white-space:nowrap!important;
+  }
+  .print-watermark .wm-small{font-size:10pt!important;font-weight:600!important;}
+
+  /* La nota de calificación se imprime SOLO en la portada. */
+  .print-first-note{
+    display:block!important;
+    position:absolute!important;
+    right:42px!important;
+    bottom:28px!important;
+    z-index:20!important;
+    padding:9px 14px!important;
+    border:1px solid rgba(255,255,255,.45)!important;
+    border-radius:7px!important;
+    background:rgba(42,24,16,.88)!important;
+    color:#fff!important;
+    font-family:var(--sans)!important;
+    font-size:9pt!important;
+    line-height:1.25!important;
+    -webkit-print-color-adjust:exact!important;
+    print-color-adjust:exact!important;
+  }
+  .print-first-note strong{font-size:13pt!important;font-family:var(--mono)!important;}
 }
 @media screen{
   .page-print-header{display:none;}
   .print-footer-fixed{display:none;}
   .print-answer{display:none!important;}
+  .print-watermark,.print-first-note{display:none!important;}
 }
 @media(max-width:640px){
   .bloqueo-grid{grid-template-columns:1fr;}
@@ -382,9 +435,8 @@ body{ background:#F1ECE8 !important; font-family:var(--sans); }
 
 
 /* ── TRAZADO ECG (papel milimetrado, para interpretación visual) ── */
-.ecg-trace{ margin:10px 0 4px; border:1px solid rgba(0,0,0,.18); border-radius:10px; overflow:hidden;
-  background:#fff5f7; box-shadow:0 2px 10px rgba(0,0,0,.06); }
-.ecg-trace svg{ width:100%; height:auto; display:block; }
+.ecg-trace{ margin:14px 0 6px; border:1px solid #d7c7cc; border-radius:6px; overflow:hidden; background:#fffafb; box-shadow:0 2px 8px rgba(0,0,0,.06); }
+.ecg-trace svg{ width:100%; height:auto; display:block; min-height:150px; }
 .ecg-trace-ph{ font-family:var(--mono); font-size:8pt; color:#b03052; padding:34px 12px; text-align:center; }
 .ecg-theory{ margin:16px 0 4px; }
 .ecg-cap{ font-family:var(--sans); font-size:8.5pt; color:var(--gray-600); line-height:1.5;
@@ -400,6 +452,7 @@ body{ background:#F1ECE8 !important; font-family:var(--sans); }
 </head>
 <body>
 <div class="page">
+<div class="print-watermark" aria-hidden="true"><div class="print-watermark-inner"><div>ECG · TALLER ACADÉMICO</div><div><span id="wmNombre"></span> · <span id="wmUniversidad"></span></div><div class="wm-small">Código: <span id="wmCodigo"></span></div></div></div>
 <div class="page-print-header"><span id="phNombre"></span> · <span id="phUniversidad"></span> · <span id="phGuia"></span> · <span id="phFecha"></span> · Código: <strong id="phCodigo"></strong></div>
 <div class="print-footer-fixed">
   <span><strong id="pfNombre"></strong> · <span id="pfUniversidad"></span></span>
@@ -418,6 +471,7 @@ body{ background:#F1ECE8 !important; font-family:var(--sans); }
   <div class="cover-rule"></div>
   <h1>Guía de <span>Electrocardiografía</span><br>para Anestesiología</h1>
   <p class="cover-subtitle">Fundamentos, interpretación sistemática y correlación clínica perioperatoria. Material de apoyo para estudiantes de medicina en rotación basado en evidencia AHA/ACC/ESC vigente.</p>
+  <div class="print-first-note">Nota autocalificable: <strong id="printNotaECG">0.00 / 2.50</strong></div>
   <div class="cover-meta">
     <div><span class="cover-meta-label">Autor y Docente</span><span class="cover-meta-value">Dr. Andrés Robayo C.<br>Especialista en Anestesiología</span></div>
     <div><span class="cover-meta-label">Institución</span><span class="cover-meta-value">Hospital de Kennedy · Hospital de Bosa<br>Subred Suroccidente – Bogotá, Colombia</span></div>
@@ -1059,7 +1113,7 @@ body{ background:#F1ECE8 !important; font-family:var(--sans); }
 <div class="tab-content" id="taller-tab">
 <div class="taller-header">
   <h2>Taller Calificado – <em>Electrocardiografía</em></h2>
-  <div class="taller-meta">5.0 puntos · 8 trazados ECG · Interpretación sistemática perioperatoria · Dr. Andrés Robayo C.</div>
+  <div class="taller-meta">5.0 puntos · 8 casos ECG · Interpretación sistemática perioperatoria · Dr. Andrés Robayo C.</div>
 </div>
 
 <div class="cont">
@@ -1069,287 +1123,611 @@ body{ background:#F1ECE8 !important; font-family:var(--sans); }
 </div>
 
 <!-- MÓDULO A -->
-<div class="module">
-  <div class="module-header" style="background:var(--navy);">
-    <span class="module-tag">🤖 AUTOCORREGIBLE</span>
-    <span class="module-title">Módulo A — 8 trazados ECG con interpretación sistemática</span>
-    <span class="module-pts">2.5 pts</span>
-  </div>
-  <div class="module-body">
-
-    <!-- ECG 1 -->
-    <div class="ex-item">
-      <div class="ex-label"><span class="ex-num">ECG 1</span> Trazado preoperatorio — identificación de ritmo <span class="ex-pts-auto">2 preg · 0.625 pts</span></div>
-      <div class="ex-context"><strong>Contexto:</strong> Hombre 58 años, programado para colecistectomía laparoscópica. ECG preoperatorio de rutina. Asintomático.</div>
-      <div class="ecg-trace" data-ecg="1"><div class="ecg-trace-ph">Cargando trazado…</div></div>
-      <div class="ecg-strip">
-        <div class="ecg-lead"><span class="ecg-lead-name">FC</span><span class="ecg-lead-val">82 lpm</span></div>
-        <div class="ecg-lead"><span class="ecg-lead-name">P en DII</span><span class="ecg-lead-val">Positiva</span></div>
-        <div class="ecg-lead"><span class="ecg-lead-name">P en aVR</span><span class="ecg-lead-val anormal">Negativa</span></div>
-        <div class="ecg-lead"><span class="ecg-lead-name">PR</span><span class="ecg-lead-val">0.16 s</span></div>
-        <div class="ecg-lead"><span class="ecg-lead-name">QRS</span><span class="ecg-lead-val">0.09 s</span></div>
-        <div class="ecg-lead"><span class="ecg-lead-name">QTc</span><span class="ecg-lead-val">430 ms</span></div>
-        <div class="ecg-lead"><span class="ecg-lead-name">ST</span><span class="ecg-lead-val">Isoeléctrico</span></div>
-      </div>
-      <div class="mc-row"><span class="mc-label">Diagnóstico del ritmo:</span>
-        <select class="mc-select" onchange="chk(this,'Ritmo sinusal normal — todos los criterios cumplidos','fbE1a')">
+<div class="module"><div class="module-header" style="background:var(--navy);"><span class="module-tag">🤖 AUTOCORREGIBLE</span><span class="module-title">Módulo A — Lectura sistemática de ECG</span><span class="module-pts">2.5 pts</span></div><div class="module-body"><div class="alert-yellow" style="margin-bottom:14px;">📌 <strong>Instrucción:</strong> la frecuencia no está escrita: calcúlela usando la cuadrícula del ECG. En cada caso determine frecuencia, ritmo, eje, diagnóstico, manejo y, si existe compromiso isquémico, la cara y la arteria coronaria probable.</div>
+<div class="ex-item"><div class="ex-label"><span class="ex-num">ECG 1</span> Caso clínico — interpretación sistemática <span class="ex-pts-auto">6 preguntas · 0.3125 pts</span></div><div class="ex-context"><strong>Contexto:</strong> Mujer 52 años, tiroidectomía electiva. Asintomática, sin antecedentes cardiovasculares relevantes. El ECG se obtiene antes de la inducción.</div><div class="ecg-trace" data-ecg="1"><div class="ecg-trace-ph">Cargando trazado…</div></div><div class="ecg-strip"><div class="ecg-lead"><span class="ecg-lead-name">Velocidad</span><span class="ecg-lead-val">25 mm/s</span></div><div class="ecg-lead"><span class="ecg-lead-name">Calibración</span><span class="ecg-lead-val">10 mm/mV</span></div><div class="ecg-lead"><span class="ecg-lead-name">Clave</span><span class="ecg-lead-val">Interprete el trazado</span></div></div>
+      <div class="mc-row"><span class="mc-label">1. Frecuencia cardíaca:</span>
+        <select class="mc-select" onchange="chk(this,'≈82 lpm','fbE1a')">
           <option value="">— elegir —</option>
-          <option>Ritmo sinusal normal — todos los criterios cumplidos</option>
-          <option>Taquicardia sinusal — FC > 100 lpm</option>
-          <option>Flutter auricular con conducción 4:1</option>
-          <option>Ritmo de la unión AV — P negativa en DII</option>
+          <option>≈38 lpm</option>
+          <option>≈50 lpm</option>
+          <option>≈74 lpm</option>
+          <option>≈80 lpm</option>
+          <option>≈86 lpm</option>
+          <option>≈88 lpm</option>
+          <option>≈102 lpm</option>
+          <option>≈82 lpm</option>
         </select><span class="fb" id="fbE1a"></span>
       </div>
-      <div class="mc-row"><span class="mc-label">¿Cuántos cuadros grandes hay entre QRS si FC = 82 lpm? (aprox.)</span>
-        <select class="mc-select" onchange="chk(this,'~3.6 cuadros grandes (300 ÷ 82 ≈ 3.7)','fbE1b')">
+      <div class="mc-row"><span class="mc-label">2. Ritmo:</span>
+        <select class="mc-select" onchange="chk(this,'Ritmo sinusal','fbE1b')">
           <option value="">— elegir —</option>
-          <option>~3.6 cuadros grandes (300 ÷ 82 ≈ 3.7)</option>
-          <option>~5 cuadros grandes (300 ÷ 60 = 5)</option>
-          <option>~2 cuadros grandes (300 ÷ 150 = 2)</option>
-          <option>~4 cuadros grandes exactos siempre</option>
+          <option>Bradicardia sinusal</option>
+          <option>Fibrilación auricular con respuesta ventricular controlada</option>
+          <option>Flutter auricular</option>
+          <option>Ritmo de la unión</option>
+          <option>Taquicardia supraventricular</option>
+          <option>Ritmo sinusal</option>
+          <option>Ritmo sinusal con taquicardia</option>
         </select><span class="fb" id="fbE1b"></span>
       </div>
-    </div>
-
-    <!-- ECG 2 -->
-    <div class="ex-item">
-      <div class="ex-label"><span class="ex-num">ECG 2</span> Bradicardia intraoperatoria — causa y manejo <span class="ex-pts-auto">2 preg · 0.625 pts</span></div>
-      <div class="ex-context"><strong>Contexto:</strong> Mujer 42 años. Colecistectomía laparoscópica. Tras insuflación peritoneal y posición Trendelenburg, el monitor muestra:</div>
-      <div class="ecg-trace" data-ecg="2"><div class="ecg-trace-ph">Cargando trazado…</div></div>
-      <div class="ecg-strip">
-        <div class="ecg-lead"><span class="ecg-lead-name">FC</span><span class="ecg-lead-val anormal">38 lpm</span></div>
-        <div class="ecg-lead"><span class="ecg-lead-name">Ritmo</span><span class="ecg-lead-val">Regular</span></div>
-        <div class="ecg-lead"><span class="ecg-lead-name">P en DII</span><span class="ecg-lead-val">Positiva</span></div>
-        <div class="ecg-lead"><span class="ecg-lead-name">PR</span><span class="ecg-lead-val">0.17 s</span></div>
-        <div class="ecg-lead"><span class="ecg-lead-name">QRS</span><span class="ecg-lead-val">0.08 s</span></div>
-        <div class="ecg-lead"><span class="ecg-lead-name">PA</span><span class="ecg-lead-val anormal">74/40 mmHg</span></div>
-        <div class="ecg-lead"><span class="ecg-lead-name">ST</span><span class="ecg-lead-val">Isoeléctrico</span></div>
-      </div>
-      <div class="mc-row"><span class="mc-label">Diagnóstico del ECG y causa más probable:</span>
-        <select class="mc-select" onchange="chk(this,'Bradicardia sinusal severa por hipertono vagal (insuflación peritoneal + Trendelenburg)','fbE2a')">
+      <div class="mc-row"><span class="mc-label">3. Eje eléctrico:</span>
+        <select class="mc-select" onchange="chk(this,'Eje normal, alrededor de +30°','fbE1c')">
           <option value="">— elegir —</option>
-          <option>Bradicardia sinusal severa por hipertono vagal (insuflación peritoneal + Trendelenburg)</option>
-          <option>Bloqueo AV completo (3.er grado) — QRS disociado de la P</option>
-          <option>Fibrilación auricular de baja respuesta ventricular</option>
-          <option>Bradicardia sinusal por hipertiroidismo oculto</option>
+          <option>Eje normal, alrededor de +50°</option>
+          <option>Eje normal, alrededor de +60°</option>
+          <option>Desviación izquierda, cerca de −60°</option>
+          <option>Desviación derecha, cerca de +120°</option>
+          <option>Eje indeterminado, cerca de 180°</option>
+          <option>Eje normal, alrededor de +30°</option>
+          <option>Eje normal, alrededor de +45°</option>
+        </select><span class="fb" id="fbE1c"></span>
+      </div>
+      <div class="mc-row"><span class="mc-label">4. Diagnóstico electrocardiográfico:</span>
+        <select class="mc-select" onchange="chk(this,'Ritmo sinusal sin alteraciones agudas','fbE1d')">
+          <option value="">— elegir —</option>
+          <option>IAM con elevación del ST de cara inferior</option>
+          <option>IAM con elevación del ST de cara anterior</option>
+          <option>IAM con elevación del ST de cara lateral</option>
+          <option>IAM posterior con cambios recíprocos en precordiales</option>
+          <option>Fibrilación auricular de respuesta ventricular controlada</option>
+          <option>Ritmo sinusal sin alteraciones agudas</option>
+          <option>Bradicardia sinusal vagal por neumoperitoneo</option>
+          <option>BRD completo + hemibloqueo fascicular anterior</option>
+        </select><span class="fb" id="fbE1d"></span>
+      </div>
+      <div class="mc-row"><span class="mc-label">5. Manejo inicial más apropiado:</span>
+        <select class="mc-select" onchange="chk(this,'Continuar sin intervención específica si permanece estable','fbE1e')">
+          <option value="">— elegir —</option>
+          <option>Activar reperfusión; antiagregación y valorar derivaciones derechas</option>
+          <option>Activar reperfusión urgente y tratamiento del síndrome coronario agudo</option>
+          <option>Activar reperfusión urgente y tratar la inestabilidad hemodinámica</option>
+          <option>Confirmar con V7–V9 y tratar como síndrome coronario agudo con reperfusión</option>
+          <option>Controlar frecuencia si estable y valorar riesgo tromboembólico/anticoagulación</option>
+          <option>Continuar sin intervención específica si permanece estable</option>
+          <option>Retirar estímulo vagal; atropina si persiste inestabilidad</option>
+          <option>Valorar síntomas y conducción; no indicar marcapasos automáticamente</option>
+        </select><span class="fb" id="fbE1e"></span>
+      </div>
+      <div class="mc-row"><span class="mc-label">6. Cara y arteria coronaria probable:</span>
+        <select class="mc-select" onchange="chk(this,'No hay una cara isquémica definida; no se asigna arteria','fbE1f')">
+          <option value="">— elegir —</option>
+          <option>Cara anterior; descendente anterior como arteria probable</option>
+          <option>Cara lateral; circunfleja o diagonal como posibilidades</option>
+          <option>Cara posterior; coronaria derecha o circunfleja según territorio</option>
+          <option>No hay una cara isquémica definida; no se asigna arteria</option>
+          <option>Cara inferior; coronaria derecha como posibilidad principal</option>
+        </select><span class="fb" id="fbE1f"></span>
+      </div>
+</div>
+<div class="ex-item"><div class="ex-label"><span class="ex-num">ECG 2</span> Caso clínico — interpretación sistemática <span class="ex-pts-auto">6 preguntas · 0.3125 pts</span></div><div class="ex-context"><strong>Contexto:</strong> Hombre 64 años durante colecistectomía laparoscópica. Tras aumentar la presión del neumoperitoneo presenta PA 74/40 mmHg y bradicardia.</div><div class="ecg-trace" data-ecg="2"><div class="ecg-trace-ph">Cargando trazado…</div></div><div class="ecg-strip"><div class="ecg-lead"><span class="ecg-lead-name">Velocidad</span><span class="ecg-lead-val">25 mm/s</span></div><div class="ecg-lead"><span class="ecg-lead-name">Calibración</span><span class="ecg-lead-val">10 mm/mV</span></div><div class="ecg-lead"><span class="ecg-lead-name">Clave</span><span class="ecg-lead-val">Interprete el trazado</span></div></div>
+      <div class="mc-row"><span class="mc-label">1. Frecuencia cardíaca:</span>
+        <select class="mc-select" onchange="chk(this,'≈38 lpm','fbE2a')">
+          <option value="">— elegir —</option>
+          <option>≈74 lpm</option>
+          <option>≈80 lpm</option>
+          <option>≈82 lpm</option>
+          <option>≈86 lpm</option>
+          <option>≈88 lpm</option>
+          <option>≈102 lpm</option>
+          <option>≈38 lpm</option>
+          <option>≈50 lpm</option>
         </select><span class="fb" id="fbE2a"></span>
       </div>
-      <div class="mc-row"><span class="mc-label">Tratamiento de primera línea con FC 38 lpm e hipotensión:</span>
-        <select class="mc-select" onchange="chk(this,'Atropina 0.5 mg IV (repetible hasta 3 mg) + desinflar peritoneo momentáneamente','fbE2b')">
+      <div class="mc-row"><span class="mc-label">2. Ritmo:</span>
+        <select class="mc-select" onchange="chk(this,'Bradicardia sinusal','fbE2b')">
           <option value="">— elegir —</option>
-          <option>Atropina 0.5 mg IV (repetible hasta 3 mg) + desinflar peritoneo momentáneamente</option>
-          <option>Adrenalina 1 mg IV en bolo + RCP inmediata</option>
-          <option>Amiodarona 300 mg IV para control del ritmo</option>
-          <option>Marcar tiempo, observar 5 min más antes de actuar</option>
+          <option>Flutter auricular</option>
+          <option>Ritmo de la unión</option>
+          <option>Taquicardia supraventricular</option>
+          <option>Bradicardia sinusal</option>
+          <option>Ritmo sinusal</option>
+          <option>Ritmo sinusal con taquicardia</option>
+          <option>Fibrilación auricular con respuesta ventricular controlada</option>
         </select><span class="fb" id="fbE2b"></span>
       </div>
-    </div>
-
-    <!-- ECG 3 -->
-    <div class="ex-item">
-      <div class="ex-label"><span class="ex-num">ECG 3</span> Eje eléctrico y bloqueo de rama — interpretación <span class="ex-pts-auto">2 preg · 0.625 pts</span></div>
-      <div class="ex-context"><strong>Contexto:</strong> Hombre 67 años, hipertenso, para cirugía de próstata. ECG preoperatorio:</div>
-      <div class="ecg-trace" data-ecg="3"><div class="ecg-trace-ph">Cargando trazado…</div></div>
-      <div class="ecg-strip">
-        <div class="ecg-lead"><span class="ecg-lead-name">FC</span><span class="ecg-lead-val">74 lpm</span></div>
-        <div class="ecg-lead"><span class="ecg-lead-name">DI QRS</span><span class="ecg-lead-val">Positivo</span></div>
-        <div class="ecg-lead"><span class="ecg-lead-name">aVF QRS</span><span class="ecg-lead-val anormal">Negativo</span></div>
-        <div class="ecg-lead"><span class="ecg-lead-name">DII QRS</span><span class="ecg-lead-val anormal">Negativo</span></div>
-        <div class="ecg-lead"><span class="ecg-lead-name">QRS dur.</span><span class="ecg-lead-val anormal">0.13 s</span></div>
-        <div class="ecg-lead"><span class="ecg-lead-name">V1</span><span class="ecg-lead-val">rSR' (¿)</span></div>
-        <div class="ecg-lead"><span class="ecg-lead-name">V6</span><span class="ecg-lead-val anormal">S ancha</span></div>
-      </div>
-      <div class="mc-row"><span class="mc-label">Eje eléctrico según DI (+) y aVF (−) con DII (−):</span>
-        <select class="mc-select" onchange="chk(this,'Desviación izquierda del eje (DI+ aVF− DII−) → eje ≤ −30°','fbE3a')">
+      <div class="mc-row"><span class="mc-label">3. Eje eléctrico:</span>
+        <select class="mc-select" onchange="chk(this,'Eje normal, alrededor de +60°','fbE2c')">
           <option value="">— elegir —</option>
-          <option>Desviación izquierda del eje (DI+ aVF− DII−) → eje ≤ −30°</option>
-          <option>Eje normal (DI+ aVF−) pero DII no cambia el diagnóstico</option>
-          <option>Desviación derecha del eje (DI− aVF+)</option>
-          <option>Eje indeterminado (ambas negativas)</option>
+          <option>Eje normal, alrededor de +50°</option>
+          <option>Desviación izquierda, cerca de −60°</option>
+          <option>Desviación derecha, cerca de +120°</option>
+          <option>Eje indeterminado, cerca de 180°</option>
+          <option>Eje normal, alrededor de +60°</option>
+          <option>Eje normal, alrededor de +30°</option>
+          <option>Eje normal, alrededor de +45°</option>
+        </select><span class="fb" id="fbE2c"></span>
+      </div>
+      <div class="mc-row"><span class="mc-label">4. Diagnóstico electrocardiográfico:</span>
+        <select class="mc-select" onchange="chk(this,'Bradicardia sinusal vagal por neumoperitoneo','fbE2d')">
+          <option value="">— elegir —</option>
+          <option>IAM posterior con cambios recíprocos en precordiales</option>
+          <option>Fibrilación auricular de respuesta ventricular controlada</option>
+          <option>Bradicardia sinusal vagal por neumoperitoneo</option>
+          <option>Ritmo sinusal sin alteraciones agudas</option>
+          <option>BRD completo + hemibloqueo fascicular anterior</option>
+          <option>IAM con elevación del ST de cara inferior</option>
+          <option>IAM con elevación del ST de cara anterior</option>
+          <option>IAM con elevación del ST de cara lateral</option>
+        </select><span class="fb" id="fbE2d"></span>
+      </div>
+      <div class="mc-row"><span class="mc-label">5. Manejo inicial más apropiado:</span>
+        <select class="mc-select" onchange="chk(this,'Retirar estímulo vagal; atropina si persiste inestabilidad','fbE2e')">
+          <option value="">— elegir —</option>
+          <option>Activar reperfusión urgente y tratamiento del síndrome coronario agudo</option>
+          <option>Activar reperfusión urgente y tratar la inestabilidad hemodinámica</option>
+          <option>Confirmar con V7–V9 y tratar como síndrome coronario agudo con reperfusión</option>
+          <option>Controlar frecuencia si estable y valorar riesgo tromboembólico/anticoagulación</option>
+          <option>Retirar estímulo vagal; atropina si persiste inestabilidad</option>
+          <option>Continuar sin intervención específica si permanece estable</option>
+          <option>Valorar síntomas y conducción; no indicar marcapasos automáticamente</option>
+          <option>Activar reperfusión; antiagregación y valorar derivaciones derechas</option>
+        </select><span class="fb" id="fbE2e"></span>
+      </div>
+      <div class="mc-row"><span class="mc-label">6. Cara y arteria coronaria probable:</span>
+        <select class="mc-select" onchange="chk(this,'No hay una cara isquémica definida; no se asigna arteria','fbE2f')">
+          <option value="">— elegir —</option>
+          <option>Cara lateral; circunfleja o diagonal como posibilidades</option>
+          <option>Cara posterior; coronaria derecha o circunfleja según territorio</option>
+          <option>No hay una cara isquémica definida; no se asigna arteria</option>
+          <option>Cara inferior; coronaria derecha como posibilidad principal</option>
+          <option>Cara anterior; descendente anterior como arteria probable</option>
+        </select><span class="fb" id="fbE2f"></span>
+      </div>
+</div>
+<div class="ex-item"><div class="ex-label"><span class="ex-num">ECG 3</span> Caso clínico — interpretación sistemática <span class="ex-pts-auto">6 preguntas · 0.3125 pts</span></div><div class="ex-context"><strong>Contexto:</strong> Mujer 69 años con hipertensión, en valoración preoperatoria para artroplastia de rodilla. Está estable y sin síncope.</div><div class="ecg-trace" data-ecg="3"><div class="ecg-trace-ph">Cargando trazado…</div></div><div class="ecg-strip"><div class="ecg-lead"><span class="ecg-lead-name">Velocidad</span><span class="ecg-lead-val">25 mm/s</span></div><div class="ecg-lead"><span class="ecg-lead-name">Calibración</span><span class="ecg-lead-val">10 mm/mV</span></div><div class="ecg-lead"><span class="ecg-lead-name">Clave</span><span class="ecg-lead-val">Interprete el trazado</span></div></div>
+      <div class="mc-row"><span class="mc-label">1. Frecuencia cardíaca:</span>
+        <select class="mc-select" onchange="chk(this,'≈74 lpm','fbE3a')">
+          <option value="">— elegir —</option>
+          <option>≈80 lpm</option>
+          <option>≈82 lpm</option>
+          <option>≈86 lpm</option>
+          <option>≈88 lpm</option>
+          <option>≈102 lpm</option>
+          <option>≈74 lpm</option>
+          <option>≈38 lpm</option>
+          <option>≈50 lpm</option>
         </select><span class="fb" id="fbE3a"></span>
       </div>
-      <div class="mc-row"><span class="mc-label">QRS 0.13 s + rSR' en V1 + S ancha en V6 → diagnóstico:</span>
-        <select class="mc-select" onchange="chk(this,'Bloqueo de rama derecha completo (BRD) — QRS ≥ 120 ms + rSR\' en V1 + S en V6','fbE3b')">
+      <div class="mc-row"><span class="mc-label">2. Ritmo:</span>
+        <select class="mc-select" onchange="chk(this,'Ritmo sinusal','fbE3b')">
           <option value="">— elegir —</option>
-          <option>Bloqueo de rama derecha completo (BRD) — QRS ≥ 120 ms + rSR' en V1 + S en V6</option>
-          <option>Bloqueo de rama izquierda (BRI) — R ancha mellada en V5-V6</option>
-          <option>QRS ancho por hiperpotasemia — buscar T picuda</option>
-          <option>Preexcitación (WPW) — PR corto con delta wave</option>
+          <option>Taquicardia supraventricular</option>
+          <option>Ritmo sinusal</option>
+          <option>Ritmo sinusal con taquicardia</option>
+          <option>Bradicardia sinusal</option>
+          <option>Fibrilación auricular con respuesta ventricular controlada</option>
+          <option>Flutter auricular</option>
+          <option>Ritmo de la unión</option>
         </select><span class="fb" id="fbE3b"></span>
       </div>
-    </div>
-
-    <!-- ECG 4 -->
-    <div class="ex-item">
-      <div class="ex-label"><span class="ex-num">ECG 4</span> IAMCEST inferior intraoperatorio <span class="ex-pts-auto">2 preg · 0.625 pts</span></div>
-      <div class="ex-context"><strong>Contexto:</strong> Hombre 61 años, cirugía de cadera. A los 45 min del intraoperatorio: PA cae a 85/50, diaforesis, monitor muestra cambios en DII:</div>
-      <div class="ecg-trace" data-ecg="4"><div class="ecg-trace-ph">Cargando trazado…</div></div>
-      <div class="ecg-strip">
-        <div class="ecg-lead"><span class="ecg-lead-name">FC</span><span class="ecg-lead-val ojo">102 lpm</span></div>
-        <div class="ecg-lead"><span class="ecg-lead-name">ST DII</span><span class="ecg-lead-val anormal">+3 mm ↑</span></div>
-        <div class="ecg-lead"><span class="ecg-lead-name">ST DIII</span><span class="ecg-lead-val anormal">+2 mm ↑</span></div>
-        <div class="ecg-lead"><span class="ecg-lead-name">ST aVF</span><span class="ecg-lead-val anormal">+2.5 mm ↑</span></div>
-        <div class="ecg-lead"><span class="ecg-lead-name">ST DI</span><span class="ecg-lead-val anormal">−1.5 mm ↓</span></div>
-        <div class="ecg-lead"><span class="ecg-lead-name">ST aVL</span><span class="ecg-lead-val anormal">−2 mm ↓</span></div>
-        <div class="ecg-lead"><span class="ecg-lead-name">QRS</span><span class="ecg-lead-val">0.09 s</span></div>
-      </div>
-      <div class="mc-row"><span class="mc-label">Diagnóstico urgente del trazado:</span>
-        <select class="mc-select" onchange="chk(this,'IAMCEST inferior (elevación ST ≥1 mm en DII, DIII, aVF + cambios recíprocos en DI y aVL)','fbE4a')">
+      <div class="mc-row"><span class="mc-label">3. Eje eléctrico:</span>
+        <select class="mc-select" onchange="chk(this,'Desviación izquierda, cerca de −60°','fbE3c')">
           <option value="">— elegir —</option>
-          <option>IAMCEST inferior (elevación ST ≥1 mm en DII, DIII, aVF + cambios recíprocos en DI y aVL)</option>
-          <option>Pericarditis aguda — elevación difusa sin cambios recíprocos</option>
-          <option>Hiperpotasemia — T picuda en derivaciones inferiores</option>
-          <option>Isquemia subendocárdica — solo descenso ST, no elevación</option>
+          <option>Eje normal, alrededor de +60°</option>
+          <option>Desviación derecha, cerca de +120°</option>
+          <option>Eje indeterminado, cerca de 180°</option>
+          <option>Desviación izquierda, cerca de −60°</option>
+          <option>Eje normal, alrededor de +30°</option>
+          <option>Eje normal, alrededor de +45°</option>
+          <option>Eje normal, alrededor de +50°</option>
+        </select><span class="fb" id="fbE3c"></span>
+      </div>
+      <div class="mc-row"><span class="mc-label">4. Diagnóstico electrocardiográfico:</span>
+        <select class="mc-select" onchange="chk(this,'BRD completo + hemibloqueo fascicular anterior','fbE3d')">
+          <option value="">— elegir —</option>
+          <option>Ritmo sinusal sin alteraciones agudas</option>
+          <option>Bradicardia sinusal vagal por neumoperitoneo</option>
+          <option>IAM con elevación del ST de cara inferior</option>
+          <option>IAM con elevación del ST de cara anterior</option>
+          <option>IAM con elevación del ST de cara lateral</option>
+          <option>IAM posterior con cambios recíprocos en precordiales</option>
+          <option>Fibrilación auricular de respuesta ventricular controlada</option>
+          <option>BRD completo + hemibloqueo fascicular anterior</option>
+        </select><span class="fb" id="fbE3d"></span>
+      </div>
+      <div class="mc-row"><span class="mc-label">5. Manejo inicial más apropiado:</span>
+        <select class="mc-select" onchange="chk(this,'Valorar síntomas y conducción; no indicar marcapasos automáticamente','fbE3e')">
+          <option value="">— elegir —</option>
+          <option>Activar reperfusión urgente y tratar la inestabilidad hemodinámica</option>
+          <option>Confirmar con V7–V9 y tratar como síndrome coronario agudo con reperfusión</option>
+          <option>Controlar frecuencia si estable y valorar riesgo tromboembólico/anticoagulación</option>
+          <option>Valorar síntomas y conducción; no indicar marcapasos automáticamente</option>
+          <option>Continuar sin intervención específica si permanece estable</option>
+          <option>Retirar estímulo vagal; atropina si persiste inestabilidad</option>
+          <option>Activar reperfusión; antiagregación y valorar derivaciones derechas</option>
+          <option>Activar reperfusión urgente y tratamiento del síndrome coronario agudo</option>
+        </select><span class="fb" id="fbE3e"></span>
+      </div>
+      <div class="mc-row"><span class="mc-label">6. Cara y arteria coronaria probable:</span>
+        <select class="mc-select" onchange="chk(this,'No hay una cara isquémica definida; no se asigna arteria','fbE3f')">
+          <option value="">— elegir —</option>
+          <option>Cara posterior; coronaria derecha o circunfleja según territorio</option>
+          <option>No hay una cara isquémica definida; no se asigna arteria</option>
+          <option>Cara inferior; coronaria derecha como posibilidad principal</option>
+          <option>Cara anterior; descendente anterior como arteria probable</option>
+          <option>Cara lateral; circunfleja o diagonal como posibilidades</option>
+        </select><span class="fb" id="fbE3f"></span>
+      </div>
+</div>
+<div class="ex-item"><div class="ex-label"><span class="ex-num">ECG 4</span> Caso clínico — interpretación sistemática <span class="ex-pts-auto">6 preguntas · 0.3125 pts</span></div><div class="ex-context"><strong>Contexto:</strong> Hombre 58 años con fractura de cadera. Antes de la inducción presenta dolor torácico, diaforesis y PA 86/52 mmHg. El ECG muestra cambios agudos del ST.</div><div class="ecg-trace" data-ecg="4"><div class="ecg-trace-ph">Cargando trazado…</div></div><div class="ecg-strip"><div class="ecg-lead"><span class="ecg-lead-name">Velocidad</span><span class="ecg-lead-val">25 mm/s</span></div><div class="ecg-lead"><span class="ecg-lead-name">Calibración</span><span class="ecg-lead-val">10 mm/mV</span></div><div class="ecg-lead"><span class="ecg-lead-name">Clave</span><span class="ecg-lead-val">Interprete el trazado</span></div></div>
+      <div class="mc-row"><span class="mc-label">1. Frecuencia cardíaca:</span>
+        <select class="mc-select" onchange="chk(this,'≈102 lpm','fbE4a')">
+          <option value="">— elegir —</option>
+          <option>≈80 lpm</option>
+          <option>≈82 lpm</option>
+          <option>≈86 lpm</option>
+          <option>≈88 lpm</option>
+          <option>≈102 lpm</option>
+          <option>≈38 lpm</option>
+          <option>≈50 lpm</option>
+          <option>≈74 lpm</option>
         </select><span class="fb" id="fbE4a"></span>
       </div>
-      <div class="mc-row"><span class="mc-label">Arteria responsable más probable y siguiente paso:</span>
-        <select class="mc-select" onchange="chk(this,'Arteria coronaria derecha (ACD) → activar cateterismo de urgencia; buscar compromiso de VD con V4R','fbE4b')">
+      <div class="mc-row"><span class="mc-label">2. Ritmo:</span>
+        <select class="mc-select" onchange="chk(this,'Ritmo sinusal con taquicardia','fbE4b')">
           <option value="">— elegir —</option>
-          <option>Arteria coronaria derecha (ACD) → activar cateterismo de urgencia; buscar compromiso de VD con V4R</option>
-          <option>Descendente anterior (DA) → buscar cambios en V1–V4</option>
-          <option>Circunfleja → IAMCEST posterior; pedir derivaciones V7–V9</option>
-          <option>No hay urgencia; puede terminar la cirugía y evaluar después</option>
+          <option>Ritmo sinusal</option>
+          <option>Bradicardia sinusal</option>
+          <option>Fibrilación auricular con respuesta ventricular controlada</option>
+          <option>Flutter auricular</option>
+          <option>Ritmo de la unión</option>
+          <option>Taquicardia supraventricular</option>
+          <option>Ritmo sinusal con taquicardia</option>
         </select><span class="fb" id="fbE4b"></span>
       </div>
-    </div>
-
-    <!-- ECG 5 -->
-    <div class="ex-item">
-      <div class="ex-label"><span class="ex-num">ECG 5</span> QTc prolongado — fármacos anestésicos y electrolitos <span class="ex-pts-auto">2 preg · 0.625 pts</span></div>
-      <div class="ex-context"><strong>Contexto:</strong> Mujer 55 años, en UCPA postoperatorio de cirugía abdominal mayor. Recibió ondansetrón 4 mg + haloperidol 1 mg + hipomagnesemia conocida (Mg 1.2 mg/dL). Nuevo ECG:</div>
-      <div class="ecg-trace" data-ecg="5"><div class="ecg-trace-ph">Cargando trazado…</div></div>
-      <div class="ecg-strip">
-        <div class="ecg-lead"><span class="ecg-lead-name">FC</span><span class="ecg-lead-val">78 lpm</span></div>
-        <div class="ecg-lead"><span class="ecg-lead-name">PR</span><span class="ecg-lead-val">0.18 s</span></div>
-        <div class="ecg-lead"><span class="ecg-lead-name">QRS</span><span class="ecg-lead-val">0.09 s</span></div>
-        <div class="ecg-lead"><span class="ecg-lead-name">QT medido</span><span class="ecg-lead-val anormal">560 ms</span></div>
-        <div class="ecg-lead"><span class="ecg-lead-name">QTc (Bazett)</span><span class="ecg-lead-val anormal">495 ms ♀</span></div>
-        <div class="ecg-lead"><span class="ecg-lead-name">Onda T</span><span class="ecg-lead-val ojo">Aplanada</span></div>
-        <div class="ecg-lead"><span class="ecg-lead-name">Onda U</span><span class="ecg-lead-val ojo">Prominente</span></div>
-      </div>
-      <div class="mc-row"><span class="mc-label">Diagnóstico y riesgo principal del QTc 495 ms en mujer:</span>
-        <select class="mc-select" onchange="chk(this,'QTc prolongado (>460 ms en ♀) → riesgo de Torsades de Pointes (TV polimórfica)','fbE5a')">
+      <div class="mc-row"><span class="mc-label">3. Eje eléctrico:</span>
+        <select class="mc-select" onchange="chk(this,'Eje normal, alrededor de +60°','fbE4c')">
           <option value="">— elegir —</option>
-          <option>QTc prolongado (>460 ms en ♀) → riesgo de Torsades de Pointes (TV polimórfica)</option>
-          <option>QTc normal en mujer; el umbral femenino es >500 ms</option>
-          <option>Hipercalcemia — QTc acortado indica exceso de Ca²⁺</option>
-          <option>QTc prolongado pero sin riesgo clínico en UCPA</option>
+          <option>Desviación derecha, cerca de +120°</option>
+          <option>Eje indeterminado, cerca de 180°</option>
+          <option>Eje normal, alrededor de +60°</option>
+          <option>Eje normal, alrededor de +30°</option>
+          <option>Eje normal, alrededor de +45°</option>
+          <option>Eje normal, alrededor de +50°</option>
+          <option>Desviación izquierda, cerca de −60°</option>
+        </select><span class="fb" id="fbE4c"></span>
+      </div>
+      <div class="mc-row"><span class="mc-label">4. Diagnóstico electrocardiográfico:</span>
+        <select class="mc-select" onchange="chk(this,'IAM con elevación del ST de cara inferior','fbE4d')">
+          <option value="">— elegir —</option>
+          <option>IAM con elevación del ST de cara anterior</option>
+          <option>IAM con elevación del ST de cara lateral</option>
+          <option>IAM posterior con cambios recíprocos en precordiales</option>
+          <option>Fibrilación auricular de respuesta ventricular controlada</option>
+          <option>IAM con elevación del ST de cara inferior</option>
+          <option>Ritmo sinusal sin alteraciones agudas</option>
+          <option>Bradicardia sinusal vagal por neumoperitoneo</option>
+          <option>BRD completo + hemibloqueo fascicular anterior</option>
+        </select><span class="fb" id="fbE4d"></span>
+      </div>
+      <div class="mc-row"><span class="mc-label">5. Manejo inicial más apropiado:</span>
+        <select class="mc-select" onchange="chk(this,'Activar reperfusión; antiagregación y valorar derivaciones derechas','fbE4e')">
+          <option value="">— elegir —</option>
+          <option>Confirmar con V7–V9 y tratar como síndrome coronario agudo con reperfusión</option>
+          <option>Controlar frecuencia si estable y valorar riesgo tromboembólico/anticoagulación</option>
+          <option>Activar reperfusión; antiagregación y valorar derivaciones derechas</option>
+          <option>Continuar sin intervención específica si permanece estable</option>
+          <option>Retirar estímulo vagal; atropina si persiste inestabilidad</option>
+          <option>Valorar síntomas y conducción; no indicar marcapasos automáticamente</option>
+          <option>Activar reperfusión urgente y tratamiento del síndrome coronario agudo</option>
+          <option>Activar reperfusión urgente y tratar la inestabilidad hemodinámica</option>
+        </select><span class="fb" id="fbE4e"></span>
+      </div>
+      <div class="mc-row"><span class="mc-label">6. Cara y arteria coronaria probable:</span>
+        <select class="mc-select" onchange="chk(this,'Cara inferior; coronaria derecha como posibilidad principal','fbE4f')">
+          <option value="">— elegir —</option>
+          <option>Cara inferior; coronaria derecha como posibilidad principal</option>
+          <option>No hay una cara isquémica definida; no se asigna arteria</option>
+          <option>Cara anterior; descendente anterior como arteria probable</option>
+          <option>Cara lateral; circunfleja o diagonal como posibilidades</option>
+          <option>Cara posterior; coronaria derecha o circunfleja según territorio</option>
+        </select><span class="fb" id="fbE4f"></span>
+      </div>
+</div>
+<div class="ex-item"><div class="ex-label"><span class="ex-num">ECG 5</span> Caso clínico — interpretación sistemática <span class="ex-pts-auto">6 preguntas · 0.3125 pts</span></div><div class="ex-context"><strong>Contexto:</strong> Mujer 47 años en recuperación de histerectomía. Presenta dolor torácico y diaforesis. El trazado muestra elevación del ST predominante en precordiales anteriores.</div><div class="ecg-trace" data-ecg="5"><div class="ecg-trace-ph">Cargando trazado…</div></div><div class="ecg-strip"><div class="ecg-lead"><span class="ecg-lead-name">Velocidad</span><span class="ecg-lead-val">25 mm/s</span></div><div class="ecg-lead"><span class="ecg-lead-name">Calibración</span><span class="ecg-lead-val">10 mm/mV</span></div><div class="ecg-lead"><span class="ecg-lead-name">Clave</span><span class="ecg-lead-val">Interprete el trazado</span></div></div>
+      <div class="mc-row"><span class="mc-label">1. Frecuencia cardíaca:</span>
+        <select class="mc-select" onchange="chk(this,'≈80 lpm','fbE5a')">
+          <option value="">— elegir —</option>
+          <option>≈86 lpm</option>
+          <option>≈88 lpm</option>
+          <option>≈102 lpm</option>
+          <option>≈80 lpm</option>
+          <option>≈38 lpm</option>
+          <option>≈50 lpm</option>
+          <option>≈74 lpm</option>
+          <option>≈82 lpm</option>
         </select><span class="fb" id="fbE5a"></span>
       </div>
-      <div class="mc-row"><span class="mc-label">Manejo inmediato del QTc prolongado en esta paciente:</span>
-        <select class="mc-select" onchange="chk(this,'Sulfato de magnesio 2 g IV + corregir hipomagnesemia + suspender ondansetrón y haloperidol','fbE5b')">
+      <div class="mc-row"><span class="mc-label">2. Ritmo:</span>
+        <select class="mc-select" onchange="chk(this,'Ritmo sinusal','fbE5b')">
           <option value="">— elegir —</option>
-          <option>Sulfato de magnesio 2 g IV + corregir hipomagnesemia + suspender ondansetrón y haloperidol</option>
-          <option>Amiodarona 300 mg IV — antiarrítmico de elección en QTc largo</option>
-          <option>Cardioversión sincronizada 200 J inmediata</option>
-          <option>Observar; actuar solo si aparece Torsades</option>
+          <option>Fibrilación auricular con respuesta ventricular controlada</option>
+          <option>Flutter auricular</option>
+          <option>Ritmo de la unión</option>
+          <option>Taquicardia supraventricular</option>
+          <option>Ritmo sinusal</option>
+          <option>Ritmo sinusal con taquicardia</option>
+          <option>Bradicardia sinusal</option>
         </select><span class="fb" id="fbE5b"></span>
       </div>
-    </div>
-
-    <!-- ECG 6 -->
-    <div class="ex-item">
-      <div class="ex-label"><span class="ex-num">ECG 6</span> Hiperpotasemia perioperatoria — patrón progresivo <span class="ex-pts-auto">2 preg · 0.625 pts</span></div>
-      <div class="ex-context"><strong>Contexto:</strong> Hombre 48 años, IRC en diálisis, colecistectomía urgente. No dializó desde hace 3 días. K⁺ sérico 7.1 mEq/L. ECG intraoperatorio:</div>
-      <div class="ecg-trace" data-ecg="6"><div class="ecg-trace-ph">Cargando trazado…</div></div>
-      <div class="ecg-strip">
-        <div class="ecg-lead"><span class="ecg-lead-name">FC</span><span class="ecg-lead-val ojo">55 lpm</span></div>
-        <div class="ecg-lead"><span class="ecg-lead-name">P</span><span class="ecg-lead-val anormal">Ausente</span></div>
-        <div class="ecg-lead"><span class="ecg-lead-name">QRS</span><span class="ecg-lead-val anormal">0.18 s</span></div>
-        <div class="ecg-lead"><span class="ecg-lead-name">T en DII</span><span class="ecg-lead-val anormal">Picuda tall</span></div>
-        <div class="ecg-lead"><span class="ecg-lead-name">ST</span><span class="ecg-lead-val">Isoeléctrico</span></div>
-        <div class="ecg-lead"><span class="ecg-lead-name">Morfología</span><span class="ecg-lead-val anormal">Sinusoidal</span></div>
-        <div class="ecg-lead"><span class="ecg-lead-name">K⁺</span><span class="ecg-lead-val anormal">7.1 mEq/L</span></div>
-      </div>
-      <div class="mc-row"><span class="mc-label">Patrón ECG de hiperpotasemia grave (K⁺ 7.1 mEq/L):</span>
-        <select class="mc-select" onchange="chk(this,'T picuda + QRS ancho + onda P ausente + patrón sinusoidal → hiperpotasemia grave previa FV','fbE6a')">
+      <div class="mc-row"><span class="mc-label">3. Eje eléctrico:</span>
+        <select class="mc-select" onchange="chk(this,'Eje normal, alrededor de +50°','fbE5c')">
           <option value="">— elegir —</option>
-          <option>T picuda + QRS ancho + onda P ausente + patrón sinusoidal → hiperpotasemia grave previa FV</option>
-          <option>T picuda sola es suficiente para diagnosticar hiperpotasemia severa</option>
-          <option>QRS ancho aislado indica bloqueo de rama; no relación con K⁺</option>
-          <option>Onda P ausente solo indica FA; no relacionado con el K⁺</option>
+          <option>Eje indeterminado, cerca de 180°</option>
+          <option>Eje normal, alrededor de +50°</option>
+          <option>Eje normal, alrededor de +30°</option>
+          <option>Eje normal, alrededor de +45°</option>
+          <option>Eje normal, alrededor de +60°</option>
+          <option>Desviación izquierda, cerca de −60°</option>
+          <option>Desviación derecha, cerca de +120°</option>
+        </select><span class="fb" id="fbE5c"></span>
+      </div>
+      <div class="mc-row"><span class="mc-label">4. Diagnóstico electrocardiográfico:</span>
+        <select class="mc-select" onchange="chk(this,'IAM con elevación del ST de cara anterior','fbE5d')">
+          <option value="">— elegir —</option>
+          <option>Fibrilación auricular de respuesta ventricular controlada</option>
+          <option>IAM con elevación del ST de cara anterior</option>
+          <option>Ritmo sinusal sin alteraciones agudas</option>
+          <option>Bradicardia sinusal vagal por neumoperitoneo</option>
+          <option>BRD completo + hemibloqueo fascicular anterior</option>
+          <option>IAM con elevación del ST de cara inferior</option>
+          <option>IAM con elevación del ST de cara lateral</option>
+          <option>IAM posterior con cambios recíprocos en precordiales</option>
+        </select><span class="fb" id="fbE5d"></span>
+      </div>
+      <div class="mc-row"><span class="mc-label">5. Manejo inicial más apropiado:</span>
+        <select class="mc-select" onchange="chk(this,'Activar reperfusión urgente y tratamiento del síndrome coronario agudo','fbE5e')">
+          <option value="">— elegir —</option>
+          <option>Controlar frecuencia si estable y valorar riesgo tromboembólico/anticoagulación</option>
+          <option>Activar reperfusión urgente y tratamiento del síndrome coronario agudo</option>
+          <option>Continuar sin intervención específica si permanece estable</option>
+          <option>Retirar estímulo vagal; atropina si persiste inestabilidad</option>
+          <option>Valorar síntomas y conducción; no indicar marcapasos automáticamente</option>
+          <option>Activar reperfusión; antiagregación y valorar derivaciones derechas</option>
+          <option>Activar reperfusión urgente y tratar la inestabilidad hemodinámica</option>
+          <option>Confirmar con V7–V9 y tratar como síndrome coronario agudo con reperfusión</option>
+        </select><span class="fb" id="fbE5e"></span>
+      </div>
+      <div class="mc-row"><span class="mc-label">6. Cara y arteria coronaria probable:</span>
+        <select class="mc-select" onchange="chk(this,'Cara anterior; descendente anterior como arteria probable','fbE5f')">
+          <option value="">— elegir —</option>
+          <option>No hay una cara isquémica definida; no se asigna arteria</option>
+          <option>Cara inferior; coronaria derecha como posibilidad principal</option>
+          <option>Cara lateral; circunfleja o diagonal como posibilidades</option>
+          <option>Cara posterior; coronaria derecha o circunfleja según territorio</option>
+          <option>Cara anterior; descendente anterior como arteria probable</option>
+        </select><span class="fb" id="fbE5f"></span>
+      </div>
+</div>
+<div class="ex-item"><div class="ex-label"><span class="ex-num">ECG 6</span> Caso clínico — interpretación sistemática <span class="ex-pts-auto">6 preguntas · 0.3125 pts</span></div><div class="ex-context"><strong>Contexto:</strong> Hombre 61 años con dolor torácico súbito y cambios del ST en derivaciones laterales. Está hipotenso pero consciente.</div><div class="ecg-trace" data-ecg="6"><div class="ecg-trace-ph">Cargando trazado…</div></div><div class="ecg-strip"><div class="ecg-lead"><span class="ecg-lead-name">Velocidad</span><span class="ecg-lead-val">25 mm/s</span></div><div class="ecg-lead"><span class="ecg-lead-name">Calibración</span><span class="ecg-lead-val">10 mm/mV</span></div><div class="ecg-lead"><span class="ecg-lead-name">Clave</span><span class="ecg-lead-val">Interprete el trazado</span></div></div>
+      <div class="mc-row"><span class="mc-label">1. Frecuencia cardíaca:</span>
+        <select class="mc-select" onchange="chk(this,'≈86 lpm','fbE6a')">
+          <option value="">— elegir —</option>
+          <option>≈88 lpm</option>
+          <option>≈102 lpm</option>
+          <option>≈86 lpm</option>
+          <option>≈38 lpm</option>
+          <option>≈50 lpm</option>
+          <option>≈74 lpm</option>
+          <option>≈80 lpm</option>
+          <option>≈82 lpm</option>
         </select><span class="fb" id="fbE6a"></span>
       </div>
-      <div class="mc-row"><span class="mc-label">Primera medida urgente para hiperpotasemia con QRS ancho e inestabilidad:</span>
-        <select class="mc-select" onchange="chk(this,'Gluconato de calcio 1 g IV (estabiliza membrana cardíaca) — no baja el K⁺ pero protege el corazón','fbE6b')">
+      <div class="mc-row"><span class="mc-label">2. Ritmo:</span>
+        <select class="mc-select" onchange="chk(this,'Ritmo sinusal','fbE6b')">
           <option value="">— elegir —</option>
-          <option>Gluconato de calcio 1 g IV (estabiliza membrana cardíaca) — no baja el K⁺ pero protege el corazón</option>
-          <option>Bicarbonato de sodio 50 mEq IV como primera medida única</option>
-          <option>Furosemida 40 mg IV para eliminar el potasio por orina</option>
-          <option>Insulina + dextrosa como única y primera medida</option>
+          <option>Ritmo de la unión</option>
+          <option>Taquicardia supraventricular</option>
+          <option>Ritmo sinusal</option>
+          <option>Ritmo sinusal con taquicardia</option>
+          <option>Bradicardia sinusal</option>
+          <option>Fibrilación auricular con respuesta ventricular controlada</option>
+          <option>Flutter auricular</option>
         </select><span class="fb" id="fbE6b"></span>
       </div>
-    </div>
-
-    <!-- ECG 7 -->
-    <div class="ex-item">
-      <div class="ex-label"><span class="ex-num">ECG 7</span> BRI nuevo + dolor torácico intraoperatorio <span class="ex-pts-auto">2 preg · 0.625 pts</span></div>
-      <div class="ex-context"><strong>Contexto:</strong> Mujer 70 años, nefrectomía laparoscópica. A los 60 min de cirugía, PA cae 30 mmHg y el ECG cambia respecto al preoperatorio:</div>
-      <div class="ecg-trace" data-ecg="7"><div class="ecg-trace-ph">Cargando trazado…</div></div>
-      <div class="ecg-strip">
-        <div class="ecg-lead"><span class="ecg-lead-name">FC</span><span class="ecg-lead-val ojo">96 lpm</span></div>
-        <div class="ecg-lead"><span class="ecg-lead-name">QRS dur.</span><span class="ecg-lead-val anormal">0.14 s</span></div>
-        <div class="ecg-lead"><span class="ecg-lead-name">V1</span><span class="ecg-lead-val anormal">qS profunda</span></div>
-        <div class="ecg-lead"><span class="ecg-lead-name">V5-V6</span><span class="ecg-lead-val anormal">R mellada</span></div>
-        <div class="ecg-lead"><span class="ecg-lead-name">DI</span><span class="ecg-lead-val anormal">R amplia</span></div>
-        <div class="ecg-lead"><span class="ecg-lead-name">Onda Q</span><span class="ecg-lead-val">Ausente V5-6</span></div>
-        <div class="ecg-lead"><span class="ecg-lead-name">ST-T</span><span class="ecg-lead-val ojo">Opuesto QRS</span></div>
-      </div>
-      <div class="mc-row"><span class="mc-label">Diagnóstico del nuevo trazado:</span>
-        <select class="mc-select" onchange="chk(this,'Bloqueo de rama izquierda (BRI) nuevo — QRS ≥120 ms + R mellada en DI/V5-6 + qS en V1 + sin Q septal','fbE7a')">
+      <div class="mc-row"><span class="mc-label">3. Eje eléctrico:</span>
+        <select class="mc-select" onchange="chk(this,'Eje normal, alrededor de +30°','fbE6c')">
           <option value="">— elegir —</option>
-          <option>Bloqueo de rama izquierda (BRI) nuevo — QRS ≥120 ms + R mellada en DI/V5-6 + qS en V1 + sin Q septal</option>
-          <option>Bloqueo de rama derecha completo (BRD) — rSR' en V1</option>
-          <option>Marcapasos ventricular — espícula antes del QRS</option>
-          <option>Preexcitación (WPW) — PR corto con onda delta</option>
+          <option>Eje normal, alrededor de +30°</option>
+          <option>Eje normal, alrededor de +45°</option>
+          <option>Eje normal, alrededor de +50°</option>
+          <option>Eje normal, alrededor de +60°</option>
+          <option>Desviación izquierda, cerca de −60°</option>
+          <option>Desviación derecha, cerca de +120°</option>
+          <option>Eje indeterminado, cerca de 180°</option>
+        </select><span class="fb" id="fbE6c"></span>
+      </div>
+      <div class="mc-row"><span class="mc-label">4. Diagnóstico electrocardiográfico:</span>
+        <select class="mc-select" onchange="chk(this,'IAM con elevación del ST de cara lateral','fbE6d')">
+          <option value="">— elegir —</option>
+          <option>Bradicardia sinusal vagal por neumoperitoneo</option>
+          <option>BRD completo + hemibloqueo fascicular anterior</option>
+          <option>IAM con elevación del ST de cara inferior</option>
+          <option>IAM con elevación del ST de cara anterior</option>
+          <option>IAM posterior con cambios recíprocos en precordiales</option>
+          <option>Fibrilación auricular de respuesta ventricular controlada</option>
+          <option>IAM con elevación del ST de cara lateral</option>
+          <option>Ritmo sinusal sin alteraciones agudas</option>
+        </select><span class="fb" id="fbE6d"></span>
+      </div>
+      <div class="mc-row"><span class="mc-label">5. Manejo inicial más apropiado:</span>
+        <select class="mc-select" onchange="chk(this,'Activar reperfusión urgente y tratar la inestabilidad hemodinámica','fbE6e')">
+          <option value="">— elegir —</option>
+          <option>Activar reperfusión urgente y tratar la inestabilidad hemodinámica</option>
+          <option>Continuar sin intervención específica si permanece estable</option>
+          <option>Retirar estímulo vagal; atropina si persiste inestabilidad</option>
+          <option>Valorar síntomas y conducción; no indicar marcapasos automáticamente</option>
+          <option>Activar reperfusión; antiagregación y valorar derivaciones derechas</option>
+          <option>Activar reperfusión urgente y tratamiento del síndrome coronario agudo</option>
+          <option>Confirmar con V7–V9 y tratar como síndrome coronario agudo con reperfusión</option>
+          <option>Controlar frecuencia si estable y valorar riesgo tromboembólico/anticoagulación</option>
+        </select><span class="fb" id="fbE6e"></span>
+      </div>
+      <div class="mc-row"><span class="mc-label">6. Cara y arteria coronaria probable:</span>
+        <select class="mc-select" onchange="chk(this,'Cara lateral; circunfleja o diagonal como posibilidades','fbE6f')">
+          <option value="">— elegir —</option>
+          <option>Cara inferior; coronaria derecha como posibilidad principal</option>
+          <option>Cara anterior; descendente anterior como arteria probable</option>
+          <option>Cara posterior; coronaria derecha o circunfleja según territorio</option>
+          <option>Cara lateral; circunfleja o diagonal como posibilidades</option>
+          <option>No hay una cara isquémica definida; no se asigna arteria</option>
+        </select><span class="fb" id="fbE6f"></span>
+      </div>
+</div>
+<div class="ex-item"><div class="ex-label"><span class="ex-num">ECG 7</span> Caso clínico — interpretación sistemática <span class="ex-pts-auto">6 preguntas · 0.3125 pts</span></div><div class="ex-context"><strong>Contexto:</strong> Mujer 63 años con dolor torácico intenso, náusea y cambios recíprocos en V1–V3. El ECG sugiere compromiso de la pared posterior.</div><div class="ecg-trace" data-ecg="7"><div class="ecg-trace-ph">Cargando trazado…</div></div><div class="ecg-strip"><div class="ecg-lead"><span class="ecg-lead-name">Velocidad</span><span class="ecg-lead-val">25 mm/s</span></div><div class="ecg-lead"><span class="ecg-lead-name">Calibración</span><span class="ecg-lead-val">10 mm/mV</span></div><div class="ecg-lead"><span class="ecg-lead-name">Clave</span><span class="ecg-lead-val">Interprete el trazado</span></div></div>
+      <div class="mc-row"><span class="mc-label">1. Frecuencia cardíaca:</span>
+        <select class="mc-select" onchange="chk(this,'≈80 lpm','fbE7a')">
+          <option value="">— elegir —</option>
+          <option>≈102 lpm</option>
+          <option>≈80 lpm</option>
+          <option>≈38 lpm</option>
+          <option>≈50 lpm</option>
+          <option>≈74 lpm</option>
+          <option>≈82 lpm</option>
+          <option>≈86 lpm</option>
+          <option>≈88 lpm</option>
         </select><span class="fb" id="fbE7a"></span>
       </div>
-      <div class="mc-row"><span class="mc-label">¿Cómo se debe tratar este BRI nuevo con hipotensión intraoperatoria?</span>
-        <select class="mc-select" onchange="chk(this,'BRI nuevo + inestabilidad = IAMCEST equivalente (ESC 2023) → activar hemodinamia urgente + suspender cirugía si es seguro','fbE7b')">
+      <div class="mc-row"><span class="mc-label">2. Ritmo:</span>
+        <select class="mc-select" onchange="chk(this,'Ritmo sinusal','fbE7b')">
           <option value="">— elegir —</option>
-          <option>BRI nuevo + inestabilidad = IAMCEST equivalente (ESC 2023) → activar hemodinamia urgente + suspender cirugía si es seguro</option>
-          <option>BRI nuevo solo requiere marcapasos externo; no es urgencia coronaria</option>
-          <option>Continuar la cirugía y hacer ecocardiograma postoperatorio para evaluar</option>
-          <option>Amiodarona 150 mg IV para revertir el BRI farmacológicamente</option>
+          <option>Ritmo sinusal</option>
+          <option>Ritmo sinusal con taquicardia</option>
+          <option>Bradicardia sinusal</option>
+          <option>Fibrilación auricular con respuesta ventricular controlada</option>
+          <option>Flutter auricular</option>
+          <option>Ritmo de la unión</option>
+          <option>Taquicardia supraventricular</option>
         </select><span class="fb" id="fbE7b"></span>
       </div>
-    </div>
-
-    <!-- ECG 8 -->
-    <div class="ex-item">
-      <div class="ex-label"><span class="ex-num">ECG 8</span> FA de nueva aparición intraoperatoria — manejo <span class="ex-pts-auto">2 preg · 0.625 pts</span></div>
-      <div class="ex-context"><strong>Contexto:</strong> Hombre 66 años, gastrectomía abierta 3 h de cirugía. Sin antecedente de FA. PA estable 118/72. El ritmo del monitor cambia a irregular sin onda P clara:</div>
-      <div class="ecg-trace" data-ecg="8"><div class="ecg-trace-ph">Cargando trazado…</div></div>
-      <div class="ecg-strip">
-        <div class="ecg-lead"><span class="ecg-lead-name">FC media</span><span class="ecg-lead-val ojo">118 lpm</span></div>
-        <div class="ecg-lead"><span class="ecg-lead-name">Ritmo</span><span class="ecg-lead-val anormal">Irregular</span></div>
-        <div class="ecg-lead"><span class="ecg-lead-name">Onda P</span><span class="ecg-lead-val anormal">Ausente</span></div>
-        <div class="ecg-lead"><span class="ecg-lead-name">Línea base</span><span class="ecg-lead-val anormal">Ondulante</span></div>
-        <div class="ecg-lead"><span class="ecg-lead-name">QRS</span><span class="ecg-lead-val">0.09 s</span></div>
-        <div class="ecg-lead"><span class="ecg-lead-name">PA</span><span class="ecg-lead-val">118/72</span></div>
-        <div class="ecg-lead"><span class="ecg-lead-name">ST</span><span class="ecg-lead-val">Isoeléctrico</span></div>
-      </div>
-      <div class="mc-row"><span class="mc-label">Diagnóstico del trazado:</span>
-        <select class="mc-select" onchange="chk(this,'Fibrilación auricular de nueva aparición (ritmo irregular sin P, línea base ondulante, QRS estrecho)','fbE8a')">
+      <div class="mc-row"><span class="mc-label">3. Eje eléctrico:</span>
+        <select class="mc-select" onchange="chk(this,'Eje normal, alrededor de +60°','fbE7c')">
           <option value="">— elegir —</option>
-          <option>Fibrilación auricular de nueva aparición (ritmo irregular sin P, línea base ondulante, QRS estrecho)</option>
-          <option>Flutter auricular con conducción variable — buscar ondas F en sierra</option>
-          <option>Taquicardia sinusal irregular — P presentes pero difíciles de ver</option>
-          <option>Ritmo de la unión AV acelerado — QRS estrecho sin P</option>
+          <option>Eje normal, alrededor de +30°</option>
+          <option>Eje normal, alrededor de +45°</option>
+          <option>Eje normal, alrededor de +50°</option>
+          <option>Desviación izquierda, cerca de −60°</option>
+          <option>Desviación derecha, cerca de +120°</option>
+          <option>Eje indeterminado, cerca de 180°</option>
+          <option>Eje normal, alrededor de +60°</option>
+        </select><span class="fb" id="fbE7c"></span>
+      </div>
+      <div class="mc-row"><span class="mc-label">4. Diagnóstico electrocardiográfico:</span>
+        <select class="mc-select" onchange="chk(this,'IAM posterior con cambios recíprocos en precordiales','fbE7d')">
+          <option value="">— elegir —</option>
+          <option>IAM con elevación del ST de cara anterior</option>
+          <option>IAM con elevación del ST de cara lateral</option>
+          <option>Fibrilación auricular de respuesta ventricular controlada</option>
+          <option>IAM posterior con cambios recíprocos en precordiales</option>
+          <option>Ritmo sinusal sin alteraciones agudas</option>
+          <option>Bradicardia sinusal vagal por neumoperitoneo</option>
+          <option>BRD completo + hemibloqueo fascicular anterior</option>
+          <option>IAM con elevación del ST de cara inferior</option>
+        </select><span class="fb" id="fbE7d"></span>
+      </div>
+      <div class="mc-row"><span class="mc-label">5. Manejo inicial más apropiado:</span>
+        <select class="mc-select" onchange="chk(this,'Confirmar con V7–V9 y tratar como síndrome coronario agudo con reperfusión','fbE7e')">
+          <option value="">— elegir —</option>
+          <option>Continuar sin intervención específica si permanece estable</option>
+          <option>Retirar estímulo vagal; atropina si persiste inestabilidad</option>
+          <option>Valorar síntomas y conducción; no indicar marcapasos automáticamente</option>
+          <option>Activar reperfusión; antiagregación y valorar derivaciones derechas</option>
+          <option>Activar reperfusión urgente y tratamiento del síndrome coronario agudo</option>
+          <option>Activar reperfusión urgente y tratar la inestabilidad hemodinámica</option>
+          <option>Controlar frecuencia si estable y valorar riesgo tromboembólico/anticoagulación</option>
+          <option>Confirmar con V7–V9 y tratar como síndrome coronario agudo con reperfusión</option>
+        </select><span class="fb" id="fbE7e"></span>
+      </div>
+      <div class="mc-row"><span class="mc-label">6. Cara y arteria coronaria probable:</span>
+        <select class="mc-select" onchange="chk(this,'Cara posterior; coronaria derecha o circunfleja según territorio','fbE7f')">
+          <option value="">— elegir —</option>
+          <option>Cara anterior; descendente anterior como arteria probable</option>
+          <option>Cara lateral; circunfleja o diagonal como posibilidades</option>
+          <option>Cara posterior; coronaria derecha o circunfleja según territorio</option>
+          <option>No hay una cara isquémica definida; no se asigna arteria</option>
+          <option>Cara inferior; coronaria derecha como posibilidad principal</option>
+        </select><span class="fb" id="fbE7f"></span>
+      </div>
+</div>
+<div class="ex-item"><div class="ex-label"><span class="ex-num">ECG 8</span> Caso clínico — interpretación sistemática <span class="ex-pts-auto">6 preguntas · 0.3125 pts</span></div><div class="ex-context"><strong>Contexto:</strong> Hombre 75 años, tercer día después de colectomía. Presenta palpitaciones; PA 118/70 mmHg. El trazado tiene intervalos RR irregulares y no muestra ondas P organizadas.</div><div class="ecg-trace" data-ecg="8"><div class="ecg-trace-ph">Cargando trazado…</div></div><div class="ecg-strip"><div class="ecg-lead"><span class="ecg-lead-name">Velocidad</span><span class="ecg-lead-val">25 mm/s</span></div><div class="ecg-lead"><span class="ecg-lead-name">Calibración</span><span class="ecg-lead-val">10 mm/mV</span></div><div class="ecg-lead"><span class="ecg-lead-name">Clave</span><span class="ecg-lead-val">Interprete el trazado</span></div></div>
+      <div class="mc-row"><span class="mc-label">1. Frecuencia cardíaca:</span>
+        <select class="mc-select" onchange="chk(this,'≈88 lpm','fbE8a')">
+          <option value="">— elegir —</option>
+          <option>≈88 lpm</option>
+          <option>≈38 lpm</option>
+          <option>≈50 lpm</option>
+          <option>≈74 lpm</option>
+          <option>≈80 lpm</option>
+          <option>≈82 lpm</option>
+          <option>≈86 lpm</option>
+          <option>≈102 lpm</option>
         </select><span class="fb" id="fbE8a"></span>
       </div>
-      <div class="mc-row"><span class="mc-label">Manejo de la FA con PA estable (118/72) intraoperatoria:</span>
-        <select class="mc-select" onchange="chk(this,'Control de frecuencia: metoprolol 2.5–5 mg IV lento o amiodarona 150 mg IV en 10 min; corregir K⁺ y Mg²⁺','fbE8b')">
+      <div class="mc-row"><span class="mc-label">2. Ritmo:</span>
+        <select class="mc-select" onchange="chk(this,'Fibrilación auricular con respuesta ventricular controlada','fbE8b')">
           <option value="">— elegir —</option>
-          <option>Control de frecuencia: metoprolol 2.5–5 mg IV lento o amiodarona 150 mg IV en 10 min; corregir K⁺ y Mg²⁺</option>
-          <option>Cardioversión sincronizada 200 J inmediata — FA siempre requiere cardioversión</option>
-          <option>Adenosina 6 mg IV en bolo — de elección en FA de nueva aparición</option>
-          <option>No tratar hasta finalizar la cirugía; la FA intraoperatoria es siempre benigna</option>
+          <option>Ritmo sinusal con taquicardia</option>
+          <option>Bradicardia sinusal</option>
+          <option>Flutter auricular</option>
+          <option>Ritmo de la unión</option>
+          <option>Taquicardia supraventricular</option>
+          <option>Fibrilación auricular con respuesta ventricular controlada</option>
+          <option>Ritmo sinusal</option>
         </select><span class="fb" id="fbE8b"></span>
       </div>
-    </div>
+      <div class="mc-row"><span class="mc-label">3. Eje eléctrico:</span>
+        <select class="mc-select" onchange="chk(this,'Eje aproximadamente +45°','fbE8c')">
+          <option value="">— elegir —</option>
+          <option>Eje normal, alrededor de +30°</option>
+          <option>Eje normal, alrededor de +45°</option>
+          <option>Eje normal, alrededor de +50°</option>
+          <option>Eje normal, alrededor de +60°</option>
+          <option>Desviación izquierda, cerca de −60°</option>
+          <option>Desviación derecha, cerca de +120°</option>
+          <option>Eje indeterminado, cerca de 180°</option>
+          <option>Eje aproximadamente +45°</option>
+        </select><span class="fb" id="fbE8c"></span>
+      </div>
+      <div class="mc-row"><span class="mc-label">4. Diagnóstico electrocardiográfico:</span>
+        <select class="mc-select" onchange="chk(this,'Fibrilación auricular de respuesta ventricular controlada','fbE8d')">
+          <option value="">— elegir —</option>
+          <option>Fibrilación auricular de respuesta ventricular controlada</option>
+          <option>Ritmo sinusal sin alteraciones agudas</option>
+          <option>Bradicardia sinusal vagal por neumoperitoneo</option>
+          <option>BRD completo + hemibloqueo fascicular anterior</option>
+          <option>IAM con elevación del ST de cara inferior</option>
+          <option>IAM con elevación del ST de cara anterior</option>
+          <option>IAM con elevación del ST de cara lateral</option>
+          <option>IAM posterior con cambios recíprocos en precordiales</option>
+        </select><span class="fb" id="fbE8d"></span>
+      </div>
+      <div class="mc-row"><span class="mc-label">5. Manejo inicial más apropiado:</span>
+        <select class="mc-select" onchange="chk(this,'Controlar frecuencia si estable y valorar riesgo tromboembólico/anticoagulación','fbE8e')">
+          <option value="">— elegir —</option>
+          <option>Retirar estímulo vagal; atropina si persiste inestabilidad</option>
+          <option>Valorar síntomas y conducción; no indicar marcapasos automáticamente</option>
+          <option>Activar reperfusión; antiagregación y valorar derivaciones derechas</option>
+          <option>Activar reperfusión urgente y tratamiento del síndrome coronario agudo</option>
+          <option>Activar reperfusión urgente y tratar la inestabilidad hemodinámica</option>
+          <option>Confirmar con V7–V9 y tratar como síndrome coronario agudo con reperfusión</option>
+          <option>Controlar frecuencia si estable y valorar riesgo tromboembólico/anticoagulación</option>
+          <option>Continuar sin intervención específica si permanece estable</option>
+        </select><span class="fb" id="fbE8e"></span>
+      </div>
+      <div class="mc-row"><span class="mc-label">6. Cara y arteria coronaria probable:</span>
+        <select class="mc-select" onchange="chk(this,'No hay una cara isquémica definida; no se asigna arteria','fbE8f')">
+          <option value="">— elegir —</option>
+          <option>Cara posterior; coronaria derecha o circunfleja según territorio</option>
+          <option>No hay una cara isquémica definida; no se asigna arteria</option>
+          <option>Cara inferior; coronaria derecha como posibilidad principal</option>
+          <option>Cara anterior; descendente anterior como arteria probable</option>
+          <option>Cara lateral; circunfleja o diagonal como posibilidades</option>
+        </select><span class="fb" id="fbE8f"></span>
+      </div>
+</div>
+<button class="correct-btn" onclick="corregir('A',48,['fbE1a','fbE1b','fbE1c','fbE1d','fbE1e','fbE1f','fbE2a','fbE2b','fbE2c','fbE2d','fbE2e','fbE2f','fbE3a','fbE3b','fbE3c','fbE3d','fbE3e','fbE3f','fbE4a','fbE4b','fbE4c','fbE4d','fbE4e','fbE4f','fbE5a','fbE5b','fbE5c','fbE5d','fbE5e','fbE5f','fbE6a','fbE6b','fbE6c','fbE6d','fbE6e','fbE6f','fbE7a','fbE7b','fbE7c','fbE7d','fbE7e','fbE7f','fbE8a','fbE8b','fbE8c','fbE8d','fbE8e','fbE8f'],2.5)">Corregir Módulo A (2.5 pts)</button><div class="nota-bar"><span class="nota-bar-label">Nota autocorregible</span><span class="nota-bar-val" id="notaECG">0.00 / 2.50</span><span style="font-family:var(--sans);font-size:9pt;color:var(--gray-400);">pts · Módulo A</span></div></div></div>
 
-    <button class="correct-btn" onclick="corregir('A',16,['fbE1a','fbE1b','fbE2a','fbE2b','fbE3a','fbE3b','fbE4a','fbE4b','fbE5a','fbE5b','fbE6a','fbE6b','fbE7a','fbE7b','fbE8a','fbE8b'],2.5)">Corregir Módulo A (2.5 pts)</button>
+<button class="correct-btn" onclick="corregir('A',16,['fbE1a','fbE1b','fbE2a','fbE2b','fbE3a','fbE3b','fbE4a','fbE4b','fbE5a','fbE5b','fbE6a','fbE6b','fbE7a','fbE7b','fbE8a','fbE8b'],2.5)">Corregir Módulo A (2.5 pts)</button>
     <div class="nota-bar">
       <span class="nota-bar-label">Nota autocorregible</span>
       <span class="nota-bar-val" id="notaECG">0.00 / 2.50</span>
@@ -1368,18 +1746,7 @@ body{ background:#F1ECE8 !important; font-family:var(--sans); }
   <div class="module-body">
 
     <div class="ex-item">
-      <div class="ex-label"><span class="ex-num">B1</span> Algoritmo sistemático completo — 10 pasos <span class="ex-pts-manual">0.5 pts · docente</span></div>
-      <div class="manual-block">
-        <div class="manual-block-label">✏️ Caso + pregunta abierta</div>
-        <div class="ex-context" style="margin-bottom:10px;"><strong>ECG:</strong> Hombre 72 años, preoperatorio de cirugía vascular aórtica. FC 68 lpm · Ritmo regular · P positiva DII · PR 0.22 s · QRS 0.10 s · QTc 455 ms ♂ · Eje: DI+ / aVF+ · ST isoeléctrico · T invertida en V1–V3 · S(V1)+R(V5) = 37 mm · P en DII = 3 mm, ancha y mellada.</div>
-        <div class="open-question">Aplique el algoritmo sistemático de 10 pasos de la Sección 9 completo. Identifique todos los hallazgos presentes, su significado clínico, y las consideraciones para el manejo anestésico de este paciente.</div>
-        <textarea class="open-area" placeholder="Escriba su respuesta aquí..."></textarea>
-        <div class="print-answer"></div>
-      </div>
-    </div>
-
-    <div class="ex-item">
-      <div class="ex-label"><span class="ex-num">B2</span> Bloqueos de rama — diagnóstico diferencial e implicaciones <span class="ex-pts-manual">0.5 pts · docente</span></div>
+      <div class="ex-label"><span class="ex-num">B1</span> Bloqueos de rama — diagnóstico diferencial e implicaciones <span class="ex-pts-manual">0.625 pts · docente</span></div>
       <div class="manual-block">
         <div class="manual-block-label">✏️ Pregunta abierta</div>
         <div class="open-question-part"><span class="open-question-part-letter">a</span><span>Enumere los criterios diagnósticos del BRD completo vs BRI completo. ¿Qué morfología espera en V1 en cada uno?</span></div>
@@ -1391,7 +1758,7 @@ body{ background:#F1ECE8 !important; font-family:var(--sans); }
     </div>
 
     <div class="ex-item">
-      <div class="ex-label"><span class="ex-num">B3</span> Isquemia miocárdica intraoperatoria — triada diagnóstica <span class="ex-pts-manual">0.5 pts · docente</span></div>
+      <div class="ex-label"><span class="ex-num">B2</span> Isquemia miocárdica intraoperatoria — triada diagnóstica <span class="ex-pts-manual">0.625 pts · docente</span></div>
       <div class="manual-block">
         <div class="manual-block-label">✏️ Caso clínico</div>
         <div class="open-question">Hombre 65 años, cirugía de columna lumbar en prono. A los 90 min: PA 88/54, FC 108 lpm. El anestesiólogo nota cambios en el monitor de 5 derivaciones (DII + V5). En DII hay elevación de ST 2 mm. En V5 descenso de ST 1 mm.</div>
@@ -1404,7 +1771,7 @@ body{ background:#F1ECE8 !important; font-family:var(--sans); }
     </div>
 
     <div class="ex-item">
-      <div class="ex-label"><span class="ex-num">B4</span> Electrolitos y fármacos anestésicos — correlación ECG <span class="ex-pts-manual">0.5 pts · docente</span></div>
+      <div class="ex-label"><span class="ex-num">B3</span> Electrolitos y fármacos anestésicos — correlación ECG <span class="ex-pts-manual">0.625 pts · docente</span></div>
       <div class="manual-block">
         <div class="manual-block-label">✏️ Pregunta abierta</div>
         <div class="open-question-part"><span class="open-question-part-letter">a</span><span>Describa la progresión electrocardiográfica de la hiperpotasemia desde K⁺ 5.5 hasta 8.0 mEq/L. ¿En qué nivel aparece cada cambio?</span></div>
@@ -1416,7 +1783,7 @@ body{ background:#F1ECE8 !important; font-family:var(--sans); }
     </div>
 
     <div class="ex-item">
-      <div class="ex-label"><span class="ex-num">B5</span> Arritmias perioperatorias — diagnóstico y tratamiento <span class="ex-pts-manual">0.5 pts · docente</span></div>
+      <div class="ex-label"><span class="ex-num">B4</span> Arritmias perioperatorias — diagnóstico y tratamiento <span class="ex-pts-manual">0.625 pts · docente</span></div>
       <div class="manual-block">
         <div class="manual-block-label">✏️ Preguntas integradoras</div>
         <div class="open-question-part"><span class="open-question-part-letter">a</span><span>Diferencia electrocardiográfica entre fibrilación auricular y flutter auricular. ¿Cómo calcula la FC en una FA? ¿Y en flutter 2:1?</span></div>
@@ -1476,6 +1843,8 @@ function corregir(mod,total,fbIds,maxPts){
 function actualizarNotas(){
   var nt=document.getElementById('notaECG');
   if(nt)nt.textContent=(pts.A||0).toFixed(2)+' / 2.50';
+  var pn=document.getElementById('printNotaECG');
+  if(pn)pn.textContent=(pts.A||0).toFixed(2)+' / 2.50';
 }
 function setupPrintAnswers(){
   document.querySelectorAll('textarea.open-area').forEach(function(ta){
@@ -1501,13 +1870,11 @@ function generarCodigoAntiPlagio(){
   return 'AN-'+s;
 }
 function aplicarMarcaAntiPlagio(codigo){
-  ['phCodigo','pfCodigo'].forEach(function(id){var e=document.getElementById(id);if(e)e.textContent=codigo;});
-  document.querySelectorAll('#taller-tab .module-header').forEach(function(h){
-    var tag=h.querySelector('.anti-code'); if(!tag){tag=document.createElement('span');tag.className='anti-code';h.appendChild(tag);} tag.textContent='🔒 '+codigo;
-  });
-  document.querySelectorAll('#taller-tab .ex-label').forEach(function(h){
-    var tag=h.querySelector('.anti-code'); if(!tag){tag=document.createElement('span');tag.className='anti-code';h.appendChild(tag);} tag.textContent='🔒 '+codigo;
-  });
+  ['phCodigo','pfCodigo','wmCodigo'].forEach(function(id){var e=document.getElementById(id);if(e)e.textContent=codigo;});
+  ['wmNombre'].forEach(function(id){var e=document.getElementById(id);if(e)e.textContent=document.getElementById('nomE').value.trim();});
+  ['wmUniversidad'].forEach(function(id){var e=document.getElementById(id);if(e)e.textContent=document.getElementById('univE').value.trim();});
+  /* Los códigos por ejercicio NO se imprimen: la identificación queda centralizada en la marca de agua. */
+  document.querySelectorAll('#taller-tab .module-header .anti-code').forEach(function(tag){tag.remove();});
 }
 function dlPDF(){
   var nom=document.getElementById('nomE').value.trim();
@@ -1527,276 +1894,172 @@ function dlPDF(){
   setTimeout(function(){window.print();},300);
 }
 
-/* ══ ECG WAVEFORM GENERATOR (multiderivación) ══ */
-/* ══ GENERADOR DE TRAZADOS ECG MULTIDERIVACIÓN (SVG sobre papel milimetrado) ══
-   Cada ejercicio muestra TODAS las derivaciones que menciona, con la
-   morfología propia de cada una, para interpretación visual real.
-   Escala: 25 mm/s · 10 mm/mV · cuadro pequeño = 8 px = 0.04 s / 0.1 mV
+/* ══ ECG WAVEFORM GENERATOR — ESTILO CLÍNICO ══
+   Renderizado tipo tira de ECG: cuadrícula fina, calibración 1 mV,
+   trazos suaves, complejos P-QRS-T curvos y derivaciones claramente rotuladas.
 */
 (function(){
-  var SMALL = 8;            // px por cuadro pequeño (0.04 s / 0.1 mV)
-  var BIG   = SMALL * 5;    // cuadro grande (0.20 s / 0.5 mV)
-  var LH    = 96;           // alto de cada carril de derivación (px)
-  var MM    = SMALL;        // 1 mm (0.1 mV) = SMALL px de amplitud
+  var SMALL=4;                 // 1 mm ≈ 4 px
+  var BIG=SMALL*5;             // 5 mm
+  var LH=128;                  // carril amplio para que el trazo respire
+  var MM=40;                   // 1 mV = 10 mm = 40 px
+  var TRACE='#18202a', GRID='#e9a6b5', GRIDF='#f5d6de';
 
-  function gridInto(w, h){
-    var g = '';
-    for(var x=0; x<=w; x+=SMALL){
-      var thick=(x%BIG===0);
-      g+='<line x1="'+x+'" y1="0" x2="'+x+'" y2="'+h+'" stroke="'+(thick?'#f0a3b6':'#f8d2db')+'" stroke-width="'+(thick?1:0.5)+'"/>';
-    }
-    for(var y=0; y<=h; y+=SMALL){
-      var t=(y%BIG===0);
-      g+='<line x1="0" y1="'+y+'" x2="'+w+'" y2="'+y+'" stroke="'+(t?'#f0a3b6':'#f8d2db')+'" stroke-width="'+(t?1:0.5)+'"/>';
-    }
-    return g;
+  function esc(t){return String(t).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
+  /* Cuadrícula vectorial fija: queda visible en TODOS los trazos y al imprimir a PDF. */
+  function gridDefs(id){
+    return '<defs>'+
+      '<pattern id="'+id+'" width="'+BIG+'" height="'+BIG+'" patternUnits="userSpaceOnUse">'+
+        '<path d="M '+SMALL+' 0 V '+BIG+' M '+(SMALL*2)+' 0 V '+BIG+' M '+(SMALL*3)+' 0 V '+BIG+' M '+(SMALL*4)+' 0 V '+BIG+'" stroke="'+GRIDF+'" stroke-width="0.45" fill="none"/>'+ 
+        '<path d="M 0 '+SMALL+' H '+BIG+' M 0 '+(SMALL*2)+' H '+BIG+' M 0 '+(SMALL*3)+' H '+BIG+' M 0 '+(SMALL*4)+' H '+BIG+'" stroke="'+GRIDF+'" stroke-width="0.45" fill="none"/>'+ 
+        '<path d="M 0 0 V '+BIG+' M 0 0 H '+BIG+'" stroke="'+GRID+'" stroke-width="0.9" fill="none"/>'+ 
+      '</pattern>'+ 
+    '</defs>';
+  }
+  function gridInto(w,h,id){
+    return '<rect x="0" y="0" width="'+w+'" height="'+h+'" fill="url(#'+id+')"/>';
   }
 
-  // helpers de onda
-  function bump(add, t0, dur, amp, base0, base1){
-    var n=Math.max(6,Math.round(dur/0.008));
-    for(var i=1;i<=n;i++){var f=i/n; add(t0+dur*f, base0+(base1-base0)*f+amp*Math.sin(Math.PI*f));}
-    return t0+dur;
-  }
-  function seg(add,t0,dur,a,b){
-    var n=Math.max(2,Math.round(dur/0.02));
-    for(var i=1;i<=n;i++){var f=i/n; add(t0+dur*f, a+(b-a)*f);}
-    return t0+dur;
-  }
+  function smoothstep(a,b,x){var z=Math.max(0,Math.min(1,(x-a)/(b-a)));return z*z*(3-2*z);}
+  function gauss(x,c,s){var z=(x-c)/s;return Math.exp(-0.5*z*z);}
+  function triangle(x,c,w){var z=Math.abs((x-c)/w);return z<1?1-z:0;}
 
-  // Un latido para UNA derivación. o = parámetros morfológicos.
-  // base = línea isoeléctrica (px). Devuelve puntos [x,y] absolutos.
-  function beat(x0, base, o){
-    var pts=[];
-    function add(t,mv){ pts.push([x0+t/0.04*SMALL, base-mv*MM]); }
-    var t=0; add(0,0);
-    var w = o.qrsWide!=null?o.qrsWide:1;
-    var stLvl = o.st!=null?o.st:0;
+  /* Onda fisiológica simplificada: curvas suaves, no segmentos rectos. */
+  function valueAt(t,o){
+    var y=0;
+    var qrsWide=o.qrsWide!=null?o.qrsWide:1;
+    var st=o.st!=null?o.st:0;
+    var pAmp=o.p!=null?o.p:0.15;
+    var tAmp=o.t!=null?o.t:0.30;
 
-    // P
     if(!o.noP){
-      var pw=o.pWide?0.13:0.09, pAmp=o.p!=null?o.p:0.15;
-      t=bump(add,t,pw,pAmp,0,0);
-      var pr=(o.pr!=null?o.pr:0.16)-pw; if(pr<0.02)pr=0.02;
-      t=seg(add,t,pr,0,0);
-    } else {
-      t=seg(add,t,(o.pr!=null?o.pr:0.14),0,0);
+      var pc=o.pWide?0.105:0.085, ps=o.pWide?0.035:0.025;
+      y += pAmp*gauss(t,pc,ps);
     }
 
-    // QRS
-    if(o.q){ t=seg(add,t,(o.qWide?0.045:0.012)*w,0,-(o.q)); }
-    var rAmp=o.r!=null?o.r:1.1;
-    if(o.qsOnly){                                   // complejo qS (todo negativo)
-      t=seg(add,t,0.020*w,0,-(o.qs!=null?o.qs:1.0));
-      t=seg(add,t,0.020*w,-(o.qs!=null?o.qs:1.0),stLvl);
-    } else {
-      t=seg(add,t,0.018*w,(o.q?-(o.q):0),rAmp);     // R sube
-      if(o.notchR){ t=seg(add,t,0.010*w,rAmp,rAmp*0.75); t=seg(add,t,0.012*w,rAmp*0.75,rAmp); }
-      if(o.rPrime){                                  // rSR' (BRD)
-        t=seg(add,t,0.016*w,rAmp,-(o.s!=null?o.s:0.3));
-        t=seg(add,t,0.018*w,-(o.s!=null?o.s:0.3),o.rPrime);
-        t=seg(add,t,0.014*w,o.rPrime,stLvl);
-      } else {
-        t=seg(add,t,0.020*w,rAmp,-(o.s!=null?o.s:0.25));  // S baja
-        t=seg(add,t,0.012*w,-(o.s!=null?o.s:0.25),stLvl);
+    var qCenter=0.205, rCenter=0.222, sCenter=0.242;
+    var qW=0.014*qrsWide, rW=0.012*qrsWide, sW=0.014*qrsWide;
+    if(o.q) y -= o.q*gauss(t,qCenter,qW);
+
+    if(o.qsOnly){
+      y -= (o.qs!=null?o.qs:1.0)*gauss(t,0.225,0.022*qrsWide);
+    }else{
+      var rAmp=o.r!=null?o.r:1.1;
+      y += rAmp*gauss(t,rCenter,rW);
+      if(o.notchR){
+        y += (rAmp*0.26)*gauss(t,0.246,0.007*qrsWide);
+        y -= (rAmp*0.08)*gauss(t,0.257,0.006*qrsWide);
       }
+      if(o.rPrime) y += o.rPrime*gauss(t,0.258,0.013*qrsWide);
+      if(o.s) y -= o.s*gauss(t,sCenter, sW);
     }
 
-    // ST
-    t=seg(add,t,(o.stSeg!=null?o.stSeg:0.08),stLvl,stLvl);
-    // T
-    var tw=o.tWide?0.20:0.16, tamp=o.t!=null?o.t:0.30;
-    t=bump(add,t,tw,tamp,stLvl,0);
-    // U (opcional)
-    if(o.u){ t=seg(add,t,0.03,0,0); t=bump(add,t,0.10,o.u,0,0); }
+    /* ST suave entre J y T */
+    var stStart=0.275+0.018*(qrsWide-1), stEnd=stStart+(o.stSeg!=null?o.stSeg:0.08);
+    var stWindow=smoothstep(stStart,stStart+0.025,t)*(1-smoothstep(stEnd,stEnd+0.025,t));
+    y += st*stWindow;
 
-    var rr=o.rr;
-    if(t<rr){
-      if(o.fibrillate){ var tt=t; while(tt<rr-0.02){ tt+=0.025+Math.random()*0.035; add(tt,(Math.random()-0.5)*0.07);} }
-      add(rr,0);
-    }
-    return {pts:pts, next:x0+rr/0.04*SMALL};
+    var tCenter=0.405;
+    if(o.tWide)tCenter=0.425;
+    if(o.u)tCenter+=0.025;
+    y += tAmp*gauss(t,tCenter,o.tWide?0.060:0.050);
+    if(o.u) y += o.u*gauss(t,tCenter+0.12,0.022);
+    return y;
   }
 
-  function toPath(p){ var d=''; for(var i=0;i<p.length;i++){d+=(i?'L':'M')+p[i][0].toFixed(1)+' '+p[i][1].toFixed(1)+' ';} return d; }
+  function traceBeat(x0,base,o,rr,w){
+    var pts=[], step=0.004;
+    var maxT=Math.min(rr,w*0.04/SMALL);
+    for(var t=0;t<maxT;t+=step){
+      var mv=valueAt(t,o);
+      pts.push([x0+t/0.04*SMALL,base-mv*MM]);
+    }
+    pts.push([x0+maxT/0.04*SMALL,base]);
+    return pts;
+  }
 
-  function laneTrace(o, w, base){
-    var all=[], x=6;
+  function laneTrace(o,w,base){
+    var all=[], x=58;
     if(o.fib){
-      while(x<w-30){
-        var rr=0.38+Math.random()*0.34;
-        var b=beat(x,base,Object.assign({rr:rr,noP:true,fibrillate:true,q:0.05,r:1.0+Math.random()*0.15,s:0.25,st:0,t:0.22,pr:0.10,qrsWide:1},{}));
-        all=all.concat(b.pts); x=b.next;
+      var seed=0;
+      while(x<w-18){
+        var rr=0.43+((seed*37)%100)/100*0.25; seed++;
+        var fibo={noP:true,q:0.04,r:1.0+((seed%4)*0.04),s:0.18,st:0,t:0.20,qrsWide:1};
+        var b=traceBeat(x,base,fibo,rr,w); all=all.concat(b); x+=rr/0.04*SMALL;
+        /* fibrilación basal muy sutil entre complejos */
+        if(x<w-18){for(var z=0;z<18;z+=3){var xx=x+z;all.push([xx,base+Math.sin(z*1.8+seed)*1.8]);}}
       }
-    } else {
-      while(x<w-30){ var b=beat(x,base,Object.assign({rr:o.rr},o.beat)); all=all.concat(b.pts); x=b.next; }
+    }else{
+      var rr=o.rr||0.8;
+      while(x<w-18){var b=traceBeat(x,base,o.beat||{},rr,w);all=all.concat(b);x+=rr/0.04*SMALL;}
     }
     return all;
   }
 
-  // ── Definición por ejercicio: lista de derivaciones con su morfología ──
-  // rr por defecto de cada ECG; cada lead puede sobreescribir beat.
-  var ECGS = {
-    1: { rr:0.73, leads:[
-          {name:'DII',  beat:{p:0.15,pr:0.16,q:0.05,r:1.15,s:0.25,st:0,t:0.32}},
-          {name:'aVR',  beat:{p:-0.12,pr:0.16,r:0.0,qsOnly:true,qs:0.9,st:0,t:-0.25}}
-        ]},
-    2: { rr:1.58, leads:[
-          {name:'DII (tira de ritmo)', beat:{p:0.15,pr:0.18,q:0.05,r:1.1,s:0.25,st:0,t:0.30}}
-        ]},
-    3: { rr:0.75, leads:[
-          {name:'DI',  beat:{p:0.12,pr:0.16,r:1.0,s:0.15,st:0,t:0.2,qrsWide:1.6}},                 // eje: DI +
-          {name:'DII', beat:{p:0.10,pr:0.16,qsOnly:true,qs:0.7,st:0,t:-0.1,qrsWide:1.6}},           // DII −
-          {name:'aVF', beat:{p:0.08,pr:0.16,qsOnly:true,qs:0.8,st:0,t:-0.1,qrsWide:1.6}},           // aVF −
-          {name:'V1',  beat:{p:0.10,pr:0.16,r:0.45,rPrime:0.9,s:0.35,st:-0.05,t:-0.28,qrsWide:1.7,tWide:true}}, // rSR'
-          {name:'V6',  beat:{p:0.12,pr:0.16,q:0.05,r:0.9,s:0.6,st:0,t:0.15,qrsWide:1.7}}            // S ancha
-        ]},
-    4: { rr:0.78, leads:[
-          {name:'DII', beat:{p:0.14,pr:0.16,q:0.12,r:0.9,s:0.15,st:0.35,stSeg:0.09,t:0.35,tWide:true}},   // ST↑
-          {name:'DIII',beat:{p:0.10,pr:0.16,q:0.14,r:0.7,s:0.1,st:0.40,stSeg:0.09,t:0.32,tWide:true}},    // ST↑
-          {name:'aVF', beat:{p:0.11,pr:0.16,q:0.12,r:0.8,s:0.1,st:0.38,stSeg:0.09,t:0.33,tWide:true}},    // ST↑
-          {name:'DI',  beat:{p:0.12,pr:0.16,r:0.9,s:0.2,st:-0.15,stSeg:0.09,t:-0.15}},                    // recíproco ST↓
-          {name:'aVL', beat:{p:0.10,pr:0.16,r:0.7,s:0.25,st:-0.18,stSeg:0.09,t:-0.18}}                    // recíproco ST↓
-        ]},
-    5: { rr:0.85, leads:[
-          {name:'DII (QT largo)', beat:{p:0.14,pr:0.17,q:0.05,r:1.05,s:0.25,st:0.02,stSeg:0.20,t:0.26,tWide:true,u:0.08}}
-        ]},
-    6: { rr:0.82, leads:[
-          {name:'DII (hiperK)', beat:{p:0.03,pr:0.20,q:0.05,r:1.0,s:0.30,st:0,t:0.78,tWide:false,qrsWide:1.6}}
-        ]},
-    7: { rr:0.63, leads:[
-          {name:'V1',    beat:{p:0.10,pr:0.16,qsOnly:true,qs:1.0,st:0.10,t:0.28,qrsWide:1.8,tWide:true}},      // qS + T+ (discordante)
-          {name:'V5-V6', beat:{p:0.12,pr:0.16,r:1.2,notchR:true,s:0.05,st:-0.10,t:-0.30,qrsWide:1.8,tWide:true}}, // R mellada
-          {name:'DI',    beat:{p:0.12,pr:0.16,r:1.1,notchR:true,s:0.05,st:-0.08,t:-0.26,qrsWide:1.8,tWide:true}}   // R ancha
-        ]},
-    8: { fib:true, leads:[ {name:'DII (tira de ritmo)', fib:true} ] },
+  var ECGS={
+1:{rr:0.73,leads:[{name:'DII',beat:{p:0.16,pr:0.16,q:0.04,r:1.05,s:0.22,t:0.30}},{name:'DI',beat:{p:0.12,pr:0.16,q:0.03,r:0.95,s:0.12,t:0.26}},{name:'V1',beat:{p:0.07,pr:0.16,r:0.18,s:0.72,t:0.04}},{name:'V5',beat:{p:0.10,pr:0.16,q:0.03,r:1.25,s:0.08,t:0.28}}]},
+2:{rr:1.58,leads:[{name:'DII',beat:{p:0.14,pr:0.17,q:0.04,r:1,s:0.22,t:0.28}},{name:'V5',beat:{p:0.10,pr:0.17,q:0.03,r:1.1,s:0.1,t:0.27}}]},
+3:{rr:0.81,leads:[{name:'DI',beat:{p:0.12,pr:0.16,r:0.95,s:0.1,t:0.2}},{name:'DII',beat:{p:0.1,pr:0.16,qsOnly:true,qs:0.65,qrsWide:1.55,t:-0.08}},{name:'aVF',beat:{p:0.08,pr:0.16,qsOnly:true,qs:0.72,qrsWide:1.55,t:-0.08}},{name:'V1',beat:{p:0.08,pr:0.16,r:0.35,rPrime:0.85,s:0.32,qrsWide:1.65,t:-0.22,tWide:true}},{name:'V6',beat:{p:0.1,pr:0.16,q:0.04,r:0.9,s:0.52,qrsWide:1.65,t:0.14}}]},
+4:{rr:0.59,leads:[{name:'DII',beat:{p:0.12,pr:0.16,q:0.08,r:0.9,s:0.1,st:0.34,stSeg:0.1,t:0.3,tWide:true}},{name:'DIII',beat:{p:0.1,pr:0.16,q:0.1,r:0.72,s:0.08,st:0.42,stSeg:0.1,t:0.28,tWide:true}},{name:'aVF',beat:{p:0.1,pr:0.16,q:0.08,r:0.82,s:0.08,st:0.38,stSeg:0.1,t:0.3,tWide:true}},{name:'DI',beat:{p:0.1,pr:0.16,r:0.82,s:0.18,st:-0.14,stSeg:0.1,t:-0.16}},{name:'aVL',beat:{p:0.08,pr:0.16,r:0.68,s:0.22,st:-0.18,stSeg:0.1,t:-0.18}}]},
+5:{rr:0.75,leads:[{name:'V1',beat:{p:0.1,pr:0.16,r:0.28,s:0.6,st:0.24,stSeg:0.1,t:0.3,tWide:true}},{name:'V2',beat:{p:0.1,pr:0.16,r:0.55,s:0.3,st:0.38,stSeg:0.1,t:0.34,tWide:true}},{name:'V3',beat:{p:0.1,pr:0.16,q:0.04,r:0.95,s:0.12,st:0.42,stSeg:0.1,t:0.34,tWide:true}},{name:'V4',beat:{p:0.1,pr:0.16,q:0.05,r:1.1,s:0.08,st:0.36,stSeg:0.1,t:0.32,tWide:true}},{name:'DII',beat:{p:0.1,pr:0.16,q:0.04,r:0.9,s:0.18,st:-0.1,stSeg:0.1,t:-0.08}}]},
+6:{rr:0.70,leads:[{name:'DI',beat:{p:0.12,pr:0.16,q:0.05,r:1,s:0.12,st:0.28,stSeg:0.1,t:0.28,tWide:true}},{name:'aVL',beat:{p:0.1,pr:0.16,q:0.04,r:0.9,s:0.1,st:0.34,stSeg:0.1,t:0.3,tWide:true}},{name:'V5',beat:{p:0.1,pr:0.16,q:0.04,r:1.2,s:0.08,st:0.28,stSeg:0.1,t:0.3,tWide:true}},{name:'V6',beat:{p:0.1,pr:0.16,q:0.04,r:1.1,s:0.08,st:0.24,stSeg:0.1,t:0.28,tWide:true}},{name:'DIII',beat:{p:0.1,pr:0.16,q:0.04,r:0.78,s:0.1,st:-0.16,stSeg:0.1,t:-0.12}}]},
+7:{rr:0.75,leads:[{name:'V1',beat:{p:0.1,pr:0.16,r:0.75,s:0.12,st:-0.25,stSeg:0.1,t:0.24,tWide:true}},{name:'V2',beat:{p:0.1,pr:0.16,r:0.95,s:0.1,st:-0.3,stSeg:0.1,t:0.26,tWide:true}},{name:'V3',beat:{p:0.1,pr:0.16,r:0.82,s:0.1,st:-0.26,stSeg:0.1,t:0.24,tWide:true}},{name:'V7–V9',beat:{p:0.1,pr:0.16,q:0.06,r:0.9,s:0.08,st:0.2,stSeg:0.1,t:0.24,tWide:true}},{name:'DII',beat:{p:0.1,pr:0.16,q:0.04,r:0.95,s:0.16,t:0.28}}]},
+8:{fib:true,leads:[{name:'DII · ritmo irregular',fib:true},{name:'V1 · ondas f',fib:true}]},
+'t-sinusal':{rr:0.8,leads:[{name:'DII · Ritmo sinusal',beat:{p:0.16,pr:0.16,q:0.05,r:1.15,s:0.25,t:0.32}}]},
+'t-eje':{rr:0.8,leads:[{name:'DI · positivo',beat:{p:0.13,pr:0.16,q:0.03,r:1,s:0.15,t:0.25}},{name:'aVF · positivo',beat:{p:0.12,pr:0.16,q:0.03,r:0.9,s:0.15,t:0.22}}]},
+'t-labeled':{labeled:true},'t-brd':{rr:0.8,leads:[{name:'V1 · rSR′',beat:{p:0.1,pr:0.16,r:0.45,rPrime:0.95,s:0.35,st:-0.05,t:-0.28,qrsWide:1.7,tWide:true}}]},'t-bri':{rr:0.8,leads:[{name:'V6 · R ancha mellada',beat:{p:0.12,pr:0.16,r:1.2,notchR:true,s:0.05,st:-0.1,t:-0.3,qrsWide:1.8,tWide:true}}]},'t-hvi':{rr:0.8,leads:[{name:'V1 · S profunda',beat:{p:0.12,pr:0.16,r:0.25,s:1.6,st:0.05,t:0.15,qrsWide:1.05}},{name:'V5 · R alta + T invertida',beat:{p:0.12,pr:0.16,q:0.05,r:2,s:0.1,st:-0.08,t:-0.28,qrsWide:1.05}}]},'t-isq-t':{rr:0.8,leads:[{name:'T invertida simétrica',beat:{p:0.14,pr:0.16,q:0.04,r:1.1,s:0.2,t:-0.42,tWide:true}}]},'t-isq-st':{rr:0.8,leads:[{name:'ST elevado · IAMCEST',beat:{p:0.13,pr:0.16,q:0.08,r:0.95,s:0.1,st:0.38,stSeg:0.1,t:0.34,tWide:true}}]},'t-isq-q':{rr:0.8,leads:[{name:'Q patológica',beat:{p:0.13,pr:0.16,q:0.9,qWide:true,r:0.35,s:0.05,t:-0.12,qrsWide:1.1}}]},'t-stdep':{rr:0.8,leads:[{name:'ST descendido',beat:{p:0.13,pr:0.16,q:0.04,r:1.1,s:0.2,st:-0.22,stSeg:0.1,t:0.1}}]}
+};
 
-    /* ── TRAZOS TEÓRICOS (por sección) ── */
-    't-sinusal': { rr:0.80, leads:[
-        {name:'DII — Ritmo sinusal normal', beat:{p:0.16,pr:0.16,q:0.05,r:1.15,s:0.25,st:0,t:0.32}}
-      ]},
-    't-eje': { rr:0.80, leads:[
-        {name:'DI  (positivo)',  beat:{p:0.13,pr:0.16,q:0.03,r:1.0,s:0.15,st:0,t:0.25}},
-        {name:'aVF (positivo)',  beat:{p:0.12,pr:0.16,q:0.03,r:0.9,s:0.15,st:0,t:0.22}}
-      ]},
-    't-brd': { rr:0.80, leads:[
-        {name:'V1 — rSR′ (orejas de conejo)', beat:{p:0.10,pr:0.16,r:0.45,rPrime:0.95,s:0.35,st:-0.05,t:-0.28,qrsWide:1.7,tWide:true}}
-      ]},
-    't-bri': { rr:0.80, leads:[
-        {name:'V6 — R ancha y mellada', beat:{p:0.12,pr:0.16,r:1.2,notchR:true,s:0.05,st:-0.10,t:-0.30,qrsWide:1.8,tWide:true}}
-      ]},
-    't-hvi': { rr:0.80, leads:[
-        {name:'V1 — S profunda',  beat:{p:0.12,pr:0.16,r:0.25,qsOnly:false,s:1.6,st:0.05,t:0.15,qrsWide:1.05}},
-        {name:'V5 — R alta + T invertida (sobrecarga)', beat:{p:0.12,pr:0.16,q:0.05,r:2.0,s:0.1,st:-0.08,t:-0.28,qrsWide:1.05}}
-      ]},
-    't-isq-t': { rr:0.80, leads:[
-        {name:'Isquemia — T invertida simétrica', beat:{p:0.14,pr:0.16,q:0.04,r:1.1,s:0.2,st:0,t:-0.42,tWide:true}}
-      ]},
-    't-isq-st': { rr:0.80, leads:[
-        {name:'Lesión — Elevación del ST (IAMCEST)', beat:{p:0.13,pr:0.16,q:0.08,r:0.95,s:0.1,st:0.38,stSeg:0.10,t:0.34,tWide:true}}
-      ]},
-    't-isq-q': { rr:0.80, leads:[
-        {name:'Necrosis — Onda Q patológica', beat:{p:0.13,pr:0.16,q:0.9,qWide:true,r:0.35,s:0.05,st:0,t:-0.12,qrsWide:1.1}}
-      ]},
-    't-stdep': { rr:0.80, leads:[
-        {name:'Isquemia subendocárdica — Descenso del ST', beat:{p:0.13,pr:0.16,q:0.04,r:1.1,s:0.2,st:-0.22,stSeg:0.10,t:0.10}}
-      ]}
-  };
+  function calibration(x,y){
+    var h=MM, w=5*SMALL, lead=2*SMALL;
+    return '<path d="M '+x+' '+y+' L '+(x+lead)+' '+y+' L '+(x+lead)+' '+(y-h)+' L '+(x+lead+w)+' '+(y-h)+' L '+(x+lead+w)+' '+y+'" fill="none" stroke="'+TRACE+'" stroke-width="1.8"/>'+
+           '<text x="'+(x+lead+w+6)+'" y="'+(y-h+3)+'" font-family="DM Mono,monospace" font-size="8" fill="#59636e">1 mV</text>';
+  }
 
-  function buildSVG(cfg, w){
-    var leads=cfg.leads, n=leads.length;
-    var totalH = n*LH;
-    var svg='<svg viewBox="0 0 '+w+' '+totalH+'" width="100%" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" style="display:block;">';
-    svg+='<rect x="0" y="0" width="'+w+'" height="'+totalH+'" fill="#fff5f7"/>';
+  function buildSVG(cfg,w){
+    var leads=cfg.leads,n=leads.length,totalH=n*LH;
+    var gid='ecgGrid_'+Math.random().toString(36).slice(2,9);
+    var svg='<svg viewBox="0 0 '+w+' '+totalH+'" width="100%" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg" style="display:block;background:#fff;">'+gridDefs(gid);
     for(var i=0;i<n;i++){
-      var y0=i*LH, base=y0+LH*0.60;
-      svg+='<g transform="translate(0,'+y0+')">'+gridInto(w,LH)+'</g>';
-      var o = leads[i].fib ? {fib:true} : {rr:cfg.rr, beat:leads[i].beat};
-      var d = toPath(laneTrace(o, w, base));
-      svg+='<path d="'+d+'" fill="none" stroke="#141414" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round"/>';
-      // etiqueta de derivación
-      svg+='<rect x="4" y="'+(y0+4)+'" width="'+(leads[i].name.length*6.6+14)+'" height="16" rx="4" fill="#141414" opacity="0.86"/>';
-      svg+='<text x="11" y="'+(y0+15)+'" font-family="DM Mono, monospace" font-size="9" font-weight="600" fill="#fff">'+leads[i].name+'</text>';
-      // separador entre carriles
-      if(i>0) svg+='<line x1="0" y1="'+y0+'" x2="'+w+'" y2="'+y0+'" stroke="#c98ea0" stroke-width="1"/>';
+      var y0=i*LH,base=y0+LH*0.60;
+      svg+='<rect x="0" y="'+y0+'" width="'+w+'" height="'+LH+'" fill="#fffafb"/>';
+      svg+='<g transform="translate(0 '+y0+')">'+gridInto(w,LH,gid)+'</g>';
+      svg+='<line x1="0" y1="'+base+'" x2="'+w+'" y2="'+base+'" stroke="#d9a3af" stroke-width="0.7" stroke-dasharray="5 5"/>';
+      svg+=calibration(7,base);
+      var o=leads[i].fib?{fib:true}:{rr:cfg.rr,beat:leads[i].beat};
+      var d=toPath(laneTrace(o,w,base));
+      svg+='<path d="'+d+'" fill="none" stroke="'+TRACE+'" stroke-width="1.9" stroke-linejoin="round" stroke-linecap="round"/>';
+      svg+='<rect x="5" y="'+(y0+5)+'" width="'+Math.max(52,leads[i].name.length*5.8+15)+'" height="18" rx="3" fill="#ffffff" opacity="0.94"/>';
+      svg+='<text x="10" y="'+(y0+18)+'" font-family="DM Mono,monospace" font-size="9" font-weight="700" fill="#17212b">'+esc(leads[i].name)+'</text>';
+      if(i<n-1)svg+='<line x1="0" y1="'+(y0+LH)+'" x2="'+w+'" y2="'+(y0+LH)+'" stroke="#c98e9c" stroke-width="1"/>';
     }
-    // caption de escala abajo-derecha
-    svg+='<text x="'+(w-4)+'" y="'+(totalH-6)+'" text-anchor="end" font-family="DM Mono, monospace" font-size="8" fill="#b03052">25 mm/s · 10 mm/mV</text>';
-    svg+='</svg>';
-    return svg;
+    svg+='<text x="'+(w-8)+'" y="14" text-anchor="end" font-family="DM Mono,monospace" font-size="8" fill="#7d5660">25 mm/s · 10 mm/mV</text>';
+    svg+='</svg>';return svg;
   }
 
-  // Diagrama didáctico: UN complejo PQRST grande con anotaciones (P, PR, QRS, ST, T, QT)
   function buildLabeled(w){
-    var H2 = 240;
-    var base = H2*0.60;
-    var cx = w*0.42;                 // centro del complejo
-    var us = SMALL*1.6;              // escala horizontal ampliada (más legible)
-    function X(sec){ return cx + sec/0.04*us; }
-    function Y(mv){ return base - mv*MM*1.3; }
-    var pts=[];
-    function add(sec,mv){ pts.push([X(sec), Y(mv)]); }
-    // construir onda con los mismos helpers pero a escala ampliada
-    function bmp(t0,dur,amp,b0,b1){ var n=Math.max(8,Math.round(dur/0.006)); for(var i=1;i<=n;i++){var f=i/n; add(t0+dur*f, b0+(b1-b0)*f+amp*Math.sin(Math.PI*f));} return t0+dur; }
-    function sg(t0,dur,a,b){ var n=Math.max(3,Math.round(dur/0.015)); for(var i=1;i<=n;i++){var f=i/n; add(t0+dur*f, a+(b-a)*f);} return t0+dur; }
-
-    var t=-0.28; add(t,0);
-    t=sg(t,0.06,0,0);
-    var pStart=t; t=bmp(t,0.10,0.18,0,0); var pEnd=t;      // P
-    t=sg(t,0.06,0,0);                                       // PR seg
-    var qrsStart=t;
-    t=sg(t,0.015,0,-0.10);                                  // Q
-    t=sg(t,0.022,-0.10,1.25);                               // R up
-    t=sg(t,0.025,1.25,-0.30);                               // S down
-    t=sg(t,0.012,-0.30,0);                                  // to J
-    var qrsEnd=t;
-    t=sg(t,0.08,0,0);                                       // ST seg
-    var tStart=t; t=bmp(t,0.16,0.35,0,0); var tEnd=t;       // T
-    t=sg(t,0.10,0,0);
-
-    var d=toPath(pts);
-    var svg='<svg viewBox="0 0 '+w+' '+H2+'" width="100%" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg" style="display:block;">';
-    svg+='<rect x="0" y="0" width="'+w+'" height="'+H2+'" fill="#fff5f7"/>'+gridInto(w,H2);
-    // línea isoeléctrica de referencia
-    svg+='<line x1="0" y1="'+base+'" x2="'+w+'" y2="'+base+'" stroke="#c98ea0" stroke-width="0.8" stroke-dasharray="4 4"/>';
-
-    function vline(sec,col){ var x=X(sec); svg+='<line x1="'+x+'" y1="24" x2="'+x+'" y2="'+(H2-42)+'" stroke="'+col+'" stroke-width="1" stroke-dasharray="3 3" opacity="0.6"/>'; }
-    function span(s0,s1,y,txt,col){ var x0=X(s0),x1=X(s1); svg+='<line x1="'+x0+'" y1="'+y+'" x2="'+x1+'" y2="'+y+'" stroke="'+col+'" stroke-width="1.4"/>'+
-      '<line x1="'+x0+'" y1="'+(y-4)+'" x2="'+x0+'" y2="'+(y+4)+'" stroke="'+col+'" stroke-width="1.4"/>'+
-      '<line x1="'+x1+'" y1="'+(y-4)+'" x2="'+x1+'" y2="'+(y+4)+'" stroke="'+col+'" stroke-width="1.4"/>'+
-      '<text x="'+((x0+x1)/2)+'" y="'+(y-6)+'" text-anchor="middle" font-family="DM Sans, sans-serif" font-size="10" font-weight="700" fill="'+col+'">'+txt+'</text>'; }
-    function lbl(sec,mv,txt,col,dy){ var x=X(sec),y=Y(mv)+(dy||0); svg+='<text x="'+x+'" y="'+y+'" text-anchor="middle" font-family="DM Sans, sans-serif" font-size="11" font-weight="800" fill="'+col+'">'+txt+'</text>'; }
-
-    // trazo
-    svg+='<path d="'+d+'" fill="none" stroke="#141414" stroke-width="2.1" stroke-linejoin="round" stroke-linecap="round"/>';
-    // etiquetas de ondas
-    lbl((pStart+pEnd)/2, 0.18, 'P', '#1976D2', -6);
-    lbl(qrsStart+0.028, 1.25, 'R', '#C62828', -8);
-    lbl(qrsStart+0.010, -0.10, 'Q', '#6A1B9A', 16);
-    lbl(qrsStart+0.050, -0.30, 'S', '#6A1B9A', 16);
-    lbl((tStart+tEnd)/2, 0.35, 'T', '#00897B', -6);
-    // spans de intervalos
-    span(pStart, qrsStart, base+58, 'PR', '#1976D2');
-    span(qrsStart, qrsEnd, base+34, 'QRS', '#C62828');
-    span(qrsEnd, tStart, base+34, 'ST', '#EF6C00');
-    span(qrsStart, tEnd, base+82, 'QT', '#5D4037');
-    // caption
-    svg+='<text x="'+(w-6)+'" y="18" text-anchor="end" font-family="DM Mono, monospace" font-size="9" fill="#b03052">Complejo P-QRS-T · componentes e intervalos</text>';
-    svg+='</svg>';
-    return svg;
+    var H=250,base=H*0.60, cx=w*0.43, us=SMALL*1.55;
+    function X(sec){return cx+sec/0.04*us;} function Y(mv){return base-mv*MM*1.15;}
+    var pts=[]; for(var t=-0.28;t<0.72;t+=0.0035){
+      var mv=valueAt(t,{p:0.18,q:0.06,r:1.25,s:0.30,t:0.35}); pts.push([X(t),Y(mv)]);
+    }
+    var gid='ecgGridL_'+Math.random().toString(36).slice(2,9);
+    var svg='<svg viewBox="0 0 '+w+' '+H+'" width="100%" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">'+gridDefs(gid);
+    svg+='<rect width="'+w+'" height="'+H+'" fill="#fffafb"/>'+gridInto(w,H,gid);
+    svg+='<line x1="0" y1="'+base+'" x2="'+w+'" y2="'+base+'" stroke="#d9a3af" stroke-width="0.8" stroke-dasharray="5 5"/>';
+    svg+=calibration(8,base);
+    svg+='<path d="'+toPath(pts)+'" fill="none" stroke="'+TRACE+'" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"/>';
+    function tag(sec,mv,text,cls){var x=X(sec),y=Y(mv);svg+='<circle cx="'+x+'" cy="'+y+'" r="2.5" fill="'+cls+'"/><text x="'+x+'" y="'+(y-9)+'" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="11" font-weight="800" fill="'+cls+'">'+text+'</text>';}
+    tag(0.085,0.18,'P','#2166c1'); tag(0.222,1.25,'R','#b12a2a'); tag(0.205,-0.06,'Q','#6a3a91'); tag(0.242,-0.30,'S','#6a3a91'); tag(0.405,0.35,'T','#0b7a6e');
+    svg+='<text x="'+(w-8)+'" y="18" text-anchor="end" font-family="DM Mono,monospace" font-size="9" fill="#6f4b55">25 mm/s · 10 mm/mV</text>';
+    svg+='</svg>';return svg;
   }
 
-  window.renderECG=function(el){
-    var id=el.getAttribute('data-ecg');
-    var w=el.clientWidth||660; if(w<200)w=660;
-    if(id==='t-labeled'){ el.innerHTML=buildLabeled(w); return; }
-    var cfg=ECGS[id]; if(!cfg)return;
-    el.innerHTML=buildSVG(cfg,w);
-  };
-  function renderAll(){ document.querySelectorAll('.ecg-trace').forEach(function(el){window.renderECG(el);}); }
-  window.addEventListener('load',renderAll);
-  window.addEventListener('resize',function(){clearTimeout(window.__ecgRz);window.__ecgRz=setTimeout(renderAll,250);});
-  document.addEventListener('click',function(e){ var b=e.target.closest&&e.target.closest('.tab-btn'); if(b)setTimeout(renderAll,60); });
+  function toPath(p){var d='';for(var i=0;i<p.length;i++)d+=(i?'L':'M')+p[i][0].toFixed(1)+' '+p[i][1].toFixed(1)+' ';return d;}
+  window.renderECG=function(el){var id=el.getAttribute('data-ecg'),w=el.clientWidth||760;if(w<300)w=760;if(id==='t-labeled'){el.innerHTML=buildLabeled(w);return;}var cfg=ECGS[id];if(cfg)el.innerHTML=buildSVG(cfg,w);};
+  function renderAll(){document.querySelectorAll('.ecg-trace').forEach(function(el){window.renderECG(el);});}
+  window.addEventListener('load',renderAll);window.addEventListener('resize',function(){clearTimeout(window.__ecgRz);window.__ecgRz=setTimeout(renderAll,250);});
+  document.addEventListener('click',function(e){var b=e.target.closest&&e.target.closest('.tab-btn');if(b)setTimeout(renderAll,60);});
 })();
 
 </script>

@@ -229,8 +229,47 @@ footer{border-top:2px solid var(--navy);padding:18px 56px 24px;display:flex;just
 .footer-name{font-family:var(--sans);font-size:9.5pt;font-weight:600;color:var(--navy);}
 .footer-title{font-family:var(--sans);font-size:8pt;color:var(--gray-400);}
 .footer-copy{font-family:var(--sans);font-size:7.5pt;color:var(--gray-400);text-align:right;line-height:1.5;}
+.pdf-watermark,.print-score-fixed{display:none;}
 @media print{
-  .tab-nav,.palette-btn,.palette-panel,.design-switcher,.correct-btn,.download-box,.nota-bar,.score-note{display:none !important;}
+  .tab-nav,.palette-btn,.palette-panel,.design-switcher,.correct-btn,.download-box,.score-note{display:none !important;}
+  .nota-bar{display:none !important;}
+  .pdf-watermark{
+    display:flex !important;
+    position:fixed;
+    inset:0;
+    z-index:0;
+    align-items:center;
+    justify-content:center;
+    flex-direction:column;
+    pointer-events:none;
+    transform:rotate(-28deg);
+    opacity:.10;
+    color:#0277BD;
+    font-family:var(--sans);
+    text-align:center;
+  }
+  .pdf-watermark-main{font-family:'Bebas Neue',sans-serif;font-size:58pt;letter-spacing:5px;font-weight:400;}
+  .pdf-watermark-sub{font-family:var(--mono);font-size:11pt;letter-spacing:1px;margin-top:6px;}
+  .print-score-fixed{
+    display:block !important;
+    position:fixed;
+    top:34px;
+    right:38px;
+    z-index:20;
+    padding:7px 11px;
+    border:1.5px solid #039BE5;
+    border-radius:7px;
+    background:#E1F5FE;
+    color:#062340;
+    font-family:var(--sans);
+    font-size:8.5pt;
+    font-weight:700;
+    -webkit-print-color-adjust:exact;
+    print-color-adjust:exact;
+  }
+  .print-score-fixed strong{font-family:var(--mono);font-size:10pt;}
+  .page{position:relative;z-index:1;}
+  .page-print-header,.print-footer-fixed{position:relative;z-index:10;}
   .tab-content{display:none !important;}
   #taller-tab{display:block !important;}
   body{font-size:10pt;}
@@ -399,6 +438,13 @@ body{ background:#E6F1FA !important; font-family:var(--sans); }
   <span><strong id="pfNombre"></strong> · <span id="pfUniversidad"></span></span>
   <span>Guía: <span id="pfGuia"></span> · Dr. Andrés Robayo C. · <strong id="pfCodigo"></strong></span>
   <span id="pfFecha"></span>
+</div>
+<div class="pdf-watermark" aria-hidden="true">
+  <div class="pdf-watermark-main">COPIA INDIVIDUAL</div>
+  <div class="pdf-watermark-sub"><span id="wmNombre"></span> · <span id="wmCodigo"></span></div>
+</div>
+<div class="print-score-fixed" aria-hidden="true">
+  Nota autocalificable: <strong id="printNotaAL">0.00 / 3.50</strong>
 </div>
 <div class="tab-nav">
   <button class="tab-btn active" onclick="showTab('teoria',this)">📖 Teoría</button>
@@ -1047,12 +1093,12 @@ body{ background:#E6F1FA !important; font-family:var(--sans); }
     <span class="module-pts">🤖 1.00 pts auto · 0.20 pts c/ejercicio</span>
   </div>
   <div class="module-body">
-    <div class="alert-yellow" style="margin-bottom:14px;">⚠ <strong>Instrucciones:</strong> Usar <strong>punto</strong> como separador decimal. En cada cadena de cálculo escriba los números en las casillas subrayadas; las unidades ya están impresas. <strong>La calificación evalúa tanto las casillas de la cadena de cálculo como la respuesta final</strong> — completar solo el resultado sin desarrollar el cálculo correcto se marcará como incorrecto. El feedback (con casillas en verde/rojo) aparece al oprimir "Corregir Módulo".</div>
+    <div class="alert-yellow" style="margin-bottom:14px;">⚠ <strong>Instrucciones:</strong> Usar <strong>punto</strong> como separador decimal. En cada cadena de cálculo complete las casillas subrayadas; las unidades ya están impresas. El feedback (con casillas en verde/rojo) aparece al oprimir "Corregir Módulo".</div>
 
     <!-- E1 -->
     <div class="ex-item">
-      <div class="ex-label"><span class="ex-num">E1</span> Paciente 70 kg · Ropivacaína 0.75% sin epinefrina &nbsp;<span class="ex-pts-auto">🤖 0.20 pts</span></div>
-      <div class="ex-context">Dosis máxima recomendada de ropivacaína sin epinefrina: <strong>3 mg/kg</strong>. Calcule dosis máxima, concentración y volumen máximo administrable.</div>
+      <div class="ex-label"><span class="ex-num">E1</span> Paciente 68 kg · Ropivacaína 0.5% sin epinefrina &nbsp;<span class="ex-pts-auto">🤖 0.20 pts</span></div>
+      <div class="ex-context">Paciente adulto de 68 kg para un bloqueo periférico de larga duración. La guía establece para ropivacaína una dosis máxima de <strong>3 mg/kg</strong> y una concentración disponible de 0.5%. Calcule dosis máxima, concentración y volumen máximo administrable.</div>
       <div class="frac-chain" id="fc-e1">
         <div class="frac-chain-label">3 pasos en cadena continua: dosis máx → concentración → volumen máx</div>
         <div style="display:flex;flex-direction:column;align-items:center;gap:2px;margin:0 4px;">
@@ -1063,123 +1109,110 @@ body{ background:#E6F1FA !important; font-family:var(--sans); }
         <span class="fop">×</span>
         <div style="display:flex;flex-direction:column;align-items:center;gap:2px;margin:0 4px;">
           <span style="font-family:var(--sans);font-size:7.5pt;color:var(--gray-400);">Peso</span>
-          <div class="frac"><div class="frac-top"><input data-ans="70" class="fi w-sm" inputmode="decimal" placeholder="?"> <span class="fu" data-unit="kg2">kg</span></div><div class="frac-line"></div><div class="frac-bot"><span class="fu">1</span></div></div>
+          <div class="frac"><div class="frac-top"><input data-ans="68" class="fi w-sm" inputmode="decimal" placeholder="?"> <span class="fu" data-unit="kg2">kg</span></div><div class="frac-line"></div><div class="frac-bot"><span class="fu">1</span></div></div>
         </div>
         <span class="fop-eq">=</span>
         <div style="display:flex;flex-direction:column;align-items:center;gap:3px;margin:0 6px;">
           <span style="font-family:var(--sans);font-size:7.5pt;color:var(--gray-400);">Dosis máx.</span>
-          <div class="frac-result" style="min-width:70px;"><input data-ans="210" inputmode="decimal" placeholder="?" style="width:60px;"><span class="fu">mg</span></div>
+          <div class="frac-result" style="min-width:70px;"><input data-ans="204" inputmode="decimal" placeholder="?" style="width:60px;"><span class="fu">mg</span></div>
         </div>
         <span class="fop">÷</span>
         <div style="display:flex;flex-direction:column;align-items:center;gap:2px;margin:0 4px;">
-          <span style="font-family:var(--sans);font-size:7.5pt;color:var(--gray-400);">Conc. (0.75%×10)</span>
-          <div class="frac"><div class="frac-top"><input data-ans="7.5" class="fi w-sm" inputmode="decimal" placeholder="?"> <span class="fu">mg</span></div><div class="frac-line"></div><div class="frac-bot"><span class="fu">mL</span></div></div>
+          <span style="font-family:var(--sans);font-size:7.5pt;color:var(--gray-400);">Conc. (0.5%×10)</span>
+          <div class="frac"><div class="frac-top"><input data-ans="5" class="fi w-sm" inputmode="decimal" placeholder="?"> <span class="fu">mg</span></div><div class="frac-line"></div><div class="frac-bot"><span class="fu">mL</span></div></div>
         </div>
         <span class="fop-eq">=</span>
-        <div class="frac-result"><input data-ans="28" inputmode="decimal" placeholder="?"><span class="fu">mL</span></div>
+        <div class="frac-result"><input data-ans="40.8" inputmode="decimal" placeholder="?"><span class="fu">mL</span></div>
         <div class="cancel-hint">💡 El <strong>kg</strong> cancela en dosis×peso. El <strong>mg</strong> cancela al dividir por conc. → queda <strong>mL</strong> ✓
           <button class="cancel-btn" onclick="toggleCancel('fc-e1','kg2')">Tachar "kg"</button>
         </div>
       </div>
-      <div class="mc-row"><span class="mc-label">Dosis máx · Conc · Vol máx:</span>
-        <select class="mc-select" onchange="chk(this,'210 mg · 7.5 mg/mL · 28 mL','fbE1')"><option value="">— elegir —</option><option>210 mg · 7.5 mg/mL · 28 mL</option><option>210 mg · 15 mg/mL · 14 mL</option><option>250 mg · 7.5 mg/mL · 33.3 mL</option><option>150 mg · 7.5 mg/mL · 20 mL</option></select>
-        <span class="fb" id="fbE1"></span>
-      </div>
+      <span class="fb" id="fbE1"></span>
     </div>
 
     <!-- E2 -->
     <div class="ex-item">
-      <div class="ex-label"><span class="ex-num">E2</span> Paciente 90 kg · Mepivacaína 1.5% con epinefrina &nbsp;<span class="ex-pts-auto">🤖 0.20 pts</span></div>
-      <div class="ex-context">Con epinefrina, la dosis máxima de mepivacaína se extiende a <strong>7 mg/kg</strong>. Calcule dosis máxima, concentración y volumen máximo.</div>
+      <div class="ex-label"><span class="ex-num">E2</span> Paciente 64 kg · Mepivacaína 2% con epinefrina &nbsp;<span class="ex-pts-auto">🤖 0.20 pts</span></div>
+      <div class="ex-context">Paciente de 64 kg para anestesia regional periférica. La guía establece para mepivacaína con epinefrina una dosis máxima de <strong>7 mg/kg</strong>. La presentación disponible es al 2% (20 mg/mL). Calcule dosis máxima, concentración y volumen máximo.</div>
       <div class="frac-chain" id="fc-e2">
-        <div class="frac-chain-label">Dosis máx. con epinefrina (7 mg/kg) → concentración 1.5% → volumen</div>
+        <div class="frac-chain-label">Dosis máx. con epinefrina (7 mg/kg) → concentración 2% → volumen</div>
         <div class="frac"><div class="frac-top"><input data-ans="7" class="fi w-sm" inputmode="decimal" placeholder="?"> <span class="fu">mg</span></div><div class="frac-line"></div><div class="frac-bot"><input data-ans="1" class="fi w-sm" inputmode="decimal" placeholder="?"> <span class="fu" data-unit="kg2">kg</span></div></div>
         <span class="fop">×</span>
-        <div class="frac"><div class="frac-top"><input data-ans="90" class="fi w-sm" inputmode="decimal" placeholder="?"> <span class="fu" data-unit="kg2">kg</span></div><div class="frac-line"></div><div class="frac-bot"><span class="fu">1</span></div></div>
+        <div class="frac"><div class="frac-top"><input data-ans="64" class="fi w-sm" inputmode="decimal" placeholder="?"> <span class="fu" data-unit="kg2">kg</span></div><div class="frac-line"></div><div class="frac-bot"><span class="fu">1</span></div></div>
         <span class="fop-eq">=</span>
-        <div class="frac-result" style="min-width:70px;"><input data-ans="630" inputmode="decimal" placeholder="?" style="width:60px;"><span class="fu">mg</span></div>
+        <div class="frac-result" style="min-width:70px;"><input data-ans="448" inputmode="decimal" placeholder="?" style="width:60px;"><span class="fu">mg</span></div>
         <span class="fop">÷</span>
-        <div class="frac"><div class="frac-top"><input data-ans="15" class="fi w-sm" inputmode="decimal" placeholder="?"> <span class="fu">mg</span></div><div class="frac-line"></div><div class="frac-bot"><span class="fu">mL</span></div></div>
+        <div class="frac"><div class="frac-top"><input data-ans="20" class="fi w-sm" inputmode="decimal" placeholder="?"> <span class="fu">mg</span></div><div class="frac-line"></div><div class="frac-bot"><span class="fu">mL</span></div></div>
         <span class="fop-eq">=</span>
-        <div class="frac-result"><input data-ans="42" inputmode="decimal" placeholder="?"><span class="fu">mL</span></div>
+        <div class="frac-result"><input data-ans="22.4" inputmode="decimal" placeholder="?"><span class="fu">mL</span></div>
         <div class="cancel-hint">💡 kg cancela, mg cancela → mL ✓</div>
       </div>
-      <div class="mc-row"><span class="mc-label">Dosis máx · Conc · Vol máx:</span>
-        <select class="mc-select" onchange="chk(this,'630 mg · 15 mg/mL · 42 mL','fbE2')"><option value="">— elegir —</option><option>630 mg · 15 mg/mL · 42 mL</option><option>450 mg · 15 mg/mL · 30 mL</option><option>630 mg · 30 mg/mL · 21 mL</option><option>810 mg · 15 mg/mL · 54 mL</option></select>
-        <span class="fb" id="fbE2"></span>
-      </div>
+      <span class="fb" id="fbE2"></span>
     </div>
 
     <!-- E3: dilución -->
     <div class="ex-item">
-      <div class="ex-label"><span class="ex-num">E3</span> Dilución peridural: 30 mL de ropivacaína 0.2% desde 0.75% &nbsp;<span class="ex-pts-auto">🤖 0.20 pts</span></div>
-      <div class="ex-context">Tiene ropivacaína 0.75% (7.5 mg/mL). Necesita preparar 30 mL de ropivacaína 0.2% (2 mg/mL) para infusión de catéter perineural. Use C₁×V₁ = C₂×V₂ para encontrar V₁ y V_diluyente.</div>
+      <div class="ex-label"><span class="ex-num">E3</span> Dilución peridural: 40 mL de ropivacaína 0.2% desde 0.5% &nbsp;<span class="ex-pts-auto">🤖 0.20 pts</span></div>
+      <div class="ex-context">Para una infusión perineural se requiere preparar <strong>40 mL de ropivacaína 0.2%</strong> (2 mg/mL) a partir de una solución disponible al 0.5% (5 mg/mL). Use C₁×V₁ = C₂×V₂ para encontrar V₁ y V<sub>diluyente</sub>.</div>
       <div class="frac-chain" id="fc-e3">
         <div class="frac-chain-label">V₁ = (C₂ × V₂) ÷ C₁ — complete cada casilla</div>
         <span style="font-family:var(--mono);font-size:11pt;align-self:center;">V₁ =</span>
         <span class="fop">(</span>
         <div class="frac"><div class="frac-top"><input data-ans="2" class="fi w-sm" inputmode="decimal" placeholder="C₂"> <span class="fu">mg/mL</span></div><div class="frac-line"></div><div class="frac-bot"><span class="fu">1</span></div></div>
         <span class="fop">×</span>
-        <div class="frac"><div class="frac-top"><input data-ans="30" class="fi w-sm" inputmode="decimal" placeholder="V₂"> <span class="fu">mL</span></div><div class="frac-line"></div><div class="frac-bot"><span class="fu">1</span></div></div>
+        <div class="frac"><div class="frac-top"><input data-ans="40" class="fi w-sm" inputmode="decimal" placeholder="V₂"> <span class="fu">mL</span></div><div class="frac-line"></div><div class="frac-bot"><span class="fu">1</span></div></div>
         <span class="fop">)</span>
         <span class="fop">÷</span>
-        <div class="frac"><div class="frac-top"><input data-ans="7.5" class="fi w-sm" inputmode="decimal" placeholder="C₁"> <span class="fu">mg/mL</span></div><div class="frac-line"></div><div class="frac-bot"><span class="fu">1</span></div></div>
+        <div class="frac"><div class="frac-top"><input data-ans="5" class="fi w-sm" inputmode="decimal" placeholder="C₁"> <span class="fu">mg/mL</span></div><div class="frac-line"></div><div class="frac-bot"><span class="fu">1</span></div></div>
         <span class="fop-eq">=</span>
-        <div class="frac-result" style="min-width:70px;"><input data-ans="8" inputmode="decimal" placeholder="V₁" style="width:55px;"><span class="fu">mL ropi</span></div>
-        <div class="cancel-hint">V_diluyente (SSN) = V₂ − V₁ = <input data-ans="30" class="fi w-sm" inputmode="decimal" placeholder="30"> − <input data-ans="8" class="fi w-sm" inputmode="decimal" placeholder="V₁"> = <input data-ans="22" class="fi w-md" style="border:2px solid var(--teal);border-radius:4px;padding:2px 6px;" inputmode="decimal" placeholder="? mL SSN"> &nbsp;|&nbsp; mg totales = V₂ × C₂ = <input data-ans="30" class="fi w-sm" inputmode="decimal" placeholder="30"> × <input data-ans="2" class="fi w-sm" inputmode="decimal" placeholder="C₂"> = <input data-ans="60" class="fi w-md" style="border:2px solid var(--teal);border-radius:4px;padding:2px 6px;" inputmode="decimal" placeholder="? mg"></div>
+        <div class="frac-result" style="min-width:70px;"><input data-ans="16" inputmode="decimal" placeholder="V₁" style="width:55px;"><span class="fu">mL ropi</span></div>
+        <div class="cancel-hint">V<sub>diluyente</sub> (SSN) = V₂ − V₁ = <input data-ans="40" class="fi w-sm" inputmode="decimal" placeholder="40"> − <input data-ans="16" class="fi w-sm" inputmode="decimal" placeholder="V₁"> = <input data-ans="24" class="fi w-md" style="border:2px solid var(--teal);border-radius:4px;padding:2px 6px;" inputmode="decimal" placeholder="? mL SSN"> &nbsp;|&nbsp; mg totales = V₂ × C₂ = <input data-ans="40" class="fi w-sm" inputmode="decimal" placeholder="40"> × <input data-ans="2" class="fi w-sm" inputmode="decimal" placeholder="C₂"> = <input data-ans="80" class="fi w-md" style="border:2px solid var(--teal);border-radius:4px;padding:2px 6px;" inputmode="decimal" placeholder="? mg"></div>
       </div>
-      <div class="mc-row"><span class="mc-label">V₁ ropi · V diluyente · mg totales:</span>
-        <select class="mc-select" onchange="chk(this,'8 mL · 22 mL · 60 mg','fbE3')"><option value="">— elegir —</option><option>8 mL · 22 mL · 60 mg</option><option>10 mL · 20 mL · 60 mg</option><option>8 mL · 22 mL · 30 mg</option><option>6 mL · 24 mL · 45 mg</option></select>
-        <span class="fb" id="fbE3"></span>
-      </div>
+      <span class="fb" id="fbE3"></span>
     </div>
 
     <!-- E4: pediátrico -->
     <div class="ex-item">
-      <div class="ex-label"><span class="ex-num">E4</span> Niño 22 kg · Bupivacaína 0.25% sin epinefrina &nbsp;<span class="ex-pts-auto">🤖 0.20 pts</span></div>
-      <div class="ex-context">Dosis máxima pediátrica de bupivacaína sin epinefrina: <strong>2.5 mg/kg</strong>. Paciente pediátrico — verifique que el volumen sea razonable.</div>
+      <div class="ex-label"><span class="ex-num">E4</span> Niño 18 kg · Bupivacaína 0.25% sin epinefrina &nbsp;<span class="ex-pts-auto">🤖 0.20 pts</span></div>
+      <div class="ex-context">Paciente pediátrico de 18 kg candidato a un bloqueo periférico. La guía establece para bupivacaína sin epinefrina una dosis máxima de <strong>2 mg/kg</strong>. La concentración disponible es 0.25% (2.5 mg/mL). Calcule la dosis máxima y el volumen máximo; luego valore si el volumen obtenido es razonable para el procedimiento.</div>
       <div class="frac-chain" id="fc-e4">
         <div class="frac-chain-label">Misma fórmula: dosis máx → concentración → volumen máx</div>
-        <div class="frac"><div class="frac-top"><input data-ans="2.5" class="fi w-sm" inputmode="decimal" placeholder="?"> <span class="fu">mg</span></div><div class="frac-line"></div><div class="frac-bot"><input data-ans="1" class="fi w-sm" inputmode="decimal" placeholder="?"> <span class="fu" data-unit="kg2">kg</span></div></div>
+        <div class="frac"><div class="frac-top"><input data-ans="2" class="fi w-sm" inputmode="decimal" placeholder="?"> <span class="fu">mg</span></div><div class="frac-line"></div><div class="frac-bot"><input data-ans="1" class="fi w-sm" inputmode="decimal" placeholder="?"> <span class="fu" data-unit="kg2">kg</span></div></div>
         <span class="fop">×</span>
-        <div class="frac"><div class="frac-top"><input data-ans="22" class="fi w-sm" inputmode="decimal" placeholder="?"> <span class="fu" data-unit="kg2">kg</span></div><div class="frac-line"></div><div class="frac-bot"><span class="fu">1</span></div></div>
+        <div class="frac"><div class="frac-top"><input data-ans="18" class="fi w-sm" inputmode="decimal" placeholder="?"> <span class="fu" data-unit="kg2">kg</span></div><div class="frac-line"></div><div class="frac-bot"><span class="fu">1</span></div></div>
         <span class="fop-eq">=</span>
-        <div class="frac-result" style="min-width:70px;"><input data-ans="55" inputmode="decimal" placeholder="?" style="width:55px;"><span class="fu">mg</span></div>
+        <div class="frac-result" style="min-width:70px;"><input data-ans="36" inputmode="decimal" placeholder="?" style="width:55px;"><span class="fu">mg</span></div>
         <span class="fop">÷</span>
         <div class="frac"><div class="frac-top"><input data-ans="2.5" class="fi w-sm" inputmode="decimal" placeholder="?"> <span class="fu">mg</span></div><div class="frac-line"></div><div class="frac-bot"><span class="fu">mL</span></div></div>
         <span class="fop-eq">=</span>
-        <div class="frac-result"><input data-ans="22" inputmode="decimal" placeholder="?"><span class="fu">mL</span></div>
+        <div class="frac-result"><input data-ans="14.4" inputmode="decimal" placeholder="?"><span class="fu">mL</span></div>
         <div class="cancel-hint">💡 kg cancela, mg cancela → mL ✓</div>
       </div>
-      <div class="mc-row"><span class="mc-label">Dosis máx · Vol máx:</span>
-        <select class="mc-select" onchange="chk(this,'55 mg · 22 mL','fbE4')"><option value="">— elegir —</option><option>55 mg · 22 mL</option><option>55 mg · 11 mL</option><option>82.5 mg · 33 mL</option><option>27.5 mg · 11 mL</option></select>
-        <span class="fb" id="fbE4"></span>
-      </div>
+      <span class="fb" id="fbE4"></span>
     </div>
 
     <!-- E5 -->
     <div class="ex-item">
-      <div class="ex-label"><span class="ex-num">E5</span> Paciente 40 kg · Lidocaína 4% sin epinefrina &nbsp;<span class="ex-pts-auto">🤖 0.20 pts</span></div>
-      <div class="ex-context">Dosis máxima de lidocaína sin epinefrina: <strong>4.5 mg/kg</strong>. Calcule dosis máxima, concentración y volumen máximo de esta presentación al 4%.</div>
+      <div class="ex-label"><span class="ex-num">E5</span> Paciente 52 kg · Lidocaína 2% sin epinefrina &nbsp;<span class="ex-pts-auto">🤖 0.20 pts</span></div>
+      <div class="ex-context">Paciente de 52 kg para anestesia regional. Para este ejercicio se utilizará el extremo superior de la dosis recomendada por la guía para lidocaína sin vasoconstrictor: <strong>4 mg/kg</strong>. La presentación disponible es al 2% (20 mg/mL). Calcule dosis máxima, concentración y volumen máximo.</div>
       <div class="frac-chain" id="fc-e5">
-        <div class="frac-chain-label">Dosis máx. (4.5 mg/kg) → concentración 4% → volumen</div>
-        <div class="frac"><div class="frac-top"><input data-ans="4.5" class="fi w-sm" inputmode="decimal" placeholder="?"> <span class="fu">mg</span></div><div class="frac-line"></div><div class="frac-bot"><input data-ans="1" class="fi w-sm" inputmode="decimal" placeholder="?"> <span class="fu" data-unit="kg2">kg</span></div></div>
+        <div class="frac-chain-label">Dosis máx. (4 mg/kg) → concentración 2% → volumen</div>
+        <div class="frac"><div class="frac-top"><input data-ans="4" class="fi w-sm" inputmode="decimal" placeholder="?"> <span class="fu">mg</span></div><div class="frac-line"></div><div class="frac-bot"><input data-ans="1" class="fi w-sm" inputmode="decimal" placeholder="?"> <span class="fu" data-unit="kg2">kg</span></div></div>
         <span class="fop">×</span>
-        <div class="frac"><div class="frac-top"><input data-ans="40" class="fi w-sm" inputmode="decimal" placeholder="?"> <span class="fu" data-unit="kg2">kg</span></div><div class="frac-line"></div><div class="frac-bot"><span class="fu">1</span></div></div>
+        <div class="frac"><div class="frac-top"><input data-ans="52" class="fi w-sm" inputmode="decimal" placeholder="?"> <span class="fu" data-unit="kg2">kg</span></div><div class="frac-line"></div><div class="frac-bot"><span class="fu">1</span></div></div>
         <span class="fop-eq">=</span>
-        <div class="frac-result" style="min-width:70px;"><input data-ans="180" inputmode="decimal" placeholder="?" style="width:60px;"><span class="fu">mg</span></div>
+        <div class="frac-result" style="min-width:70px;"><input data-ans="208" inputmode="decimal" placeholder="?" style="width:60px;"><span class="fu">mg</span></div>
         <span class="fop">÷</span>
-        <div class="frac"><div class="frac-top"><input data-ans="40" class="fi w-sm" inputmode="decimal" placeholder="?"> <span class="fu">mg</span></div><div class="frac-line"></div><div class="frac-bot"><span class="fu">mL</span></div></div>
+        <div class="frac"><div class="frac-top"><input data-ans="20" class="fi w-sm" inputmode="decimal" placeholder="?"> <span class="fu">mg</span></div><div class="frac-line"></div><div class="frac-bot"><span class="fu">mL</span></div></div>
         <span class="fop-eq">=</span>
-        <div class="frac-result"><input data-ans="4.5" inputmode="decimal" placeholder="?"><span class="fu">mL</span></div>
+        <div class="frac-result"><input data-ans="10.4" inputmode="decimal" placeholder="?"><span class="fu">mL</span></div>
         <div class="cancel-hint">💡 kg cancela, mg cancela → mL ✓</div>
       </div>
-      <div class="mc-row"><span class="mc-label">Dosis máx · Conc · Vol máx:</span>
-        <select class="mc-select" onchange="chk(this,'180 mg · 40 mg/mL · 4.5 mL','fbE5')"><option value="">— elegir —</option><option>180 mg · 40 mg/mL · 4.5 mL</option><option>180 mg · 20 mg/mL · 9 mL</option><option>160 mg · 40 mg/mL · 4 mL</option><option>200 mg · 40 mg/mL · 5 mL</option></select>
-        <span class="fb" id="fbE5"></span>
-      </div>
-      <button class="correct-btn" onclick="corregir('E',5,['fbE1','fbE2','fbE3','fbE4','fbE5'],1.0)">Corregir Módulo E — Cálculos (1.00 pts)</button>
+      <span class="fb" id="fbE5"></span>
     </div>
+
+    <button class="correct-btn" onclick="corregirCalculosE()">Corregir Módulo E — Cálculos (1.00 pts)</button>
+    
   </div>
 </div>
 
@@ -1222,7 +1255,32 @@ function checkChains(fbId){var chains=chainMap[fbId];if(!chains)return true;var 
 
 var pts={A:0,B:0,C:0,D:0,E:0};
 function corregir(mod,total,fbIds,maxPts){var ok=0;fbIds.forEach(function(fbId){var fb=document.getElementById(fbId);var ans=answers[fbId];var chainOk=checkChains(fbId);if(!fb)return;if(!ans||!ans.val){fb.textContent='— sin respuesta';fb.className='fb';return;}var selectOk=ans.val===ans.correct;if(selectOk&&chainOk){ok++;fb.textContent='✓ correcto';fb.className='fb ok';}else if(selectOk&&!chainOk){fb.textContent='✗ cálculo incorrecto (revise las casillas en rojo)';fb.className='fb err';}else{fb.textContent='✗ incorrecto';fb.className='fb err';}});var p=(ok/total)*maxPts;pts[mod]=p;actualizarNotas();alert('Módulo '+mod+' corregido: '+ok+'/'+total+' correctas = '+p.toFixed(2)+' pts autocorregibles');}
-function actualizarNotas(){var total=(pts.A||0)+(pts.B||0)+(pts.C||0)+(pts.D||0)+(pts.E||0);var nt=document.getElementById('notaAL');if(nt)nt.textContent=total.toFixed(2)+' / 3.50';}
+function actualizarNotas(){
+  var total=(pts.A||0)+(pts.B||0)+(pts.C||0)+(pts.D||0)+(pts.E||0);
+  var nota=total.toFixed(2)+' / 3.50';
+  var nt=document.getElementById('notaAL');if(nt)nt.textContent=nota;
+  var pnt=document.getElementById('printNotaAL');if(pnt)pnt.textContent=nota;
+}
+function corregirCalculosE(){
+  var ids=['fbE1','fbE2','fbE3','fbE4','fbE5'];
+  var ok=0;
+  ids.forEach(function(fbId,idx){
+    var fb=document.getElementById(fbId);
+    var chainOk=checkChains(fbId);
+    if(!fb)return;
+    if(chainOk){
+      ok++;
+      fb.textContent='✓ cálculo correcto';
+      fb.className='fb ok';
+    }else{
+      fb.textContent='✗ revise las casillas en rojo';
+      fb.className='fb err';
+    }
+  });
+  pts.E=(ok/5)*1.0;
+  actualizarNotas();
+  alert('Módulo E corregido: '+ok+'/5 ejercicios correctos = '+pts.E.toFixed(2)+' pts autocorregibles');
+}
 function setupPrintAnswers(){document.querySelectorAll('textarea.open-area').forEach(function(ta){var clone=ta.nextElementSibling;if(!clone||!clone.classList.contains('print-answer')){clone=document.createElement('div');clone.className='print-answer';ta.parentNode.insertBefore(clone,ta.nextSibling);}ta.addEventListener('input',function(){clone.textContent=ta.value;});});}
 document.addEventListener('DOMContentLoaded',setupPrintAnswers);
 window.addEventListener('beforeprint',function(){document.querySelectorAll('textarea.open-area').forEach(function(ta){var clone=ta.nextElementSibling;if(clone&&clone.classList.contains('print-answer'))clone.textContent=ta.value;});});
@@ -1281,6 +1339,10 @@ function dlPDF(){
   });
 
   aplicarCodigoAntiPlagio(codigo,nom,univ);
+  var wmNombre=document.getElementById('wmNombre');if(wmNombre)wmNombre.textContent=nom;
+  var wmCodigo=document.getElementById('wmCodigo');if(wmCodigo)wmCodigo.textContent='Código '+codigo;
+
+  actualizarNotas();
 
   document.querySelectorAll('.tab-content').forEach(function(t){t.classList.remove('active');});
   document.getElementById('taller-tab').classList.add('active');

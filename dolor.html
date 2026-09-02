@@ -362,9 +362,38 @@ body{ background:#F8F0E6 !important; font-family:var(--sans); }
 @media screen{
   .anti-code-mark{display:none !important;}
 }
+
+/* === IDENTIFICACION Y NOTA EN PDF === */
+.print-watermark{display:none;}
+.print-first-note{display:none;}
+@media print{
+  .print-watermark{
+    display:block !important; position:fixed !important; left:50% !important; top:52% !important;
+    transform:translate(-50%,-50%) rotate(-32deg) !important; width:92% !important;
+    text-align:center !important; font-family:var(--sans) !important; font-size:30pt !important;
+    line-height:1.35 !important; font-weight:800 !important; letter-spacing:.045em !important;
+    color:rgba(25,118,210,.12) !important; z-index:9999 !important; pointer-events:none !important;
+  }
+  .print-watermark *{color:inherit !important;}
+  .page{position:relative !important;}
+  .page > *:not(.print-watermark){position:relative;z-index:1;}
+  .print-first-note{
+    display:block !important; margin:0 0 16px 0 !important; padding:10px 16px !important;
+    border:1.5px solid var(--teal2) !important; border-radius:8px !important; background:#fff !important;
+    color:var(--navy) !important; font-family:var(--sans) !important; font-size:10pt !important;
+    font-weight:700 !important; line-height:1.35 !important; page-break-inside:avoid !important; break-inside:avoid !important;
+  }
+  .print-first-note strong{font-family:var(--mono) !important;}
+}
+@media screen{.print-watermark,.print-first-note{display:none !important;}}
 </style>
 </head>
 <body>
+<div class="print-watermark" id="printWatermarkDolor">
+  <div id="wmNombreDolor"></div>
+  <div id="wmUniversidadDolor"></div>
+  <div id="wmCodigoDolor"></div>
+</div>
 <div class="page">
 
 <div class="page-print-header"><span id="phNombre"></span> · <span id="phUniversidad"></span> · <span id="phGuia"></span> · <span id="phFecha"></span> · Código: <strong id="phCodigo"></strong></div>
@@ -892,6 +921,7 @@ body{ background:#F8F0E6 !important; font-family:var(--sans); }
 
 <!-- ═══ TALLER ═══ -->
 <div class="tab-content" id="taller-tab">
+<div class="print-first-note" id="printNotaDolor">Nota autocalificable: <strong id="printNotaDolorVal">0.00 / 3.50 pts</strong></div>
 <div class="taller-header">
   <h2>Taller Calificado – <em>Dolor Perioperatorio</em></h2>
   <div class="taller-meta">6.0 puntos · Analgesia multimodal, opioides, mecanismos, casos clínicos y cálculo de dosis · Dr. Andrés Robayo C.</div>
@@ -1345,8 +1375,11 @@ function corregir(mod,total,fbIds,maxPts){
   alert('Módulo '+mod+' corregido: '+ok+'/'+total+' correctas = '+p.toFixed(2)+' pts');
 }
 function actualizarNotas(){
+  var total=((pts.A||0)+(pts.C||0)).toFixed(2);
   var nt=document.getElementById('notaDolor');
-  if(nt)nt.textContent=((pts.A||0)+(pts.C||0)).toFixed(2)+' / 3.50';
+  if(nt)nt.textContent=total+' / 3.50';
+  var pn=document.getElementById('printNotaDolorVal');
+  if(pn)pn.textContent=total+' / 3.50 pts';
 }
 function setupPrintAnswers(){
   document.querySelectorAll('textarea.open-area').forEach(function(ta){
@@ -1360,6 +1393,7 @@ function setupPrintAnswers(){
 }
 document.addEventListener('DOMContentLoaded',setupPrintAnswers);
 window.addEventListener('beforeprint',function(){
+  actualizarNotas();
   document.querySelectorAll('textarea.open-area').forEach(function(ta){
     var clone=ta.nextElementSibling;
     if(clone&&clone.classList.contains('print-answer'))clone.textContent=ta.value;
@@ -1380,21 +1414,6 @@ function antiCodeText(codigo){
 }
 function aplicarCodigoAntiPlagio(codigo){
   document.querySelectorAll('.anti-code-mark').forEach(function(x){x.remove();});
-
-  // Código frente a cada ejercicio.
-  document.querySelectorAll('#taller-tab .ex-label').forEach(function(el){
-    el.appendChild(antiCodeText(codigo));
-  });
-
-  // Código frente a cada pregunta de selección múltiple.
-  document.querySelectorAll('#taller-tab .mc-label').forEach(function(el){
-    el.appendChild(antiCodeText(codigo));
-  });
-
-  // Código frente a cada pregunta abierta.
-  document.querySelectorAll('#taller-tab .open-question').forEach(function(el){
-    el.appendChild(antiCodeText(codigo));
-  });
 }
 function dlPDF(){
   var nom=document.getElementById('nomD').value.trim();
@@ -1415,6 +1434,13 @@ function dlPDF(){
     var el=document.getElementById(id);
     if(el) el.textContent=codigo;
   });
+  var wmN=document.getElementById('wmNombreDolor');
+  var wmU=document.getElementById('wmUniversidadDolor');
+  var wmC=document.getElementById('wmCodigoDolor');
+  if(wmN)wmN.textContent=nom;
+  if(wmU)wmU.textContent=univ;
+  if(wmC)wmC.textContent='Código: '+codigo;
+  actualizarNotas();
   aplicarCodigoAntiPlagio(codigo);
 setTimeout(function(){window.print();},300);
 }

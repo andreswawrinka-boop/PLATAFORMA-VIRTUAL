@@ -338,6 +338,50 @@ footer{border-top:2px solid var(--navy);padding:20px 56px 26px;display:flex;just
 .footer-title{font-family:var(--sans);font-size:8pt;color:var(--gray-400);}
 .footer-copy{font-family:var(--sans);font-size:7.5pt;color:var(--gray-400);text-align:right;line-height:1.5;}
 
+
+/* IDENTIFICACIÓN DEL ESTUDIANTE EN PDF + NOTA SOLO EN PRIMERA PÁGINA */
+.print-watermark{display:none;}
+.print-first-note{display:none;}
+@media print{
+  .print-watermark{
+    display:flex !important;
+    position:fixed;
+    z-index:9999;
+    top:50%;
+    left:50%;
+    width:88%;
+    transform:translate(-50%,-50%) rotate(-32deg);
+    justify-content:center;
+    align-items:center;
+    flex-direction:column;
+    gap:3px;
+    text-align:center;
+    pointer-events:none;
+    font-family:'DM Sans',system-ui,sans-serif;
+    font-size:19pt;
+    line-height:1.25;
+    font-weight:700;
+    color:rgba(51,105,30,.18);
+    letter-spacing:.02em;
+    white-space:normal;
+  }
+  .print-first-note{
+    display:block !important;
+    background:#f1f8e9;
+    border:1.5px solid #689f38;
+    border-radius:7px;
+    padding:8px 12px;
+    margin:0 0 16px 0;
+    font-family:'DM Sans',system-ui,sans-serif;
+    font-size:9pt;
+    font-weight:700;
+    color:#33691E;
+    line-height:1.4;
+    page-break-inside:avoid;
+  }
+}
+@media screen{.print-watermark,.print-first-note{display:none !important;}}
+
 /* PRINT */
 @media print {
   .tab-nav,.palette-btn,.palette-panel,.design-switcher,.correct-btn,.download-box,.nota-bar{display:none !important;}
@@ -554,23 +598,17 @@ body{ background:#EEF3E6 !important; font-family:var(--sans); }
   .page-print-header strong,.print-footer-fixed strong{
     font-family:var(--mono);font-weight:700;letter-spacing:.08em;
   }
-  .anti-plagio-mark{
-    display:block !important;
-    margin-top:6px;
-    font-family:var(--mono);
-    font-size:7pt;
-    color:#495057;
-    letter-spacing:.04em;
-    text-align:right;
-    border-top:1px dashed #ced4da;
-    padding-top:4px;
-    page-break-inside:avoid;
-  }
+  .anti-plagio-mark{display:none !important;}
 }
 @media screen{.anti-plagio-mark{display:none !important;}}
 </style>
 </head>
 <body>
+<div class="print-watermark" aria-hidden="true">
+  <span id="wmNombre"></span>
+  <span id="wmUniversidad"></span>
+  <span>Código: <strong id="wmCodigo"></strong></span>
+</div>
 <div class="page">
 <button class="palette-btn" onclick="togglePalette()">&#127912;</button>
 <div class="palette-panel" id="palettePanel">
@@ -982,6 +1020,10 @@ body{ background:#EEF3E6 !important; font-family:var(--sans); }
   <div class="taller-meta">Dr. Andr&#233;s Robayo C. &#183; 4 ejercicios &#183; 5.0 puntos totales &#183; Hospital de Kennedy</div>
 </div>
 <div class="taller-content">
+<div class="print-first-note" id="printNotaLiq">
+  Nota autocalificable: <span id="printNotaLiqVal">0.00 / 2.10 pts</span>
+</div>
+
 <div class="alert-yellow">&#9888; <strong>Instrucciones:</strong> El feedback de selecci&#243;n m&#250;ltiple aparece solo al oprimir &#171;Corregir Ejercicio&#187;. Las cajas &#225;mbar son preguntas abiertas calificadas por el docente. En los c&#225;lculos muestre todos los pasos con unidades.</div>
 
 <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:15px;">
@@ -1494,6 +1536,8 @@ function actualizarNotas(){
   var total=(pts.E1||0)+(pts.E2||0)+(pts.E3||0)+(pts.E4||0);
   var nt=document.getElementById('notaLiq');
   if(nt)nt.textContent=total.toFixed(2)+' / 2.10';
+  var pnt=document.getElementById('printNotaLiqVal');
+  if(pnt)pnt.textContent=total.toFixed(2)+' / 2.10 pts';
 }
 function setupPrintAnswers(){
   document.querySelectorAll('textarea.open-area').forEach(function(ta){
@@ -1508,6 +1552,7 @@ function setupPrintAnswers(){
 }
 document.addEventListener('DOMContentLoaded',setupPrintAnswers);
 window.addEventListener('beforeprint',function(){
+  actualizarNotas();
   document.querySelectorAll('textarea.open-area').forEach(function(ta){
     var clone=ta.nextElementSibling;
     if(clone&&clone.classList.contains('print-answer'))clone.textContent=ta.value;
@@ -1531,20 +1576,6 @@ function aplicarCodigoAntiPlagio(codigo,nom,univ){
     var el=document.getElementById(id); if(el) el.textContent='Código: '+codigo;
   });
   document.querySelectorAll('.anti-plagio-mark').forEach(function(el){el.remove();});
-
-  /* Marca cada ejercicio del taller, incluidos bloques manuales si están dentro de ellos. */
-  document.querySelectorAll('#taller-tab .ex-item').forEach(function(ex,idx){
-    var mark=document.createElement('div');
-    mark.className='anti-plagio-mark';
-    mark.textContent='Identificación individual · '+codigo+' · '+nom+' · '+univ+' · Ejercicio '+(idx+1);
-    ex.appendChild(mark);
-  });
-  document.querySelectorAll('#taller-tab .manual-ex-item').forEach(function(ex,idx){
-    var mark=document.createElement('div');
-    mark.className='anti-plagio-mark';
-    mark.textContent='Identificación individual · '+codigo+' · '+nom+' · '+univ+' · Ejercicio manual '+(idx+1);
-    ex.appendChild(mark);
-  });
 }
 function dlPDF(){
   var nom=document.getElementById('nomL').value.trim();
@@ -1574,6 +1605,15 @@ function dlPDF(){
   });
 
   aplicarCodigoAntiPlagio(codigo,nom,univ);
+
+  /* Marca de agua: se repite en todas las páginas impresas */
+  var wmNombre=document.getElementById('wmNombre');
+  var wmUniversidad=document.getElementById('wmUniversidad');
+  var wmCodigo=document.getElementById('wmCodigo');
+  if(wmNombre) wmNombre.textContent=nom;
+  if(wmUniversidad) wmUniversidad.textContent=univ;
+  if(wmCodigo) wmCodigo.textContent=codigo;
+  actualizarNotas();
 
   var taller=document.getElementById('taller-tab');
   if(taller){
