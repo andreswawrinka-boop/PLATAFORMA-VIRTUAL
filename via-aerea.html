@@ -244,9 +244,14 @@ select.mc-select:focus { border-color:var(--navy); outline:none; }
 .dl-error { color:var(--red); font-family:var(--sans); font-size:9pt; margin-top:6px; display:none; }
 
 /* Nota acumulada */
-.nota-bar { background:var(--teal-light); border:2px solid var(--teal); border-radius:14px; padding:16px 20px; margin-top:16px; display:flex; align-items:center; gap:20px; flex-wrap:wrap; }
+.nota-bar { background:var(--teal-light); border:2px solid var(--teal); border-radius:14px; padding:16px 20px 18px; margin-top:16px; }
 .nota-bar-label { font-family:var(--sans); font-size:9pt; font-weight:800; color:var(--teal); text-transform:uppercase; letter-spacing:.6px; }
-.nota-bar-val { font-family:var(--mono); font-size:20pt; font-weight:500; color:var(--navy); line-height:1; }
+.nota-bar-val { font-family:var(--mono); font-size:26pt; font-weight:600; color:var(--navy); line-height:1; }
+.nota-bar-total-row { display:flex; align-items:baseline; gap:14px; margin-top:12px; padding-top:12px; border-top:2px solid var(--teal); flex-wrap:wrap; }
+.nota-mod-grid { display:grid; grid-template-columns:repeat(6,1fr); gap:8px; }
+.nota-mod-box { background:#fff; border:1.5px solid var(--brd2); border-radius:9px; padding:8px 6px; text-align:center; }
+.nota-mod-label { display:block; font-family:var(--sans); font-size:7.5pt; color:var(--sub); font-weight:700; margin-bottom:3px; }
+.nota-mod-val { display:block; font-family:var(--mono); font-size:11pt; font-weight:600; color:var(--navy-mid); }
 
 /* ══ MANUAL GRADING BLOCK ══ */
 .manual-block { border:2px dashed var(--amber); border-radius:14px; background:var(--amber-light); padding:15px 19px; margin:20px 0; }
@@ -363,6 +368,130 @@ footer { border-top:2px solid rgba(0,0,0,.08); padding:22px 56px 28px; display:f
   .print-answer { display:none !important; }
 }
 
+
+/* ══ ACCESIBILIDAD TIPOGRÁFICA — TEXTO MÁS GRANDE Y CONTRASTE ══ */
+:root{
+  --sans:'Nunito','DM Sans',system-ui,sans-serif;
+  --txt:#000000;
+  --sub:#000000;
+  --dim:#000000;
+}
+body{
+  font-family:var(--sans);
+  font-size:12.5pt;
+  color:#000 !important;
+  line-height:1.75;
+}
+p{font-size:12.5pt; color:#000 !important; line-height:1.75;}
+h3{font-size:13.5pt; color:#000 !important;}
+.section-title{font-size:25px; color:#000 !important;}
+.section-number{font-size:11px;}
+.tab-btn{font-size:13px; color:#000;}
+.table-caption,.diagram-title,.formula-label{font-size:10.5pt; color:#000 !important;}
+table{font-size:11.5pt;}
+thead th{font-size:10.5pt; color:#fff !important;}
+tbody td{font-size:11.5pt; color:#000 !important;}
+ul.content-list li{font-size:12pt; color:#000 !important;}
+.col-card-title{font-size:11.5pt; color:#000 !important;}
+.col-card p{font-size:11.5pt; color:#000 !important;}
+.definition p{font-size:12.5pt; color:#fff !important;}
+.definition-label{font-size:10pt;}
+.callout-title{font-size:10.5pt;}
+.callout p{font-size:12pt;}
+.callout.clinical p,.callout.warning p,.callout.danger p,.callout.evidence p{color:#000 !important;}
+.callout.das p{color:#fff !important;}
+.stat-value{font-size:17pt;}
+.stat-label{font-size:9.5pt; color:#fff !important;}
+.formula{font-size:13.5pt;}
+.formula-example{font-size:10.5pt; color:#000 !important;}
+.steps li{font-size:12pt; color:#000 !important;}
+.cl-body{font-size:10.5pt; color:#000 !important;}
+.das-plan-desc{font-size:10.5pt; color:#000 !important;}
+.das-plan-title{font-size:11.5pt;}
+.das-plan-key{font-size:9.5pt;}
+.nmj-cap{font-size:10.5pt; color:#000 !important;}
+.score-banner-title{font-size:10.5pt;}
+.score-item-label{font-size:8.5pt; color:#000 !important;}
+.score-item-val{font-size:12.5pt;}
+.taller-meta{font-size:12pt;}
+.alert-yellow{font-size:11pt; color:#000 !important;}
+.module-title{font-size:11.5pt;}
+.ex-label{font-size:11pt; color:#000 !important;}
+.ex-context{font-size:11.5pt; color:#000 !important;}
+.ex-context strong{color:#000 !important;}
+.mc-row{font-size:11.5pt;}
+.mc-label{color:#000 !important;}
+select.mc-select{font-size:11pt; color:#000 !important;}
+.fb{font-size:10.5pt;}
+.calc-box-title{font-size:10.5pt;}
+.calc-step{font-size:12.5pt;}
+.calc-step-label{font-size:10.5pt; color:#000 !important;}
+.calc-hint{font-size:10pt; color:#000 !important;}
+.open-area{font-size:11.5pt; color:#000 !important;}
+.open-label{font-size:11.5pt; color:#000 !important;}
+.id-input{font-size:11.5pt; color:#000 !important;}
+.dl-btn,.correct-btn{font-size:11.5pt;}
+.download-box h3{font-size:12pt;}
+.nota-bar-label{font-size:10.5pt;}
+.nota-mod-label{font-size:9pt; color:#000 !important;}
+.manual-title{font-size:11pt;}
+.manual-note{font-size:9.5pt; color:#000 !important;}
+.manual-ex-label{font-size:11pt; color:#000 !important;}
+.footer-name{font-size:11pt; color:#000 !important;}
+.footer-title,.footer-copy{font-size:9.5pt; color:#000 !important;}
+
+/* Fondos claros/blancos: texto negro. Fondos oscuros: texto blanco. */
+.content,.taller-content,.module-body,.col-card,.cl-body,.formula-block,
+.table-wrap,.score-item,.nota-mod-box,.diagram-wrap,.gray-50,
+.module-body input,.module-body select,.module-body textarea{
+  color:#000;
+}
+.content *,.taller-content *{
+  /* no se aplica a elementos con fondo oscuro mediante las reglas siguientes */
+}
+.cover,.cover h1,.cover-tag,.cover-subtitle,.cover-meta-value,
+.taller-header,.taller-header h2,.module-header,.module-header *,
+.stat-pill,.stat-pill *, .definition,.definition *,
+.callout.das,.callout.das *, .score-total,.score-total *{
+  color:#fff;
+}
+.cover h1 em{color:transparent;}
+.cover-meta-label,.taller-meta,.stat-label,.score-total-label,
+.das-plan-name{color:rgba(255,255,255,.85) !important;}
+
+/* Elementos con fondo claro o blanco */
+.callout.clinical,.callout.warning,.callout.danger,.callout.evidence,
+.alert-yellow,.calc-box,.download-box,.nota-bar,.manual-block,
+.ex-context,.formula-block,.col-card,.cl-body,.score-item,.nota-mod-box{
+  color:#000 !important;
+}
+.callout.clinical *, .callout.warning *, .callout.danger *, .callout.evidence *,
+.alert-yellow *, .calc-box *, .download-box *, .nota-bar *,
+.manual-block *, .ex-context *, .formula-block *, .col-card *, .cl-body *,
+.score-item *, .nota-mod-box *{
+  color:#000 !important;
+}
+.callout.das *,.score-total *,.stat-pill *,.definition *,.module-header *{
+  color:#fff !important;
+}
+.callout.das .callout-title,.stat-pill .stat-value,.score-total .score-total-val,
+.definition .definition-label,.module-header .module-tag,.module-header .module-pts{
+  color:var(--gold) !important;
+}
+thead th{color:#fff !important;}
+.step-num,.ex-num,.ex-pts,.manual-badge,.manual-ex-num,.manual-ex-pts,
+.correct-btn,.dl-btn{color:#fff !important;}
+input,select,textarea{color:#000 !important;}
+
+/* impresión: conservar el mismo aumento y contraste */
+@media print{
+  body{font-size:11.5pt;color:#000 !important;}
+  p{font-size:11.5pt;color:#000 !important;}
+  tbody td{font-size:10.8pt;color:#000 !important;}
+  .print-answer{font-size:11pt;color:#000 !important;}
+  .page-print-header,.print-footer-fixed{color:#000 !important;}
+}
+
 </style>
 </head>
 <body>
@@ -377,7 +506,7 @@ footer { border-top:2px solid rgba(0,0,0,.08); padding:22px 56px 28px; display:f
 <div class="print-score-id" id="printScoreId">
   <span><strong>Estudiante:</strong> <span id="printStudent"></span></span>
   <span><strong>Código único:</strong> <span id="printCode"></span></span>
-  <span><strong>Nota:</strong> <span class="print-note" id="printScore">0.00 / 4.20</span></span>
+  <span><strong>Nota:</strong> <span class="print-note" id="printScore">0.00 / 5.00</span></span>
 </div>
 
 <!-- TAB NAV -->
@@ -968,35 +1097,23 @@ footer { border-top:2px solid rgba(0,0,0,.08); padding:22px 56px 28px; display:f
 <div class="tab-content" id="taller-tab">
 <div class="taller-header">
   <h2>Taller Integrado — <em>Vía Aérea y Preoxigenación</em></h2>
-  <div class="taller-meta">Dr. Andrés Robayo C. · Módulos A–E · 5.0 puntos totales · Hospital de Kennedy</div>
+  <div class="taller-meta">Dr. Andrés Robayo C. · Módulos A–F · 5.0 puntos totales · Hospital de Kennedy</div>
 </div>
 <div class="taller-content">
-<div class="alert-yellow">⚠ <strong>Instrucción:</strong> Usar <strong>punto</strong> como separador decimal. En los módulos de cálculo (B y E) se califica <strong>cada casilla del desarrollo</strong> además del desplegable: no basta con acertar el resultado final, el planteamiento debe estar correcto. Complete todas las casillas antes de oprimir "Corregir Módulo". El feedback solo aparece al corregir.</div>
+<div class="alert-yellow">⚠ <strong>Instrucción:</strong> Usar <strong>punto</strong> como separador decimal. En los módulos de cálculo (B y E) se califica <strong>cada casilla del desarrollo</strong> además del desplegable: no basta con acertar el resultado final, el planteamiento debe estar correcto. Complete todas las casillas antes de oprimir "Corregir Módulo". El feedback solo aparece al corregir. <strong>Todo el taller es 100% autocalificable</strong> — no hay preguntas de texto libre.</div>
 
 <!-- SCORE BREAKDOWN BANNER -->
-<div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:22px;">
-  <div style="background:#e6f4f2;border:2px solid var(--teal);border-radius:8px;padding:14px 18px;">
-    <div style="font-family:var(--sans);font-size:8pt;font-weight:700;color:var(--teal);text-transform:uppercase;letter-spacing:.07em;margin-bottom:8px;">🤖 Puntaje Autocorregible — 4.20 pts</div>
-    <div style="font-family:var(--sans);font-size:9pt;color:#212529;line-height:1.8;">
-      Módulo A — Vía aérea: clasificaciones y predictores &nbsp;<strong>1.0 pt</strong><br>
-      Módulo B — Cálculo TOT pediátrico (5 casos) &nbsp;<strong>0.8 pts</strong><br>
-      Módulo C — Casos DAS: selección múltiple (6 preguntas) &nbsp;<strong>0.6 pts</strong><br>
-      Módulo D — Preoxigenación: fundamentos &nbsp;<strong>0.9 pts</strong><br>
-      Módulo E — LMA: selección y cálculo de cuff &nbsp;<strong>0.9 pts</strong>
-    </div>
-    <div style="font-family:var(--mono);font-size:12pt;font-weight:600;color:var(--teal);margin-top:8px;border-top:1px solid var(--teal);padding-top:6px;">Total autocorregible: 4.20 pts</div>
+<div style="background:#e6f4f2;border:2px solid var(--teal);border-radius:8px;padding:14px 18px;margin-bottom:22px;">
+  <div style="font-family:var(--sans);font-size:8pt;font-weight:700;color:var(--teal);text-transform:uppercase;letter-spacing:.07em;margin-bottom:8px;">🤖 Puntaje 100% Autocorregible — 5.00 pts</div>
+  <div style="font-family:var(--sans);font-size:9pt;color:#212529;line-height:1.8;">
+    Módulo A — Vía aérea: clasificaciones y predictores &nbsp;<strong>1.0 pt</strong><br>
+    Módulo B — Cálculo TOT pediátrico (5 casos) &nbsp;<strong>0.8 pts</strong><br>
+    Módulo C — Casos DAS: selección múltiple + planteamiento de conducta &nbsp;<strong>0.9 pts</strong><br>
+    Módulo D — Preoxigenación: fundamentos &nbsp;<strong>0.9 pts</strong><br>
+    Módulo E — LMA: selección y cálculo de cuff &nbsp;<strong>0.9 pts</strong><br>
+    Módulo F — Optimización de máscara + selección de hoja de laringoscopio &nbsp;<strong>0.5 pts</strong>
   </div>
-  <div style="background:var(--amber-light);border:2px solid var(--amber);border-radius:8px;padding:14px 18px;">
-    <div style="font-family:var(--sans);font-size:8pt;font-weight:700;color:var(--amber);text-transform:uppercase;letter-spacing:.07em;margin-bottom:8px;">✏️ Calificación Docente — 0.80 pts</div>
-    <div style="font-family:var(--sans);font-size:9pt;color:#212529;line-height:1.8;">
-      Módulo C — C1 Justificación Plan B &nbsp;<strong>0.10 pts</strong><br>
-      Módulo C — C2 Pasos de la ISR &nbsp;<strong>0.10 pts</strong><br>
-      Módulo C — C3 Pasos cricotirotomía &nbsp;<strong>0.10 pts</strong><br>
-      Módulo F — F1 Optimización ventilación máscara &nbsp;<strong>0.25 pts</strong><br>
-      Módulo F — F2 Elección hoja de laringoscopio &nbsp;<strong>0.25 pts</strong>
-    </div>
-    <div style="font-family:var(--mono);font-size:12pt;font-weight:600;color:var(--amber);margin-top:8px;border-top:1px solid var(--amber);padding-top:6px;">Total docente: 0.80 pts &nbsp;·&nbsp; <strong>TOTAL: 5.00 pts</strong></div>
-  </div>
+  <div style="font-family:var(--mono);font-size:12pt;font-weight:600;color:var(--teal);margin-top:8px;border-top:1px solid var(--teal);padding-top:6px;">TOTAL: 5.00 pts — corregido automáticamente al oprimir cada botón "Corregir Módulo"</div>
 </div>
 
 <!-- ══ MÓDULO A — VÍA AÉREA: CLASIFICACIONES ══ -->
@@ -1086,44 +1203,38 @@ footer { border-top:2px solid rgba(0,0,0,.08); padding:22px 56px 28px; display:f
 
 <!-- ══ MÓDULO C — CASOS DAS ══ -->
 <div class="module">
-  <div class="module-header"><span class="module-tag">MÓDULO C</span><span class="module-title">Casos clínicos — Planes DAS 2025 y estómago lleno</span><span class="module-pts">🤖 0.60 pts auto · ✏️ 0.30 pts docente · Total 0.90 pts</span></div>
+  <div class="module-header"><span class="module-tag">MÓDULO C</span><span class="module-title">Casos clínicos — Planes DAS 2025 y estómago lleno</span><span class="module-pts">🤖 0.90 pts autocorregible</span></div>
   <div class="module-body">
     <div class="ex-item">
-      <div class="ex-label"><span class="ex-num">C1</span> Vía aérea difícil no anticipada — Plan B &nbsp;<span class="ex-pts">🤖 0.20 pts autocorregible</span> &nbsp;<span class="manual-ex-pts" style="font-family:var(--mono);font-size:7pt;padding:2px 6px;border-radius:3px;">✏️ 0.10 pts docente</span> &nbsp;<span style="font-family:var(--mono);font-size:7pt;color:var(--gray-400);">= 0.30 pts total</span></div>
+      <div class="ex-label"><span class="ex-num">C1</span> Vía aérea difícil no anticipada — Plan B <span class="ex-pts">🤖 0.30 pts</span></div>
       <div class="ex-context">Paciente masculino, 65 años, hernioplastia electiva. Preoxigenación FeO₂ 92%. 1° intento CL IV. 2° intento videolaringoscopio: CL III, tubo no pasa. SpO₂ 97%.</div>
       <div class="mc-row"><span class="mc-label">Conducta correcta según DAS 2025:</span><select class="mc-select" onchange="chk(this,'Pasar al Plan B — colocar LMA de 2ª generación y evaluar ventilación','fbC1a')"><option value="">— elegir —</option><option>Realizar un 3° intento con laringoscopia directa</option><option>Pasar al Plan B — colocar LMA de 2ª generación y evaluar ventilación</option><option>Declarar CICO y proceder a cricotirotomía</option></select><span class="fb" id="fbC1a"></span></div>
       <div class="mc-row"><span class="mc-label">¿Por qué NO hacer otro intento de laringoscopia directa?</span><select class="mc-select" onchange="chk(this,'Se usaron 2 técnicas distintas sin éxito; repetir aumenta trauma sin mejorar pronóstico','fbC1b')"><option value="">— elegir —</option><option>Porque la SpO₂ está baja</option><option>Se usaron 2 técnicas distintas sin éxito; repetir aumenta trauma sin mejorar pronóstico</option><option>Porque el paciente ya fue intubado previamente</option></select><span class="fb" id="fbC1b"></span></div>
-      <div style="background:var(--amber-light);border:1.5px dashed var(--amber);border-radius:6px;padding:10px 14px;margin-top:10px;">
-        <div style="font-family:var(--sans);font-size:8pt;font-weight:700;color:var(--amber);margin-bottom:6px;">✏️ CALIFICACIÓN DOCENTE — 0.10 pts · No va en el puntaje autocorregible</div>
-        <span class="open-label">¿Qué hace exactamente en el Plan B y cuándo consideraría despertar al paciente?</span>
-        <textarea class="open-area" style="border-color:var(--amber);" placeholder="Escriba su respuesta aquí..."></textarea>
-      </div>
+      <div class="mc-row"><span class="mc-label">Tras colocar la LMA de 2ª generación, ¿qué debe evaluar de inmediato?</span><select class="mc-select" onchange="chk(this,'Si logra ventilar y oxigenar adecuadamente (SpO₂ estable)','fbC1c')"><option value="">— elegir —</option><option>Si logra ventilar y oxigenar adecuadamente (SpO₂ estable)</option><option>El tiempo total transcurrido desde la inducción</option><option>La profundidad anestésica únicamente</option></select><span class="fb" id="fbC1c"></span></div>
+      <div class="mc-row"><span class="mc-label">Si ventila adecuadamente con la LMA y la cirugía es electiva, ¿qué debe considerar?</span><select class="mc-select" onchange="chk(this,'Despertar al paciente y replantear la vía aérea de forma electiva y segura','fbC1d')"><option value="">— elegir —</option><option>Continuar la cirugía con LMA sin más consideraciones</option><option>Despertar al paciente y replantear la vía aérea de forma electiva y segura</option><option>Intentar una tercera laringoscopia para asegurar tubo</option></select><span class="fb" id="fbC1d"></span></div>
     </div>
 
     <div class="ex-item">
-      <div class="ex-label"><span class="ex-num">C2</span> Estómago lleno — ISR &nbsp;<span class="ex-pts">🤖 0.20 pts autocorregible</span> &nbsp;<span class="manual-ex-pts" style="font-family:var(--mono);font-size:7pt;padding:2px 6px;border-radius:3px;">✏️ 0.10 pts docente</span> &nbsp;<span style="font-family:var(--mono);font-size:7pt;color:var(--gray-400);">= 0.30 pts total</span></div>
+      <div class="ex-label"><span class="ex-num">C2</span> Estómago lleno — ISR <span class="ex-pts">🤖 0.30 pts</span></div>
       <div class="ex-context">Mujer, 34 años, embarazada 26 semanas, colecistitis aguda, vomitó hace 1 hora. SpO₂ 95%. Requiere colecistectomía de urgencia.</div>
       <div class="mc-row"><span class="mc-label">¿Es estómago lleno?</span><select class="mc-select" onchange="chk(this,'Sí — embarazo + vómito reciente + urgencia quirúrgica','fbC2a')"><option value="">— elegir —</option><option>No, porque tiene solo 26 semanas</option><option>Sí — embarazo + vómito reciente + urgencia quirúrgica</option><option>Solo si el ayuno es menor de 6 horas</option></select><span class="fb" id="fbC2a"></span></div>
       <div class="mc-row"><span class="mc-label">Técnica de inducción correcta:</span><select class="mc-select" onchange="chk(this,'Inducción de Secuencia Rápida (ISR)','fbC2b')"><option value="">— elegir —</option><option>Inducción inhalatoria lenta con sevoflurane</option><option>Inducción de Secuencia Rápida (ISR)</option><option>Sedación con propofol + máscara laríngea</option></select><span class="fb" id="fbC2b"></span></div>
-      <div style="background:var(--amber-light);border:1.5px dashed var(--amber);border-radius:6px;padding:10px 14px;margin-top:10px;">
-        <div style="font-family:var(--sans);font-size:8pt;font-weight:700;color:var(--amber);margin-bottom:6px;">✏️ CALIFICACIÓN DOCENTE — 0.10 pts · No va en el puntaje autocorregible</div>
-        <span class="open-label">Pasos de la ISR en esta paciente — mencione inductor, dosis, RNM y por qué no ventila entre inducción e intubación:</span>
-        <textarea class="open-area" style="border-color:var(--amber);min-height:90px;" placeholder="Escriba su respuesta aquí..."></textarea>
-      </div>
+      <div class="mc-row"><span class="mc-label">Relajante neuromuscular de elección para intubación inmediata:</span><select class="mc-select" onchange="chk(this,'Succinilcolina 1–1.5 mg/kg o Rocuronio 1.2 mg/kg (con sugammadex disponible)','fbC2c')"><option value="">— elegir —</option><option>Succinilcolina 1–1.5 mg/kg o Rocuronio 1.2 mg/kg (con sugammadex disponible)</option><option>Vecuronio 0.1 mg/kg (onset lento)</option><option>Atracurio de acción prolongada</option></select><span class="fb" id="fbC2c"></span></div>
+      <div class="mc-row"><span class="mc-label">¿Por qué NO se ventila con máscara entre inducción e intubación (salvo desaturación)?</span><select class="mc-select" onchange="chk(this,'Para evitar insuflar aire al estómago y aumentar el riesgo de regurgitación/aspiración','fbC2d')"><option value="">— elegir —</option><option>Para evitar insuflar aire al estómago y aumentar el riesgo de regurgitación/aspiración</option><option>Porque retrasa innecesariamente la intubación</option><option>Porque disminuye la profundidad anestésica</option></select><span class="fb" id="fbC2d"></span></div>
     </div>
 
     <div class="ex-item">
-      <div class="ex-label"><span class="ex-num">C3</span> CICO — Reconocimiento y Plan D &nbsp;<span class="ex-pts">🤖 0.20 pts autocorregible</span> &nbsp;<span class="manual-ex-pts" style="font-family:var(--mono);font-size:7pt;padding:2px 6px;border-radius:3px;">✏️ 0.10 pts docente</span> &nbsp;<span style="font-family:var(--mono);font-size:7pt;color:var(--gray-400);">= 0.30 pts total</span></div>
+      <div class="ex-label"><span class="ex-num">C3</span> CICO — Reconocimiento, Plan D y secuencia de la cricotirotomía <span class="ex-pts">🤖 0.30 pts</span></div>
       <div class="ex-context">Hombre, 68 años, tumor laríngeo. 3 intentos laringoscopia fallidos (CL IV). Videolaringoscopio fallido. LMA 2ª generación: ventilación imposible. BVM + cánula OFA: fallida. SpO₂ 76%.</div>
       <div class="mc-row"><span class="mc-label">Diagnóstico de la situación:</span><select class="mc-select" onchange="chk(this,'CICO — Cannot Intubate Cannot Oxygenate','fbC3a')"><option value="">— elegir —</option><option>Intubación difícil</option><option>CICO — Cannot Intubate Cannot Oxygenate</option><option>Ventilación difícil aislada</option></select><span class="fb" id="fbC3a"></span></div>
       <div class="mc-row"><span class="mc-label">Plan que activa:</span><select class="mc-select" onchange="chk(this,'Plan D — Cricotirotomía con bisturí (scalpel-bougie technique)','fbC3b')"><option value="">— elegir —</option><option>Plan A — Otro intento de laringoscopia</option><option>Plan B — Otro intento de LMA</option><option>Plan D — Cricotirotomía con bisturí (scalpel-bougie technique)</option></select><span class="fb" id="fbC3b"></span></div>
-      <div style="background:var(--amber-light);border:1.5px dashed var(--amber);border-radius:6px;padding:10px 14px;margin-top:10px;">
-        <div style="font-family:var(--sans);font-size:8pt;font-weight:700;color:var(--amber);margin-bottom:6px;">✏️ CALIFICACIÓN DOCENTE — 0.10 pts · No va en el puntaje autocorregible</div>
-        <span class="open-label">Describa paso a paso la cricotirotomía con bisturí (scalpel-bougie technique) según DAS 2025:</span>
-        <textarea class="open-area" style="border-color:var(--amber);" placeholder="Escriba su respuesta aquí..."></textarea>
-      </div>
-      <button class="correct-btn" onclick="corregir('C','taller',['fbC1a','fbC1b','fbC2a','fbC2b','fbC3a','fbC3b'],0.6,this)">Corregir Módulo C — Selección múltiple (0.60 pts autocorregibles)</button>
-      <div style="font-family:var(--sans);font-size:8pt;color:var(--gray-400);margin-top:6px;font-style:italic;">Las 3 preguntas abiertas de C1, C2 y C3 suman 0.30 pts adicionales calificados por el docente → Total Módulo C: 0.90 pts</div>
+      <div class="alert-yellow" style="margin:10px 0;">Ordene los siguientes pasos de la técnica scalpel-bougie (DAS 2025) asignando el número de secuencia correcto (1 = primero, 5 = último) en cada desplegable.</div>
+      <div class="mc-row"><span class="mc-label">Introducir el bougie a través de la incisión, en dirección caudal, hasta sentir los anillos traqueales</span><select class="mc-select" onchange="chk(this,'4','fbC3e')"><option value="">—</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option></select><span class="fb" id="fbC3e"></span></div>
+      <div class="mc-row"><span class="mc-label">Estabilizar el cartílago tiroides y palpar/confirmar la membrana cricotiroidea</span><select class="mc-select" onchange="chk(this,'1','fbC3f')"><option value="">—</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option></select><span class="fb" id="fbC3f"></span></div>
+      <div class="mc-row"><span class="mc-label">Deslizar el tubo (6.0 mm) sobre el bougie hasta la tráquea y confirmar posición con capnografía</span><select class="mc-select" onchange="chk(this,'5','fbC3g')"><option value="">—</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option></select><span class="fb" id="fbC3g"></span></div>
+      <div class="mc-row"><span class="mc-label">Incisión horizontal de la membrana cricotiroidea, rotando el bisturí 90° (técnica "turn")</span><select class="mc-select" onchange="chk(this,'3','fbC3h')"><option value="">—</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option></select><span class="fb" id="fbC3h"></span></div>
+      <div class="mc-row"><span class="mc-label">Incisión vertical de piel sobre la membrana cricotiroidea (2–3 cm)</span><select class="mc-select" onchange="chk(this,'2','fbC3i')"><option value="">—</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option></select><span class="fb" id="fbC3i"></span></div>
+      <button class="correct-btn" onclick="corregir('C','taller',['fbC1a','fbC1b','fbC1c','fbC1d','fbC2a','fbC2b','fbC2c','fbC2d','fbC3a','fbC3b','fbC3e','fbC3f','fbC3g','fbC3h','fbC3i'],0.9,this)">Corregir Módulo C</button>
     </div>
   </div>
 </div>
@@ -1201,24 +1312,32 @@ footer { border-top:2px solid rgba(0,0,0,.08); padding:22px 56px 28px; display:f
 </div>
 
 <!-- ══ MÓDULO F — PREGUNTAS ABIERTAS DOCENTE ══ -->
-<div class="manual-block">
-  <div class="manual-block-header">
-    <span class="manual-badge">✏️ Módulo F — Calificación Docente</span>
-    <span class="manual-pts-badge">0.5 pts total</span>
-    <span class="manual-title">Razonamiento clínico — Preguntas abiertas</span>
-  </div>
-  <div class="manual-note">⚠ Este módulo es calificado manualmente por el docente. Las justificaciones del Módulo C también forman parte de esta evaluación cualitativa.</div>
-  <div class="manual-ex-item">
-    <div class="manual-ex-label"><span class="manual-ex-num">F1</span> Optimización de ventilación con máscara <span class="manual-ex-pts">0.25 pts</span></div>
-    <div class="ex-context">Un residente afirma que la ventilación está difícil tras la inducción. El anestesiólogo le pregunta: «¿ya optimizó la técnica?»</div>
-    <span class="open-label">Mencione al menos 5 pasos de optimización que debe verificar ANTES de declarar ventilación difícil, con justificación de cada uno:</span>
-    <textarea class="open-area" style="min-height:110px;" placeholder="Escriba su respuesta aquí..."></textarea>
-  </div>
-  <div class="manual-ex-item">
-    <div class="manual-ex-label"><span class="manual-ex-num">F2</span> Elección de hoja de laringoscopio <span class="manual-ex-pts">0.25 pts</span></div>
-    <div class="ex-context">Dos pacientes: A — hombre adulto sano 40 años, Mallampati II. B — niña de 2 años para herniorrafia.</div>
-    <span class="open-label">Para cada paciente: tipo de hoja, talla, mecanismo de acción y por qué esa es la elección correcta:</span>
-    <textarea class="open-area" style="min-height:120px;" placeholder="Escriba su respuesta aquí..."></textarea>
+<div class="module">
+  <div class="module-header"><span class="module-tag">MÓDULO F</span><span class="module-title">Optimización de máscara y selección de hoja de laringoscopio</span><span class="module-pts">🤖 0.5 pts autocorregible</span></div>
+  <div class="module-body">
+    <div class="ex-item">
+      <div class="ex-label"><span class="ex-num">F1</span> Optimización de ventilación con máscara <span class="ex-pts">🤖 0.25 pts</span></div>
+      <div class="ex-context">Un residente afirma que la ventilación está difícil tras la inducción. El anestesiólogo le pregunta: «¿ya optimizó la técnica?» Clasifique cada maniobra según si corresponde o no a la optimización que debe verificarse ANTES de declarar ventilación difícil.</div>
+      <div class="mc-row"><span class="mc-label">Reposicionar la cabeza (posición de olfateo) y revisar el sello de la máscara</span><select class="mc-select" onchange="chk(this,'Sí — es un paso de optimización','fbF1a')"><option value="">— elegir —</option><option>Sí — es un paso de optimización</option><option>No — no forma parte de la optimización</option></select><span class="fb" id="fbF1a"></span></div>
+      <div class="mc-row"><span class="mc-label">Colocar cánula orofaríngea o nasofaríngea si hay obstrucción de tejidos blandos</span><select class="mc-select" onchange="chk(this,'Sí — es un paso de optimización','fbF1b')"><option value="">— elegir —</option><option>Sí — es un paso de optimización</option><option>No — no forma parte de la optimización</option></select><span class="fb" id="fbF1b"></span></div>
+      <div class="mc-row"><span class="mc-label">Usar técnica a dos manos (C-E bilateral) con un segundo operador en la bolsa</span><select class="mc-select" onchange="chk(this,'Sí — es un paso de optimización','fbF1c')"><option value="">— elegir —</option><option>Sí — es un paso de optimización</option><option>No — no forma parte de la optimización</option></select><span class="fb" id="fbF1c"></span></div>
+      <div class="mc-row"><span class="mc-label">Profundizar la anestesia o relajación si hay laringoespasmo/rigidez torácica</span><select class="mc-select" onchange="chk(this,'Sí — es un paso de optimización','fbF1d')"><option value="">— elegir —</option><option>Sí — es un paso de optimización</option><option>No — no forma parte de la optimización</option></select><span class="fb" id="fbF1d"></span></div>
+      <div class="mc-row"><span class="mc-label">Sostener presión inspiratoria &gt;40 cmH₂O de forma sostenida hasta lograr expansión torácica</span><select class="mc-select" onchange="chk(this,'No — no forma parte de la optimización','fbF1e')"><option value="">— elegir —</option><option>Sí — es un paso de optimización</option><option>No — no forma parte de la optimización</option></select><span class="fb" id="fbF1e"></span></div>
+      <div class="mc-row"><span class="mc-label">Cambiar de operador sin intentar ninguna otra maniobra previa</span><select class="mc-select" onchange="chk(this,'No — no forma parte de la optimización','fbF1f')"><option value="">— elegir —</option><option>Sí — es un paso de optimización</option><option>No — no forma parte de la optimización</option></select><span class="fb" id="fbF1f"></span></div>
+    </div>
+    <div class="ex-item">
+      <div class="ex-label"><span class="ex-num">F2</span> Elección de hoja de laringoscopio <span class="ex-pts">🤖 0.25 pts</span></div>
+      <div class="ex-context">Paciente A — hombre adulto sano, 40 años, Mallampati II. Paciente B — niña de 2 años, para herniorrafia.</div>
+      <div class="calc-box-title" style="margin-bottom:6px;">Paciente A — adulto sin predictores de dificultad</div>
+      <div class="mc-row"><span class="mc-label">Tipo de hoja recomendada:</span><select class="mc-select" onchange="chk(this,'Macintosh (curva)','fbF2a')"><option value="">— elegir —</option><option>Macintosh (curva)</option><option>Miller (recta)</option><option>McCoy (articulada)</option></select><span class="fb" id="fbF2a"></span></div>
+      <div class="mc-row"><span class="mc-label">Talla recomendada:</span><select class="mc-select" onchange="chk(this,'3','fbF2b')"><option value="">— elegir —</option><option>1</option><option>2</option><option>3</option><option>4</option></select><span class="fb" id="fbF2b"></span></div>
+      <div class="mc-row"><span class="mc-label">Mecanismo de acción de la hoja curva:</span><select class="mc-select" onchange="chk(this,'Se apoya en la vallécula y desplaza la epiglotis indirectamente al traccionar el ligamento hioepiglótico','fbF2c')"><option value="">— elegir —</option><option>Levanta directamente la epiglotis con su punta</option><option>Se apoya en la vallécula y desplaza la epiglotis indirectamente al traccionar el ligamento hioepiglótico</option><option>No requiere contacto con estructuras supraglóticas</option></select><span class="fb" id="fbF2c"></span></div>
+      <div class="calc-box-title" style="margin:14px 0 6px;">Paciente B — niña de 2 años</div>
+      <div class="mc-row"><span class="mc-label">Tipo de hoja recomendada:</span><select class="mc-select" onchange="chk(this,'Miller (recta)','fbF2d')"><option value="">— elegir —</option><option>Macintosh (curva)</option><option>Miller (recta)</option></select><span class="fb" id="fbF2d"></span></div>
+      <div class="mc-row"><span class="mc-label">Talla recomendada:</span><select class="mc-select" onchange="chk(this,'1','fbF2e')"><option value="">— elegir —</option><option>0</option><option>1</option><option>2</option></select><span class="fb" id="fbF2e"></span></div>
+      <div class="mc-row"><span class="mc-label">¿Por qué la hoja recta es preferible en lactantes/niños pequeños?</span><select class="mc-select" onchange="chk(this,'Levanta directamente la epiglotis, que es más larga, flácida y en ángulo en niños pequeños','fbF2f')"><option value="">— elegir —</option><option>Levanta directamente la epiglotis, que es más larga, flácida y en ángulo en niños pequeños</option><option>Porque siempre es de menor tamaño que la curva</option><option>Porque evita tener que ver la glotis directamente</option></select><span class="fb" id="fbF2f"></span></div>
+      <button class="correct-btn" onclick="corregir('F','taller',['fbF1a','fbF1b','fbF1c','fbF1d','fbF1e','fbF1f','fbF2a','fbF2b','fbF2c','fbF2d','fbF2e','fbF2f'],0.5,this)">Corregir Módulo F</button>
+    </div>
   </div>
 </div>
 
@@ -1234,9 +1353,19 @@ footer { border-top:2px solid rgba(0,0,0,.08); padding:22px 56px 28px; display:f
   <div class="dl-error" id="errT">⚠ Por favor complete nombre y universidad antes de descargar.</div>
 </div>
 <div class="nota-bar">
-  <span class="nota-bar-label">Nota acumulada</span>
-  <span class="nota-bar-val" id="notaTotal">0.00 / 4.20</span>
-  <span style="font-family:var(--sans);font-size:8.5pt;color:var(--gray-600);">Autocorregible (Módulos A–E) &nbsp;|&nbsp; <span style="color:var(--amber);font-weight:600;">✏️ 0.80 pts · Módulos C (justificaciones) + F calificados por docente</span></span>
+  <div class="nota-mod-grid">
+    <div class="nota-mod-box"><span class="nota-mod-label">Módulo A</span><span class="nota-mod-val" id="notaA">0.00 / 1.00</span></div>
+    <div class="nota-mod-box"><span class="nota-mod-label">Módulo B</span><span class="nota-mod-val" id="notaB">0.00 / 0.80</span></div>
+    <div class="nota-mod-box"><span class="nota-mod-label">Módulo C</span><span class="nota-mod-val" id="notaC">0.00 / 0.90</span></div>
+    <div class="nota-mod-box"><span class="nota-mod-label">Módulo D</span><span class="nota-mod-val" id="notaD">0.00 / 0.90</span></div>
+    <div class="nota-mod-box"><span class="nota-mod-label">Módulo E</span><span class="nota-mod-val" id="notaE">0.00 / 0.90</span></div>
+    <div class="nota-mod-box"><span class="nota-mod-label">Módulo F</span><span class="nota-mod-val" id="notaF">0.00 / 0.50</span></div>
+  </div>
+  <div class="nota-bar-total-row">
+    <span class="nota-bar-label">Nota Final del Taller</span>
+    <span class="nota-bar-val" id="notaTotal">0.00 / 5.00</span>
+    <span style="font-family:var(--sans);font-size:8.5pt;color:var(--gray-600);">100% Autocorregible — suma acumulada de los 6 módulos</span>
+  </div>
 </div>
 </div>
 </div><!-- /taller-tab -->
@@ -1263,7 +1392,7 @@ function chk(sel, correct, fbId){
 }
 
 // ══ SCORE ══
-var pts = {taller:{A:0,B:0,C:0,D:0,E:0}};
+var pts = {taller:{A:0,B:0,C:0,D:0,E:0,F:0}};
 
 // Marca visual de una casilla numérica del desarrollo
 function marcarCasilla(inp, estado){
@@ -1319,8 +1448,14 @@ function corregir(mod, taller, fbIds, maxPts, btn){
 }
 function actualizarNotas(){
   var t = pts.taller;
-  var total = (t.A||0)+(t.B||0)+(t.C||0)+(t.D||0)+(t.E||0);
-  var nt=document.getElementById('notaTotal'); if(nt) nt.textContent=total.toFixed(2)+' / 4.20';
+  var maxPorModulo = {A:1.0,B:0.8,C:0.9,D:0.9,E:0.9,F:0.5};
+  Object.keys(maxPorModulo).forEach(function(mod){
+    var el=document.getElementById('nota'+mod);
+    if(el) el.textContent=(t[mod]||0).toFixed(2)+' / '+maxPorModulo[mod].toFixed(2);
+  });
+  var total = (t.A||0)+(t.B||0)+(t.C||0)+(t.D||0)+(t.E||0)+(t.F||0);
+  var nt=document.getElementById('notaTotal'); if(nt) nt.textContent=total.toFixed(2)+' / 5.00';
+  var ps=document.getElementById('printScore'); if(ps) ps.textContent=total.toFixed(2)+' / 5.00';
 }
 
 // ══ PRINT-ANSWER CLONES ══
@@ -1376,7 +1511,7 @@ function dlPDF(){
   var ahora = new Date();
   var f = ahora.toLocaleDateString('es-CO',{day:'2-digit',month:'long',year:'numeric'})+' '+ahora.toLocaleTimeString('es-CO',{hour:'2-digit',minute:'2-digit'});
   var codigo = generarCodigoUnico();
-  var nota = document.getElementById('notaTotal') ? document.getElementById('notaTotal').textContent : '0.00 / 4.20';
+  var nota = document.getElementById('notaTotal') ? document.getElementById('notaTotal').textContent : '0.00 / 5.00';
 
   var phNombre=document.getElementById('phNombre'); if(phNombre) phNombre.textContent=nom;
   var phUniversidad=document.getElementById('phUniversidad'); if(phUniversidad) phUniversidad.textContent=univ;

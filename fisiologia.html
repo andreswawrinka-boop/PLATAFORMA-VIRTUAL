@@ -209,6 +209,11 @@ select.mc-select{font-family:var(--sans);font-size:9pt;padding:5px 10px;border:1
 .fb.ok{color:var(--teal);}
 .fb.err{color:var(--red);}
 
+/* Completar espacios con banco de palabras (cloze) */
+.cloze-box{border:1.5px solid var(--border);border-radius:7px;padding:12px 14px;background:#fbfbfb;}
+.cloze-text{font-family:var(--sans);font-size:9.8pt;line-height:2.4;color:#212529;}
+.cloze-select{font-family:var(--sans);font-size:9pt;font-weight:700;padding:2px 6px;border:0;border-bottom:2px solid var(--navy-mid);background:#EEF2FF;border-radius:4px 4px 0 0;cursor:pointer;margin:0 2px;}
+
 /* CALC BOXES */
 .calc-box{background:#f8faff;border:2px solid #c8d6e8;border-radius:8px;padding:14px 18px;margin:10px 0;}
 .calc-box-title{font-family:var(--sans);font-size:8pt;font-weight:600;color:var(--navy);letter-spacing:.06em;text-transform:uppercase;margin-bottom:10px;border-bottom:1px solid #c8d6e8;padding-bottom:5px;}
@@ -319,7 +324,12 @@ select.mc-select{font-family:var(--sans);font-size:9pt;padding:5px 10px;border:1
 .correct-btn:hover{background:var(--navy);}
 
 /* NOTA BAR */
-.nota-bar{background:var(--teal-light);border:2px solid var(--teal);border-radius:8px;padding:16px 20px;margin-top:16px;display:flex;align-items:center;gap:20px;flex-wrap:wrap;}
+.nota-bar{background:var(--teal-light);border:2px solid var(--teal);border-radius:8px;padding:16px 20px 18px;margin-top:16px;}
+.nota-mod-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;}
+.nota-mod-box{background:#fff;border:1.5px solid var(--border);border-radius:7px;padding:8px 6px;text-align:center;}
+.nota-mod-label{display:block;font-family:var(--sans);font-size:7.5pt;color:var(--gray-600);font-weight:700;margin-bottom:3px;}
+.nota-mod-val{display:block;font-family:var(--mono);font-size:11pt;font-weight:600;color:var(--navy-mid);}
+.nota-bar-total-row{display:flex;align-items:baseline;gap:14px;margin-top:12px;padding-top:12px;border-top:2px solid var(--teal);flex-wrap:wrap;}
 .nota-bar-label{font-family:var(--sans);font-size:9pt;font-weight:600;color:var(--teal);text-transform:uppercase;letter-spacing:.05em;}
 .nota-bar-val{font-family:var(--mono);font-size:20pt;font-weight:500;color:var(--navy);line-height:1;}
 
@@ -604,6 +614,172 @@ body{ background:#EEF3E6 !important; font-family:var(--sans); }
   .print-first-note strong{font-family:var(--mono) !important;}
 }
 @media screen{.print-watermark,.print-first-note{display:none !important;}}
+
+/* === TIPOGRAFÍA MEJORADA · CONTRASTE UNIVERSAL === */
+html{font-size:16px!important}
+body{
+  font-family:'Nunito','DM Sans',system-ui,sans-serif!important;
+  font-size:12pt!important; line-height:1.75!important; color:#000!important;
+}
+p,.content-list li,.res-card,.col-card p,.fc-val,.algo-desc,.patient-list,
+.ex-context,.open-question,.open-question-part,.answer-line,.cloze-text{
+  font-size:11.5pt!important; line-height:1.7!important; color:#000!important;
+}
+h3{font-size:11.5pt!important; line-height:1.35!important; color:#000!important}
+.section-title{font-size:20pt!important;color:#000!important}
+.tab-btn{font-size:11pt!important;padding:12px 18px!important}
+.cover h1{font-size:clamp(38px,6vw,58px)!important}
+.cover-subtitle{font-size:13.5pt!important;line-height:1.65!important}
+.cover-tag{font-size:10pt!important}
+.cover-meta-label{font-size:9pt!important}
+.cover-meta-value{font-size:12pt!important}
+.definition p,.callout p{font-size:11.5pt!important;line-height:1.7!important}
+.definition-label,.callout-title{font-size:9pt!important}
+table{font-size:11pt!important}
+thead th{font-size:10pt!important;padding:11px 13px!important}
+tbody td{font-size:11pt!important;padding:10px 13px!important;line-height:1.55!important}
+.table-caption{font-size:9pt!important}
+.formula{font-size:14pt!important}
+.formula-label{font-size:9pt!important}
+.formula-example{font-size:10.5pt!important}
+.worked-step{font-size:11pt!important}
+.worked-title{font-size:9pt!important}
+.worked-result{font-size:12pt!important}
+.drug-name{font-size:11.5pt!important}
+.drug-class{font-size:9pt!important}
+.drug-body{font-size:10.5pt!important}
+.drug-row-label{font-size:9pt!important}
+.drug-row-val{font-size:10.5pt!important;color:#000!important}
+.drug-conc{font-size:10pt!important}
+.unit-box{font-size:11.5pt!important}
+.unit-arrow{font-size:10pt!important}
+.unit-arrow span{font-size:9pt!important}
+.col-card-title,.algo-title{font-size:10.5pt!important;color:#000!important}
+.diagram-title{font-size:9pt!important}
+.taller-header h2{font-size:24pt!important}
+.taller-meta{font-size:10.5pt!important}
+.alert-yellow{font-size:11pt!important;color:#000!important}
+.module-title,.exercise-title{font-size:11.5pt!important}
+.module-tag,.module-pts,.exercise-num,.exercise-pts,.q-num,.q-pts-auto,.q-pts-manual{font-size:9.5pt!important}
+.module-body,.exercise-body{font-size:11pt!important}
+.ex-label,.question-label{font-size:11pt!important;color:#000!important}
+.ex-num,.q-num{font-size:9pt!important}
+.ex-pts,.q-pts-auto,.q-pts-manual{font-size:8.5pt!important}
+select.mc-select,.mc-row{font-size:11pt!important}
+.fb{font-size:10.5pt!important}
+.cloze-text{font-size:11.5pt!important;line-height:2.2!important}
+.cloze-select{font-size:10.5pt!important}
+.calc-box-title{font-size:9pt!important}
+.calc-step{font-size:12pt!important}
+.calc-step-label,.calc-sub{font-size:10pt!important}
+.ci,.ci-result{font-size:12pt!important}
+.calc-hint{font-size:9.5pt!important}
+.frac-chain-label,.cancel-hint,.frac-step-label{font-size:9pt!important}
+.fi,.fu{font-size:11pt!important}
+.fop{font-size:18pt!important}
+.manual-title{font-size:11pt!important}
+.manual-note,.manual-ex-label{font-size:10.5pt!important;color:#000!important}
+.manual-badge,.manual-pts-badge{font-size:9pt!important}
+.correct-btn,.dl-btn{font-size:11pt!important}
+.nota-bar-label,.download-box h3{font-size:10.5pt!important}
+.nota-mod-label{font-size:9pt!important}
+.nota-mod-val{font-size:12pt!important}
+.nota-bar-val{font-size:23pt!important}
+.id-input{font-size:11pt!important}
+.dl-error{font-size:10.5pt!important}
+.footer-name{font-size:11pt!important}
+.footer-title,.footer-copy{font-size:9.5pt!important}
+.toc-item{font-size:10pt!important}
+.toc-item b{font-size:9.5pt!important}
+.res-card{font-size:10.5pt!important}
+.res-card strong{font-size:11pt!important}
+.fluid-card-body{font-size:10.5pt!important}
+.fc-lbl{font-size:9.5pt!important}
+.patient-item{font-size:10.5pt!important}
+.patient-label{font-size:9pt!important}
+.patient-section{font-size:9pt!important}
+.answer-line{font-size:11pt!important}
+.ans-input{font-size:11pt!important}
+.open-area{font-size:11pt!important}
+.open-label{font-size:9pt!important}
+
+/* Contraste estricto: superficies claras = negro */
+.page,.content,.module-body,.exercise-body,.drug-body,.fluid-card-body,
+.patient-card,.col-card,.formula-block,.formula-eq,.calc-box,.cloze-box,
+.table-wrap,.res-card,.mini-card,.toc-item,.download-box,.nota-bar,
+.open-area,.palette-panel,.tab-nav{
+  color:#000!important;
+}
+.page p,.page span,.page div,.page td,.page li,.page label{
+  --light-text:#000;
+}
+.module-body,.exercise-body,.drug-body,.fluid-card-body,.patient-card,
+.col-card,.formula-block,.formula-eq,.calc-box,.cloze-box,.table-wrap,
+.res-card,.mini-card,.toc-item,.download-box,.nota-bar{
+  color:#000!important;
+}
+.module-body p,.exercise-body p,.drug-body p,.fluid-card-body p,
+.patient-card p,.col-card p,.formula-block p,.calc-box p,
+.res-card p,.mini-card p,.toc-item,.nota-bar p,.download-box p{
+  color:#000!important;
+}
+
+/* Superficies oscuras = blanco */
+.cover,.taller-header,.definition,.module-header,.exercise-header,
+.drug-header,.unit-box,.frac-result,.score-note{
+  color:#fff!important;
+}
+.cover p,.cover span,.cover h1,.cover h1 em,.cover-subtitle,
+.cover-meta-label,.cover-meta-value,.taller-header h2,.taller-meta,
+.definition p,.module-header span,.module-title,.module-tag,.module-pts,
+.exercise-title,.exercise-num,.exercise-pts,.drug-name,.drug-class,
+.unit-box,.frac-result input,.frac-result .fu,.score-note *{
+  color:#fff!important;
+}
+.cover h1 em,.cover h1 em.ac2,.taller-header h2 em{
+  -webkit-text-fill-color:currentColor!important;
+}
+.cover h1 em{color:#FFE082!important}
+.definition-label,.module-tag{color:#FFE082!important}
+.frac-result input{color:#FFE082!important}
+
+/* Elementos semánticos en fondos claros */
+.yes,.no,.parcial,.callout-title,.formula-label{font-weight:800!important}
+.callout.clinical p,.callout.warning p,.callout.danger p,.callout.evidence p,
+.callout.success p{color:#000!important}
+.callout.clinical .callout-title{color:#075E54!important}
+.callout.warning .callout-title{color:#8A3F00!important}
+.callout.danger .callout-title{color:#8B1111!important}
+.callout.evidence .callout-title{color:#4C1D95!important}
+.callout.success .callout-title{color:#14532D!important}
+td.hl,td.ok,td.warn,td.amber,.algo-title,.patient-value{color:#000!important}
+.toc-item b,.section-number{color:#000!important}
+
+/* Inputs */
+input,select,textarea{color:#000!important}
+input::placeholder,textarea::placeholder{color:#555!important}
+
+/* Impresión */
+@media print{
+  body{font-size:11pt!important;color:#000!important}
+  p,.content-list li,.res-card,.col-card p,tbody td,.module-body,.exercise-body,
+  .ex-context,.open-question,.open-question-part,.answer-line{font-size:10.5pt!important;color:#000!important}
+  .cover,.taller-header,.module-header,.exercise-header,.drug-header,
+  .definition,.unit-box,.frac-result,.score-note{
+    -webkit-print-color-adjust:exact!important;print-color-adjust:exact!important;
+  }
+  .cover,.taller-header,.module-header,.exercise-header,.drug-header,.definition,
+  .unit-box,.frac-result,.score-note{color:#fff!important}
+  .cover *,.taller-header *,.module-header *,.exercise-header *,
+  .drug-header *,.definition *,.unit-box *,.frac-result *,.score-note *{color:#fff!important}
+}
+@media(max-width:720px){
+  .content{padding:30px 22px!important}
+  .cover{padding:38px 22px 32px!important}
+  .drug-grid,.two-col,.fluid-grid{grid-template-columns:1fr!important}
+  .toc-grid{grid-template-columns:1fr 1fr!important}
+}
+
 </style>
 </head>
 <body>
@@ -1698,13 +1874,13 @@ body{ background:#EEF3E6 !important; font-family:var(--sans); }
 
 <!-- TALLER TAB -->
 <div class="tab-content" id="taller-tab">
-<div class="print-first-note" id="printNotaFCV">Nota autocalificable: <strong id="printNotaFCVVal">0.00 / 3.50 pts</strong></div>
+<div class="print-first-note" id="printNotaFCV">Nota autocalificable: <strong id="printNotaFCVVal">0.00 / 5.00 pts</strong></div>
 <div class="taller-header">
   <h2>Taller — <em>Fisiología Cardiovascular y Renal</em></h2>
   <div class="taller-meta">Dr. Andrés Robayo C. · 3 módulos · 5.0 puntos totales · Hospital de Kennedy</div>
 </div>
 <div class="taller-content">
-<div class="alert-yellow">⚠ <strong>Instrucciones:</strong> El feedback de selección múltiple aparece solo al oprimir «Corregir Módulo». En los ejercicios de cálculo, complete todas las casillas del desarrollo — la calificación evalúa tanto los pasos intermedios como el resultado final. Las cajas ámbar son preguntas abiertas calificadas por el docente. Use <strong>punto</strong> como separador decimal.</div>
+<div class="alert-yellow">⚠ <strong>Instrucciones:</strong> El feedback aparece solo al oprimir «Corregir Módulo». En los ejercicios de cálculo, complete todas las casillas del desarrollo — la calificación evalúa tanto los pasos intermedios como el resultado final. Incluye selección múltiple y completar espacios. Use <strong>punto</strong> como separador decimal. <strong>Todo el taller es 100% autocalificable.</strong></div>
 
 <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:15px;">
   <div style="background:#e6f4f2;border:2px solid var(--teal);border-radius:8px;padding:10px 8px;text-align:center;"><div style="font-family:var(--mono);font-size:13pt;font-weight:600;color:var(--teal);">2.0 pts</div><div style="font-family:var(--sans);font-size:7.5pt;color:var(--gray-600);margin-top:3px;">Módulo A — 🤖<br>Conceptos y fórmulas</div></div>
@@ -1713,7 +1889,7 @@ body{ background:#EEF3E6 !important; font-family:var(--sans); }
 </div>
 <div class="score-note">
   <span style="font-family:var(--mono);font-size:16pt;font-weight:600;color:#7dd3c8;">5.0 pts</span>
-  <span style="font-family:var(--sans);font-size:9pt;color:rgba(255,255,255,.8);">Módulos A y B 🤖 autocorregibles · Módulo C ✏️ calificado por el docente. Aplique siempre las fórmulas y unidades correctas.</span>
+  <span style="font-family:var(--sans);font-size:9pt;color:rgba(255,255,255,.8);">🤖 Los 3 módulos son 100% autocorregibles — selección múltiple, cálculos y completar espacios. Aplique siempre las fórmulas y unidades correctas.</span>
 </div>
 
 <!-- MÓDULO A -->
@@ -1859,38 +2035,68 @@ body{ background:#EEF3E6 !important; font-family:var(--sans); }
 
 <!-- MÓDULO C -->
 <div class="module">
-  <div class="module-header" style="background:var(--amber);">
-    <span class="module-tag" style="color:white;">✏️ DOCENTE</span>
+  <div class="module-header" style="background:var(--teal);">
+    <span class="module-tag" style="color:white;">🤖 AUTOCORREGIBLE</span>
     <span class="module-title">Módulo C — Razonamiento fisiopatológico integrado</span>
     <span class="module-pts">1.5 pts</span>
   </div>
   <div class="module-body">
-    <div class="manual-block">
-      <div class="manual-block-header">
-        <span class="manual-badge">Calificación docente</span>
-        <span class="manual-pts-badge">0.75 pts</span>
-        <span class="manual-title">C1 · Shock séptico — Análisis hemodinámico completo</span>
+    <div class="exercise-body" style="padding:0 0 10px;">
+      <div style="font-family:var(--sans);font-size:9pt;font-weight:700;color:var(--navy);margin-bottom:8px;">C1 · Shock séptico — Análisis hemodinámico completo <span class="q-pts-auto" style="font-family:var(--mono);font-size:8pt;background:var(--teal-light);color:var(--teal);padding:2px 8px;border-radius:4px;">🤖 0.75 pts</span></div>
+      <div class="ex-context">Paciente en shock séptico: GC = 7.5 L/min, PAM = 58 mmHg, PVC = 4 mmHg.</div>
+      <div class="calc-block" id="calc-C1a">
+        <div class="answer-line">RVS = (PAM − PVC) ÷ GC × 80 = (58 − <input data-ans="4" class="ans-input ans-sm" inputmode="decimal" placeholder="PVC">) ÷ <input data-ans="7.5" class="ans-input ans-sm" inputmode="decimal" placeholder="GC"> × 80 = <input data-ans="576" class="ans-input ans-md" inputmode="decimal" placeholder="? dyn·s·cm⁻⁵"> dyn·s·cm⁻⁵</div>
       </div>
-      <div class="manual-note">Paciente en shock séptico: GC = 7.5 L/min, PAM = 58 mmHg, PVC = 4 mmHg.</div>
-      <div class="open-question-part"><span class="open-question-part-letter">a</span><span>Calcule la RVS mostrando cada paso y clasifíquela (normal/baja/alta).</span></div>
-      <div class="open-question-part"><span class="open-question-part-letter">b</span><span>Explique el mecanismo fisiopatológico a nivel del glicocálix endotelial que explica por qué, a pesar de un GC conservado o elevado, este paciente puede desarrollar edema y fuga capilar.</span></div>
-      <div class="open-question-part"><span class="open-question-part-letter">c</span><span>Justifique por qué la norepinefrina (y no la fluidoterapia agresiva aislada) es el tratamiento farmacológico que corrige el problema fisiológico principal identificado en el literal a.</span></div>
-      <textarea class="open-area" style="min-height:130px;" placeholder="Escriba su respuesta aquí..."></textarea>
+      <div class="mc-row"><span class="mc-label">Clasificación de la RVS calculada:</span>
+        <select class="mc-select" onchange="chk(this,'Baja (menor a 800) — consistente con vasoplejía del shock séptico','fbC1calc')">
+          <option value="">— elegir —</option>
+          <option>Baja (menor a 800) — consistente con vasoplejía del shock séptico</option>
+          <option>Normal (800–1200) — resistencia vascular conservada</option>
+          <option>Alta (mayor a 1200) — vasoconstricción compensatoria intensa</option>
+          <option>No es posible clasificarla sin la superficie corporal del paciente</option>
+        </select><span class="fb" id="fbC1calc"></span>
+      </div>
+      <div class="mc-row"><span class="mc-label">Mecanismo del glicocálix endotelial que explica el edema pese a GC conservado:</span>
+        <select class="mc-select" onchange="chk(this,'El glicocálix dañado por la inflamación aumenta la permeabilidad capilar, permitiendo fuga de líquido y proteínas al intersticio','fbC1b')">
+          <option value="">— elegir —</option>
+          <option>El glicocálix dañado por la inflamación aumenta la permeabilidad capilar, permitiendo fuga de líquido y proteínas al intersticio</option>
+          <option>El glicocálix no tiene ninguna relación con la permeabilidad vascular en la sepsis</option>
+          <option>El edema se debe únicamente al exceso de fluidos administrados por el equipo tratante</option>
+          <option>El GC elevado por sí mismo es la causa directa del edema tisular observado</option>
+        </select><span class="fb" id="fbC1b"></span>
+      </div>
+      <div class="mc-row"><span class="mc-label">Por qué la norepinefrina (y no la fluidoterapia agresiva aislada) es el tratamiento correcto:</span>
+        <select class="mc-select" onchange="chk(this,'Corrige la vasoplejía (RVS baja), el problema principal, sin sobrecargar de volumen a un paciente con fuga capilar','fbC1c')">
+          <option value="">— elegir —</option>
+          <option>Corrige la vasoplejía (RVS baja), el problema principal, sin sobrecargar de volumen a un paciente con fuga capilar</option>
+          <option>Aumenta el gasto cardíaco de forma directa, que es el problema principal en este paciente</option>
+          <option>Sustituye por completo la necesidad de cualquier fluidoterapia en el shock séptico</option>
+          <option>Actúa exclusivamente sobre el corazón, sin ningún efecto vascular periférico</option>
+        </select><span class="fb" id="fbC1c"></span>
+      </div>
     </div>
 
-    <div class="manual-block">
-      <div class="manual-block-header">
-        <span class="manual-badge">Calificación docente</span>
-        <span class="manual-pts-badge">0.75 pts</span>
-        <span class="manual-title">C2 · Paradoja de la insuficiencia cardíaca con FE reducida</span>
+    <div class="exercise-body" style="padding:0;">
+      <div style="font-family:var(--sans);font-size:9pt;font-weight:700;color:var(--navy);margin-bottom:8px;">C2 · Paradoja de la insuficiencia cardíaca con FE reducida <span class="q-pts-auto" style="font-family:var(--mono);font-size:8pt;background:var(--teal-light);color:var(--teal);padding:2px 8px;border-radius:4px;">🤖 0.75 pts</span></div>
+      <div class="ex-context">En la insuficiencia cardíaca con FE reducida (HFrEF), coexisten una activación crónica del eje β1-PKA-fosfolambano y una respuesta contráctil progresivamente menor.</div>
+      <div class="cloze-box">
+        <div class="cloze-text">
+          La activación aguda de la vía β1-PKA fosforila el fosfolambano, lo que
+          <select class="cloze-select" onchange="chk(this,'reduce','fbC2_1')"><option value="">— elegir —</option><option>reduce</option><option>aumenta</option><option>no modifica</option><option>duplica</option></select>
+          su inhibición sobre la bomba SERCA2a, aumentando la recaptación de calcio al retículo sarcoplásmico y mejorando tanto la contractilidad (inotropismo) como la relajación (
+          <select class="cloze-select" onchange="chk(this,'lusitropismo','fbC2_2')"><option value="">— elegir —</option><option>lusitropismo</option><option>cronotropismo</option><option>dromotropismo</option><option>batmotropismo</option></select>
+          ). Sin embargo, la activación simpática crónica en la HFrEF termina siendo perjudicial porque la quinasa
+          <select class="cloze-select" onchange="chk(this,'GRK2','fbC2_3')"><option value="">— elegir —</option><option>GRK2</option><option>PKC</option><option>CaMKII</option><option>PKA</option></select>
+          fosforila los receptores β1, permitiendo el reclutamiento de β-arrestina y su internalización, un proceso conocido como
+          <select class="cloze-select" onchange="chk(this,'desensibilización','fbC2_4')"><option value="">— elegir —</option><option>desensibilización</option><option>hiperpolarización</option><option>sensibilización</option><option>potenciación</option></select>
+          del receptor. Como consecuencia, la curva de elastancia máxima sistólica (Emax) se
+          <select class="cloze-select" onchange="chk(this,'aplana (se desplaza hacia la derecha)','fbC2_5')"><option value="">— elegir —</option><option>aplana (se desplaza hacia la derecha)</option><option>hace más pronunciada</option><option>mantiene sin cambios</option><option>duplica en pendiente</option></select>
+          , reflejando una contractilidad intrínseca reducida y una respuesta atenuada a inotrópicos como la dobutamina.
+        </div>
       </div>
-      <div class="manual-note">En la insuficiencia cardíaca con FE reducida (HFrEF), coexisten una activación crónica del eje β1-PKA-fosfolambano y una respuesta contráctil progresivamente menor.</div>
-      <div class="open-question-part"><span class="open-question-part-letter">a</span><span>Explique cómo la activación aguda de la vía β1-PKA-fosfolambano mejora la contractilidad y la relajación (inotropismo y lusitropismo) a nivel molecular.</span></div>
-      <div class="open-question-part"><span class="open-question-part-letter">b</span><span>Explique por qué, a pesar de esta vía, la activación simpática crónica termina siendo perjudicial — integre los conceptos de fosforilación por GRK2, internalización de receptores β1 mediada por β-arrestina y desensibilización.</span></div>
-      <div class="open-question-part"><span class="open-question-part-letter">c</span><span>Relacione este fenómeno con el concepto de elastancia ventricular: ¿qué le ocurre a la curva de elastancia máxima sistólica (Emax) en la HFrEF y qué implicación tiene para la respuesta a inotrópicos como la dobutamina?</span></div>
-      <textarea class="open-area" style="min-height:130px;" placeholder="Escriba su respuesta aquí..."></textarea>
     </div>
-    <div style="font-family:var(--sans);font-size:8pt;color:var(--gray-400);margin-top:6px;font-style:italic;">Preguntas C1 y C2 calificadas por el docente → Total Módulo C: 1.5 pts</div>
+
+    <button class="correct-btn" onclick="corregirC()">Corregir Módulo C (1.5 pts)</button>
   </div>
 </div>
 
@@ -1905,9 +2111,16 @@ body{ background:#EEF3E6 !important; font-family:var(--sans); }
   <div class="dl-error" id="errFCV">⚠ Por favor complete nombre y universidad antes de descargar.</div>
 </div>
 <div class="nota-bar">
-  <span class="nota-bar-label">Nota acumulada</span>
-  <span class="nota-bar-val" id="notaFCV">0.00 / 3.50</span>
-  <span style="font-family:var(--sans);font-size:8.5pt;color:var(--gray-600);">Autocorregible (Módulos A–B) &nbsp;|&nbsp; <span style="color:var(--amber);font-weight:600;">✏️ 1.5 pts · Módulo C calificado por docente</span></span>
+  <div class="nota-mod-grid">
+    <div class="nota-mod-box"><span class="nota-mod-label">Módulo A</span><span class="nota-mod-val" id="notaA_FCV">0.00 / 2.00</span></div>
+    <div class="nota-mod-box"><span class="nota-mod-label">Módulo B</span><span class="nota-mod-val" id="notaB_FCV">0.00 / 1.50</span></div>
+    <div class="nota-mod-box"><span class="nota-mod-label">Módulo C</span><span class="nota-mod-val" id="notaC_FCV">0.00 / 1.50</span></div>
+  </div>
+  <div class="nota-bar-total-row">
+    <span class="nota-bar-label">Nota Final del Taller</span>
+    <span class="nota-bar-val" id="notaFCV">0.00 / 5.00</span>
+    <span style="font-family:var(--sans);font-size:8.5pt;color:var(--gray-600);">100% Autocorregible — suma acumulada de los 3 módulos</span>
+  </div>
 </div>
 </div>
 </div><!-- /taller-tab -->
@@ -1951,7 +2164,8 @@ var chainMap={
   fbB2:['calc-B2'],
   fbB3:['calc-B3'],
   fbB4:['calc-B4'],
-  fbB5:['calc-B5']
+  fbB5:['calc-B5'],
+  fbC1calc:['calc-C1a']
 };
 
 // Convierte texto a número, aceptando coma decimal
@@ -1988,7 +2202,7 @@ function checkChains(fbId){
   return allOk;
 }
 
-var pts={A:0,B:0};
+var pts={A:0,B:0,C:0};
 function corregir(mod,total,fbIds,maxPts){
   var ok=0;
   fbIds.forEach(function(fbId){
@@ -2007,9 +2221,52 @@ function corregir(mod,total,fbIds,maxPts){
   actualizarNotas();
   alert('Módulo '+mod+' corregido: '+ok+'/'+total+' correctas = '+p.toFixed(2)+' pts autocorregibles');
 }
+
+// Helper: fracción de aciertos (0–1) de una lista de fbIds (selects), sin verificación de cálculo
+function fracFbIds(ids){
+  var ok=0;
+  ids.forEach(function(fbId){
+    var fb=document.getElementById(fbId), ans=answers[fbId];
+    if(!fb)return;
+    if(!ans||!ans.val){fb.textContent='— sin respuesta';fb.className='fb';return;}
+    var correct = ans.val===ans.correct;
+    if(correct){ok++;fb.textContent='✓ correcto';fb.className='fb ok';}
+    else{fb.textContent='✗ incorrecto';fb.className='fb err';}
+  });
+  return ids.length ? ok/ids.length : 0;
+}
+
+/* MÓDULO C — C1 (cálculo de RVS + 2 selects) y C2 (completar espacios)
+   conservan su peso original de 0.75 pts cada uno. */
+function corregirC(){
+  var chainOk = checkChains('fbC1calc');
+  var fbCalc = document.getElementById('fbC1calc');
+  var ansCalc = answers['fbC1calc'];
+  var selOk = !!(ansCalc && ansCalc.val && ansCalc.val===ansCalc.correct);
+  var c1aOk = chainOk && selOk;
+  if(fbCalc){
+    if(!ansCalc || !ansCalc.val){fbCalc.textContent='— sin respuesta';fbCalc.className='fb';}
+    else if(c1aOk){fbCalc.textContent='✓ correcto';fbCalc.className='fb ok';}
+    else if(selOk && !chainOk){fbCalc.textContent='✗ cálculo incorrecto (revise las casillas en rojo)';fbCalc.className='fb err';}
+    else {fbCalc.textContent='✗ incorrecto';fbCalc.className='fb err';}
+  }
+  var fB = fracFbIds(['fbC1b']);
+  var fCc = fracFbIds(['fbC1c']);
+  var fC1 = ((c1aOk?1:0) + fB + fCc) / 3;
+  var fC2 = fracFbIds(['fbC2_1','fbC2_2','fbC2_3','fbC2_4','fbC2_5']);
+  pts.C = fC1*0.75 + fC2*0.75;
+  actualizarNotas();
+  alert('Módulo C corregido: '+pts.C.toFixed(2)+' / 1.50 pts\n  • C1 (cálculo de RVS + razonamiento): '+(fC1*100).toFixed(0)+'%\n  • C2 (completar espacios): '+(fC2*100).toFixed(0)+'%');
+}
+
 function actualizarNotas(){
-  var total=(pts.A||0)+(pts.B||0);
-  var txt=total.toFixed(2)+' / 3.50';
+  var maxPorModulo={A:2.0,B:1.5,C:1.5};
+  Object.keys(maxPorModulo).forEach(function(mod){
+    var el=document.getElementById('nota'+mod+'_FCV');
+    if(el) el.textContent=(pts[mod]||0).toFixed(2)+' / '+maxPorModulo[mod].toFixed(2);
+  });
+  var total=(pts.A||0)+(pts.B||0)+(pts.C||0);
+  var txt=total.toFixed(2)+' / 5.00';
   var nt=document.getElementById('notaFCV');
   if(nt)nt.textContent=txt;
   var pn=document.getElementById('printNotaFCVVal');

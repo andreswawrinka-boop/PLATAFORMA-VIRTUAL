@@ -209,6 +209,35 @@ select.mc-select{font-family:var(--sans);font-size:9pt;padding:5px 10px;border:1
 .fb.ok{color:var(--teal);}
 .fb.err{color:var(--red);}
 
+/* Selección múltiple con crédito parcial */
+.ms-group{border:1.5px solid var(--border);border-radius:8px;padding:12px 14px;margin:8px 0;background:#fbfdfd;}
+.ms-instruction{font-family:var(--sans);font-size:8.5pt;color:var(--gray-600);font-style:italic;margin-bottom:8px;}
+.ms-item{display:flex;align-items:flex-start;gap:8px;font-family:var(--sans);font-size:9.5pt;color:#212529;padding:5px 6px;border-radius:6px;margin:2px 0;}
+.ms-item input[type="checkbox"]{margin-top:3px;flex-shrink:0;cursor:pointer;}
+.ms-item label{cursor:pointer;line-height:1.5;}
+.ms-item.ms-ok{background:var(--green-light);}
+.ms-item.ms-ok::after{content:' ✓';color:var(--green);font-weight:800;}
+.ms-item.ms-bad{background:var(--red-light);}
+.ms-item.ms-bad::after{content:' ✗';color:var(--red);font-weight:800;}
+.ms-fb{display:block;font-family:var(--sans);font-size:8.5pt;font-weight:800;margin-top:8px;color:var(--navy);}
+
+/* Verdadero/Falso interactivo */
+.vf-item{border:1.5px solid var(--border);border-radius:7px;padding:9px 12px;margin:7px 0;background:#fff;}
+.vf-statement{font-family:var(--sans);font-size:9.5pt;color:#212529;line-height:1.5;margin-bottom:7px;}
+.vf-btns{display:flex;gap:8px;align-items:center;}
+.vf-btn{font-family:var(--sans);font-size:8.5pt;font-weight:700;padding:5px 16px;border-radius:20px;border:1.5px solid var(--border);background:#fff;cursor:pointer;transition:all .15s;}
+.vf-btn:hover{border-color:var(--teal);}
+.vf-btn.sel{color:#fff;}
+.vf-btn.sel.is-true{background:var(--green);border-color:var(--green);}
+.vf-btn.sel.is-false{background:var(--red);border-color:var(--red);}
+.vf-btn.result-ok{outline:3px solid #A5D6A7;}
+.vf-btn.result-bad{outline:3px solid #FFCDD2;}
+
+/* Completar espacios con banco de palabras (cloze) */
+.cloze-box{border:1.5px solid var(--border);border-radius:7px;padding:12px 14px;background:#fbfbfb;}
+.cloze-text{font-family:var(--sans);font-size:9.8pt;line-height:2.4;color:#212529;}
+.cloze-select{font-family:var(--sans);font-size:9pt;font-weight:700;padding:2px 6px;border:0;border-bottom:2px solid var(--navy-mid);background:#EEF2FF;border-radius:4px 4px 0 0;cursor:pointer;margin:0 2px;}
+
 /* CALC BOXES */
 .calc-box{background:#f8faff;border:2px solid #c8d6e8;border-radius:8px;padding:14px 18px;margin:10px 0;}
 .calc-box-title{font-family:var(--sans);font-size:8pt;font-weight:600;color:var(--navy);letter-spacing:.06em;text-transform:uppercase;margin-bottom:10px;border-bottom:1px solid #c8d6e8;padding-bottom:5px;}
@@ -319,7 +348,12 @@ select.mc-select{font-family:var(--sans);font-size:9pt;padding:5px 10px;border:1
 .correct-btn:hover{background:var(--navy);}
 
 /* NOTA BAR */
-.nota-bar{background:var(--teal-light);border:2px solid var(--teal);border-radius:8px;padding:16px 20px;margin-top:16px;display:flex;align-items:center;gap:20px;flex-wrap:wrap;}
+.nota-bar{background:var(--teal-light);border:2px solid var(--teal);border-radius:8px;padding:16px 20px 18px;margin-top:16px;}
+.nota-mod-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;}
+.nota-mod-box{background:#fff;border:1.5px solid var(--border);border-radius:7px;padding:8px 6px;text-align:center;}
+.nota-mod-label{display:block;font-family:var(--sans);font-size:7.5pt;color:var(--gray-600);font-weight:700;margin-bottom:3px;}
+.nota-mod-val{display:block;font-family:var(--mono);font-size:11pt;font-weight:600;color:var(--navy-mid);}
+.nota-bar-total-row{display:flex;align-items:baseline;gap:14px;margin-top:12px;padding-top:12px;border-top:2px solid var(--teal);flex-wrap:wrap;}
 .nota-bar-label{font-family:var(--sans);font-size:9pt;font-weight:600;color:var(--teal);text-transform:uppercase;letter-spacing:.05em;}
 .nota-bar-val{font-family:var(--mono);font-size:20pt;font-weight:500;color:var(--navy);line-height:1;}
 
@@ -601,6 +635,144 @@ body{ background:#EEF3E6 !important; font-family:var(--sans); }
   .anti-plagio-mark{display:none !important;}
 }
 @media screen{.anti-plagio-mark{display:none !important;}}
+
+<style id="tipografia-mejorada">
+/* TIPOGRAFÍA MEJORADA — mismo contenido y lógica */
+html{font-size:16px!important;}
+body{font-family:'Nunito','DM Sans',system-ui,sans-serif!important;font-size:12pt!important;line-height:1.75!important;color:#000!important;}
+p, .content p{font-size:12pt!important;line-height:1.75!important;color:#000!important;}
+h3{font-size:11.5pt!important;line-height:1.4!important;}
+.section-title{font-size:21pt!important;line-height:1.15!important;}
+.section-number{font-size:10pt!important;}
+.tab-btn{font-size:11pt!important;padding:13px 21px!important;}
+.cover-tag{font-size:11pt!important;}
+.cover h1{font-size:clamp(38px,5.8vw,58px)!important;}
+.cover-subtitle{font-size:14pt!important;line-height:1.7!important;}
+.cover-meta-label{font-size:10pt!important;}
+.cover-meta-value{font-size:13pt!important;}
+.definition-label{font-size:10pt!important;}
+.definition p{font-size:12pt!important;line-height:1.75!important;color:#fff!important;}
+.callout-title{font-size:10pt!important;}
+.callout p{font-size:11.5pt!important;line-height:1.7!important;}
+.table-caption{font-size:9pt!important;}
+table{font-size:11pt!important;}
+thead th{font-size:10pt!important;padding:11px 14px!important;}
+tbody td{font-size:11pt!important;padding:10px 14px!important;line-height:1.6!important;color:#000!important;}
+.formula-label,.worked-title{font-size:9.5pt!important;}
+.formula,.formula-eq{font-size:13pt!important;}
+.formula-example,.formula-vars{font-size:10.5pt!important;}
+.worked-step{font-size:11pt!important;}
+.worked-result{font-size:12pt!important;}
+.drug-name{font-size:11.5pt!important;}
+.drug-class{font-size:9.5pt!important;}
+.drug-body{font-size:10.5pt!important;}
+.drug-row-label{font-size:9pt!important;}
+.drug-row-val{font-size:10.5pt!important;color:#000!important;}
+.drug-conc{font-size:10.5pt!important;}
+.unit-box{font-size:12pt!important;}
+.unit-arrow{font-size:10pt!important;}
+.unit-arrow span{font-size:9pt!important;}
+ul.content-list li{font-size:11.5pt!important;color:#000!important;line-height:1.75!important;}
+.col-card-title{font-size:10.5pt!important;}
+.col-card p{font-size:11pt!important;color:#000!important;}
+.diagram-title{font-size:9pt!important;}
+.fluid-card-header{font-size:10.5pt!important;}
+.fluid-card-body{font-size:11pt!important;}
+.fc-lbl{font-size:9.5pt!important;}
+.fc-val{font-size:10.5pt!important;color:#000!important;}
+.mini-card strong{font-size:10.5pt!important;}
+.mini-card p{font-size:10pt!important;color:#000!important;}
+.algo-title{font-size:11pt!important;}
+.algo-desc{font-size:11pt!important;color:#000!important;}
+.exercise-title{font-size:11pt!important;}
+.exercise-pts{font-size:10pt!important;}
+.patient-title{font-size:9.5pt!important;}
+.patient-item,.patient-list{font-size:10.5pt!important;}
+.patient-label{font-size:9pt!important;}
+.patient-value{font-size:10.5pt!important;}
+.patient-section{font-size:9.5pt!important;}
+.question-label,.ex-label{font-size:11pt!important;}
+.q-num,.ex-num{font-size:9.5pt!important;}
+.q-pts-auto,.q-pts-manual,.ex-pts{font-size:9pt!important;}
+.ex-context{font-size:11pt!important;color:#000!important;line-height:1.65!important;}
+.mc-row{font-size:11.5pt!important;}
+.mc-label{font-size:11.5pt!important;}
+select.mc-select{font-size:11pt!important;color:#000!important;}
+.fb{font-size:10.5pt!important;}
+.ms-instruction{font-size:10pt!important;}
+.ms-item{font-size:11.5pt!important;color:#000!important;}
+.ms-fb{font-size:10pt!important;}
+.vf-statement{font-size:11.5pt!important;color:#000!important;}
+.vf-btn{font-size:10.5pt!important;padding:7px 18px!important;}
+.cloze-text{font-size:12pt!important;color:#000!important;}
+.cloze-select{font-size:11pt!important;}
+.calc-box-title{font-size:9.5pt!important;}
+.calc-step{font-size:13pt!important;}
+.calc-step-label{font-size:10pt!important;}
+.ci{font-size:13pt!important;color:#000!important;}
+.ci-result{font-size:13pt!important;}
+.calc-hint,.calc-sub{font-size:10pt!important;}
+.open-area{font-size:11.5pt!important;color:#000!important;}
+.open-label{font-size:9.5pt!important;}
+.frac-chain-label{font-size:10pt!important;}
+.cancel-hint,.frac-step-label{font-size:9pt!important;}
+.fi,.fu{font-size:12pt!important;}
+.fu-cancel{font-size:12pt!important;}
+.fop{font-size:18pt!important;}
+.fop-eq{font-size:16pt!important;}
+.frac-result input{font-size:13pt!important;}
+.frac-result .fu{font-size:10pt!important;}
+.cancel-btn{font-size:9pt!important;}
+.manual-badge{font-size:9pt!important;}
+.manual-pts-badge{font-size:9.5pt!important;}
+.manual-title{font-size:11pt!important;}
+.manual-note{font-size:9.5pt!important;}
+.manual-ex-label{font-size:11pt!important;}
+.manual-ex-num,.manual-ex-pts{font-size:9pt!important;}
+.nota-mod-label{font-size:9pt!important;}
+.nota-mod-val{font-size:13pt!important;}
+.nota-bar-label{font-size:10.5pt!important;}
+.nota-bar-val{font-size:23pt!important;}
+.download-box h3{font-size:11.5pt!important;}
+.id-input{font-size:11.5pt!important;}
+.dl-btn,.correct-btn{font-size:11pt!important;padding:11px 23px!important;}
+.dl-error{font-size:10.5pt!important;}
+.footer-name{font-size:11pt!important;}
+.footer-title{font-size:9.5pt!important;}
+.footer-copy{font-size:9pt!important;}
+.score-note{font-size:11pt!important;}
+.taller-header h2{font-size:23pt!important;}
+.taller-meta{font-size:10.5pt!important;}
+.alert-yellow{font-size:11pt!important;color:#000!important;}
+.module-tag{font-size:9.5pt!important;}
+.module-title{font-size:11.5pt!important;color:#fff!important;}
+.module-pts{font-size:10pt!important;}
+/* Contraste estricto */
+.cover,.taller-header,.module-header,.drug-header,.fluid-card-header,.exercise-header,
+.definition,.score-note{color:#fff!important;}
+.cover *,.taller-header *,.module-header *,.drug-header *,.fluid-card-header *,.exercise-header *{color:#fff!important;}
+.cover h1 span,.cover h1 em,.cover h1 em.ac2,.cover h1 em{color:#fff!important;-webkit-text-fill-color:#fff!important;}
+.tab-btn.active,.correct-btn,.dl-btn,.ex-num,.q-num,.module-pts,.manual-badge,.step-n{color:#fff!important;}
+/* Fondos claros: texto negro */
+.content,.section,.module-body,.exercise-body,.drug-body,.fluid-card-body,.patient-card,
+.table-wrap,.formula-block,.worked,.col-card,.mini-card,.diagram-wrap,.calc-box,.calc-block,
+.frac-chain,.manual-block,.nota-bar,.download-box,.open-area,.ms-group,.vf-item,.cloze-box{color:#000;}
+.content p,.section p,.module-body p,.exercise-body p,.patient-list,.fc-val,.drug-row-val,
+.algo-desc,.ex-context,.open-question,.open-question-part,.answer-line{color:#000!important;}
+/* Impresión: conservar tamaño y contraste */
+@media print{
+ body{font-size:11pt!important;color:#000!important;}
+ p,.content p{font-size:11pt!important;color:#000!important;}
+ table{font-size:10.5pt!important;}
+ thead th{font-size:10pt!important;color:#fff!important;}
+ tbody td{font-size:10.5pt!important;color:#000!important;}
+ .cover h1{font-size:34pt!important;}
+ .cover-subtitle{font-size:11.5pt!important;}
+ .module-title,.exercise-title{font-size:10.5pt!important;color:#fff!important;}
+ .module-body,.exercise-body{color:#000!important;}
+ .print-answer{font-size:10.5pt!important;color:#000!important;}
+}
+</style>
 </style>
 </head>
 <body>
@@ -1021,10 +1193,10 @@ body{ background:#EEF3E6 !important; font-family:var(--sans); }
 </div>
 <div class="taller-content">
 <div class="print-first-note" id="printNotaLiq">
-  Nota autocalificable: <span id="printNotaLiqVal">0.00 / 2.10 pts</span>
+  Nota autocalificable: <span id="printNotaLiqVal">0.00 / 5.00 pts</span>
 </div>
 
-<div class="alert-yellow">&#9888; <strong>Instrucciones:</strong> El feedback de selecci&#243;n m&#250;ltiple aparece solo al oprimir &#171;Corregir Ejercicio&#187;. Las cajas &#225;mbar son preguntas abiertas calificadas por el docente. En los c&#225;lculos muestre todos los pasos con unidades.</div>
+<div class="alert-yellow">&#9888; <strong>Instrucciones:</strong> El feedback aparece solo al oprimir &#171;Corregir Ejercicio&#187;. Incluye selecci&#243;n m&#250;ltiple, Verdadero/Falso, completar espacios y c&#225;lculos. En los c&#225;lculos muestre todos los pasos con unidades. <strong>Todo el taller es 100% autocalificable.</strong></div>
 
 <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:15px;">
   <div style="background:#e6f4f2;border:2px solid var(--teal);border-radius:8px;padding:10px 8px;text-align:center;"><div style="font-family:var(--mono);font-size:13pt;font-weight:600;color:var(--teal);">1.25 pts</div><div style="font-family:var(--sans);font-size:7.5pt;color:var(--gray-600);margin-top:3px;">Ejercicio 1<br>Distribuci&#243;n y selecci&#243;n</div></div>
@@ -1034,7 +1206,7 @@ body{ background:#EEF3E6 !important; font-family:var(--sans); }
 </div>
 <div class="score-note">
   <span style="font-family:var(--mono);font-size:16pt;font-weight:600;color:#7dd3c8;">5.0 pts</span>
-  <span style="font-family:var(--sans);font-size:9pt;color:rgba(255,255,255,.8);">Cada ejercicio combina selecci&#243;n m&#250;ltiple &#127744; autocorregible + c&#225;lculos + preguntas abiertas &#9999;&#65039; calificadas por docente.</span>
+  <span style="font-family:var(--sans);font-size:9pt;color:rgba(255,255,255,.8);">🤖 Los 4 ejercicios son 100% autocorregibles &#8212; selecci&#243;n m&#250;ltiple, c&#225;lculos, Verdadero/Falso y completar espacios.</span>
 </div>
 
 <!-- EJERCICIO 1 -->
@@ -1114,15 +1286,27 @@ body{ background:#EEF3E6 !important; font-family:var(--sans); }
     </div>
 
     <div class="question">
-      <div class="question-label"><span class="q-num">1&#183;P4</span> Respuesta al volumen e hipotesi&#243;n &#8212; Razonamiento cl&#237;nico <span class="q-pts-manual">&#9999;&#65039; 0.65 pts &#183; docente</span></div>
-      <div class="manual-block">
-        <div class="manual-block-label">&#9999;&#65039; Calificaci&#243;n docente &#8212; 0.65 pts</div>
-        <div class="open-question-part"><span class="open-question-part-letter">a</span><span>A los 45 min de cirug&#237;a la PA cae a 82/50 mmHg, FC 92 lpm, SVV 10%, GC 4.8 L/min (FloTrac). &#191;Esta hipotesi&#243;n requiere un bolo de fluidos? Justifique usando los par&#225;metros din&#225;micos disponibles y proponga el tratamiento correcto con nombre del f&#225;rmaco y dosis.</span></div>
-        <div class="open-question-part"><span class="open-question-part-letter">b</span><span>&#191;Por qu&#233; el concepto de &#171;reponer el d&#233;ficit de ayuno de 8 horas&#187; ya no se recomienda seg&#250;n las gu&#237;as ERAS 2023? &#191;Cu&#225;l es la excepci&#243;n en la que s&#237; est&#225; justificado hacerlo?</span></div>
-        <textarea class="open-area" style="min-height:108px;" placeholder="Escriba su respuesta aqu&#237;..."></textarea>
+      <div class="question-label"><span class="q-num">1&#183;P4</span> Respuesta al volumen e hipotesi&#243;n &#8212; Razonamiento cl&#237;nico <span class="q-pts-auto">🤖 0.65 pts</span></div>
+      <div class="ex-context">A los 45 min de cirug&#237;a la PA cae a 82/50 mmHg, FC 92 lpm, SVV 10%, GC 4.8 L/min (FloTrac).</div>
+      <div class="mc-row"><span class="mc-label">Decisi&#243;n y tratamiento recomendado:</span>
+        <select class="mc-select" onchange="chk(this,'No requiere bolo &#8212; SVV 10% no indica respuesta a volumen; iniciar fenilefrina 50&#8211;100 &#181;g IV','fb1q_a')">
+          <option value="">&#8212; elegir &#8212;</option>
+          <option>No requiere bolo &#8212; SVV 10% no indica respuesta a volumen; iniciar fenilefrina 50&#8211;100 &#181;g IV</option>
+          <option>S&#237; requiere bolo &#8212; administrar cristaloide 500 mL en bolo r&#225;pido de inmediato</option>
+          <option>No requiere intervenci&#243;n &#8212; la hipotensi&#243;n se resolver&#225; espont&#225;neamente sola</option>
+          <option>S&#237; requiere bolo &#8212; administrar coloide 1000 mL antes de usar vasopresores</option>
+        </select><span class="fb" id="fb1q_a"></span>
       </div>
-      <button class="correct-btn" onclick="corregir('E1',4,['fb1p1','fb1p2','fb1p3','fb1p4'],0.6)">Corregir Ejercicio 1 &#8212; Selecci&#243;n m&#250;ltiple (0.60 pts autocorregibles)</button>
-      <div style="font-family:var(--sans);font-size:8pt;color:var(--gray-400);margin-top:6px;font-style:italic;">Pregunta 1&#183;P4 calificada por el docente (0.65 pts) &#8594; Total Ejercicio 1: 1.25 pts</div>
+      <div class="mc-row"><span class="mc-label">Por qu&#233; ya no se repone el d&#233;ficit de ayuno de 8h (ERAS 2023) y su excepci&#243;n:</span>
+        <select class="mc-select" onchange="chk(this,'El ayuno con l&#237;quidos claros hasta 2h reduce el d&#233;ficit real; excepci&#243;n: ayuno prolongado no programado','fb1q_b')">
+          <option value="">&#8212; elegir &#8212;</option>
+          <option>El ayuno con l&#237;quidos claros hasta 2h reduce el d&#233;ficit real; excepci&#243;n: ayuno prolongado no programado</option>
+          <option>Nunca ha existido evidencia de d&#233;ficit de volumen intravascular por ayuno</option>
+          <option>Reponerlo siempre causa sobrecarga h&#237;drica, sin ninguna excepci&#243;n v&#225;lida</option>
+          <option>Las gu&#237;as ERAS proh&#237;ben cualquier bolo antes de iniciar la cirug&#237;a</option>
+        </select><span class="fb" id="fb1q_b"></span>
+      </div>
+      <button class="correct-btn" onclick="corregirE1()">Corregir Ejercicio 1 (1.25 pts)</button>
     </div>
   </div>
 </div>
@@ -1210,15 +1394,20 @@ body{ background:#EEF3E6 !important; font-family:var(--sans); }
     </div>
 
     <div class="question">
-      <div class="question-label"><span class="q-num">2&#183;P4</span> &#193;cido tranex&#225;mico y manejo de coagulopat&#237;a <span class="q-pts-manual">&#9999;&#65039; 0.65 pts &#183; docente</span></div>
-      <div class="manual-block">
-        <div class="manual-block-label">&#9999;&#65039; Calificaci&#243;n docente &#8212; 0.65 pts</div>
-        <div class="open-question-part"><span class="open-question-part-letter">a</span><span>&#191;Cu&#225;ndo debi&#243; administrarse el &#225;cido tranex&#225;mico en esta cirug&#237;a, cu&#225;l es la dosis, y cu&#225;l es su mecanismo de acci&#243;n antihemorr&#225;gico?</span></div>
-        <div class="open-question-part"><span class="open-question-part-letter">b</span><span>Tras transfundir 2 unidades de GRE, el laboratorio muestra: TP 19 s, fibrin&#243;geno 95 mg/dL, plaquetas 58,000/&#956;L. &#191;Cu&#225;les hemoderivados adicionales indica, con qu&#233; dosis, y qu&#233; herramienta de punto de cuidado (POC) usar&#237;a para guiar la decisi&#243;n en tiempo real?</span></div>
-        <textarea class="open-area" style="min-height:108px;" placeholder="Escriba su respuesta aqu&#237;..."></textarea>
+      <div class="question-label"><span class="q-num">2&#183;P4</span> &#193;cido tranex&#225;mico y manejo de coagulopat&#237;a &#8212; Selecci&#243;n m&#250;ltiple <span class="q-pts-auto">🤖 0.65 pts</span></div>
+      <div class="ex-context">Tras transfundir 2 unidades de GRE, el laboratorio muestra: TP 19 s, fibrin&#243;geno 95 mg/dL, plaquetas 58,000/&#956;L.</div>
+      <div class="ms-group" id="ms-2p4">
+        <div class="ms-instruction">Marque TODAS las afirmaciones correctas sobre el manejo de esta coagulopat&#237;a:</div>
+        <div class="ms-item"><input type="checkbox" data-correct="true" id="ck_2p4_1"><label for="ck_2p4_1">El &#225;cido tranex&#225;mico debe administrarse antes de la incisi&#243;n (idealmente en la inducci&#243;n), 1 g IV en bolo seguido de infusi&#243;n de 1 g en 8 h</label></div>
+        <div class="ms-item"><input type="checkbox" data-correct="false" id="ck_2p4_2"><label for="ck_2p4_2">El &#225;cido tranex&#225;mico solo debe darse despu&#233;s de confirmar sangrado activo con pruebas de laboratorio</label></div>
+        <div class="ms-item"><input type="checkbox" data-correct="true" id="ck_2p4_3"><label for="ck_2p4_3">Su mecanismo es la inhibici&#243;n competitiva de la activaci&#243;n del plasmin&#243;geno, reduciendo la fibrin&#243;lisis</label></div>
+        <div class="ms-item"><input type="checkbox" data-correct="true" id="ck_2p4_4"><label for="ck_2p4_4">Con fibrin&#243;geno 95 mg/dL debe indicarse crioprecipitado o concentrado de fibrin&#243;geno para elevarlo por encima de 150&#8211;200 mg/dL</label></div>
+        <div class="ms-item"><input type="checkbox" data-correct="true" id="ck_2p4_5"><label for="ck_2p4_5">Con plaquetas 58,000/&#956;L y sangrado activo est&#225; indicada la transfusi&#243;n de plaquetas</label></div>
+        <div class="ms-item"><input type="checkbox" data-correct="false" id="ck_2p4_6"><label for="ck_2p4_6">Un TP de 19 s y fibrin&#243;geno de 95 mg/dL no requieren ninguna intervenci&#243;n adicional</label></div>
+        <div class="ms-item"><input type="checkbox" data-correct="true" id="ck_2p4_7"><label for="ck_2p4_7">La tromboelastograf&#237;a (TEG) o tromboelastometr&#237;a rotacional (ROTEM) son las herramientas de punto de cuidado recomendadas para guiar la transfusi&#243;n en tiempo real</label></div>
+        <span class="ms-fb"></span>
       </div>
-      <button class="correct-btn" onclick="corregir('E2',4,['fb2p1','fb2p2','fb2p3','fb2p4'],0.6)">Corregir Ejercicio 2 &#8212; Selecci&#243;n m&#250;ltiple (0.60 pts autocorregibles)</button>
-      <div style="font-family:var(--sans);font-size:8pt;color:var(--gray-400);margin-top:6px;font-style:italic;">Pregunta 2&#183;P4 calificada por el docente (0.65 pts) &#8594; Total Ejercicio 2: 1.25 pts</div>
+      <button class="correct-btn" onclick="corregirE2()">Corregir Ejercicio 2 (1.25 pts)</button>
     </div>
   </div>
 </div>
@@ -1296,16 +1485,35 @@ body{ background:#EEF3E6 !important; font-family:var(--sans); }
     </div>
 
     <div class="question">
-      <div class="question-label"><span class="q-num">3&#183;P3</span> Plan de manejo inmediato &#8212; Razonamiento integrado <span class="q-pts-manual">&#9999;&#65039; 0.80 pts &#183; docente</span></div>
-      <div class="manual-block">
-        <div class="manual-block-label">&#9999;&#65039; Calificaci&#243;n docente &#8212; 0.80 pts</div>
-        <div class="open-question-part"><span class="open-question-part-letter">a</span><span>Dise&#241;e el plan de tratamiento de los pr&#243;ximos 15 minutos: qu&#233; fluido, cu&#225;nto, a qu&#233; velocidad, y si agregar&#237;a vasopresores o inotropicos simult&#225;neamente. Especifique nombre del f&#225;rmaco, dosis inicial y meta hemodin&#225;mica para reevaluar.</span></div>
-        <div class="open-question-part"><span class="open-question-part-letter">b</span><span>Despu&#233;s del bolo, el GC sube a 3.8 L/min pero la PA solo mejora a 88/58 mmHg con SVV 8%. &#191;Qu&#233; interpreta y qu&#233; ajuste hace? &#191;Cu&#225;l es la causa residual m&#225;s probable de hipotesi&#243;n?</span></div>
-        <div class="open-question-part"><span class="open-question-part-letter">c</span><span>&#191;Cu&#225;l debe ser el balance h&#237;drico meta al cierre de esta cirug&#237;a (Whipple) seg&#250;n las gu&#237;as ERAS 2023? &#191;Por qu&#233; es importante no excederlo en cirug&#237;a abdominal mayor?</span></div>
-        <textarea class="open-area" style="min-height:118px;" placeholder="Escriba su respuesta aqu&#237;..."></textarea>
+      <div class="question-label"><span class="q-num">3&#183;P3</span> Plan de manejo inmediato &#8212; Razonamiento integrado <span class="q-pts-auto">🤖 0.80 pts</span></div>
+      <div class="mc-row"><span class="mc-label">Plan de tratamiento de los pr&#243;ximos 15 minutos:</span>
+        <select class="mc-select" onchange="chk(this,'Cristaloide balanceado 500 mL en 10&#8211;15 min + iniciar noradrenalina 0.05 &#181;g/kg/min si no responde, meta PAM &#8805;65','fb3q_a')">
+          <option value="">&#8212; elegir &#8212;</option>
+          <option>Cristaloide balanceado 500 mL en 10&#8211;15 min + iniciar noradrenalina 0.05 &#181;g/kg/min si no responde, meta PAM &#8805;65</option>
+          <option>Coloide 1000 mL en bolo r&#225;pido sin ning&#250;n vasopresor, meta PAM &#8805;50 mmHg</option>
+          <option>Solo vasopresor en dosis alta, sin ning&#250;n bolo de fluidos adicional</option>
+          <option>Cristaloide 2000 mL en bolo &#250;nico, sin reevaluaci&#243;n posterior</option>
+        </select><span class="fb" id="fb3q_a"></span>
       </div>
-      <button class="correct-btn" onclick="corregir('E3',4,['fb3p1','fb3p2','fb3p3','fb3p4'],0.45)">Corregir Ejercicio 3 &#8212; Selecci&#243;n m&#250;ltiple (0.45 pts autocorregibles)</button>
-      <div style="font-family:var(--sans);font-size:8pt;color:var(--gray-400);margin-top:6px;font-style:italic;">Pregunta 3&#183;P3 calificada por el docente (0.80 pts) &#8594; Total Ejercicio 3: 1.25 pts</div>
+      <div class="mc-row"><span class="mc-label">Tras el bolo, GC sube a 3.8 pero PA solo mejora a 88/58 con SVV 8%. Interpretaci&#243;n y ajuste:</span>
+        <select class="mc-select" onchange="chk(this,'Persiste vasoplejia relativa pese a mejorar la precarga; debe iniciarse o titularse un vasopresor adem&#225;s del fluido','fb3q_b')">
+          <option value="">&#8212; elegir &#8212;</option>
+          <option>Persiste vasoplejia relativa pese a mejorar la precarga; debe iniciarse o titularse un vasopresor adem&#225;s del fluido</option>
+          <option>Ya no requiere ninguna intervenci&#243;n adicional porque el GC mejor&#243; satisfactoriamente</option>
+          <option>Debe repetirse un bolo id&#233;ntico porque el problema es exclusivamente de volumen</option>
+          <option>La SVV de 8% indica hipovolemia severa que requiere transfusi&#243;n inmediata</option>
+        </select><span class="fb" id="fb3q_b"></span>
+      </div>
+      <div class="mc-row"><span class="mc-label">Balance h&#237;drico meta al cierre (Whipple) seg&#250;n ERAS 2023 y su importancia:</span>
+        <select class="mc-select" onchange="chk(this,'Balance neutro a levemente positivo &#8212; el exceso de l&#237;quidos se asocia a edema intestinal, &#237;leo y dehiscencia anastom&#243;tica','fb3q_c')">
+          <option value="">&#8212; elegir &#8212;</option>
+          <option>Balance neutro a levemente positivo &#8212; el exceso de l&#237;quidos se asocia a edema intestinal, &#237;leo y dehiscencia anastom&#243;tica</option>
+          <option>Balance muy positivo (&gt;3&#8211;4 L) &#8212; asegura una perfusi&#243;n espl&#225;cnica &#243;ptima sin ning&#250;n riesgo asociado</option>
+          <option>Balance negativo agresivo &#8212; la deshidrataci&#243;n intencional mejora la cicatrizaci&#243;n de la anastomosis</option>
+          <option>El balance h&#237;drico no tiene ninguna relevancia cl&#237;nica en cirug&#237;a abdominal mayor</option>
+        </select><span class="fb" id="fb3q_c"></span>
+      </div>
+      <button class="correct-btn" onclick="corregirE3()">Corregir Ejercicio 3 (1.25 pts)</button>
     </div>
   </div>
 </div>
@@ -1356,11 +1564,38 @@ body{ background:#EEF3E6 !important; font-family:var(--sans); }
       </div>
 
       <div class="question">
-        <div class="question-label"><span class="q-num">4A&#183;P2</span> Agentes osm&#243;ticos para reducir la PIC &#8212; Comparaci&#243;n <span class="q-pts-manual">&#9999;&#65039; 0.30 pts &#183; docente</span></div>
-        <div class="manual-block">
-          <div class="manual-block-label">&#9999;&#65039; Calificaci&#243;n docente &#8212; 0.30 pts</div>
-          <div class="open-question">Compare Manitol 20% y SS hipert&#243;nico 3%: mecanismo de acci&#243;n, dosis, duraci&#243;n del efecto y en cu&#225;l situaci&#243;n cl&#237;nica espec&#237;fica prefiere cada uno.</div>
-          <textarea class="open-area" style="min-height:78px;" placeholder="Escriba su respuesta aqu&#237;..."></textarea>
+        <div class="question-label"><span class="q-num">4A&#183;P2</span> Agentes osm&#243;ticos para reducir la PIC &#8212; Verdadero o Falso <span class="q-pts-auto">🤖 0.30 pts</span></div>
+        <div class="vf-item">
+          <div class="vf-statement">1. El manitol 20% actua como diur&#233;tico osm&#243;tico, extrayendo agua del par&#233;nquima cerebral hacia el espacio intravascular, con dosis t&#237;pica de 0.25&#8211;1 g/kg.</div>
+          <div class="vf-btns">
+            <button type="button" class="vf-btn" onclick="vf(this,'V','V','fb4a_vf1')">Verdadero</button>
+            <button type="button" class="vf-btn" onclick="vf(this,'F','V','fb4a_vf1')">Falso</button>
+            <span class="fb" id="fb4a_vf1"></span>
+          </div>
+        </div>
+        <div class="vf-item">
+          <div class="vf-statement">2. El SS hipert&#243;nico 3% tiene un efecto m&#225;s sostenido que el manitol y adem&#225;s expande el volumen intravascular, por lo que se prefiere en el paciente hipotenso con hipertensi&#243;n intracraneal.</div>
+          <div class="vf-btns">
+            <button type="button" class="vf-btn" onclick="vf(this,'V','V','fb4a_vf2')">Verdadero</button>
+            <button type="button" class="vf-btn" onclick="vf(this,'F','V','fb4a_vf2')">Falso</button>
+            <span class="fb" id="fb4a_vf2"></span>
+          </div>
+        </div>
+        <div class="vf-item">
+          <div class="vf-statement">3. El manitol es preferible en el paciente hipotenso porque, al ser diur&#233;tico, ayuda a normalizar la presi&#243;n arterial.</div>
+          <div class="vf-btns">
+            <button type="button" class="vf-btn" onclick="vf(this,'V','F','fb4a_vf3')">Verdadero</button>
+            <button type="button" class="vf-btn" onclick="vf(this,'F','F','fb4a_vf3')">Falso</button>
+            <span class="fb" id="fb4a_vf3"></span>
+          </div>
+        </div>
+        <div class="vf-item">
+          <div class="vf-statement">4. El SS hipert&#243;nico 3% y el manitol tienen exactamente la misma duraci&#243;n de efecto y pueden usarse indistintamente en cualquier escenario.</div>
+          <div class="vf-btns">
+            <button type="button" class="vf-btn" onclick="vf(this,'V','F','fb4a_vf4')">Verdadero</button>
+            <button type="button" class="vf-btn" onclick="vf(this,'F','F','fb4a_vf4')">Falso</button>
+            <span class="fb" id="fb4a_vf4"></span>
+          </div>
         </div>
       </div>
     </div>
@@ -1403,18 +1638,24 @@ body{ background:#EEF3E6 !important; font-family:var(--sans); }
       </div>
 
       <div class="question">
-        <div class="question-label"><span class="q-num">4B&#183;P2</span> Actualizaci&#243;n 2023 y complicaciones de Parkland <span class="q-pts-manual">&#9999;&#65039; 0.55 pts &#183; docente</span></div>
-        <div class="manual-block">
-          <div class="manual-block-label">&#9999;&#65039; Calificaci&#243;n docente &#8212; 0.55 pts</div>
-          <div class="open-question-part"><span class="open-question-part-letter">a</span><span>&#191;Por qu&#233; la actualizaci&#243;n 2023 recomienda usar 2 mL/kg/%SCT en lugar de 4 mL/kg/%SCT? &#191;Qu&#233; complicaci&#243;n espec&#237;fica se reduce con esta modificaci&#243;n?</span></div>
-          <div class="open-question-part"><span class="open-question-part-letter">b</span><span>&#191;Qu&#233; par&#225;metro cl&#237;nico simple se usa para ajustar la velocidad de infusi&#243;n en tiempo real durante la reanimaci&#243;n del quemado? &#191;A partir de qu&#233; momento se pueden introducir coloides y cu&#225;l es el objetivo?</span></div>
-          <textarea class="open-area" style="min-height:90px;" placeholder="Escriba su respuesta aqu&#237;..."></textarea>
+        <div class="question-label"><span class="q-num">4B&#183;P2</span> Actualizaci&#243;n 2023 y complicaciones de Parkland &#8212; Complete el texto <span class="q-pts-auto">🤖 0.55 pts</span></div>
+        <div class="cloze-box">
+          <div class="cloze-text">
+            La actualizaci&#243;n 2023 recomienda usar
+            <select class="cloze-select" onchange="chk(this,'2','fb4b_1')"><option value="">&#8212; elegir &#8212;</option><option>2</option><option>3</option><option>4</option><option>6</option></select>
+            mL/kg/%SCT en lugar de 4 mL/kg/%SCT, porque el esquema cl&#225;sico frecuentemente produce
+            <select class="cloze-select" onchange="chk(this,'sobrerresucitaci&#243;n','fb4b_2')"><option value="">&#8212; elegir &#8212;</option><option>sobrerresucitaci&#243;n</option><option>deshidrataci&#243;n</option><option>hipoglucemia</option><option>hipernatremia</option></select>
+            , asociada a mayor incidencia de s&#237;ndrome compartimental abdominal y edema pulmonar. El par&#225;metro cl&#237;nico m&#225;s simple para ajustar la velocidad de infusi&#243;n en tiempo real es la
+            <select class="cloze-select" onchange="chk(this,'diuresis horaria','fb4b_3')"><option value="">&#8212; elegir &#8212;</option><option>diuresis horaria</option><option>frecuencia card&#237;aca</option><option>presi&#243;n arterial media</option><option>temperatura corporal</option></select>
+            , con meta de 0.5 mL/kg/h en el adulto. Los coloides pueden introducirse a partir de las
+            <select class="cloze-select" onchange="chk(this,'8-12','fb4b_4')"><option value="">&#8212; elegir &#8212;</option><option>8-12</option><option>1-2</option><option>24-36</option><option>48-72</option></select>
+            horas post-quemadura, cuando la permeabilidad capilar comienza a normalizarse.
+          </div>
         </div>
       </div>
     </div>
 
-    <button class="correct-btn" onclick="corregir('E4',6,['fb4ap1','fb4ap2','fb4bp1','fb4bp2'],0.55)">Corregir Ejercicio 4 &#8212; Selecci&#243;n m&#250;ltiple (0.55 pts autocorregibles)</button>
-    <div style="font-family:var(--sans);font-size:8pt;color:var(--gray-400);margin-top:6px;font-style:italic;">Preguntas 4A&#183;P2 y 4B&#183;P2 calificadas por el docente (0.70 pts) &#8594; Total Ejercicio 4: 1.25 pts</div>
+    <button class="correct-btn" onclick="corregirE4()">Corregir Ejercicio 4 (1.25 pts)</button>
   </div>
 </div>
 
@@ -1429,9 +1670,17 @@ body{ background:#EEF3E6 !important; font-family:var(--sans); }
   <div class="dl-error" id="errL">&#9888; Por favor complete nombre y universidad antes de descargar.</div>
 </div>
 <div class="nota-bar">
-  <span class="nota-bar-label">Nota acumulada</span>
-  <span class="nota-bar-val" id="notaLiq">0.00 / 2.10</span>
-  <span style="font-family:var(--sans);font-size:8.5pt;color:var(--gray-600);">Autocorregible (Ejercicios 1&#8211;4) &nbsp;|&nbsp; <span style="color:var(--amber);font-weight:600;">&#9999;&#65039; 2.90 pts &#183; Preguntas abiertas calificadas por docente</span></span>
+  <div class="nota-mod-grid">
+    <div class="nota-mod-box"><span class="nota-mod-label">Ejercicio 1</span><span class="nota-mod-val" id="notaE1_Liq">0.00 / 1.25</span></div>
+    <div class="nota-mod-box"><span class="nota-mod-label">Ejercicio 2</span><span class="nota-mod-val" id="notaE2_Liq">0.00 / 1.25</span></div>
+    <div class="nota-mod-box"><span class="nota-mod-label">Ejercicio 3</span><span class="nota-mod-val" id="notaE3_Liq">0.00 / 1.25</span></div>
+    <div class="nota-mod-box"><span class="nota-mod-label">Ejercicio 4</span><span class="nota-mod-val" id="notaE4_Liq">0.00 / 1.25</span></div>
+  </div>
+  <div class="nota-bar-total-row">
+    <span class="nota-bar-label">Nota Final del Taller</span>
+    <span class="nota-bar-val" id="notaLiq">0.00 / 5.00</span>
+    <span style="font-family:var(--sans);font-size:8.5pt;color:var(--gray-600);">100% Autocorregible &#8212; suma acumulada de los 4 ejercicios</span>
+  </div>
 </div>
 </div>
 </div><!-- /taller-tab -->
@@ -1467,6 +1716,62 @@ function chk(sel,correct,fbId){
   answers[fbId]={val:sel.value.trim(),correct:correct.trim()};
   var fb=document.getElementById(fbId);
   if(fb){fb.textContent='';fb.className='fb';}
+}
+
+// Verdadero/Falso interactivo: dos botones por afirmación
+function vf(btn,choice,correct,fbId){
+  answers[fbId]={val:choice,correct:correct};
+  var group=btn.closest('.vf-btns');
+  group.querySelectorAll('.vf-btn').forEach(function(b){
+    b.classList.remove('sel','is-true','is-false','result-ok','result-bad');
+  });
+  btn.classList.add('sel', choice==='V' ? 'is-true' : 'is-false');
+  var fb=document.getElementById(fbId);
+  if(fb){fb.textContent='';fb.className='fb';}
+}
+
+// Helper: calcula la fracción de aciertos (0–1) de una lista de fbIds (selects/V-F)
+function fracFbIds(ids){
+  var ok=0;
+  ids.forEach(function(fbId){
+    var fb=document.getElementById(fbId), ans=answers[fbId];
+    if(!fb)return;
+    if(!ans||!ans.val){fb.textContent='— sin respuesta';fb.className='fb';return;}
+    var correct = ans.val===ans.correct;
+    if(ans.val==='V'||ans.val==='F'){
+      var vfContainer=fb.closest('.vf-item');
+      if(vfContainer){
+        vfContainer.querySelectorAll('.vf-btn.sel').forEach(function(b){
+          b.classList.remove('result-ok','result-bad');
+          b.classList.add(correct?'result-ok':'result-bad');
+        });
+      }
+    }
+    if(correct){ok++;fb.textContent='✓ correcto';fb.className='fb ok';}
+    else{fb.textContent='✗ incorrecto';fb.className='fb err';}
+  });
+  return ids.length ? ok/ids.length : 0;
+}
+
+// Helper: calcula el crédito parcial (0–1) de un recuadro de selección múltiple
+function fracMsGroup(grp){
+  if(!grp) return 0;
+  var checks=grp.querySelectorAll('input[type="checkbox"]');
+  var totalCorrect=grp.querySelectorAll('input[data-correct="true"]').length;
+  var checkedCorrect=0, checkedWrong=0;
+  checks.forEach(function(c){
+    var item=c.closest('.ms-item');
+    if(item) item.classList.remove('ms-ok','ms-bad');
+    var isCorrectOption=c.getAttribute('data-correct')==='true';
+    if(c.checked){
+      if(isCorrectOption){ checkedCorrect++; if(item) item.classList.add('ms-ok'); }
+      else { checkedWrong++; if(item) item.classList.add('ms-bad'); }
+    }
+  });
+  var frac = totalCorrect>0 ? Math.max(0,(checkedCorrect-checkedWrong))/totalCorrect : 0;
+  var fbEl=grp.querySelector('.ms-fb');
+  if(fbEl) fbEl.textContent='Aciertos: '+checkedCorrect+'/'+totalCorrect+(checkedWrong?' · Marcadas incorrectamente: '+checkedWrong:'')+' → '+(frac*100).toFixed(0)+'% de este punto';
+  return frac;
 }
 
 // MAPEO: cada casilla de resultado (fbId) -> bloque(s) de cálculo (calc-block) que debe verificarse
@@ -1532,12 +1837,54 @@ function corregir(ex,total,fbIds,maxPts){
   actualizarNotas();
   alert(ex+' corregido: '+ok+'/'+total+' correctas = '+p.toFixed(2)+' pts autocorregibles');
 }
+
+/* Cada ejercicio pondera su parte original de selección múltiple (0.60/0.60/0.45/0.55)
+   más la pregunta que antes era de texto libre, calculada según su propia dinámica,
+   conservando el peso original de 1.25 pts por ejercicio. */
+function corregirE1(){
+  var fSel = fracFbIds(['fb1p1','fb1p2','fb1p3','fb1p4']);
+  var fOpen = fracFbIds(['fb1q_a','fb1q_b']);
+  pts.E1 = fSel*0.60 + fOpen*0.65;
+  actualizarNotas();
+  alert('Ejercicio 1 corregido: '+pts.E1.toFixed(2)+' / 1.25 pts\n  • Selección múltiple: '+(fSel*100).toFixed(0)+'%\n  • Razonamiento clínico (cascada): '+(fOpen*100).toFixed(0)+'%');
+}
+
+function corregirE2(){
+  var fSel = fracFbIds(['fb2p1','fb2p2','fb2p3','fb2p4']);
+  var grp = document.getElementById('ms-2p4');
+  var fMs = fracMsGroup(grp);
+  pts.E2 = fSel*0.60 + fMs*0.65;
+  actualizarNotas();
+  alert('Ejercicio 2 corregido: '+pts.E2.toFixed(2)+' / 1.25 pts\n  • Selección múltiple: '+(fSel*100).toFixed(0)+'%\n  • Ácido tranexámico y coagulopatía (crédito parcial): '+(fMs*100).toFixed(0)+'%');
+}
+
+function corregirE3(){
+  var fSel = fracFbIds(['fb3p1','fb3p2','fb3p3','fb3p4']);
+  var fOpen = fracFbIds(['fb3q_a','fb3q_b','fb3q_c']);
+  pts.E3 = fSel*0.45 + fOpen*0.80;
+  actualizarNotas();
+  alert('Ejercicio 3 corregido: '+pts.E3.toFixed(2)+' / 1.25 pts\n  • Selección múltiple: '+(fSel*100).toFixed(0)+'%\n  • Plan de manejo (cascada): '+(fOpen*100).toFixed(0)+'%');
+}
+
+function corregirE4(){
+  var fSel = fracFbIds(['fb4ap1','fb4ap2','fb4bp1','fb4bp2']);
+  var fVf = fracFbIds(['fb4a_vf1','fb4a_vf2','fb4a_vf3','fb4a_vf4']);
+  var fCloze = fracFbIds(['fb4b_1','fb4b_2','fb4b_3','fb4b_4']);
+  pts.E4 = fSel*0.55 + fVf*0.30 + fCloze*0.40;
+  actualizarNotas();
+  alert('Ejercicio 4 corregido: '+pts.E4.toFixed(2)+' / 1.25 pts\n  • Selección múltiple: '+(fSel*100).toFixed(0)+'%\n  • Manitol vs SS3% (Verdadero/Falso): '+(fVf*100).toFixed(0)+'%\n  • Parkland 2023 (completar espacios): '+(fCloze*100).toFixed(0)+'%');
+}
 function actualizarNotas(){
+  var maxPorEj={E1:1.25,E2:1.25,E3:1.25,E4:1.25};
+  Object.keys(maxPorEj).forEach(function(ex){
+    var el=document.getElementById('nota'+ex+'_Liq');
+    if(el) el.textContent=(pts[ex]||0).toFixed(2)+' / '+maxPorEj[ex].toFixed(2);
+  });
   var total=(pts.E1||0)+(pts.E2||0)+(pts.E3||0)+(pts.E4||0);
   var nt=document.getElementById('notaLiq');
-  if(nt)nt.textContent=total.toFixed(2)+' / 2.10';
+  if(nt)nt.textContent=total.toFixed(2)+' / 5.00';
   var pnt=document.getElementById('printNotaLiqVal');
-  if(pnt)pnt.textContent=total.toFixed(2)+' / 2.10 pts';
+  if(pnt)pnt.textContent=total.toFixed(2)+' / 5.00 pts';
 }
 function setupPrintAnswers(){
   document.querySelectorAll('textarea.open-area').forEach(function(ta){

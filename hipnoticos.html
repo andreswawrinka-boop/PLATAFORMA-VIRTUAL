@@ -209,6 +209,35 @@ select.mc-select{font-family:var(--sans);font-size:9pt;padding:5px 10px;border:1
 .fb.ok{color:var(--teal);}
 .fb.err{color:var(--red);}
 
+/* Selección múltiple con crédito parcial */
+.ms-group{border:1.5px solid var(--border);border-radius:8px;padding:12px 14px;margin:8px 0;background:#fbfdfd;}
+.ms-instruction{font-family:var(--sans);font-size:8.5pt;color:var(--gray-600);font-style:italic;margin-bottom:8px;}
+.ms-item{display:flex;align-items:flex-start;gap:8px;font-family:var(--sans);font-size:9.5pt;color:#212529;padding:5px 6px;border-radius:6px;margin:2px 0;}
+.ms-item input[type="checkbox"]{margin-top:3px;flex-shrink:0;cursor:pointer;}
+.ms-item label{cursor:pointer;line-height:1.5;}
+.ms-item.ms-ok{background:var(--green-light);}
+.ms-item.ms-ok::after{content:' ✓';color:var(--green);font-weight:800;}
+.ms-item.ms-bad{background:var(--red-light);}
+.ms-item.ms-bad::after{content:' ✗';color:var(--red);font-weight:800;}
+.ms-fb{display:block;font-family:var(--sans);font-size:8.5pt;font-weight:800;margin-top:8px;color:var(--navy);}
+
+/* Verdadero/Falso interactivo */
+.vf-item{border:1.5px solid var(--border);border-radius:7px;padding:9px 12px;margin:7px 0;background:#fff;}
+.vf-statement{font-family:var(--sans);font-size:9.5pt;color:#212529;line-height:1.5;margin-bottom:7px;}
+.vf-btns{display:flex;gap:8px;align-items:center;}
+.vf-btn{font-family:var(--sans);font-size:8.5pt;font-weight:700;padding:5px 16px;border-radius:20px;border:1.5px solid var(--border);background:#fff;cursor:pointer;transition:all .15s;}
+.vf-btn:hover{border-color:var(--teal);}
+.vf-btn.sel{color:#fff;}
+.vf-btn.sel.is-true{background:var(--green);border-color:var(--green);}
+.vf-btn.sel.is-false{background:var(--red);border-color:var(--red);}
+.vf-btn.result-ok{outline:3px solid #A5D6A7;}
+.vf-btn.result-bad{outline:3px solid #FFCDD2;}
+
+/* Completar espacios con banco de palabras (cloze) */
+.cloze-box{border:1.5px solid var(--border);border-radius:7px;padding:12px 14px;background:#fbfbfb;}
+.cloze-text{font-family:var(--sans);font-size:9.8pt;line-height:2.4;color:#212529;}
+.cloze-select{font-family:var(--sans);font-size:9pt;font-weight:700;padding:2px 6px;border:0;border-bottom:2px solid var(--navy-mid);background:#EEF2FF;border-radius:4px 4px 0 0;cursor:pointer;margin:0 2px;}
+
 /* CALC BOXES */
 .calc-box{background:#f8faff;border:2px solid #c8d6e8;border-radius:8px;padding:14px 18px;margin:10px 0;}
 .calc-box-title{font-family:var(--sans);font-size:8pt;font-weight:600;color:var(--navy);letter-spacing:.06em;text-transform:uppercase;margin-bottom:10px;border-bottom:1px solid #c8d6e8;padding-bottom:5px;}
@@ -319,7 +348,12 @@ select.mc-select{font-family:var(--sans);font-size:9pt;padding:5px 10px;border:1
 .correct-btn:hover{background:var(--navy);}
 
 /* NOTA BAR */
-.nota-bar{background:var(--teal-light);border:2px solid var(--teal);border-radius:8px;padding:16px 20px;margin-top:16px;display:flex;align-items:center;gap:20px;flex-wrap:wrap;}
+.nota-bar{background:var(--teal-light);border:2px solid var(--teal);border-radius:8px;padding:16px 20px 18px;margin-top:16px;}
+.nota-mod-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;}
+.nota-mod-box{background:#fff;border:1.5px solid var(--border);border-radius:7px;padding:8px 6px;text-align:center;}
+.nota-mod-label{display:block;font-family:var(--sans);font-size:7.5pt;color:var(--gray-600);font-weight:700;margin-bottom:3px;}
+.nota-mod-val{display:block;font-family:var(--mono);font-size:11pt;font-weight:600;color:var(--navy-mid);}
+.nota-bar-total-row{display:flex;align-items:baseline;gap:14px;margin-top:12px;padding-top:12px;border-top:2px solid var(--teal);flex-wrap:wrap;}
 .nota-bar-label{font-family:var(--sans);font-size:9pt;font-weight:600;color:var(--teal);text-transform:uppercase;letter-spacing:.05em;}
 .nota-bar-val{font-family:var(--mono);font-size:20pt;font-weight:500;color:var(--navy);line-height:1;}
 
@@ -559,6 +593,213 @@ h4{font-family:var(--sans);font-size:9pt;font-weight:600;color:var(--gray-600);m
   }
 }
 @media screen{.anti-plagio-mark{display:none !important;}}
+
+
+/* ══════════════════════════════════════════════════════════════
+   OVERRIDE · TIPOGRAFÍA MEJORADA + CONTRASTE
+   Mantiene intactos contenido, estructura y lógica JavaScript.
+   ══════════════════════════════════════════════════════════════ */
+html{font-size:16px!important;}
+body{
+  font-family:'Nunito','DM Sans',system-ui,sans-serif!important;
+  font-size:12pt!important;
+  line-height:1.75!important;
+  color:#000!important;
+}
+p{font-size:12pt!important;line-height:1.75!important;color:#000!important;}
+h3{font-size:11pt!important;line-height:1.35!important;}
+h4{font-size:10.5pt!important;line-height:1.4!important;}
+
+.tab-btn{font-size:10.5pt!important;}
+.palette-panel-title{font-size:9pt!important;}
+.palette-opt{font-size:10pt!important;}
+.ds-label{font-size:8pt!important;}
+.ds-btn{font-size:9.5pt!important;}
+
+.cover-tag{font-size:10pt!important;}
+.cover h1{font-size:clamp(38px,5.8vw,58px)!important;}
+.cover-subtitle{font-size:13pt!important;line-height:1.65!important;}
+.cover-meta-label{font-size:8.5pt!important;}
+.cover-meta-value{font-size:10.5pt!important;}
+
+.section-number{font-size:9pt!important;}
+.section-title{font-size:18pt!important;}
+.definition-label,.callout-title{font-size:9pt!important;}
+.definition p{font-size:12pt!important;line-height:1.7!important;}
+.callout p{font-size:11pt!important;line-height:1.7!important;}
+
+.table-caption{font-size:8.5pt!important;}
+table{font-size:10.5pt!important;}
+thead th{font-size:10pt!important;padding:11px 13px!important;}
+tbody td{font-size:10.5pt!important;padding:10px 13px!important;line-height:1.55!important;}
+
+.formula-label{font-size:9pt!important;}
+.formula{font-size:13pt!important;}
+.formula-example{font-size:10.5pt!important;}
+.worked-title{font-size:9pt!important;}
+.worked-step{font-size:10.5pt!important;line-height:1.6!important;}
+.worked-result{font-size:12pt!important;}
+
+.drug-banner-name{font-size:18pt!important;}
+.drug-banner-sub{font-size:10.5pt!important;}
+.drug-tag{font-size:9pt!important;}
+.drug-name{font-size:11pt!important;}
+.drug-class{font-size:9pt!important;}
+.drug-body{font-size:10.5pt!important;}
+.drug-row-label{font-size:9pt!important;}
+.drug-row-val{font-size:10.5pt!important;}
+.drug-conc{font-size:10pt!important;}
+
+.unit-box{font-size:11pt!important;}
+.unit-arrow{font-size:10pt!important;}
+.unit-arrow span{font-size:9pt!important;}
+
+ul.content-list li{font-size:11pt!important;line-height:1.7!important;}
+.col-card-title{font-size:10.5pt!important;}
+.col-card p{font-size:10.5pt!important;}
+.diagram-title{font-size:8.5pt!important;}
+
+.taller-header h2{font-size:23pt!important;}
+.taller-meta{font-size:10pt!important;}
+.alert-yellow{font-size:10.5pt!important;}
+
+.module-tag{font-size:9pt!important;}
+.module-title{font-size:11pt!important;}
+.module-pts{font-size:9.5pt!important;}
+.ex-label{font-size:10.5pt!important;}
+.ex-num{font-size:9pt!important;}
+.ex-pts,.ex-pts-auto,.ex-pts-manual,.q-pts-auto{font-size:8.5pt!important;}
+.ex-context{font-size:10.5pt!important;line-height:1.65!important;}
+.mc-row{font-size:11pt!important;}
+.mc-label{font-size:11pt!important;}
+select.mc-select{font-size:10.5pt!important;}
+.fb{font-size:10pt!important;}
+
+.ms-instruction{font-size:10pt!important;}
+.ms-item{font-size:10.5pt!important;}
+.ms-fb{font-size:10pt!important;}
+.vf-statement{font-size:10.5pt!important;}
+.vf-btn{font-size:10pt!important;}
+.cloze-text{font-size:11pt!important;line-height:2.25!important;}
+.cloze-select{font-size:10.5pt!important;}
+
+.calc-box-title{font-size:9pt!important;}
+.calc-step{font-size:12pt!important;}
+.calc-step-label{font-size:10pt!important;}
+.ci{font-size:12pt!important;}
+.ci-result{font-size:12pt!important;}
+.calc-hint{font-size:9.5pt!important;}
+.calc-sub{font-size:10pt!important;}
+
+.open-area{font-size:11pt!important;line-height:1.7!important;}
+.open-label{font-size:9pt!important;}
+
+.frac-chain-label{font-size:9pt!important;}
+.cancel-hint,.frac-step-label{font-size:9pt!important;}
+.fi,.fu{font-size:11pt!important;}
+.fu-cancel{font-size:11pt!important;}
+.fop{font-size:18pt!important;}
+.fop-eq{font-size:16pt!important;}
+.frac-result input{font-size:12pt!important;}
+.frac-result .fu{font-size:10pt!important;}
+.cancel-btn{font-size:9pt!important;}
+
+.manual-badge{font-size:9pt!important;}
+.manual-pts-badge{font-size:9.5pt!important;}
+.manual-title{font-size:10.5pt!important;}
+.manual-note{font-size:9.5pt!important;}
+.manual-ex-label{font-size:10.5pt!important;}
+.manual-ex-num,.manual-ex-pts{font-size:8.5pt!important;}
+.manual-block-label{font-size:9pt!important;}
+.correct-btn{font-size:10.5pt!important;}
+.nota-mod-label{font-size:9pt!important;}
+.nota-mod-val{font-size:12pt!important;}
+.nota-bar-label{font-size:10pt!important;}
+.nota-bar-val{font-size:22pt!important;}
+.download-box h3{font-size:11pt!important;}
+.id-input{font-size:11pt!important;}
+.dl-btn{font-size:10.5pt!important;}
+.dl-error{font-size:10pt!important;}
+.footer-name{font-size:10.5pt!important;}
+.footer-title{font-size:9pt!important;}
+.footer-copy{font-size:8.5pt!important;}
+
+.answer-line{font-size:11pt!important;}
+.ans-input{font-size:11pt!important;}
+.open-question{font-size:11pt!important;}
+.open-question-part{font-size:11pt!important;}
+.open-question-part-letter{font-size:9.5pt!important;}
+.score-note{font-size:11pt!important;}
+
+.page-print-header{font-size:9.5pt!important;}
+.print-score-id{font-size:10pt!important;}
+.print-score-id .print-note{font-size:14pt!important;}
+.print-answer{font-size:10.5pt!important;line-height:1.7!important;}
+.anti-plagio-mark{font-size:8pt!important;}
+
+/* Texto negro sobre superficies claras/blancas */
+.content,.taller-content,.module-body,.drug-body,.col-card,.diagram-wrap,
+.table-wrap,.table-caption,.formula-block,.worked,.worked-result,
+.ms-group,.vf-item,.cloze-box,.calc-box,.frac-chain,.manual-block,
+.nota-bar,.download-box,.open-area,.calc-sub,.calc-hint{
+  color:#000;
+}
+.content p,.taller-content p,.module-body p,
+.col-card p,.drug-row-val,.ex-context,.ms-item,.vf-statement,
+.cloze-text,.open-question,.open-question-part,.answer-line,
+tbody td,.worked-step{
+  color:#000!important;
+}
+
+/* Texto blanco sobre superficies oscuras */
+.cover,.cover .cover-tag,.cover h1,.cover-subtitle,
+.taller-header,.taller-header h2,.module-header,
+.drug-banner,.drug-header,.drug-name,.drug-class,
+.score-note,.definition,.definition p,
+.frac-result,.frac-result input,.correct-btn,.dl-btn{
+  color:#fff!important;
+}
+.cover-meta-label{color:rgba(255,255,255,.78)!important;}
+.cover-meta-value{color:#fff!important;}
+.definition-label{color:#F0F4C3!important;}
+.drug-banner-sub,.drug-tag{color:rgba(255,255,255,.88)!important;}
+.module-title,.module-tag{color:#fff!important;}
+.module-pts{color:#fff!important;}
+.drug-conc{color:#F0F4C3!important;}
+.frac-result .fu{color:rgba(255,255,255,.8)!important;}
+
+/* Superficies claras: títulos y controles legibles */
+.section-title,.col-card-title,.calc-box-title,.frac-chain-label,
+.nota-bar-val,.footer-name,.manual-title,.manual-ex-label{
+  color:#000!important;
+}
+.formula{color:#000!important;}
+.formula-example,.drug-row-label,.cancel-hint,.frac-step-label,
+.footer-title,.footer-copy,.open-label{color:#495057!important;}
+input,textarea,select{font-size:inherit;}
+
+/* Contraste en elementos de navegación */
+.tab-nav{background:#fff!important;}
+.tab-btn{color:#000!important;}
+.tab-btn.active,.tab-btn:hover{color:#fff!important;}
+.palette-panel,.palette-opt,.ds-btn{color:#000;}
+.ds-btn.active,.ds-btn:hover{color:#fff!important;}
+
+/* Impresión: conservar el tamaño y contraste */
+@media print{
+  body{font-size:11.5pt!important;color:#000!important;}
+  p{font-size:11.5pt!important;}
+  .cover h1{font-size:38pt!important;}
+  .definition p,.callout p{font-size:11.5pt!important;}
+  table{font-size:10.5pt!important;}
+  thead th{font-size:10pt!important;}
+  tbody td{font-size:10.5pt!important;}
+  .module-body{color:#000!important;}
+  .module-header,.cover,.taller-header,.drug-banner,.definition,.score-note{
+    -webkit-print-color-adjust:exact!important;
+    print-color-adjust:exact!important;
+  }
+}
 
 </style>
 </head>
@@ -962,10 +1203,10 @@ h4{font-family:var(--sans);font-size:9pt;font-weight:600;color:var(--gray-600);m
   <div class="print-score-id" id="printScoreId">
     <span><strong>Estudiante:</strong> <span id="printStudent"></span></span>
     <span><strong>Código único:</strong> <span id="printCode"></span></span>
-    <span><strong>Nota:</strong> <span class="print-note" id="printScore">0.00 / 2.50</span></span>
+    <span><strong>Nota:</strong> <span class="print-note" id="printScore">0.00 / 5.00</span></span>
   </div>
 <div class="taller-content">
-<div class="alert-yellow">⚠ <strong>Instrucciones:</strong> El feedback de selección múltiple aparece solo al oprimir "Corregir Módulo". Las cajas ámbar son preguntas abiertas calificadas por el docente. Muestre las unidades en cada cálculo.</div>
+<div class="alert-yellow">⚠ <strong>Instrucciones:</strong> El feedback aparece solo al oprimir "Corregir Módulo". Incluye selección múltiple, Verdadero/Falso, completar espacios y ordenar pasos. Muestre las unidades en cada cálculo. <strong>Todo el taller es 100% autocalificable.</strong></div>
 
 <!-- SCORE BANNER -->
 <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:16px;">
@@ -975,7 +1216,7 @@ h4{font-family:var(--sans);font-size:9pt;font-weight:600;color:var(--gray-600);m
   </div>
   <div style="background:var(--amber-light);border:2px solid var(--amber);border-radius:8px;padding:12px 16px;">
     <div style="font-family:var(--mono);font-size:13pt;font-weight:600;color:var(--amber);">2.5 pts</div>
-    <div style="font-family:var(--sans);font-size:8pt;color:var(--gray-600);margin-top:4px;">Módulo B — Integración conceptual<br>✏️ Calificación docente · 5 preguntas</div>
+    <div style="font-family:var(--sans);font-size:8pt;color:var(--gray-600);margin-top:4px;">Módulo B — Integración conceptual<br>🤖 Autocalificable · 5 preguntas</div>
   </div>
 </div>
 <div class="score-note">
@@ -1089,60 +1330,137 @@ h4{font-family:var(--sans);font-size:9pt;font-weight:600;color:var(--gray-600);m
 <div class="module">
   <div class="module-header" style="background:var(--navy-mid);">
     <span class="module-tag">MÓDULO B</span>
-    <span class="module-title">Integración farmacológica — Preguntas abiertas</span>
-    <span class="module-pts">✏️ 2.5 pts · 0.5 pts c/u · Calificación docente</span>
+    <span class="module-title">Integración farmacológica — Razonamiento clínico</span>
+    <span class="module-pts">🤖 2.5 pts autocorregible</span>
   </div>
-  <div class="module-body">
+  <div class="module-body" id="module-B-body">
 
     <div class="ex-item">
-      <div class="ex-label"><span class="ex-num">B1</span> Hiperpolarización y modulación alostérica &nbsp;<span class="ex-pts-manual">✏️ 0.5 pts · docente</span></div>
-      <div class="manual-block">
-        <div class="manual-block-label">✏️ Calificación docente — 0.5 pts</div>
-        <div class="open-question-part"><span class="open-question-part-letter">a</span><span>¿Qué es la hiperpolarización neuronal? ¿Por qué la entrada de Cl⁻ produce inhibición y no excitación?</span></div>
-        <div class="open-question-part"><span class="open-question-part-letter">b</span><span>¿Qué es un sitio de unión alostérico y cómo difiere del sitio ortostérico (GABA)? ¿Por qué esto explica que las benzodiacepinas necesiten GABA presente para actuar, pero los barbitúricos a dosis altas no?</span></div>
-        <textarea class="open-area" placeholder="Escriba su respuesta aquí..."></textarea>
+      <div class="ex-label"><span class="ex-num">B1</span> Hiperpolarización y modulación alostérica <span class="ex-pts-auto">🤖 0.5 pts</span></div>
+      <div class="ms-group">
+        <div class="ms-instruction">Marque TODAS las afirmaciones correctas sobre hiperpolarización y modulación alostérica:</div>
+        <div class="ms-item"><input type="checkbox" data-correct="true" id="ck_B1_1"><label for="ck_B1_1">La entrada de Cl⁻ hiperpolariza la neurona porque su potencial de equilibrio es más negativo que el potencial de reposo, alejándola del umbral de disparo</label></div>
+        <div class="ms-item"><input type="checkbox" data-correct="false" id="ck_B1_2"><label for="ck_B1_2">La hiperpolarización acerca la membrana al umbral de disparo, facilitando la excitación</label></div>
+        <div class="ms-item"><input type="checkbox" data-correct="true" id="ck_B1_3"><label for="ck_B1_3">El sitio alostérico es distinto del sitio ortostérico (donde se une el GABA) y modula la respuesta sin activar el receptor por sí solo a dosis bajas</label></div>
+        <div class="ms-item"><input type="checkbox" data-correct="false" id="ck_B1_4"><label for="ck_B1_4">El sitio alostérico y el sitio ortostérico son el mismo sitio de unión</label></div>
+        <div class="ms-item"><input type="checkbox" data-correct="true" id="ck_B1_5"><label for="ck_B1_5">Las benzodiacepinas requieren GABA presente en el receptor para ejercer su efecto (solo aumentan la frecuencia de apertura del canal)</label></div>
+        <div class="ms-item"><input type="checkbox" data-correct="false" id="ck_B1_6"><label for="ck_B1_6">Las benzodiacepinas pueden abrir el canal de cloro sin GABA presente, igual que los barbitúricos a dosis altas</label></div>
+        <div class="ms-item"><input type="checkbox" data-correct="true" id="ck_B1_7"><label for="ck_B1_7">Los barbitúricos a dosis altas pueden abrir el canal de cloro directamente sin necesidad de GABA, lo que explica su mayor riesgo de depresión respiratoria/muerte por sobredosis</label></div>
+        <span class="ms-fb"></span>
       </div>
     </div>
 
     <div class="ex-item">
-      <div class="ex-label"><span class="ex-num">B2</span> Síndrome de infusión de propofol (PRIS) &nbsp;<span class="ex-pts-manual">✏️ 0.5 pts · docente</span></div>
+      <div class="ex-label"><span class="ex-num">B2</span> Síndrome de infusión de propofol (PRIS) — Ordene la conducta <span class="ex-pts-auto">🤖 0.5 pts</span></div>
       <div class="ex-context">Paciente en UCI recibe propofol a 4.8 mg/kg/h durante 72 horas para sedación prolongada. Presenta acidosis metabólica con lactato elevado, CK 38.000 U/L, mioglobinuria, arritmia ventricular de nueva aparición y TA 68/38 a pesar de soporte vasopresor.</div>
-      <div class="manual-block">
-        <div class="manual-block-label">✏️ Calificación docente — 0.5 pts</div>
-        <div class="open-question">¿Cuál es el diagnóstico? Explique el mecanismo fisiopatológico del PRIS (qué ocurre a nivel mitocondrial) y describa la conducta inmediata con justificación de cada paso.</div>
-        <textarea class="open-area" placeholder="Escriba su respuesta aquí..."></textarea>
+      <div class="mc-row"><span class="mc-label">¿Cuál es el diagnóstico?</span>
+        <select class="mc-select" onchange="chk(this,'Síndrome de infusión de propofol (PRIS)','fbB2_dx')">
+          <option value="">— elegir —</option>
+          <option>Síndrome de infusión de propofol (PRIS)</option>
+          <option>Sepsis de origen no identificado</option>
+          <option>Rabdomiólisis por posición quirúrgica</option>
+          <option>Shock cardiogénico primario</option>
+        </select><span class="fb" id="fbB2_dx"></span>
+      </div>
+      <div class="alert-yellow" style="margin:10px 0;">Ordene la conducta inmediata (1 = primero, 6 = último) ante este PRIS confirmado.</div>
+      <div class="mc-row"><span class="mc-label">Corregir la acidosis metabólica y las alteraciones electrolíticas</span><select class="mc-select" onchange="chk(this,'4','fbB2_1')"><option value="">—</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option></select><span class="fb" id="fbB2_1"></span></div>
+      <div class="mc-row"><span class="mc-label">Suspender inmediatamente la infusión de propofol</span><select class="mc-select" onchange="chk(this,'1','fbB2_2')"><option value="">—</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option></select><span class="fb" id="fbB2_2"></span></div>
+      <div class="mc-row"><span class="mc-label">Considerar terapia de reemplazo renal (hemodiálisis/hemofiltración) para depurar el propofol en casos severos</span><select class="mc-select" onchange="chk(this,'5','fbB2_3')"><option value="">—</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option></select><span class="fb" id="fbB2_3"></span></div>
+      <div class="mc-row"><span class="mc-label">Cambiar a un sedante alternativo (ej. dexmedetomidina o benzodiacepina) para mantener la sedación</span><select class="mc-select" onchange="chk(this,'2','fbB2_4')"><option value="">—</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option></select><span class="fb" id="fbB2_4"></span></div>
+      <div class="mc-row"><span class="mc-label">Monitorización continua de CK, lactato, función renal y ritmo cardíaco durante la recuperación</span><select class="mc-select" onchange="chk(this,'6','fbB2_5')"><option value="">—</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option></select><span class="fb" id="fbB2_5"></span></div>
+      <div class="mc-row"><span class="mc-label">Iniciar soporte hemodinámico agresivo (vasopresores; considerar marcapasos si hay bradiarritmia)</span><select class="mc-select" onchange="chk(this,'3','fbB2_6')"><option value="">—</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option></select><span class="fb" id="fbB2_6"></span></div>
+    </div>
+
+    <div class="ex-item">
+      <div class="ex-label"><span class="ex-num">B3</span> Ketamina: disociación, mezcla racémica y uso en sepsis — Verdadero o Falso <span class="ex-pts-auto">🤖 0.5 pts</span></div>
+      <div class="vf-item">
+        <div class="vf-statement">1. La S(+)-ketamina es aproximadamente el doble de potente como analgésico/anestésico que la R(−)-ketamina, y se asocia a menos efectos psicomiméticos.</div>
+        <div class="vf-btns">
+          <button type="button" class="vf-btn" onclick="vf(this,'V','V','fbB3_1')">Verdadero</button>
+          <button type="button" class="vf-btn" onclick="vf(this,'F','V','fbB3_1')">Falso</button>
+          <span class="fb" id="fbB3_1"></span>
+        </div>
+      </div>
+      <div class="vf-item">
+        <div class="vf-statement">2. La disociación tálamo-cortical de la ketamina interrumpe la transmisión de información sensorial hacia la corteza, por lo que el paciente puede parecer "despierto" (ojos abiertos, nistagmo) sin percibir ni recordar el dolor.</div>
+        <div class="vf-btns">
+          <button type="button" class="vf-btn" onclick="vf(this,'V','V','fbB3_2')">Verdadero</button>
+          <button type="button" class="vf-btn" onclick="vf(this,'F','V','fbB3_2')">Falso</button>
+          <span class="fb" id="fbB3_2"></span>
+        </div>
+      </div>
+      <div class="vf-item">
+        <div class="vf-statement">3. En un paciente en shock séptico avanzado con las reservas de catecolaminas endógenas agotadas, la ketamina mantiene su efecto simpaticomimético indirecto habitual, produciendo el mismo aumento de FC y PA que en un paciente sano.</div>
+        <div class="vf-btns">
+          <button type="button" class="vf-btn" onclick="vf(this,'V','F','fbB3_3')">Verdadero</button>
+          <button type="button" class="vf-btn" onclick="vf(this,'F','F','fbB3_3')">Falso</button>
+          <span class="fb" id="fbB3_3"></span>
+        </div>
+      </div>
+      <div class="vf-item">
+        <div class="vf-statement">4. La mezcla racémica de ketamina contiene proporciones iguales de los isómeros R(−) y S(+).</div>
+        <div class="vf-btns">
+          <button type="button" class="vf-btn" onclick="vf(this,'V','V','fbB3_4')">Verdadero</button>
+          <button type="button" class="vf-btn" onclick="vf(this,'F','V','fbB3_4')">Falso</button>
+          <span class="fb" id="fbB3_4"></span>
+        </div>
       </div>
     </div>
 
     <div class="ex-item">
-      <div class="ex-label"><span class="ex-num">B3</span> Ketamina: disociación, mezcla racémica y uso en sepsis &nbsp;<span class="ex-pts-manual">✏️ 0.5 pts · docente</span></div>
-      <div class="manual-block">
-        <div class="manual-block-label">✏️ Calificación docente — 0.5 pts</div>
-        <div class="open-question-part"><span class="open-question-part-letter">a</span><span>¿Qué es una mezcla racémica? ¿Qué diferencia hay entre R(−) y S(+) ketamina en términos de potencia analgésica y efectos adversos psicomiméticos?</span></div>
-        <div class="open-question-part"><span class="open-question-part-letter">b</span><span>¿Por qué el paciente con ketamina parece "despierto" pero no responde al dolor? Explique el concepto de disociación tálamo-cortical.</span></div>
-        <div class="open-question-part"><span class="open-question-part-letter">c</span><span>En un paciente en shock séptico avanzado con SNS agotado, ¿cambiaría el efecto hemodinámico esperado de la ketamina? Explique por qué.</span></div>
-        <textarea class="open-area" placeholder="Escriba su respuesta aquí..."></textarea>
+      <div class="ex-label"><span class="ex-num">B4</span> Supresión adrenal y metabolismo extrahepático — Complete el texto <span class="ex-pts-auto">🤖 0.5 pts</span></div>
+      <div class="cloze-box">
+        <div class="cloze-text">
+          El etomidato inhibe la enzima
+          <select class="cloze-select" onchange="chk(this,'11β-hidroxilasa','fbB4_1')"><option value="">— elegir —</option><option>11β-hidroxilasa</option><option>17α-hidroxilasa</option><option>aromatasa</option><option>5α-reductasa</option></select>
+          , bloqueando la conversión de 11-desoxicortisol a
+          <select class="cloze-select" onchange="chk(this,'cortisol','fbB4_2')"><option value="">— elegir —</option><option>cortisol</option><option>aldosterona</option><option>testosterona</option><option>progesterona</option></select>
+          y de desoxicorticosterona a aldosterona. Esta supresión adrenal preocupa clínicamente más en el contexto de una
+          <select class="cloze-select" onchange="chk(this,'infusión continua','fbB4_3')"><option value="">— elegir —</option><option>infusión continua</option><option>dosis única de inducción</option><option>dosis de rescate</option><option>premedicación oral</option></select>
+          que en una dosis única de inducción, ya que el efecto es dosis-dependiente y acumulativo. Por su parte, el propofol se metaboliza principalmente en el hígado, pero también en órganos extrahepáticos como el
+          <select class="cloze-select" onchange="chk(this,'pulmón','fbB4_4')"><option value="">— elegir —</option><option>pulmón</option><option>bazo</option><option>páncreas</option><option>tiroides</option></select>
+          y el
+          <select class="cloze-select" onchange="chk(this,'riñón','fbB4_5')"><option value="">— elegir —</option><option>riñón</option><option>hueso</option><option>piel</option><option>intestino delgado</option></select>
+          , lo cual es clínicamente relevante en el paciente con cirrosis hepática severa porque estas vías compensan parcialmente el metabolismo, atenuando la prolongación del efecto que cabría esperar por la falla hepática.
+        </div>
       </div>
     </div>
 
     <div class="ex-item">
-      <div class="ex-label"><span class="ex-num">B4</span> Supresión adrenal y metabolismo extrahepático &nbsp;<span class="ex-pts-manual">✏️ 0.5 pts · docente</span></div>
-      <div class="manual-block">
-        <div class="manual-block-label">✏️ Calificación docente — 0.5 pts</div>
-        <div class="open-question-part"><span class="open-question-part-letter">a</span><span>¿Cuál enzima inhibe el etomidato y cuál es la consecuencia fisiológica en la síntesis de cortisol y aldosterona? ¿En qué contexto clínico preocupa más: una dosis única de inducción o una infusión continua? Justifique.</span></div>
-        <div class="open-question-part"><span class="open-question-part-letter">b</span><span>El propofol se metaboliza principalmente en hígado, pero también extrahepáticamente. Nombre dos órganos extrahepáticos involucrados y explique por qué esto es clínicamente relevante en el paciente con cirrosis hepática severa.</span></div>
-        <textarea class="open-area" placeholder="Escriba su respuesta aquí..."></textarea>
+      <div class="ex-label"><span class="ex-num">B5</span> Tiopental, porfiria y midazolam en el anciano <span class="ex-pts-auto">🤖 0.5 pts</span></div>
+      <div class="mc-row"><span class="mc-label">¿Qué hace la ALA-sintetasa y por qué el tiopental es peligroso en la porfiria aguda intermitente?</span>
+        <select class="mc-select" onchange="chk(this,'Es la enzima limitante de la síntesis del grupo hemo; el tiopental la induce, acumulando precursores neurotóxicos (ALA y porfobilinógeno) que desencadenan una crisis aguda','fbB5_1')">
+          <option value="">— elegir —</option>
+          <option>Es la enzima limitante de la síntesis del grupo hemo; el tiopental la induce, acumulando precursores neurotóxicos (ALA y porfobilinógeno) que desencadenan una crisis aguda</option>
+          <option>Es la enzima que degrada el grupo hemo; el tiopental la inhibe, causando acumulación de bilirrubina</option>
+          <option>No tiene relación con el metabolismo del hemo; el riesgo del tiopental es solo cardiovascular</option>
+        </select><span class="fb" id="fbB5_1"></span>
       </div>
-    </div>
-
-    <div class="ex-item">
-      <div class="ex-label"><span class="ex-num">B5</span> Tiopental, porfiria y midazolam en el anciano &nbsp;<span class="ex-pts-manual">✏️ 0.5 pts · docente</span></div>
-      <div class="manual-block">
-        <div class="manual-block-label">✏️ Calificación docente — 0.5 pts</div>
-        <div class="open-question-part"><span class="open-question-part-letter">a</span><span>¿Qué hace la enzima ALA-sintetasa en la biosíntesis del grupo hemo? ¿Por qué el tiopental desencadena una crisis de porfiria aguda intermitente y cuáles son sus manifestaciones clínicas?</span></div>
-        <div class="open-question-part"><span class="open-question-part-letter">b</span><span>¿Qué efecto adverso cognitivo puede producir el midazolam en pacientes mayores de 65 años? Explique el mecanismo farmacocinético (clearance hepático y proteínas plasmáticas) que hace a esta población especialmente vulnerable. ¿Qué recomienda la lista Beers al respecto?</span></div>
-        <textarea class="open-area" placeholder="Escriba su respuesta aquí..."></textarea>
+      <div class="mc-row"><span class="mc-label">Manifestaciones típicas de una crisis de porfiria aguda:</span>
+        <select class="mc-select" onchange="chk(this,'Dolor abdominal intenso, neuropatía periférica y síntomas neuropsiquiátricos (crisis autonómica)','fbB5_2')">
+          <option value="">— elegir —</option>
+          <option>Dolor abdominal intenso, neuropatía periférica y síntomas neuropsiquiátricos (crisis autonómica)</option>
+          <option>Únicamente erupción cutánea fotosensible</option>
+          <option>Fiebre alta aislada sin otros síntomas</option>
+        </select><span class="fb" id="fbB5_2"></span>
       </div>
+      <div class="mc-row"><span class="mc-label">¿Por qué el midazolam es especialmente riesgoso en mayores de 65 años?</span>
+        <select class="mc-select" onchange="chk(this,'↓ Clearance hepático y ↓ unión a proteínas plasmáticas prolongan su vida media, aumentando el riesgo de sedación prolongada y delirium','fbB5_3')">
+          <option value="">— elegir —</option>
+          <option>↓ Clearance hepático y ↓ unión a proteínas plasmáticas prolongan su vida media, aumentando el riesgo de sedación prolongada y delirium</option>
+          <option>El anciano metaboliza el midazolam más rápido, requiriendo dosis mayores</option>
+          <option>El midazolam no cruza la barrera hematoencefálica en el anciano</option>
+        </select><span class="fb" id="fbB5_3"></span>
+      </div>
+      <div class="mc-row"><span class="mc-label">Según la lista Beers, ¿qué se recomienda sobre las benzodiacepinas en el anciano?</span>
+        <select class="mc-select" onchange="chk(this,'Evitar su uso en general por mayor riesgo de deterioro cognitivo, caídas y fracturas','fbB5_4')">
+          <option value="">— elegir —</option>
+          <option>Evitar su uso en general por mayor riesgo de deterioro cognitivo, caídas y fracturas</option>
+          <option>Usarlas como primera línea por su perfil de seguridad superior en el anciano</option>
+          <option>No hay ninguna recomendación específica para esta población</option>
+        </select><span class="fb" id="fbB5_4"></span>
+      </div>
+      <button class="correct-btn" onclick="corregirB()">Corregir Módulo B (2.5 pts)</button>
     </div>
 
   </div>
@@ -1159,9 +1477,15 @@ h4{font-family:var(--sans);font-size:9pt;font-weight:600;color:var(--gray-600);m
   <div class="dl-error" id="errH">⚠ Por favor complete nombre y universidad antes de descargar.</div>
 </div>
 <div class="nota-bar">
-  <span class="nota-bar-label">Nota acumulada</span>
-  <span class="nota-bar-val" id="notaHip">0.00 / 2.50</span>
-  <span style="font-family:var(--sans);font-size:8.5pt;color:var(--gray-600);">Autocorregible (Módulo A) &nbsp;|&nbsp; <span style="color:var(--amber);font-weight:600;">✏️ 2.50 pts · Módulo B calificado por docente</span></span>
+  <div class="nota-mod-grid">
+    <div class="nota-mod-box"><span class="nota-mod-label">Módulo A — Cálculos</span><span class="nota-mod-val" id="notaA_Hip">0.00 / 2.50</span></div>
+    <div class="nota-mod-box"><span class="nota-mod-label">Módulo B — Razonamiento</span><span class="nota-mod-val" id="notaB_Hip">0.00 / 2.50</span></div>
+  </div>
+  <div class="nota-bar-total-row">
+    <span class="nota-bar-label">Nota Final del Taller</span>
+    <span class="nota-bar-val" id="notaHip">0.00 / 5.00</span>
+    <span style="font-family:var(--sans);font-size:8.5pt;color:var(--gray-600);">100% Autocorregible — suma acumulada de los 2 módulos</span>
+  </div>
 </div>
 </div>
 </div><!-- /print-first-page -->
@@ -1197,6 +1521,18 @@ document.addEventListener('click',function(e){
 var answers={};
 function chk(sel,correct,fbId){
   answers[fbId]={val:sel.value.trim(),correct:correct.trim()};
+  var fb=document.getElementById(fbId);
+  if(fb){fb.textContent='';fb.className='fb';}
+}
+
+// Verdadero/Falso interactivo: dos botones por afirmación
+function vf(btn,choice,correct,fbId){
+  answers[fbId]={val:choice,correct:correct};
+  var group=btn.closest('.vf-btns');
+  group.querySelectorAll('.vf-btn').forEach(function(b){
+    b.classList.remove('sel','is-true','is-false','result-ok','result-bad');
+  });
+  btn.classList.add('sel', choice==='V' ? 'is-true' : 'is-false');
   var fb=document.getElementById(fbId);
   if(fb){fb.textContent='';fb.className='fb';}
 }
@@ -1248,7 +1584,7 @@ function checkChains(fbId){
   return allOk;
 }
 
-var pts={A:0};
+var pts={A:0,B:0};
 
 /* CORRECCIÓN MÓDULO A
    Los desplegables se conservan únicamente en preguntas de razonamiento.
@@ -1298,9 +1634,73 @@ function corregirA(){
 }
 
 function actualizarNotas(){
-  var total=pts.A||0;
+  var totalA=pts.A||0, totalB=pts.B||0;
+  var na=document.getElementById('notaA_Hip'); if(na) na.textContent=totalA.toFixed(2)+' / 2.50';
+  var nb=document.getElementById('notaB_Hip'); if(nb) nb.textContent=totalB.toFixed(2)+' / 2.50';
+  var total=totalA+totalB;
   var nt=document.getElementById('notaHip');
-  if(nt)nt.textContent=total.toFixed(2)+' / 2.50';
+  if(nt)nt.textContent=total.toFixed(2)+' / 5.00';
+}
+
+/* CORRECCIÓN MÓDULO B
+   Cada ejercicio (B1–B5) vale 0.5 pts, calculado según su propio
+   promedio de aciertos, para conservar el peso original por ejercicio. */
+function corregirB(){
+  var container=document.getElementById('module-B-body');
+  var pesoEjercicio=0.5;
+  var totalB=0;
+
+  function fracFbIds(ids){
+    var ok=0;
+    ids.forEach(function(fbId){
+      var fb=document.getElementById(fbId), ans=answers[fbId];
+      if(!fb)return;
+      if(!ans||!ans.val){fb.textContent='— sin respuesta';fb.className='fb';return;}
+      var correct = ans.val===ans.correct;
+      if(ans.val==='V'||ans.val==='F'){
+        var vfContainer=fb.closest('.vf-item');
+        if(vfContainer){
+          vfContainer.querySelectorAll('.vf-btn.sel').forEach(function(b){
+            b.classList.remove('result-ok','result-bad');
+            b.classList.add(correct?'result-ok':'result-bad');
+          });
+        }
+      }
+      if(correct){ok++;fb.textContent='✓ correcto';fb.className='fb ok';}
+      else{fb.textContent='✗ incorrecto';fb.className='fb err';}
+    });
+    return ids.length ? ok/ids.length : 0;
+  }
+
+  function fracMsGroup(grp){
+    var checks=grp.querySelectorAll('input[type="checkbox"]');
+    var totalCorrect=grp.querySelectorAll('input[data-correct="true"]').length;
+    var checkedCorrect=0, checkedWrong=0;
+    checks.forEach(function(c){
+      var item=c.closest('.ms-item');
+      if(item) item.classList.remove('ms-ok','ms-bad');
+      var isCorrectOption=c.getAttribute('data-correct')==='true';
+      if(c.checked){
+        if(isCorrectOption){ checkedCorrect++; if(item) item.classList.add('ms-ok'); }
+        else { checkedWrong++; if(item) item.classList.add('ms-bad'); }
+      }
+    });
+    var frac = totalCorrect>0 ? Math.max(0,(checkedCorrect-checkedWrong))/totalCorrect : 0;
+    var fbEl=grp.querySelector('.ms-fb');
+    if(fbEl) fbEl.textContent='Aciertos: '+checkedCorrect+'/'+totalCorrect+(checkedWrong?' · Marcadas incorrectamente: '+checkedWrong:'')+' → '+(frac*100).toFixed(0)+'% de este punto';
+    return frac;
+  }
+
+  var fB1 = container.querySelector('.ms-group') ? fracMsGroup(container.querySelector('.ms-group')) : 0;
+  var fB2 = fracFbIds(['fbB2_dx','fbB2_1','fbB2_2','fbB2_3','fbB2_4','fbB2_5','fbB2_6']);
+  var fB3 = fracFbIds(['fbB3_1','fbB3_2','fbB3_3','fbB3_4']);
+  var fB4 = fracFbIds(['fbB4_1','fbB4_2','fbB4_3','fbB4_4','fbB4_5']);
+  var fB5 = fracFbIds(['fbB5_1','fbB5_2','fbB5_3','fbB5_4']);
+
+  totalB = (fB1+fB2+fB3+fB4+fB5) * pesoEjercicio;
+  pts.B = totalB;
+  actualizarNotas();
+  alert('Módulo B corregido: '+totalB.toFixed(2)+' / 2.50 pts autocorregibles\n  • B1 (selección múltiple): '+(fB1*100).toFixed(0)+'%\n  • B2 (diagnóstico + secuencia): '+(fB2*100).toFixed(0)+'%\n  • B3 (Verdadero/Falso): '+(fB3*100).toFixed(0)+'%\n  • B4 (completar espacios): '+(fB4*100).toFixed(0)+'%\n  • B5 (selección múltiple): '+(fB5*100).toFixed(0)+'%');
 }
 
 // PRINT ANSWER CLONES
@@ -1394,7 +1794,7 @@ function dlPDF(){
   var ps=document.getElementById('printStudent'); if(ps) ps.textContent=nom;
   var pc=document.getElementById('printCode'); if(pc) pc.textContent=codigo;
   var pscore=document.getElementById('printScore');
-  var nota=document.getElementById('notaHip') ? document.getElementById('notaHip').textContent : '0.00 / 2.50';
+  var nota=document.getElementById('notaHip') ? document.getElementById('notaHip').textContent : '0.00 / 5.00';
   if(pscore) pscore.textContent=nota;
 
   var taller=document.getElementById('taller-tab');

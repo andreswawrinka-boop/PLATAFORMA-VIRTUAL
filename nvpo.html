@@ -206,6 +206,35 @@ tbody td:first-child{font-weight:600;color:var(--navy);}
 select.mc-select{font-family:var(--sans);font-size:9pt;padding:5px 10px;border:1.5px solid var(--border);border-radius:5px;background:white;color:#212529;cursor:pointer;max-width:100%;}
 .fb{font-family:var(--sans);font-size:9pt;font-weight:600;margin-left:4px;}
 .fb.ok{color:var(--teal);}.fb.err{color:var(--red);}
+
+/* Selección múltiple con crédito parcial */
+.ms-group{border:1.5px solid var(--border);border-radius:8px;padding:12px 14px;margin:8px 0;background:#fbfdfd;}
+.ms-instruction{font-family:var(--sans);font-size:8.5pt;color:var(--gray-600);font-style:italic;margin-bottom:8px;}
+.ms-item{display:flex;align-items:flex-start;gap:8px;font-family:var(--sans);font-size:9.5pt;color:#212529;padding:5px 6px;border-radius:6px;margin:2px 0;}
+.ms-item input[type="checkbox"]{margin-top:3px;flex-shrink:0;cursor:pointer;}
+.ms-item label{cursor:pointer;line-height:1.5;}
+.ms-item.ms-ok{background:var(--green-light);}
+.ms-item.ms-ok::after{content:' ✓';color:var(--green);font-weight:800;}
+.ms-item.ms-bad{background:var(--red-light);}
+.ms-item.ms-bad::after{content:' ✗';color:var(--red);font-weight:800;}
+.ms-fb{display:block;font-family:var(--sans);font-size:8.5pt;font-weight:800;margin-top:8px;color:var(--navy);}
+
+/* Verdadero/Falso interactivo */
+.vf-item{border:1.5px solid var(--border);border-radius:7px;padding:9px 12px;margin:7px 0;background:#fff;}
+.vf-statement{font-family:var(--sans);font-size:9.5pt;color:#212529;line-height:1.5;margin-bottom:7px;}
+.vf-btns{display:flex;gap:8px;align-items:center;}
+.vf-btn{font-family:var(--sans);font-size:8.5pt;font-weight:700;padding:5px 16px;border-radius:20px;border:1.5px solid var(--border);background:#fff;cursor:pointer;transition:all .15s;}
+.vf-btn:hover{border-color:var(--teal);}
+.vf-btn.sel{color:#fff;}
+.vf-btn.sel.is-true{background:var(--green);border-color:var(--green);}
+.vf-btn.sel.is-false{background:var(--red);border-color:var(--red);}
+.vf-btn.result-ok{outline:3px solid #A5D6A7;}
+.vf-btn.result-bad{outline:3px solid #FFCDD2;}
+
+/* Completar espacios con banco de palabras (cloze) */
+.cloze-box{border:1.5px solid var(--border);border-radius:7px;padding:12px 14px;background:#fbfbfb;}
+.cloze-text{font-family:var(--sans);font-size:9.8pt;line-height:2.4;color:#212529;}
+.cloze-select{font-family:var(--sans);font-size:9pt;font-weight:700;padding:2px 6px;border:0;border-bottom:2px solid var(--navy-mid);background:#EEF2FF;border-radius:4px 4px 0 0;cursor:pointer;margin:0 2px;}
 .manual-block{border:1.5px dashed var(--amber);border-radius:6px;background:var(--amber-light);padding:11px 14px;margin-top:10px;}
 .manual-block-label{font-family:var(--sans);font-size:7.5pt;font-weight:700;color:var(--amber);text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px;}
 .open-question{font-family:var(--sans);font-size:9.5pt;color:#212529;line-height:1.65;margin-bottom:8px;font-weight:500;}
@@ -223,7 +252,12 @@ select.mc-select{font-family:var(--sans);font-size:9pt;padding:5px 10px;border:1
 .calc-block{background:#f8f9fa;border:1.5px solid #dee2e6;border-radius:8px;padding:10px 14px;margin:8px 0;}
 .ans-input.fi-ok{background:var(--teal-light);color:var(--teal);border-bottom-color:var(--teal);border-radius:3px;font-weight:700;}
 .ans-input.fi-err{background:#fef2f2;color:#991b1b;border-bottom-color:#991b1b;border-radius:3px;font-weight:700;text-decoration:underline wavy #991b1b;}
-.nota-bar{background:var(--teal-light);border:2px solid var(--teal);border-radius:8px;padding:14px 18px;margin-top:16px;display:flex;align-items:center;gap:20px;flex-wrap:wrap;}
+.nota-bar{background:var(--teal-light);border:2px solid var(--teal);border-radius:8px;padding:14px 18px 16px;margin-top:16px;}
+.nota-mod-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;}
+.nota-mod-box{background:#fff;border:1.5px solid var(--border);border-radius:7px;padding:8px 6px;text-align:center;}
+.nota-mod-label{display:block;font-family:var(--sans);font-size:7.5pt;color:var(--gray-600);font-weight:700;margin-bottom:3px;}
+.nota-mod-val{display:block;font-family:var(--mono);font-size:11pt;font-weight:600;color:var(--navy-mid);}
+.nota-bar-total-row{display:flex;align-items:baseline;gap:14px;margin-top:11px;padding-top:11px;border-top:2px solid var(--teal);flex-wrap:wrap;}
 .nota-bar-label{font-family:var(--sans);font-size:9pt;font-weight:600;color:var(--teal);text-transform:uppercase;letter-spacing:.05em;}
 .nota-bar-val{font-family:var(--mono);font-size:20pt;font-weight:500;color:var(--navy);line-height:1;}
 .download-box{background:var(--teal-light);border:2px solid var(--teal);border-radius:8px;padding:20px 24px;margin:24px 0;}
@@ -402,6 +436,60 @@ body{ background:#EAF3F1 !important; font-family:var(--sans); }
   .page{ margin:0; border-radius:0; }
   .contenedor{ padding:28px 22px 40px; }
   .cover{ padding:36px 22px 30px !important; }
+}
+
+
+/* TIPOGRAFÍA MEJORADA — tamaño y contraste */
+html{font-size:16px!important}
+body{font-family:'Nunito','DM Sans',system-ui,sans-serif!important;font-size:12pt!important;line-height:1.75!important;color:#000!important}
+p,p.parrafo{font-size:12pt!important;line-height:1.75!important;color:#000!important}
+h3,.subseccion h3{font-size:11pt!important}
+.indice li,.indice li a{font-size:11pt!important;color:#000!important;line-height:1.55!important}
+.seccion-titulo{font-size:21pt!important}
+.seccion-numero{font-size:10pt!important}
+.seccion-body{font-size:12pt!important}
+.caja{font-size:11.5pt!important;line-height:1.7!important;color:#000!important}
+.tabla-wrap table,table{font-size:11pt!important}
+thead th{font-size:10.5pt!important}
+tbody td{font-size:11pt!important;line-height:1.6!important;color:#000!important}
+.via-nombre{font-size:11pt!important}.via-desc,.via-farmacos{font-size:10.5pt!important;line-height:1.55!important;color:#000!important}
+.score-item{font-size:11pt!important}.score-pts{font-size:10pt!important}
+.riesgo-cell{font-size:10.5pt!important}.r-pts{font-size:18pt!important}.r-lbl{font-size:10pt!important}.r-pct{font-size:9.5pt!important}
+.farmaco-nombre{font-size:16pt!important}.farmaco-clase{font-size:10.5pt!important}.nnt-badge{font-size:10.5pt!important}
+.fg-lbl{font-size:9pt!important}.fg-val{font-size:11pt!important;line-height:1.6!important;color:#000!important}
+.module-title{font-size:11pt!important}.module-tag{font-size:9.5pt!important}.module-pts{font-size:10pt!important}
+.ex-label{font-size:11pt!important}.ex-num,.ex-pts-auto,.ex-pts-manual{font-size:9pt!important}
+.ex-context{font-size:11pt!important;line-height:1.65!important;color:#000!important}
+.mc-row{font-size:11.5pt!important}.mc-label{font-size:11pt!important}
+select.mc-select{font-size:11pt!important;padding:7px 11px!important}
+.fb{font-size:10.5pt!important}
+.ms-instruction{font-size:10.5pt!important}.ms-item{font-size:11pt!important}.ms-fb{font-size:10.5pt!important}
+.vf-statement{font-size:11.5pt!important}.vf-btn{font-size:10.5pt!important}
+.cloze-text{font-size:11.5pt!important;line-height:2.2!important}.cloze-select{font-size:10.5pt!important}
+.open-question,.open-question-part{font-size:11.5pt!important}.open-area{font-size:11pt!important}
+.answer-line{font-size:11pt!important}.ans-input{font-size:11pt!important}
+.calc-block{font-size:11pt!important}
+.nota-mod-label{font-size:9pt!important}.nota-mod-val{font-size:12pt!important}.nota-bar-label{font-size:10.5pt!important}
+.download-box h3{font-size:12pt!important}.id-input{font-size:11pt!important}.dl-btn{font-size:11pt!important}
+.tab-btn{font-size:11pt!important;padding:12px 20px!important}
+.cover-tag{font-size:11pt!important}.cover h1{font-size:clamp(38px,6vw,58px)!important}
+.cover-subtitle{font-size:13.5pt!important;line-height:1.7!important}.cover-meta-label{font-size:9.5pt!important}.cover-meta-value{font-size:12.5pt!important}
+.taller-header h2{font-size:23pt!important}.taller-meta{font-size:11pt!important}
+footer .footer-name{font-size:11pt!important}footer .footer-title{font-size:10pt!important}footer .footer-copy{font-size:9.5pt!important}
+
+/* Contraste estricto: negro en superficies claras */
+.indice,.seccion,.seccion-body,.tabla-wrap,.figura-wrap,.farmaco-card,.farmaco-body,.fg-item,.module-body,.ex-context,.ms-group,.vf-item,.cloze-box,.calc-block,.nota-bar,.download-box{color:#000!important}
+.indice h2,.indice li,.indice li a,.seccion-body p,.subseccion h3,.seccion-body strong,.fg-val,.farmaco-body,.ex-context,.ms-item,.vf-statement,.cloze-text,.open-question,.open-question-part,.answer-line{color:#000!important}
+.caja-info,.caja-ok,.caja-alerta,.caja-advertencia,.caja-evidencia,.caja-lila,.caja-teal{color:#000!important}
+.caja-info strong,.caja-ok strong,.caja-alerta strong,.caja-advertencia strong,.caja-evidencia strong,.caja-lila strong,.caja-teal strong{font-weight:800}
+.cover,.taller-header,.seccion-header,.module-header,.farmaco-header,.score-h{color:#fff!important}
+.cover h1,.cover-tag,.cover-subtitle,.cover-meta-label,.cover-meta-value,.taller-header h2,.taller-meta,.module-title,.module-tag,.module-pts,.farmaco-nombre,.farmaco-clase,.score-h{color:#fff!important}
+thead th{color:#fff!important}
+@media print{
+ body{font-size:11.5pt!important;color:#000!important}
+ p,p.parrafo,tbody td,.seccion-body,.ex-context,.open-question,.open-question-part,.print-answer{font-size:11pt!important;color:#000!important}
+ thead th,.seccion-header,.module-header,.farmaco-header,.cover{color:#fff!important;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+ .cover h1,.cover-tag,.cover-subtitle,.cover-meta-label,.cover-meta-value,.module-title,.module-tag,.module-pts,.farmaco-nombre,.farmaco-clase{color:#fff!important}
 }
 
 </style>
@@ -989,10 +1077,10 @@ body{ background:#EAF3F1 !important; font-family:var(--sans); }
 </div>
 <div class="taller-content">
 
-<div class="print-first-note" id="printFirstNote"><span>NOTA AUTOCORREGIBLE</span><strong id="printNotaNVPO">0.00 / 3.50 pts</strong><small>Módulos A + C · resultado registrado al descargar</small></div>
+<div class="print-first-note" id="printFirstNote"><span>NOTA AUTOCORREGIBLE</span><strong id="printNotaNVPO">0.00 / 5.00 pts</strong><small>Módulos A + B + C · resultado registrado al descargar</small></div>
 
 <div class="alert-yellow">
-  🤖 <strong>Módulo A</strong> (2.5 pts) — Selección múltiple autocorregible. Presione <em>Corregir Módulo A</em> al terminar. &nbsp;|&nbsp; ✏️ <strong>Módulo B</strong> (2.5 pts) — Preguntas abiertas calificadas por el docente.
+  🤖 <strong>Módulos A, B y C</strong> — 100% autocorregibles: selección múltiple, cálculos, Verdadero/Falso, completar espacios y ordenar pasos. Presione <em>Corregir Módulo</em> al terminar cada uno. La nota final se expresa sobre 5.0.
 </div>
 
 <!-- MÓDULO A -->
@@ -1253,76 +1341,140 @@ body{ background:#EAF3F1 !important; font-family:var(--sans); }
       <button class="correct-btn" onclick="corregir('C',5,['fbC1','fbC2','fbC3','fbC4','fbC5'],1.0)">Corregir Módulo C (1.0 pt)</button>
     </div>
 
-    <div class="nota-bar">
-      <span class="nota-bar-label">Nota autocorregible</span>
-      <span class="nota-bar-val" id="notaNVPO">0.00 / 3.50</span>
-      <span style="font-family:var(--sans);font-size:9pt;color:var(--gray-400);">pts · Módulos A + C</span>
-    </div>
   </div>
 </div>
 
 <!-- MÓDULO B -->
 <div class="module">
-  <div class="module-header" style="background:var(--amber);">
-    <span class="module-tag">✏️ DOCENTE</span>
-    <span class="module-title">Módulo B — Preguntas abiertas de análisis clínico</span>
+  <div class="module-header" style="background:var(--teal);">
+    <span class="module-tag">🤖 AUTOCORREGIBLE</span>
+    <span class="module-title">Módulo B — Razonamiento clínico integrado</span>
     <span class="module-pts">2.5 pts</span>
   </div>
-  <div class="module-body">
+  <div class="module-body" id="module-B-body">
 
     <div class="ex-item">
-      <div class="ex-label"><span class="ex-num">B1</span> ZGQ, BHE y profilaxis combinada <span class="ex-pts-manual">0.5 pts · docente</span></div>
-      <div class="manual-block">
-        <div class="manual-block-label">✏️ Pregunta abierta</div>
-        <div class="open-question-part"><span class="open-question-part-letter">a</span><span>Explique por qué la Zona Gatillo Quimiorreceptora (ZGQ) tiene capilares fenestrados y cómo esta característica anatómica hace que los opioides IV causen NVPO incluso sin cruzar la BHE.</span></div>
-        <div class="open-question-part"><span class="open-question-part-letter">b</span><span>Defina y distinga aditivismo vs sinergismo farmacológico. ¿Por qué la combinación ondansetrón + dexametasona tiene un NNT de 3, siendo que individualmente tienen NNT de 6 y 4–5 respectivamente?</span></div>
-        <textarea class="open-area" placeholder="Escriba su respuesta aquí..."></textarea>
-        <div class="print-answer"></div>
+      <div class="ex-label"><span class="ex-num">B1</span> ZGQ, BHE y profilaxis combinada — Selección múltiple <span class="ex-pts-auto">🤖 0.5 pts</span></div>
+      <div class="ms-group" id="ms-B1">
+        <div class="ms-instruction">Marque TODAS las afirmaciones correctas sobre la Zona Gatillo Quimiorreceptora (ZGQ) y la combinación antiemética:</div>
+        <div class="ms-item"><input type="checkbox" data-correct="true" id="ck_B1_1"><label for="ck_B1_1">La ZGQ (área postrema) tiene capilares fenestrados que permiten el paso directo de fármacos y toxinas circulantes sin necesidad de atravesar la barrera hematoencefálica (BHE)</label></div>
+        <div class="ms-item"><input type="checkbox" data-correct="false" id="ck_B1_2"><label for="ck_B1_2">La ZGQ está protegida por la BHE igual que el resto del tejido cerebral</label></div>
+        <div class="ms-item"><input type="checkbox" data-correct="true" id="ck_B1_3"><label for="ck_B1_3">Por esta razón, los opioides IV pueden activar la ZGQ y producir NVPO incluso sin cruzar la BHE de forma significativa</label></div>
+        <div class="ms-item"><input type="checkbox" data-correct="true" id="ck_B1_4"><label for="ck_B1_4">El sinergismo ocurre cuando el efecto combinado de dos fármacos es mayor que la simple suma de sus efectos individuales, a diferencia del aditivismo donde el efecto combinado es igual a la suma</label></div>
+        <div class="ms-item"><input type="checkbox" data-correct="false" id="ck_B1_5"><label for="ck_B1_5">Aditivismo y sinergismo son sinónimos y se usan indistintamente en farmacología</label></div>
+        <div class="ms-item"><input type="checkbox" data-correct="true" id="ck_B1_6"><label for="ck_B1_6">La combinación ondansetrón + dexametasona actúa sobre mecanismos complementarios (bloqueo 5-HT₃ + acción antiinflamatoria/central del corticoide), lo que explica un NNT combinado (3) mejor que el esperado por simple adición — sinergismo</label></div>
+        <div class="ms-item"><input type="checkbox" data-correct="false" id="ck_B1_7"><label for="ck_B1_7">El NNT combinado de 3 es simplemente el promedio matemático de los NNT individuales (6 y 4–5)</label></div>
+        <span class="ms-fb"></span>
       </div>
     </div>
 
     <div class="ex-item">
-      <div class="ex-label"><span class="ex-num">B2</span> Dexametasona dada al cierre: consecuencias clínicas <span class="ex-pts-manual">0.5 pts · docente</span></div>
-      <div class="manual-block">
-        <div class="manual-block-label">✏️ Caso clínico</div>
-        <div class="open-question">Una estudiante de medicina administra dexametasona 8 mg al cierre de la herida (en lugar de a la inducción). La paciente presenta NVPO intenso a las 2 h y glucemia de 247 mg/dL a las 3 h. Explique: (a) Por qué la dexametasona no previno la NVPO (mecanismo farmacocinético). (b) Por qué causó hiperglucemia tardía y qué decisión tomará con la insulina. (c) Cuál sería la conducta antiemética de rescate ahora, seleccionando un fármaco de clase diferente con dosis y dilución.</div>
-        <textarea class="open-area" placeholder="Escriba su respuesta aquí..."></textarea>
-        <div class="print-answer"></div>
+      <div class="ex-label"><span class="ex-num">B2</span> Dexametasona dada al cierre: consecuencias clínicas <span class="ex-pts-auto">🤖 0.5 pts</span></div>
+      <div class="ex-context">Una estudiante de medicina administra dexametasona 8 mg al cierre de la herida (en lugar de a la inducción). La paciente presenta NVPO intenso a las 2 h y glucemia de 247 mg/dL a las 3 h.</div>
+      <div class="mc-row"><span class="mc-label">¿Por qué la dexametasona no previno la NVPO?</span>
+        <select class="mc-select" onchange="chk(this,'Su efecto antiemético requiere varias horas de latencia (pico a las 2–4 h); administrada al cierre no alcanza su efecto máximo durante el período de mayor riesgo postoperatorio','fbB2a')">
+          <option value="">— elegir —</option>
+          <option>Su efecto antiemético requiere varias horas de latencia (pico a las 2–4 h); administrada al cierre no alcanza su efecto máximo durante el período de mayor riesgo postoperatorio</option>
+          <option>La dexametasona no tiene ningún efecto antiemético, solo antiinflamatorio</option>
+          <option>La dosis de 8 mg es insuficiente independientemente del momento de administración</option>
+        </select><span class="fb" id="fbB2a"></span>
+      </div>
+      <div class="mc-row"><span class="mc-label">¿Por qué causó hiperglucemia tardía y qué decisión toma con la insulina?</span>
+        <select class="mc-select" onchange="chk(this,'La dexametasona induce resistencia a la insulina y aumenta la gluconeogénesis hepática, con pico de efecto a las 4–8 h; se debe monitorizar la glucemia y usar insulina correctiva si supera el umbral institucional','fbB2b')">
+          <option value="">— elegir —</option>
+          <option>La dexametasona induce resistencia a la insulina y aumenta la gluconeogénesis hepática, con pico de efecto a las 4–8 h; se debe monitorizar la glucemia y usar insulina correctiva si supera el umbral institucional</option>
+          <option>La hiperglucemia es un efecto raro sin relevancia clínica; no requiere intervención</option>
+          <option>La dexametasona causa hipoglucemia, no hiperglucemia</option>
+        </select><span class="fb" id="fbB2b"></span>
+      </div>
+      <div class="mc-row"><span class="mc-label">Conducta antiemética de rescate más apropiada (clase diferente):</span>
+        <select class="mc-select" onchange="chk(this,'Ondansetrón 4 mg IV lento diluido (evitar bolo rápido por riesgo de QT prolongado) — antagonista 5-HT₃, mecanismo distinto al corticoide ya administrado','fbB2c')">
+          <option value="">— elegir —</option>
+          <option>Ondansetrón 4 mg IV lento diluido (evitar bolo rápido por riesgo de QT prolongado) — antagonista 5-HT₃, mecanismo distinto al corticoide ya administrado</option>
+          <option>Repetir dexametasona 8 mg IV — misma clase, refuerza el efecto</option>
+          <option>Prometazina IV en dosis altas sin diluir</option>
+        </select><span class="fb" id="fbB2c"></span>
       </div>
     </div>
 
     <div class="ex-item">
-      <div class="ex-label"><span class="ex-num">B3</span> Fisiología del reflejo emético: hipotensión espinal y neostigmina <span class="ex-pts-manual">0.5 pts · docente</span></div>
-      <div class="manual-block">
-        <div class="manual-block-label">✏️ Pregunta abierta</div>
-        <div class="open-question-part"><span class="open-question-part-letter">a</span><span>Explique el mecanismo por el cual la hipotensión espinal produce náusea en raquianestesia. ¿Qué receptor y vía aferente están principalmente involucrados?</span></div>
-        <div class="open-question-part"><span class="open-question-part-letter">b</span><span>Un paciente recibió vecuronio 0.1 mg/kg. ¿Por qué la neostigmina causa NVPO y por qué el sugammadex es preferible en pacientes de alto riesgo? ¿Qué dosis de sugammadex usaría?</span></div>
-        <div class="open-question-part"><span class="open-question-part-letter">c</span><span>Describa las tres fases del acto emético (prodromo, arcada, expulsión) señalando el componente neuromotor de cada una.</span></div>
-        <textarea class="open-area" placeholder="Escriba su respuesta aquí..."></textarea>
-        <div class="print-answer"></div>
+      <div class="ex-label"><span class="ex-num">B3</span> Fisiología del reflejo emético <span class="ex-pts-auto">🤖 0.5 pts</span></div>
+      <div class="mc-row"><span class="mc-label">Mecanismo de la náusea por hipotensión espinal en raquianestesia:</span>
+        <select class="mc-select" onchange="chk(this,'Hipoperfusión troncoencefálica transitoria que activa barorreceptores y quimiorreceptores centrales, con aferencias vagales hacia el centro del vómito','fbB3a')">
+          <option value="">— elegir —</option>
+          <option>Hipoperfusión troncoencefálica transitoria que activa barorreceptores y quimiorreceptores centrales, con aferencias vagales hacia el centro del vómito</option>
+          <option>Estimulación directa del laberinto vestibular por el cambio de posición</option>
+          <option>Irritación mecánica directa del peritoneo por el bloqueo motor</option>
+        </select><span class="fb" id="fbB3a"></span>
+      </div>
+      <div class="mc-row"><span class="mc-label">Neostigmina vs. sugammadex tras vecuronio 0.1 mg/kg — mecanismo y dosis:</span>
+        <select class="mc-select" onchange="chk(this,'La neostigmina aumenta la actividad colinérgica GI y central (efecto muscarínico) elevando el riesgo de NVPO; el sugammadex no tiene este efecto porque actúa por encapsulación — dosis 2 mg/kg para bloqueo moderado','fbB3b')">
+          <option value="">— elegir —</option>
+          <option>La neostigmina aumenta la actividad colinérgica GI y central (efecto muscarínico) elevando el riesgo de NVPO; el sugammadex no tiene este efecto porque actúa por encapsulación — dosis 2 mg/kg para bloqueo moderado</option>
+          <option>Ambos fármacos tienen el mismo mecanismo y riesgo de NVPO; la elección es indiferente</option>
+          <option>El sugammadex causa más NVPO por su efecto colinérgico directo</option>
+        </select><span class="fb" id="fbB3b"></span>
+      </div>
+      <div class="alert-yellow" style="margin:10px 0;">Ordene las 3 fases del acto emético (1 = primero, 3 = último) según el evento fisiológico descrito.</div>
+      <div class="mc-row"><span class="mc-label">Contracciones espasmódicas rítmicas de músculos respiratorios contra la glotis cerrada, sin expulsión de contenido gástrico</span><select class="mc-select" onchange="chk(this,'2','fbB3c1')"><option value="">—</option><option>1</option><option>2</option><option>3</option></select><span class="fb" id="fbB3c1"></span></div>
+      <div class="mc-row"><span class="mc-label">Náusea subjetiva con hipersalivación, taquicardia y relajación del fondo gástrico (fase autonómica preparatoria)</span><select class="mc-select" onchange="chk(this,'1','fbB3c2')"><option value="">—</option><option>1</option><option>2</option><option>3</option></select><span class="fb" id="fbB3c2"></span></div>
+      <div class="mc-row"><span class="mc-label">Contracción sostenida del diafragma y músculos abdominales con relajación del esfínter esofágico superior, generando expulsión forzada</span><select class="mc-select" onchange="chk(this,'3','fbB3c3')"><option value="">—</option><option>1</option><option>2</option><option>3</option></select><span class="fb" id="fbB3c3"></span></div>
+    </div>
+
+    <div class="ex-item">
+      <div class="ex-label"><span class="ex-num">B4</span> Ondansetrón en poblaciones especiales — Verdadero o Falso <span class="ex-pts-auto">🤖 0.5 pts</span></div>
+      <div class="ex-context">Casos: (a) Neonato de 25 días, 2.8 kg. (b) Adulto con insuficiencia hepática Child C (bilirrubina 4.2, albúmina 2.1, TP 22 s). (c) Gestante de 28 semanas con NVPO severo refractario a metoclopramida.</div>
+      <div class="vf-item">
+        <div class="vf-statement">1. En el neonato de 25 días, el ondansetrón debe usarse con precaución y monitorización del intervalo QT, por el mayor riesgo de prolongación del QT en este grupo etario.</div>
+        <div class="vf-btns">
+          <button type="button" class="vf-btn" onclick="vf(this,'V','V','fbB4_1')">Verdadero</button>
+          <button type="button" class="vf-btn" onclick="vf(this,'F','V','fbB4_1')">Falso</button>
+          <span class="fb" id="fbB4_1"></span>
+        </div>
+      </div>
+      <div class="vf-item">
+        <div class="vf-statement">2. En el paciente con insuficiencia hepática Child C, se recomienda no exceder una dosis total de 8 mg/día de ondansetrón por el metabolismo hepático reducido.</div>
+        <div class="vf-btns">
+          <button type="button" class="vf-btn" onclick="vf(this,'V','V','fbB4_2')">Verdadero</button>
+          <button type="button" class="vf-btn" onclick="vf(this,'F','V','fbB4_2')">Falso</button>
+          <span class="fb" id="fbB4_2"></span>
+        </div>
+      </div>
+      <div class="vf-item">
+        <div class="vf-statement">3. El ondansetrón está completamente contraindicado en el embarazo y nunca debe usarse en gestantes con NVPO severo, sin importar la edad gestacional.</div>
+        <div class="vf-btns">
+          <button type="button" class="vf-btn" onclick="vf(this,'V','F','fbB4_3')">Verdadero</button>
+          <button type="button" class="vf-btn" onclick="vf(this,'F','F','fbB4_3')">Falso</button>
+          <span class="fb" id="fbB4_3"></span>
+        </div>
+      </div>
+      <div class="vf-item">
+        <div class="vf-statement">4. En insuficiencia hepática severa, la vida media del ondansetrón se acorta, por lo que se recomienda aumentar la frecuencia de dosificación.</div>
+        <div class="vf-btns">
+          <button type="button" class="vf-btn" onclick="vf(this,'V','F','fbB4_4')">Verdadero</button>
+          <button type="button" class="vf-btn" onclick="vf(this,'F','F','fbB4_4')">Falso</button>
+          <span class="fb" id="fbB4_4"></span>
+        </div>
       </div>
     </div>
 
     <div class="ex-item">
-      <div class="ex-label"><span class="ex-num">B4</span> Ondansetrón en poblaciones especiales <span class="ex-pts-manual">0.5 pts · docente</span></div>
-      <div class="manual-block">
-        <div class="manual-block-label">✏️ Pregunta abierta</div>
-        <div class="open-question">Discuta el uso de ondansetrón en: (a) Neonato de 25 días, 2.8 kg, cirugía abdominal. (b) Adulto con insuficiencia hepática Child C (bilirrubina 4.2, albúmina 2.1, TP 22 s). (c) Gestante de 28 semanas con NVPO severo refractario a metoclopramida. Para cada caso: indique si está indicado, qué dosis y qué alternativa consideraría si estuviera contraindicado.</div>
-        <textarea class="open-area" placeholder="Escriba su respuesta aquí..."></textarea>
-        <div class="print-answer"></div>
+      <div class="ex-label"><span class="ex-num">B5</span> NVPO refractario: farmacología avanzada — Complete el texto <span class="ex-pts-auto">🤖 0.5 pts</span></div>
+      <div class="ex-context">El paciente recibió ondansetrón 4 mg al cierre y, sin efecto a las 2 h, se repite la dosis. Se plantea agregar aprepitant 40 mg VO.</div>
+      <div class="cloze-box">
+        <div class="cloze-text">
+          La saturación del receptor
+          <select class="cloze-select" onchange="chk(this,'5-HT3','fbB5_1')"><option value="">— elegir —</option><option>5-HT3</option><option>D2 dopaminérgico</option><option>NK-1</option><option>H1 histamínico</option></select>
+          ocurre cuando ya existe suficiente antagonista ocupando el receptor, por lo que repetir el mismo fármaco (ondansetrón) no aporta beneficio adicional — se debe rotar a una clase antiemética diferente. El palonosetrón, a diferencia del ondansetrón, tiene un mecanismo
+          <select class="cloze-select" onchange="chk(this,'alostérico y de acoplamiento prolongado','fbB5_2')"><option value="">— elegir —</option><option>alostérico y de acoplamiento prolongado</option><option>competitivo simple e inmediato</option><option>no competitivo irreversible</option><option>independiente del receptor</option></select>
+          , lo que explica su eficacia en el NVPO tardío (24–72 h). Al combinar aprepitant con la dexametasona ya administrada, debe considerarse que el aprepitant es un inhibidor de la enzima
+          <select class="cloze-select" onchange="chk(this,'CYP3A4','fbB5_3')"><option value="">— elegir —</option><option>CYP3A4</option><option>CYP2D6</option><option>CYP2C9</option><option>CYP1A2</option></select>
+          , la cual metaboliza la dexametasona, por lo que puede
+          <select class="cloze-select" onchange="chk(this,'aumentar','fbB5_4')"><option value="">— elegir —</option><option>aumentar</option><option>disminuir</option><option>no modificar</option><option>eliminar completamente</option></select>
+          los niveles plasmáticos del corticoide y requerir ajuste de dosis.
+        </div>
       </div>
-    </div>
-
-    <div class="ex-item">
-      <div class="ex-label"><span class="ex-num">B5</span> NVPO refractario: farmacología avanzada <span class="ex-pts-manual">0.5 pts · docente</span></div>
-      <div class="manual-block">
-        <div class="manual-block-label">✏️ Pregunta abierta</div>
-        <div class="open-question-part"><span class="open-question-part-letter">a</span><span>Un paciente recibió ondansetrón 4 mg al cierre y a las 2 h se repite la dosis sin efecto. Explique el concepto de saturación del receptor 5-HT₃ y por qué repetir el mismo antiemético no tiene utilidad.</span></div>
-        <div class="open-question-part"><span class="open-question-part-letter">b</span><span>¿Por qué el palonosetrón tiene eficacia en NVPO tardío (24–72 h) cuando el ondansetrón no? Compare sus mecanismos moleculares (competitivo simple vs dual alostérico + receptor coupling).</span></div>
-        <div class="open-question-part"><span class="open-question-part-letter">c</span><span>Si se agrega aprepitant 40 mg VO al NVPO refractario y el paciente ya recibió dexametasona 8 mg, ¿qué interacción farmacológica debe considerar y cómo la maneja? (CYP3A4)</span></div>
-        <textarea class="open-area" placeholder="Escriba su respuesta aquí..."></textarea>
-        <div class="print-answer"></div>
-      </div>
+      <button class="correct-btn" onclick="corregirB()">Corregir Módulo B (2.5 pts)</button>
     </div>
 
   </div>
@@ -1337,6 +1489,19 @@ body{ background:#EAF3F1 !important; font-family:var(--sans); }
   </div>
   <button class="dl-btn" onclick="dlPDF()">⬇ Descargar PDF</button>
   <div class="dl-error" id="errN">Complete nombre y universidad antes de descargar.</div>
+</div>
+
+<div class="nota-bar">
+  <div class="nota-mod-grid">
+    <div class="nota-mod-box"><span class="nota-mod-label">Módulo A</span><span class="nota-mod-val" id="notaA_NVPO">0.00 / 2.50</span></div>
+    <div class="nota-mod-box"><span class="nota-mod-label">Módulo B</span><span class="nota-mod-val" id="notaB_NVPO">0.00 / 2.50</span></div>
+    <div class="nota-mod-box"><span class="nota-mod-label">Módulo C</span><span class="nota-mod-val" id="notaC_NVPO">0.00 / 1.00</span></div>
+  </div>
+  <div class="nota-bar-total-row">
+    <span class="nota-bar-label">Nota Final del Taller</span>
+    <span class="nota-bar-val" id="notaNVPO">0.00 / 5.00</span>
+    <span style="font-family:var(--sans);font-size:8.5pt;color:var(--gray-400);">100% Autocorregible — suma acumulada de los 3 módulos</span>
+  </div>
 </div>
 
 </div><!-- /taller-content -->
@@ -1355,6 +1520,62 @@ function chk(sel,correct,fbId){
   answers[fbId]={val:sel.value.trim(),correct:correct.trim()};
   var fb=document.getElementById(fbId);
   if(fb){fb.textContent='';fb.className='fb';}
+}
+
+// Verdadero/Falso interactivo: dos botones por afirmación
+function vf(btn,choice,correct,fbId){
+  answers[fbId]={val:choice,correct:correct};
+  var group=btn.closest('.vf-btns');
+  group.querySelectorAll('.vf-btn').forEach(function(b){
+    b.classList.remove('sel','is-true','is-false','result-ok','result-bad');
+  });
+  btn.classList.add('sel', choice==='V' ? 'is-true' : 'is-false');
+  var fb=document.getElementById(fbId);
+  if(fb){fb.textContent='';fb.className='fb';}
+}
+
+// Helper: calcula la fracción de aciertos (0–1) de una lista de fbIds (selects/V-F)
+function fracFbIds(ids){
+  var ok=0;
+  ids.forEach(function(fbId){
+    var fb=document.getElementById(fbId), ans=answers[fbId];
+    if(!fb)return;
+    if(!ans||!ans.val){fb.textContent='— sin respuesta';fb.className='fb';return;}
+    var correct = ans.val===ans.correct;
+    if(ans.val==='V'||ans.val==='F'){
+      var vfContainer=fb.closest('.vf-item');
+      if(vfContainer){
+        vfContainer.querySelectorAll('.vf-btn.sel').forEach(function(b){
+          b.classList.remove('result-ok','result-bad');
+          b.classList.add(correct?'result-ok':'result-bad');
+        });
+      }
+    }
+    if(correct){ok++;fb.textContent='✓ correcto';fb.className='fb ok';}
+    else{fb.textContent='✗ incorrecto';fb.className='fb err';}
+  });
+  return ids.length ? ok/ids.length : 0;
+}
+
+// Helper: calcula el crédito parcial (0–1) de un recuadro de selección múltiple
+function fracMsGroup(grp){
+  if(!grp) return 0;
+  var checks=grp.querySelectorAll('input[type="checkbox"]');
+  var totalCorrect=grp.querySelectorAll('input[data-correct="true"]').length;
+  var checkedCorrect=0, checkedWrong=0;
+  checks.forEach(function(c){
+    var item=c.closest('.ms-item');
+    if(item) item.classList.remove('ms-ok','ms-bad');
+    var isCorrectOption=c.getAttribute('data-correct')==='true';
+    if(c.checked){
+      if(isCorrectOption){ checkedCorrect++; if(item) item.classList.add('ms-ok'); }
+      else { checkedWrong++; if(item) item.classList.add('ms-bad'); }
+    }
+  });
+  var frac = totalCorrect>0 ? Math.max(0,(checkedCorrect-checkedWrong))/totalCorrect : 0;
+  var fbEl=grp.querySelector('.ms-fb');
+  if(fbEl) fbEl.textContent='Aciertos: '+checkedCorrect+'/'+totalCorrect+(checkedWrong?' · Marcadas incorrectamente: '+checkedWrong:'')+' → '+(frac*100).toFixed(0)+'% de este punto';
+  return frac;
 }
 
 // MAPEO: cada casilla de resultado (fbId) -> bloque(s) de cálculo (calc-block) que debe verificarse
@@ -1400,7 +1621,7 @@ function checkChains(fbId){
   return allOk;
 }
 
-var pts={A:0,C:0};
+var pts={A:0,B:0,C:0};
 function corregir(mod,total,fbIds,maxPts){
   var ok=0;
   fbIds.forEach(function(fbId){
@@ -1419,12 +1640,36 @@ function corregir(mod,total,fbIds,maxPts){
   actualizarNotas();
   alert('Módulo '+mod+' corregido: '+ok+'/'+total+' correctas = '+p.toFixed(2)+' pts');
 }
+
+/* MÓDULO B — cada ejercicio (B1–B5) conserva su peso original de 0.5 pts,
+   calculado según su propia dinámica (selección múltiple, cascada de
+   selects, ordenar pasos, Verdadero/Falso o completar espacios). */
+function corregirB(){
+  var container=document.getElementById('module-B-body');
+  var fB1 = fracMsGroup(container.querySelector('#ms-B1'));
+  var fB2 = fracFbIds(['fbB2a','fbB2b','fbB2c']);
+  var fB3 = fracFbIds(['fbB3a','fbB3b','fbB3c1','fbB3c2','fbB3c3']);
+  var fB4 = fracFbIds(['fbB4_1','fbB4_2','fbB4_3','fbB4_4']);
+  var fB5 = fracFbIds(['fbB5_1','fbB5_2','fbB5_3','fbB5_4']);
+  var pesoEjercicio=0.5;
+  pts.B = (fB1+fB2+fB3+fB4+fB5)*pesoEjercicio;
+  actualizarNotas();
+  alert('Módulo B corregido: '+pts.B.toFixed(2)+' / 2.50 pts\n  • B1 (selección múltiple): '+(fB1*100).toFixed(0)+'%\n  • B2 (cascada de razonamiento): '+(fB2*100).toFixed(0)+'%\n  • B3 (mecanismo + ordenar fases): '+(fB3*100).toFixed(0)+'%\n  • B4 (Verdadero/Falso): '+(fB4*100).toFixed(0)+'%\n  • B5 (completar espacios): '+(fB5*100).toFixed(0)+'%');
+}
+
 function actualizarNotas(){
-  var total=((pts.A||0)+(pts.C||0)).toFixed(2);
+  var maxPorModulo={A:2.5,B:2.5,C:1.0};
+  Object.keys(maxPorModulo).forEach(function(mod){
+    var el=document.getElementById('nota'+mod+'_NVPO');
+    if(el) el.textContent=(pts[mod]||0).toFixed(2)+' / '+maxPorModulo[mod].toFixed(2);
+  });
+  var totalRaw=((pts.A||0)+(pts.B||0)+(pts.C||0));
+  var maxRaw=6.00;
+  var totalSobre5=(totalRaw/maxRaw)*5;
   var nt=document.getElementById('notaNVPO');
-  if(nt)nt.textContent=total+' / 3.50';
+  if(nt)nt.textContent=totalSobre5.toFixed(2)+' / 5.00';
   var pn=document.getElementById('printNotaNVPO');
-  if(pn)pn.textContent=total+' / 3.50 pts';
+  if(pn)pn.textContent=totalSobre5.toFixed(2)+' / 5.00 pts';
 }
 function setupPrintAnswers(){
   document.querySelectorAll('textarea.open-area').forEach(function(ta){

@@ -195,6 +195,35 @@ select.mc-select:focus { border-color:var(--navy); outline:none; }
 .fb.ok  { color:var(--green); }
 .fb.err { color:var(--red); }
 
+/* Selección múltiple con crédito parcial */
+.ms-group{border:1.5px solid var(--brd2);border-radius:10px;padding:12px 14px;margin:8px 0;background:#fbfdfd;}
+.ms-instruction{font-family:var(--sans);font-size:8.5pt;color:var(--gray-600);font-style:italic;margin-bottom:8px;}
+.ms-item{display:flex;align-items:flex-start;gap:8px;font-family:var(--sans);font-size:9.5pt;color:var(--txt);padding:5px 6px;border-radius:7px;margin:2px 0;}
+.ms-item input[type="checkbox"]{margin-top:3px;flex-shrink:0;cursor:pointer;}
+.ms-item label{cursor:pointer;line-height:1.5;}
+.ms-item.ms-ok{background:var(--green-light);}
+.ms-item.ms-ok::after{content:' ✓';color:var(--green);font-weight:800;}
+.ms-item.ms-bad{background:var(--red-light);}
+.ms-item.ms-bad::after{content:' ✗';color:var(--red);font-weight:800;}
+.ms-fb{display:block;font-family:var(--sans);font-size:8.5pt;font-weight:800;margin-top:8px;color:var(--navy);}
+
+/* Verdadero/Falso interactivo */
+.vf-item{border:1.5px solid var(--brd2);border-radius:9px;padding:9px 12px;margin:7px 0;background:#fff;}
+.vf-statement{font-family:var(--sans);font-size:9.5pt;color:var(--txt);line-height:1.5;margin-bottom:7px;}
+.vf-btns{display:flex;gap:8px;align-items:center;}
+.vf-btn{font-family:var(--sans);font-size:8.5pt;font-weight:700;padding:5px 16px;border-radius:20px;border:1.5px solid var(--brd2);background:#fff;cursor:pointer;transition:all .15s;}
+.vf-btn:hover{border-color:var(--navy);}
+.vf-btn.sel{color:#fff;}
+.vf-btn.sel.is-true{background:var(--green);border-color:var(--green);}
+.vf-btn.sel.is-false{background:var(--red);border-color:var(--red);}
+.vf-btn.result-ok{outline:3px solid #A5D6A7;}
+.vf-btn.result-bad{outline:3px solid #FFCDD2;}
+
+/* Completar espacios con banco de palabras (cloze) */
+.cloze-box{border:1.5px solid var(--brd2);border-radius:10px;padding:12px 14px;background:#fbfbfb;}
+.cloze-text{font-family:var(--sans);font-size:9.8pt;line-height:2.4;color:var(--txt);}
+.cloze-select{font-family:var(--sans);font-size:9pt;font-weight:700;padding:2px 6px;border:0;border-bottom:2px solid var(--navy-mid);background:#FFF3E0;border-radius:4px 4px 0 0;cursor:pointer;margin:0 2px;}
+
 /* Open textarea */
 .open-area { width:100%; min-height:80px; font-family:var(--sans); font-size:9.5pt; padding:11px 13px; border:1.5px solid var(--brd2); border-radius:10px; resize:vertical; color:var(--txt); line-height:1.6; transition:border-color .15s; }
 .open-area:focus { border-color:var(--navy); outline:none; }
@@ -215,7 +244,12 @@ select.mc-select:focus { border-color:var(--navy); outline:none; }
 .dl-error { color:var(--red); font-family:var(--sans); font-size:9pt; margin-top:6px; display:none; }
 
 /* Nota acumulada */
-.nota-bar { background:var(--teal-light); border:2px solid var(--teal); border-radius:14px; padding:16px 20px; margin-top:16px; display:flex; align-items:center; gap:20px; flex-wrap:wrap; }
+.nota-bar { background:var(--teal-light); border:2px solid var(--teal); border-radius:14px; padding:16px 20px 18px; margin-top:16px; }
+.nota-mod-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:8px; }
+.nota-mod-box { background:#fff; border:1.5px solid var(--brd2); border-radius:9px; padding:8px 6px; text-align:center; }
+.nota-mod-label { display:block; font-family:var(--sans); font-size:7.5pt; color:var(--gray-600); font-weight:700; margin-bottom:3px; }
+.nota-mod-val { display:block; font-family:var(--mono); font-size:11pt; font-weight:600; color:var(--navy-mid); }
+.nota-bar-total-row { display:flex; align-items:baseline; gap:14px; margin-top:12px; padding-top:12px; border-top:2px solid var(--teal); flex-wrap:wrap; }
 .nota-bar-label { font-family:var(--sans); font-size:9pt; font-weight:800; color:var(--teal); text-transform:uppercase; letter-spacing:.6px; }
 .nota-bar-val { font-family:var(--mono); font-size:20pt; font-weight:500; color:var(--navy); line-height:1; }
 
@@ -290,13 +324,137 @@ footer { border-top:2px solid rgba(0,0,0,.08); padding:22px 56px 28px; display:f
   .print-answer { display:none !important; }
 }
 
+
+/* TIPOGRAFÍA MEJORADA — preserva contenido y lógica */
+html{font-size:16px!important;}
+body{
+  font-family:'Nunito','DM Sans',system-ui,sans-serif!important;
+  font-size:12pt!important; line-height:1.75!important; color:#000!important;
+}
+p{font-size:12pt!important;line-height:1.75!important;}
+h3{font-size:13pt!important;line-height:1.35!important;}
+h4{font-size:11.5pt!important;}
+.tab-btn{font-size:12pt!important;}
+.cover-tag{font-size:11pt!important;}
+.cover h1{font-size:clamp(38px,6vw,62px)!important;}
+.cover-subtitle{font-size:13.5pt!important;line-height:1.7!important;}
+.cover-meta-label{font-size:10pt!important;}
+.cover-meta-value{font-size:12.5pt!important;}
+.section-number{font-size:11pt!important;}
+.section-title{font-size:24px!important;}
+.definition-label,.callout-title,.table-caption,.diagram-title{font-size:10pt!important;}
+.definition p{font-size:12pt!important;}
+.callout p{font-size:11.5pt!important;}
+table{font-size:11pt!important;}
+thead th{font-size:10.5pt!important;}
+tbody td{font-size:11pt!important;line-height:1.6!important;}
+ul.content-list li{font-size:11.5pt!important;}
+.col-card-title{font-size:11pt!important;}
+.col-card p{font-size:11pt!important;}
+.receptor-body{font-size:11pt!important;}
+.stat-value{font-size:17pt!important;}
+.stat-label{font-size:10pt!important;}
+.formula-label{font-size:10pt!important;}
+.formula{font-size:13pt!important;}
+.formula-example{font-size:10.5pt!important;}
+.taller-header h2{font-size:35px!important;}
+.taller-meta{font-size:12pt!important;}
+.alert-yellow{font-size:11pt!important;}
+.module-tag{font-size:10pt!important;}
+.module-title{font-size:11.5pt!important;}
+.module-pts{font-size:10pt!important;}
+.ex-label,.question-label{font-size:11pt!important;}
+.ex-num,.ex-pts-auto,.ex-pts-manual{font-size:9pt!important;}
+.ex-context{font-size:11pt!important;}
+.answer-line{font-size:11.5pt!important;}
+.ans-input{font-size:12pt!important;}
+.mc-row{font-size:11.5pt!important;}
+.mc-label{font-size:11.5pt!important;}
+select.mc-select{font-size:11pt!important;}
+.fb{font-size:11pt!important;}
+.ms-instruction{font-size:10.5pt!important;}
+.ms-item{font-size:11.5pt!important;}
+.ms-fb{font-size:10.5pt!important;}
+.vf-statement{font-size:11.5pt!important;}
+.vf-btn{font-size:10.5pt!important;}
+.cloze-text{font-size:11.5pt!important;}
+.cloze-select{font-size:11pt!important;}
+.open-area{font-size:11.5pt!important;}
+.open-label{font-size:10.5pt!important;}
+.correct-btn,.dl-btn{font-size:11pt!important;}
+.download-box h3{font-size:12pt!important;}
+.id-input{font-size:11.5pt!important;}
+.dl-error{font-size:11pt!important;}
+.nota-mod-label{font-size:9.5pt!important;}
+.nota-mod-val{font-size:13pt!important;}
+.nota-bar-label{font-size:11pt!important;}
+.nota-bar-val{font-size:22pt!important;}
+.manual-block-label{font-size:10pt!important;}
+footer .footer-name{font-size:11pt!important;}
+footer .footer-title{font-size:10pt!important;}
+footer .footer-copy{font-size:9.5pt!important;}
+
+/* Contraste: negro en superficies claras */
+.content,.taller-content,.module-body,.receptor-body,.drug-body,
+.table-wrap,.col-card,.diagram-wrap,.formula-block,.calc-block,
+.ms-group,.vf-item,.cloze-box,.open-area,.download-box,.nota-bar,
+.manual-block,footer,.table-caption{
+  color:#000!important;
+}
+.content p,.taller-content p,.module-body p,.receptor-body,.drug-body,
+.col-card p,.ex-context,.ms-item,.vf-statement,.cloze-text,
+.open-question,.open-question-part,.answer-line{
+  color:#000!important;
+}
+tbody td{color:#000!important;}
+.formula-example,.formula-label{color:#222!important;}
+.tab-nav{color:#000!important;}
+.tab-btn:not(.active){color:#000!important;}
+.id-input,select.mc-select,.open-area{color:#000!important;background:#fff!important;}
+.nota-mod-box{color:#000!important;}
+.nota-mod-label{color:#222!important;}
+
+/* Blanco en superficies oscuras */
+.cover,.taller-header,.module-header,.definition,.score-note,
+.stat-pill,.callout.das,.drug-banner,.receptor-header{
+  color:#fff!important;
+}
+.cover p,.taller-header p,.module-header p,.definition p,
+.score-note p,.stat-pill,.drug-banner,.receptor-header,
+.module-header .module-title{color:#fff!important;}
+.cover-subtitle{color:rgba(255,255,255,.92)!important;}
+.cover-meta-label{color:rgba(255,255,255,.78)!important;}
+.cover-meta-value{color:#fff!important;}
+.definition p,.callout.das p{color:rgba(255,255,255,.94)!important;}
+.drug-banner-name{color:#fff!important;}
+.drug-banner-sub{color:rgba(255,255,255,.86)!important;}
+.drug-tag{color:#fff!important;}
+.receptor-label{color:rgba(255,255,255,.86)!important;}
+.module-title,.module-pts,.module-tag{color:#fff!important;}
+.module-tag{color:var(--gold)!important;}
+.stat-label{color:rgba(255,255,255,.88)!important;}
+.stat-value{color:var(--gold)!important;}
+
+/* Impresión: conservar tamaño y contraste */
+@media print{
+  body{font-size:11.5pt!important;color:#000!important;}
+  p{font-size:11.5pt!important;}
+  table{font-size:10.5pt!important;}
+  tbody td{font-size:10.5pt!important;color:#000!important;}
+  .ex-context,.ms-item,.vf-statement,.print-answer{color:#000!important;}
+  .cover,.taller-header,.module-header,.receptor-header,.stat-pill,
+  .definition,.callout.das,.drug-banner{
+    -webkit-print-color-adjust:exact!important;
+    print-color-adjust:exact!important;
+  }
+}
 </style>
 </head>
 <body>
 <div id="print-watermark" aria-hidden="true">OPIOIDES · CÓDIGO <span id="wmCodigo">—</span></div>
 <div class="page">
 
-<div class="page-print-header"><span id="phNombre"></span> · <span id="phUniversidad"></span> · <span id="phGuia"></span> · <span id="phFecha"></span> · Código: <strong id="phCodigo"></strong> · <strong>Nota autocalificable: <span id="phNota">0.00 / 3.75</span></strong></div>
+<div class="page-print-header"><span id="phNombre"></span> · <span id="phUniversidad"></span> · <span id="phGuia"></span> · <span id="phFecha"></span> · Código: <strong id="phCodigo"></strong> · <strong>Nota autocalificable: <span id="phNota">0.00 / 5.00</span></strong></div>
 <div class="print-footer-fixed">
   <span><strong id="pfNombre"></strong> · <span id="pfUniversidad"></span></span>
   <span>Guía: <span id="pfGuia"></span> · Dr. Andrés Robayo C. · Código: <strong id="pfCodigo"></strong></span>
@@ -595,7 +753,7 @@ footer { border-top:2px solid rgba(0,0,0,.08); padding:22px 56px 28px; display:f
   <div class="taller-meta">Dr. Andrés Robayo C. · Módulos A · B · C · D · 5.0 puntos totales · Hospital de Kennedy</div>
 </div>
 <div class="taller-content">
-<div class="alert-yellow">⚠ <strong>Instrucciones:</strong> El feedback de selección múltiple aparece solo al oprimir "Corregir Módulo". Las preguntas abiertas en ámbar son calificadas manualmente por el docente. Muestre las unidades en cada cálculo.</div>
+<div class="alert-yellow">⚠ <strong>Instrucciones:</strong> El feedback aparece solo al oprimir "Corregir Módulo". Incluye selección múltiple, Verdadero/Falso, completar espacios y opción múltiple. Muestre las unidades en cada cálculo. <strong>Todo el taller es 100% autocalificable.</strong></div>
 
 <!-- SCORE BANNER -->
 <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:16px;">
@@ -606,7 +764,7 @@ footer { border-top:2px solid rgba(0,0,0,.08); padding:22px 56px 28px; display:f
 </div>
 <div class="score-note">
   <span style="font-family:var(--mono);font-size:16pt;font-weight:600;color:#FF8A80;">5.0 pts</span>
-  <span style="font-family:var(--sans);font-size:9pt;color:rgba(255,255,255,.8);">🤖 Módulos A y B 100% autocorregibles · Módulos C y D incluyen preguntas abiertas ✏️ calificadas por docente. Puntajes diferenciados en cada ejercicio.</span>
+  <span style="font-family:var(--sans);font-size:9pt;color:rgba(255,255,255,.8);">🤖 Los 4 módulos son 100% autocorregibles — selección múltiple, cálculos, Verdadero/Falso y completar espacios.</span>
 </div>
 
 <!-- ══ MÓDULO A — CÁLCULOS ══ -->
@@ -714,9 +872,9 @@ footer { border-top:2px solid rgba(0,0,0,.08); padding:22px 56px 28px; display:f
   <div class="module-header" style="background:var(--red);">
     <span class="module-tag">MÓDULO C</span>
     <span class="module-title">Caso clínico integrado — Toxidrome opioide y manejo con naloxona</span>
-    <span class="module-pts">🤖 0.75 pts auto · ✏️ 0.75 pts docente · Total 1.5 pts</span>
+    <span class="module-pts">🤖 1.5 pts · 100% autocorregible</span>
   </div>
-  <div class="module-body">
+  <div class="module-body" id="module-C-body">
     <div class="ex-context">
       Paciente femenina, <strong>68 años, 55 kg</strong>, traída por familiar a urgencias con alteración del estado de consciencia. Antecedente: dolor oncológico crónico con <strong>parche de fentanilo 75 µg/h</strong> (cambio cada 72 h, último cambio hace 24 h) + oxicodona oral 10 mg SOS. Al examen: <strong>Glasgow 9, FR 6/min, SpO₂ 80% con O₂ por máscara, PA 85/55, FC 48, pupilas puntiformes bilaterales no reactivas.</strong>
     </div>
@@ -747,16 +905,19 @@ footer { border-top:2px solid rgba(0,0,0,.08); padding:22px 56px 28px; display:f
     </div>
 
     <div class="ex-item">
-      <div class="ex-label"><span class="ex-num">C4</span> Re-narcotización y monitoreo — Pregunta abierta &nbsp;<span class="ex-pts-manual">✏️ 0.75 pts · calificación docente</span></div>
-      <div class="manual-block">
-        <div class="manual-block-label">✏️ Calificación docente — 0.75 pts</div>
-        <div class="open-question-part"><span class="open-question-part-letter">a</span><span>¿Por qué se usa naloxona escalonada en esta paciente y no el bolo estándar de 0.4–2 mg?</span></div>
-        <div class="open-question-part"><span class="open-question-part-letter">b</span><span>¿Por qué esta paciente tiene riesgo muy alto de re-narcotización? Argumente con la farmacocinética del fentanilo transdérmico y de la naloxona.</span></div>
-        <div class="open-question-part"><span class="open-question-part-letter">c</span><span>¿Cuánto tiempo mínimo debe monitorizarse después de recibir naloxona y qué signos vigilar?</span></div>
-        <textarea class="open-area" style="min-height:130px;" placeholder="Escriba su respuesta aquí..."></textarea>
+      <div class="ex-label"><span class="ex-num">C4</span> Re-narcotización y monitoreo — Selección múltiple <span class="ex-pts-auto">🤖 0.75 pts</span></div>
+      <div class="ms-group">
+        <div class="ms-instruction">Marque TODAS las afirmaciones correctas sobre el manejo de esta paciente:</div>
+        <div class="ms-item"><input type="checkbox" data-correct="true" id="ck_C4_1"><label for="ck_C4_1">Se usa naloxona escalonada (0.04 mg) en vez del bolo estándar para revertir la depresión respiratoria sin precipitar un síndrome de abstinencia agudo ni dolor oncológico incontrolado, dado el uso crónico de opioides</label></div>
+        <div class="ms-item"><input type="checkbox" data-correct="false" id="ck_C4_2"><label for="ck_C4_2">El bolo estándar de naloxona (0.4–2 mg) es preferible en cualquier paciente con depresión respiratoria opioide, sin importar el uso crónico</label></div>
+        <div class="ms-item"><input type="checkbox" data-correct="true" id="ck_C4_3"><label for="ck_C4_3">El fentanilo transdérmico forma un depósito subcutáneo que continúa liberando fármaco durante horas después de retirar el parche</label></div>
+        <div class="ms-item"><input type="checkbox" data-correct="true" id="ck_C4_4"><label for="ck_C4_4">La vida media de la naloxona (30–80 min) es más corta que la del fentanilo transdérmico y la oxicodona oral, por lo que su efecto de reversión puede desaparecer antes de que el opioide se elimine — riesgo de re-narcotización</label></div>
+        <div class="ms-item"><input type="checkbox" data-correct="false" id="ck_C4_5"><label for="ck_C4_5">La naloxona tiene una vida media más larga que el fentanilo transdérmico, por lo que no existe riesgo de re-narcotización</label></div>
+        <div class="ms-item"><input type="checkbox" data-correct="true" id="ck_C4_6"><label for="ck_C4_6">Debe monitorizarse a la paciente durante varias horas (algunas guías recomiendan ≥24 h con fentanilo transdérmico), vigilando frecuencia respiratoria, nivel de consciencia y saturación</label></div>
+        <div class="ms-item"><input type="checkbox" data-correct="false" id="ck_C4_7"><label for="ck_C4_7">Una vez revertida la depresión respiratoria con naloxona, no es necesario continuar monitorizando porque el efecto es permanente</label></div>
+        <span class="ms-fb"></span>
       </div>
-      <button class="correct-btn" onclick="corregir('C',3,['fbC1','fbC2','fbC3'],0.75)">Corregir Módulo C — Selección múltiple (0.75 pts autocorregibles)</button>
-      <div style="font-family:var(--sans);font-size:8pt;color:var(--gray-400);margin-top:6px;font-style:italic;">Pregunta C4 calificada por el docente (0.75 pts) → Total Módulo C: 1.50 pts</div>
+      <button class="correct-btn" onclick="corregirC()">Corregir Módulo C (1.50 pts)</button>
     </div>
   </div>
 </div>
@@ -766,7 +927,7 @@ footer { border-top:2px solid rgba(0,0,0,.08); padding:22px 56px 28px; display:f
   <div class="module-header" style="background:var(--purple);">
     <span class="module-tag">MÓDULO D</span>
     <span class="module-title">Efectos farmacodinámicos — Integración clínica</span>
-    <span class="module-pts">🤖 0.50 pts auto · ✏️ 0.50 pts docente · Total 1.0 pt</span>
+    <span class="module-pts">🤖 1.0 pt · 100% autocorregible</span>
   </div>
   <div class="module-body">
 
@@ -784,25 +945,59 @@ footer { border-top:2px solid rgba(0,0,0,.08); padding:22px 56px 28px; display:f
     </div>
 
     <div class="ex-item">
-      <div class="ex-label"><span class="ex-num">D2</span> Prurito opioide y tratamiento diferencial — Pregunta abierta &nbsp;<span class="ex-pts-manual">✏️ 0.25 pts · docente</span></div>
+      <div class="ex-label"><span class="ex-num">D2</span> Prurito opioide y tratamiento diferencial — Complete el texto <span class="ex-pts-auto">🤖 0.25 pts</span></div>
       <div class="ex-context">Un residente administra difenhidramina 25 mg IV para el prurito generalizado de un paciente que recibió morfina epidural. El prurito persiste sin mejoría.</div>
-      <div class="manual-block">
-        <div class="manual-block-label">✏️ Calificación docente — 0.25 pts</div>
-        <div class="open-question">¿Por qué los antihistamínicos no funcionan bien en el prurito por morfina epidural? Explique el mecanismo real del prurito opioide y cuál es el tratamiento de primera línea con su justificación farmacológica.</div>
-        <textarea class="open-area" placeholder="Escriba su respuesta aquí..."></textarea>
+      <div class="cloze-box">
+        <div class="cloze-text">
+          El prurito inducido por opioides no responde bien a los antihistamínicos porque su mecanismo no depende principalmente de la liberación de
+          <select class="cloze-select" onchange="chk(this,'histamina','fbD2_1')"><option value="">— elegir —</option><option>histamina</option><option>serotonina</option><option>bradicinina</option><option>sustancia P</option></select>
+          , sino de la activación directa de receptores
+          <select class="cloze-select" onchange="chk(this,'µ opioides','fbD2_2')"><option value="">— elegir —</option><option>µ opioides</option><option>histamínicos H1</option><option>GABA-A</option><option>NMDA</option></select>
+          en las neuronas del asta dorsal de la médula espinal. Por esta razón, el tratamiento de primera línea más efectivo es un antagonista/agonista-antagonista opioide en dosis bajas como la
+          <select class="cloze-select" onchange="chk(this,'naloxona (dosis bajas)','fbD2_3')"><option value="">— elegir —</option><option>naloxona (dosis bajas)</option><option>difenhidramina</option><option>loratadina</option><option>hidroxizina</option></select>
+          , o alternativamente un antagonista del receptor
+          <select class="cloze-select" onchange="chk(this,'5-HT3 (serotoninérgico)','fbD2_4')"><option value="">— elegir —</option><option>5-HT3 (serotoninérgico)</option><option>H1 (histamínico)</option><option>D2 (dopaminérgico)</option><option>muscarínico</option></select>
+          como el ondansetrón.
+        </div>
       </div>
     </div>
 
     <div class="ex-item">
-      <div class="ex-label"><span class="ex-num">D3</span> Efectos cardiovasculares comparados — Pregunta abierta &nbsp;<span class="ex-pts-manual">✏️ 0.25 pts · docente</span></div>
+      <div class="ex-label"><span class="ex-num">D3</span> Efectos cardiovasculares comparados — Verdadero o Falso <span class="ex-pts-auto">🤖 0.25 pts</span></div>
       <div class="ex-context">Paciente politraumatizado con inestabilidad hemodinámica severa (PA 70/40, FC 118). Requiere anestesia general urgente. El residente propone morfina 10 mg IV para la inducción.</div>
-      <div class="manual-block">
-        <div class="manual-block-label">✏️ Calificación docente — 0.25 pts</div>
-        <div class="open-question">¿Está de acuerdo con usar morfina IV en este paciente politraumatizado con hipotensión severa? Argumente con base en los efectos cardiovasculares de la morfina y proponga un opioide alternativo más apropiado con su justificación.</div>
-        <textarea class="open-area" placeholder="Escriba su respuesta aquí..."></textarea>
+      <div class="vf-item">
+        <div class="vf-statement">1. La morfina puede producir liberación de histamina y vasodilatación venosa, lo que puede agravar la hipotensión en este paciente ya inestable.</div>
+        <div class="vf-btns">
+          <button type="button" class="vf-btn" onclick="vf(this,'V','V','fbD3_1')">Verdadero</button>
+          <button type="button" class="vf-btn" onclick="vf(this,'F','V','fbD3_1')">Falso</button>
+          <span class="fb" id="fbD3_1"></span>
+        </div>
       </div>
-      <button class="correct-btn" onclick="corregir('D',2,['fbD1a','fbD1b'],0.5)">Corregir Módulo D — Selección múltiple (0.50 pts autocorregibles)</button>
-      <div style="font-family:var(--sans);font-size:8pt;color:var(--gray-400);margin-top:6px;font-style:italic;">Preguntas D2 y D3 calificadas por el docente (0.50 pts) → Total Módulo D: 1.00 pt</div>
+      <div class="vf-item">
+        <div class="vf-statement">2. En este paciente, la morfina IV es la opción más segura porque su efecto cardiovascular es neutro.</div>
+        <div class="vf-btns">
+          <button type="button" class="vf-btn" onclick="vf(this,'V','F','fbD3_2')">Verdadero</button>
+          <button type="button" class="vf-btn" onclick="vf(this,'F','F','fbD3_2')">Falso</button>
+          <span class="fb" id="fbD3_2"></span>
+        </div>
+      </div>
+      <div class="vf-item">
+        <div class="vf-statement">3. El fentanilo es un opioide más apropiado que la morfina en el paciente hipotenso, porque tiene mínima liberación de histamina y mayor estabilidad cardiovascular.</div>
+        <div class="vf-btns">
+          <button type="button" class="vf-btn" onclick="vf(this,'V','V','fbD3_3')">Verdadero</button>
+          <button type="button" class="vf-btn" onclick="vf(this,'F','V','fbD3_3')">Falso</button>
+          <span class="fb" id="fbD3_3"></span>
+        </div>
+      </div>
+      <div class="vf-item">
+        <div class="vf-statement">4. Ningún opioide debe usarse en pacientes politraumatizados con inestabilidad hemodinámica severa.</div>
+        <div class="vf-btns">
+          <button type="button" class="vf-btn" onclick="vf(this,'V','F','fbD3_4')">Verdadero</button>
+          <button type="button" class="vf-btn" onclick="vf(this,'F','F','fbD3_4')">Falso</button>
+          <span class="fb" id="fbD3_4"></span>
+        </div>
+      </div>
+      <button class="correct-btn" onclick="corregirD()">Corregir Módulo D (1.00 pt)</button>
     </div>
   </div>
 </div>
@@ -818,9 +1013,17 @@ footer { border-top:2px solid rgba(0,0,0,.08); padding:22px 56px 28px; display:f
   <div class="dl-error" id="errO">⚠ Por favor complete nombre y universidad antes de descargar.</div>
 </div>
 <div class="nota-bar">
-  <span class="nota-bar-label">Nota acumulada</span>
-  <span class="nota-bar-val" id="notaTotal">0.00 / 3.75</span>
-  <span style="font-family:var(--sans);font-size:8.5pt;color:var(--gray-600);">Autocorregible (Módulos A–D) &nbsp;|&nbsp; <span style="color:var(--amber);font-weight:600;">✏️ 1.25 pts · Preguntas abiertas calificadas por docente</span></span>
+  <div class="nota-mod-grid">
+    <div class="nota-mod-box"><span class="nota-mod-label">Módulo A</span><span class="nota-mod-val" id="notaAOp">0.00 / 1.00</span></div>
+    <div class="nota-mod-box"><span class="nota-mod-label">Módulo B</span><span class="nota-mod-val" id="notaBOp">0.00 / 1.50</span></div>
+    <div class="nota-mod-box"><span class="nota-mod-label">Módulo C</span><span class="nota-mod-val" id="notaCOp">0.00 / 1.50</span></div>
+    <div class="nota-mod-box"><span class="nota-mod-label">Módulo D</span><span class="nota-mod-val" id="notaDOp">0.00 / 1.00</span></div>
+  </div>
+  <div class="nota-bar-total-row">
+    <span class="nota-bar-label">Nota Final del Taller</span>
+    <span class="nota-bar-val" id="notaTotal">0.00 / 5.00</span>
+    <span style="font-family:var(--sans);font-size:8.5pt;color:var(--gray-600);">100% Autocorregible — suma acumulada de los 4 módulos</span>
+  </div>
 </div>
 </div>
 </div><!-- /taller-tab -->
@@ -839,6 +1042,62 @@ function chk(sel,correct,fbId){
   answers[fbId]={val:sel.value.trim(),correct:correct.trim()};
   var fb=document.getElementById(fbId);
   if(fb){fb.textContent='';fb.className='fb';}
+}
+
+// Verdadero/Falso interactivo: dos botones por afirmación
+function vf(btn,choice,correct,fbId){
+  answers[fbId]={val:choice,correct:correct};
+  var group=btn.closest('.vf-btns');
+  group.querySelectorAll('.vf-btn').forEach(function(b){
+    b.classList.remove('sel','is-true','is-false','result-ok','result-bad');
+  });
+  btn.classList.add('sel', choice==='V' ? 'is-true' : 'is-false');
+  var fb=document.getElementById(fbId);
+  if(fb){fb.textContent='';fb.className='fb';}
+}
+
+// Helper: calcula la fracción de aciertos (0–1) de una lista de fbIds (selects/V-F)
+function fracFbIds(ids){
+  var ok=0;
+  ids.forEach(function(fbId){
+    var fb=document.getElementById(fbId), ans=answers[fbId];
+    if(!fb)return;
+    if(!ans||!ans.val){fb.textContent='— sin respuesta';fb.className='fb';return;}
+    var correct = ans.val===ans.correct;
+    if(ans.val==='V'||ans.val==='F'){
+      var vfContainer=fb.closest('.vf-item');
+      if(vfContainer){
+        vfContainer.querySelectorAll('.vf-btn.sel').forEach(function(b){
+          b.classList.remove('result-ok','result-bad');
+          b.classList.add(correct?'result-ok':'result-bad');
+        });
+      }
+    }
+    if(correct){ok++;fb.textContent='✓ correcto';fb.className='fb ok';}
+    else{fb.textContent='✗ incorrecto';fb.className='fb err';}
+  });
+  return ids.length ? ok/ids.length : 0;
+}
+
+// Helper: calcula el crédito parcial (0–1) de un recuadro de selección múltiple
+function fracMsGroup(grp){
+  if(!grp) return 0;
+  var checks=grp.querySelectorAll('input[type="checkbox"]');
+  var totalCorrect=grp.querySelectorAll('input[data-correct="true"]').length;
+  var checkedCorrect=0, checkedWrong=0;
+  checks.forEach(function(c){
+    var item=c.closest('.ms-item');
+    if(item) item.classList.remove('ms-ok','ms-bad');
+    var isCorrectOption=c.getAttribute('data-correct')==='true';
+    if(c.checked){
+      if(isCorrectOption){ checkedCorrect++; if(item) item.classList.add('ms-ok'); }
+      else { checkedWrong++; if(item) item.classList.add('ms-bad'); }
+    }
+  });
+  var frac = totalCorrect>0 ? Math.max(0,(checkedCorrect-checkedWrong))/totalCorrect : 0;
+  var fbEl=grp.querySelector('.ms-fb');
+  if(fbEl) fbEl.textContent='Aciertos: '+checkedCorrect+'/'+totalCorrect+(checkedWrong?' · Marcadas incorrectamente: '+checkedWrong:'')+' → '+(frac*100).toFixed(0)+'% de este punto';
+  return frac;
 }
 
 // MAPEO: cada casilla de resultado (fbId) -> bloque(s) de cálculo (calc-block) que debe verificarse
@@ -933,12 +1192,40 @@ function corregir(mod,total,fbIds,maxPts){
   actualizarNotas();
   alert('Módulo '+mod+' corregido: '+ok+'/'+total+' correctas = '+p.toFixed(2)+' pts autocorregibles');
 }
+
+/* MÓDULO C — pondera C1-C3 (selección múltiple, 0.75 pts) y C4
+   (selección múltiple con crédito parcial, 0.75 pts) por separado,
+   conservando el peso original de cada ejercicio. */
+function corregirC(){
+  var fSel = fracFbIds(['fbC1','fbC2','fbC3']);
+  var grp = document.getElementById('module-C-body') ? document.getElementById('module-C-body').querySelector('.ms-group') : null;
+  var fMs = fracMsGroup(grp);
+  pts.C = fSel*0.75 + fMs*0.75;
+  actualizarNotas();
+  alert('Módulo C corregido: '+pts.C.toFixed(2)+' / 1.50 pts\n  • C1–C3 (selección múltiple): '+(fSel*100).toFixed(0)+'%\n  • C4 (selección múltiple con crédito parcial): '+(fMs*100).toFixed(0)+'%');
+}
+
+/* MÓDULO D — pondera D1 (0.5 pts), D2 cloze (0.25 pts) y D3 V/F (0.25 pts) por separado. */
+function corregirD(){
+  var fD1 = fracFbIds(['fbD1a','fbD1b']);
+  var fD2 = fracFbIds(['fbD2_1','fbD2_2','fbD2_3','fbD2_4']);
+  var fD3 = fracFbIds(['fbD3_1','fbD3_2','fbD3_3','fbD3_4']);
+  pts.D = fD1*0.5 + fD2*0.25 + fD3*0.25;
+  actualizarNotas();
+  alert('Módulo D corregido: '+pts.D.toFixed(2)+' / 1.00 pt\n  • D1 (mecanismo/tratamiento): '+(fD1*100).toFixed(0)+'%\n  • D2 (completar espacios): '+(fD2*100).toFixed(0)+'%\n  • D3 (Verdadero/Falso): '+(fD3*100).toFixed(0)+'%');
+}
+
 function actualizarNotas(){
+  var maxPorModulo={A:1.0,B:1.5,C:1.5,D:1.0};
+  Object.keys(maxPorModulo).forEach(function(mod){
+    var el=document.getElementById('nota'+mod+'Op');
+    if(el) el.textContent=(pts[mod]||0).toFixed(2)+' / '+maxPorModulo[mod].toFixed(2);
+  });
   var total=(pts.A||0)+(pts.B||0)+(pts.C||0)+(pts.D||0);
   var nt=document.getElementById('notaTotal');
-  if(nt)nt.textContent=total.toFixed(2)+' / 3.75';
+  if(nt)nt.textContent=total.toFixed(2)+' / 5.00';
   var ph=document.getElementById('phNota');
-  if(ph)ph.textContent=total.toFixed(2)+' / 3.75';
+  if(ph)ph.textContent=total.toFixed(2)+' / 5.00';
 }
 
 // PRINT ANSWER CLONES

@@ -195,6 +195,18 @@ select.mc-select:focus { border-color:var(--navy); outline:none; }
 .fb.ok  { color:var(--green); }
 .fb.err { color:var(--red); }
 
+/* Selección múltiple con crédito parcial (marque todas las que apliquen) */
+.ms-group { border:1.5px solid var(--brd2); border-radius:10px; padding:12px 14px; margin:8px 0; background:#fbfdfd; }
+.ms-instruction { font-family:var(--sans); font-size:8.5pt; color:var(--sub); font-style:italic; margin-bottom:8px; }
+.ms-item { display:flex; align-items:flex-start; gap:8px; font-family:var(--sans); font-size:9.5pt; color:var(--txt); padding:5px 6px; border-radius:7px; margin:2px 0; }
+.ms-item input[type="checkbox"] { margin-top:3px; flex-shrink:0; cursor:pointer; }
+.ms-item label { cursor:pointer; line-height:1.5; }
+.ms-item.ms-ok { background:var(--green-light); }
+.ms-item.ms-ok::after { content:' ✓'; color:var(--green); font-weight:800; }
+.ms-item.ms-bad { background:var(--red-light); }
+.ms-item.ms-bad::after { content:' ✗'; color:var(--red); font-weight:800; }
+.ms-fb { display:block; font-family:var(--sans); font-size:8.5pt; font-weight:800; margin-top:8px; color:var(--navy); }
+
 /* Open textarea */
 .open-area { width:100%; min-height:80px; font-family:var(--sans); font-size:9.5pt; padding:11px 13px; border:1.5px solid var(--brd2); border-radius:10px; resize:vertical; color:var(--txt); line-height:1.6; transition:border-color .15s; }
 .open-area:focus { border-color:var(--navy); outline:none; }
@@ -215,9 +227,14 @@ select.mc-select:focus { border-color:var(--navy); outline:none; }
 .dl-error { color:var(--red); font-family:var(--sans); font-size:9pt; margin-top:6px; display:none; }
 
 /* Nota acumulada */
-.nota-bar { background:var(--teal-light); border:2px solid var(--teal); border-radius:14px; padding:16px 20px; margin-top:16px; display:flex; align-items:center; gap:20px; flex-wrap:wrap; }
+.nota-bar { background:var(--teal-light); border:2px solid var(--teal); border-radius:14px; padding:16px 20px 18px; margin-top:16px; }
 .nota-bar-label { font-family:var(--sans); font-size:9pt; font-weight:800; color:var(--teal); text-transform:uppercase; letter-spacing:.6px; }
-.nota-bar-val { font-family:var(--mono); font-size:20pt; font-weight:500; color:var(--navy); line-height:1; }
+.nota-bar-val { font-family:var(--mono); font-size:26pt; font-weight:600; color:var(--navy); line-height:1; }
+.nota-bar-total-row { display:flex; align-items:baseline; gap:14px; margin-top:12px; padding-top:12px; border-top:2px solid var(--teal); flex-wrap:wrap; }
+.nota-mod-grid { display:grid; grid-template-columns:repeat(5,1fr); gap:8px; }
+.nota-mod-box { background:#fff; border:1.5px solid var(--brd2); border-radius:9px; padding:8px 6px; text-align:center; }
+.nota-mod-label { display:block; font-family:var(--sans); font-size:7.5pt; color:var(--sub); font-weight:700; margin-bottom:3px; }
+.nota-mod-val { display:block; font-family:var(--mono); font-size:11pt; font-weight:600; color:var(--navy-mid); }
 
 /* Manual grading */
 .manual-block { border:2px dashed var(--amber); border-radius:14px; background:var(--amber-light); padding:15px 19px; margin:20px 0; }
@@ -340,6 +357,81 @@ footer { border-top:2px solid rgba(0,0,0,.08); padding:22px 56px 28px; display:f
   .print-answer { display:none !important; }
 }
 
+
+/* === AJUSTE DE TIPOGRAFÍA Y CONTRASTE === */
+html { font-size: 16px; }
+body { font-family:'Nunito', 'DM Sans', system-ui, sans-serif; font-size:12pt; line-height:1.75; color:#000; }
+p, .col-card p, .ex-context, .question, .checkbox-item, .answer-line,
+.open-label, .open-area, .mc-row, .ms-item, .patient-item, .taller-meta,
+.alert-yellow, .nmj-cap, .diagram-title, .formula-example, .calc-hint {
+  font-family:'Nunito','DM Sans',system-ui,sans-serif;
+}
+p { font-size:12pt; color:#000; }
+.section-title { font-family:'Nunito','DM Sans',sans-serif; font-size:25px; font-weight:800; color:#000; }
+h3 { font-family:'Nunito','DM Sans',sans-serif; font-size:14pt; color:#000; }
+.table-caption, .diagram-title, .formula-label { color:#000; }
+table { font-size:11pt; }
+thead th { font-size:10.5pt; color:#fff; }
+tbody td { font-size:11pt; color:#000; }
+ul.content-list li { font-size:11.5pt; color:#000; }
+.col-card-title { font-size:11pt; }
+.col-card p { font-size:11pt !important; color:#000 !important; }
+.col-card p[style] { color:#000 !important; }
+.section-number { font-size:10pt; }
+.cover h1, .taller-header h2 { font-family:'Nunito','DM Sans',sans-serif; font-weight:800; }
+.cover h1 { font-size:clamp(38px,6vw,62px); line-height:1.05; }
+.cover-subtitle { font-size:14pt; }
+.cover-meta-value { font-size:13pt; }
+.cover-meta-label { font-size:10pt; }
+.tab-btn { font-size:12.5pt; }
+.definition p, .callout p { font-size:11.5pt; }
+.definition-label, .callout-title { font-size:10pt; }
+.stat-label { font-size:10pt; }
+.stat-value { font-size:16pt; }
+.exercise-title { font-size:11pt; }
+.question-label, .open-label { font-size:11pt; }
+.patient-item { font-size:11pt; }
+.patient-label { font-size:9pt; }
+.answer-line, .checkbox-item, .mc-row, .ms-item { font-size:11pt; }
+select.mc-select, .open-area, .id-input { font-size:11pt; }
+.correct-btn, .dl-btn { font-size:11pt; }
+.manual-block-label { font-size:9pt; }
+.footer-author-name { font-size:11pt; }
+.footer-author-title, .footer-copyright { font-size:9.5pt; }
+
+/* Fondo claro/blanco = negro; superficies claras y campos */
+.content, .taller-content, .module-body, .exercise-body, .col-card,
+.diagram-wrap, .formula-block, .module, .exercise, .nota-mod-box,
+.ms-group, .open-area, select.mc-select, .id-input {
+  color:#000;
+}
+.content *, .taller-content * {
+  /* Solo neutraliza colores de texto explícitos en superficies claras */
+}
+.col-card-title, .patient-value, .open-question-part-letter { color:#000 !important; }
+.nmj-cap, .formula-label, .formula-example, .diagram-title, .ms-instruction,
+.patient-label, .checkbox-item, .answer-line, .footer-author-title,
+.footer-copyright { color:#000 !important; }
+
+/* Superficies oscuras conservan texto blanco */
+.cover, .cover *, .taller-header, .taller-header *,
+.exercise-header, .exercise-header *, thead, thead *,
+.definition, .definition *, .callout.das, .callout.das *,
+.stat-pill, .stat-pill *, .score-note, .score-note * {
+  color:#fff;
+}
+.cover h1 em, .taller-header h2 em { -webkit-text-fill-color:transparent; }
+.cover-tag, .cover-meta-label, .cover-subtitle, .taller-meta,
+.definition-label, .stat-value, .stat-label,
+.exercise-num, .exercise-title, .exercise-pts,
+.score-note * { color:#fff; }
+
+/* Colores de botones y badges oscuros */
+.tab-btn.active, .tab-btn:hover, .correct-btn, .dl-btn,
+.section-number, .exercise-header, .module-header, thead th {
+  color:#fff;
+}
+
 </style>
 </head>
 <body>
@@ -351,7 +443,7 @@ footer { border-top:2px solid rgba(0,0,0,.08); padding:22px 56px 28px; display:f
 <div class="print-score-id" id="printScoreId">
   <span><strong>Estudiante:</strong> <span id="printStudent"></span></span>
   <span><strong>Código único:</strong> <span id="printCode"></span></span>
-  <span><strong>Nota autocalificable:</strong> <span class="print-note" id="printScore">0.00 / 2.70</span></span>
+  <span><strong>Nota autocalificable:</strong> <span class="print-note" id="printScore">0.00 / 5.00</span></span>
 </div>
 
 <!-- TAB NAV -->
@@ -597,7 +689,7 @@ footer { border-top:2px solid rgba(0,0,0,.08); padding:22px 56px 28px; display:f
 </div>
 <div class="taller-content">
 
-<div class="alert-yellow">⚠ <strong>Instrucciones:</strong> Complete las casillas de cálculo. En cada casilla numérica se indica el formato o rango orientativo de respuesta; el valor ingresado se autocorrige. Se retiraron los desplegables redundantes de cálculo. Los <strong>desplegables se conservan únicamente para interpretación y razonamiento clínico</strong>. Las preguntas abiertas (ámbar) son calificadas por el docente. Incluya unidades en cada cálculo.</div>
+<div class="alert-yellow">⚠ <strong>Instrucciones:</strong> Complete las casillas de cálculo. En cada casilla numérica se indica el formato o rango orientativo de respuesta; el valor ingresado se autocorrige. Los <strong>desplegables</strong> evalúan interpretación y decisión clínica, y los <strong>recuadros de selección múltiple</strong> evalúan razonamiento y reconocimiento de causas/consecuencias — marque todas las opciones que considere correctas. Incluya unidades en cada cálculo. <strong>Todo el taller es 100% autocalificable.</strong></div>
 
 <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin-bottom:16px;">
   <div style="background:#e6f4f2;border:2px solid var(--teal);border-radius:8px;padding:10px 8px;text-align:center;"><div style="font-family:var(--mono);font-size:13pt;font-weight:600;color:var(--teal);">1.0</div><div style="font-family:var(--sans);font-size:7.5pt;color:var(--gray-600);margin-top:3px;">Ejercicio 1<br>Programación</div></div>
@@ -608,7 +700,7 @@ footer { border-top:2px solid rgba(0,0,0,.08); padding:22px 56px 28px; display:f
 </div>
 <div class="score-note">
   <span style="font-family:var(--mono);font-size:16pt;font-weight:600;color:#4DD0E1;">5.0 pts</span>
-  <span>Cada ejercicio combina autocorrección 🤖 y razonamiento clínico ✏️. Los desplegables aparecen solo cuando evalúan interpretación o decisión clínica.</span>
+  <span>Todo el taller es 100% autocorregible: cálculos numéricos, desplegables de interpretación y recuadros de selección múltiple con crédito parcial.</span>
 </div>
 
 <div class="exercise">
@@ -653,17 +745,21 @@ footer { border-top:2px solid rgba(0,0,0,.08); padding:22px 56px 28px; display:f
       </div>
     </div>
     <div class="question">
-  <div class="question-label">1D. ¿Qué es la Driving Pressure y por qué es clínicamente relevante en cirugía abdominal? <span class="q-pts-manual">✏️ 0.40 pts · docente</span></div>
-  <div class="manual-block">
-    <div class="manual-block-label">✏️ CALIFICACIÓN DOCENTE — 0.40 pts</div>
-    <div class="open-question-part"><span class="open-question-part-letter">a</span><span>Defina la Driving Pressure (ΔP) y escriba su fórmula. ¿Cuál es el umbral de seguridad según la evidencia actual?</span></div>
-    <div class="open-question-part"><span class="open-question-part-letter">b</span><span>¿Por qué la ΔP es el predictor más robusto de VILI (lesión pulmonar inducida por ventilador)?</span></div>
-    <div class="open-question-part"><span class="open-question-part-letter">c</span><span>¿Cuál es su relevancia específica en esta paciente sometida a gastrectomía laparoscópica? ¿Cómo la monitorizaría?</span></div>
-    <textarea class="open-area" placeholder="Escriba su respuesta aquí..."></textarea>
+  <div class="question-label">1D. ¿Qué es la Driving Pressure y por qué es clínicamente relevante en cirugía abdominal? <span class="q-pts-auto">🤖 0.40 pts</span></div>
+  <div class="ms-group">
+    <div class="ms-instruction">Marque TODAS las afirmaciones correctas sobre la Driving Pressure (ΔP):</div>
+    <div class="ms-item"><input type="checkbox" data-correct="true" id="ms1D_1"><label for="ms1D_1">ΔP = Pplat − PEEP</label></div>
+    <div class="ms-item"><input type="checkbox" data-correct="false" id="ms1D_2"><label for="ms1D_2">ΔP = Ppico − PEEP</label></div>
+    <div class="ms-item"><input type="checkbox" data-correct="true" id="ms1D_3"><label for="ms1D_3">El umbral de seguridad recomendado por la evidencia actual es ≤15 cmH₂O</label></div>
+    <div class="ms-item"><input type="checkbox" data-correct="false" id="ms1D_4"><label for="ms1D_4">El umbral de seguridad recomendado es ≤30 cmH₂O</label></div>
+    <div class="ms-item"><input type="checkbox" data-correct="true" id="ms1D_5"><label for="ms1D_5">Es el predictor más robusto de VILI (lesión pulmonar inducida por ventilador) entre los parámetros ventilatorios estudiados</label></div>
+    <div class="ms-item"><input type="checkbox" data-correct="false" id="ms1D_6"><label for="ms1D_6">Depende exclusivamente de la FiO₂ programada</label></div>
+    <div class="ms-item"><input type="checkbox" data-correct="true" id="ms1D_7"><label for="ms1D_7">En cirugía laparoscópica el neumoperitoneo puede elevarla al aumentar la presión intraabdominal, por lo que debe monitorizarse durante todo el procedimiento</label></div>
+    <div class="ms-item"><input type="checkbox" data-correct="false" id="ms1D_8"><label for="ms1D_8">No requiere monitorización distinta de la del volumen tidal</label></div>
+    <span class="ms-fb"></span>
   </div>
 </div>
-    <button class="correct-btn" onclick="corregir('E1',['fb1c1','fb1c2'],0.60,this)">Corregir Ejercicio 1 — Parte autocorregible (0.60 pts)</button>
-    <div style="font-family:var(--sans);font-size:8pt;color:var(--gray-400);margin-top:6px;font-style:italic;">Pregunta 1D calificada por el docente (0.40 pts) → Total Ejercicio 1: 1.00 pt</div>
+    <button class="correct-btn" onclick="corregir('E1',['fb1c1','fb1c2'],1.00,this)">Corregir Ejercicio 1 (1.00 pt)</button>
   </div>
 </div>
 
@@ -711,16 +807,28 @@ footer { border-top:2px solid rgba(0,0,0,.08); padding:22px 56px 28px; display:f
       </div>
     </div>
     <div class="question">
-  <div class="question-label">2D. Causas posibles de hipercapnia intraoperatoria y razonamiento clínico <span class="q-pts-manual">✏️ 0.40 pts · docente</span></div>
-  <div class="manual-block">
-    <div class="manual-block-label">✏️ CALIFICACIÓN DOCENTE — 0.40 pts</div>
-    <div class="open-question-part"><span class="open-question-part-letter">a</span><span>Liste al menos 4 causas posibles de hipercapnia intraoperatoria en este paciente (EtCO₂ = 54 mmHg).</span></div>
-    <div class="open-question-part"><span class="open-question-part-letter">b</span><span>Explique por qué se recomienda aumentar la FR antes que el Vt para corregir la hipercapnia, desde el punto de vista de la ventilación protectora.</span></div>
-    <textarea class="open-area" placeholder="Escriba su respuesta aquí..."></textarea>
+  <div class="question-label">2D. Causas posibles de hipercapnia intraoperatoria y razonamiento clínico <span class="q-pts-auto">🤖 0.40 pts</span></div>
+  <div class="ms-group">
+    <div class="ms-instruction">Marque TODAS las causas plausibles de hipercapnia intraoperatoria (EtCO₂ = 54 mmHg) en este paciente:</div>
+    <div class="ms-item"><input type="checkbox" data-correct="true" id="ms2D_1"><label for="ms2D_1">Hipoventilación por FR insuficiente para la producción actual de CO₂</label></div>
+    <div class="ms-item"><input type="checkbox" data-correct="true" id="ms2D_2"><label for="ms2D_2">Reinhalación de CO₂ por cal sodada agotada</label></div>
+    <div class="ms-item"><input type="checkbox" data-correct="true" id="ms2D_3"><label for="ms2D_3">Absorción sistémica del CO₂ insuflado durante el neumoperitoneo laparoscópico</label></div>
+    <div class="ms-item"><input type="checkbox" data-correct="true" id="ms2D_4"><label for="ms2D_4">Aumento de la producción metabólica de CO₂ (fiebre, sepsis, hipertermia maligna)</label></div>
+    <div class="ms-item"><input type="checkbox" data-correct="false" id="ms2D_5"><label for="ms2D_5">Fuga de gas en el circuito respiratorio</label></div>
+    <div class="ms-item"><input type="checkbox" data-correct="false" id="ms2D_6"><label for="ms2D_6">Hiperventilación accidental por FR excesiva</label></div>
+    <div class="ms-item"><input type="checkbox" data-correct="false" id="ms2D_7"><label for="ms2D_7">Hipotermia intraoperatoria</label></div>
+    <span class="ms-fb"></span>
+  </div>
+  <div class="mc-row" style="margin-top:10px;"><span class="mc-label">¿Por qué se prioriza aumentar la FR antes que el Vt para corregir esta hipercapnia?</span>
+    <select class="mc-select" onchange="chk(this,'Porque aumentar el Vt por encima del rango protector (6–8 mL/kg PI) elevaría el riesgo de VILI sin ser la primera línea de ajuste','fb2d')">
+      <option value="">— elegir —</option>
+      <option>Porque aumentar el Vt por encima del rango protector (6–8 mL/kg PI) elevaría el riesgo de VILI sin ser la primera línea de ajuste</option>
+      <option>Porque el Vt no tiene ningún efecto sobre la ventilación minuto</option>
+      <option>Porque aumentar la FR siempre reduce la Driving Pressure</option>
+    </select><span class="fb" id="fb2d"></span>
   </div>
 </div>
-    <button class="correct-btn" onclick="corregir('E2',['fb2b','fb2c'],0.60,this)">Corregir Ejercicio 2 — Parte autocorregible (0.60 pts)</button>
-    <div style="font-family:var(--sans);font-size:8pt;color:var(--gray-400);margin-top:6px;font-style:italic;">Pregunta 2D calificada por el docente (0.40 pts) → Total Ejercicio 2: 1.00 pt</div>
+    <button class="correct-btn" onclick="corregir('E2',['fb2b','fb2c','fb2d'],1.00,this)">Corregir Ejercicio 2 (1.00 pt)</button>
   </div>
 </div>
 
@@ -771,16 +879,25 @@ footer { border-top:2px solid rgba(0,0,0,.08); padding:22px 56px 28px; display:f
       </div>
     </div>
     <div class="question">
-  <div class="question-label">3D. ¿Por qué en la obesidad se usa PI y no peso real? ¿Qué explica el Ppico elevado con Pplat normal? <span class="q-pts-manual">✏️ 0.45 pts · docente</span></div>
-  <div class="manual-block">
-    <div class="manual-block-label">✏️ CALIFICACIÓN DOCENTE — 0.45 pts</div>
-    <div class="open-question-part"><span class="open-question-part-letter">a</span><span>¿Por qué se usa el Peso Ideal y no el peso real para calcular el Vt en la paciente obesa? Argumente con base en la fisiología pulmonar.</span></div>
-    <div class="open-question-part"><span class="open-question-part-letter">b</span><span>En esta paciente el Ppico es 40 cmH₂O pero el Pplat es 26 cmH₂O. ¿Qué tipo de problema indica esta diferencia y cuáles son las causas posibles en el contexto de la obesidad?</span></div>
-    <textarea class="open-area" placeholder="Escriba su respuesta aquí..."></textarea>
+  <div class="question-label">3D. ¿Por qué en la obesidad se usa PI y no peso real? ¿Qué explica la diferencia Ppico–Pplat? <span class="q-pts-auto">🤖 0.45 pts</span></div>
+  <div class="ms-group">
+    <div class="ms-instruction">Marque TODAS las afirmaciones correctas sobre el uso del Peso Ideal en la paciente obesa:</div>
+    <div class="ms-item"><input type="checkbox" data-correct="true" id="ms3D_1"><label for="ms3D_1">El volumen pulmonar y la capacidad residual funcional se relacionan con la talla y el peso ideal, no con el exceso de tejido adiposo</label></div>
+    <div class="ms-item"><input type="checkbox" data-correct="true" id="ms3D_2"><label for="ms3D_2">Usar el peso real sobreestimaría el Vt necesario, aumentando el riesgo de VILI</label></div>
+    <div class="ms-item"><input type="checkbox" data-correct="false" id="ms3D_3"><label for="ms3D_3">El tejido adiposo participa directamente en el intercambio gaseoso, por lo que debe incluirse en el cálculo</label></div>
+    <div class="ms-item"><input type="checkbox" data-correct="false" id="ms3D_4"><label for="ms3D_4">El peso real siempre da un Vt más seguro que el peso ideal</label></div>
+    <span class="ms-fb"></span>
+  </div>
+  <div class="mc-row" style="margin-top:10px;"><span class="mc-label">En esta paciente Ppico (39) y Pplat (24) muestran una diferencia amplia (≈15 cmH₂O). ¿Qué indica esto?</span>
+    <select class="mc-select" onchange="chk(this,'Predomina un componente resistivo (vía aérea) — considerar broncoespasmo, tubo acodado/mordido o secreciones','fb3d')">
+      <option value="">— elegir —</option>
+      <option>Predomina un componente resistivo (vía aérea) — considerar broncoespasmo, tubo acodado/mordido o secreciones</option>
+      <option>Predomina un componente restrictivo (compliance) — considerar neumoperitoneo o atelectasia</option>
+      <option>Es un hallazgo normal en la obesidad y no requiere evaluación</option>
+    </select><span class="fb" id="fb3d"></span>
   </div>
 </div>
-    <button class="correct-btn" onclick="corregir('E3',['fb3a','fb3c'],0.55,this)">Corregir Ejercicio 3 — Parte autocorregible (0.55 pts)</button>
-    <div style="font-family:var(--sans);font-size:8pt;color:var(--gray-400);margin-top:6px;font-style:italic;">Pregunta 3D calificada por el docente (0.45 pts) → Total Ejercicio 3: 1.00 pt</div>
+    <button class="correct-btn" onclick="corregir('E3',['fb3a','fb3c','fb3d'],1.00,this)">Corregir Ejercicio 3 (1.00 pt)</button>
   </div>
 </div>
 
@@ -825,16 +942,29 @@ footer { border-top:2px solid rgba(0,0,0,.08); padding:22px 56px 28px; display:f
       </div>
     </div>
     <div class="question">
-  <div class="question-label">4C. ¿Qué ajuste inmediato realiza y qué causas investiga? <span class="q-pts-manual">✏️ 0.60 pts · docente</span></div>
-  <div class="manual-block">
-    <div class="manual-block-label">✏️ CALIFICACIÓN DOCENTE — 0.60 pts</div>
-    <div class="open-question-part"><span class="open-question-part-letter">a</span><span>La ΔP actual está por encima del límite seguro. ¿Qué ajuste de Vt realizaría para llevarla a rango seguro? Muestre el cálculo paso a paso.</span></div>
-    <div class="open-question-part"><span class="open-question-part-letter">b</span><span>Tanto el Ppico como el Pplat están elevados en este paciente. ¿Qué tipo de problema fisiopatológico indica esto? Liste al menos 4 causas intraoperatorias posibles y describa la conducta inmediata.</span></div>
-    <textarea class="open-area" style="min-height:100px;" placeholder="Escriba su respuesta aquí..."></textarea>
+  <div class="question-label">4C. ¿Qué ajuste inmediato realiza y qué causas investiga? <span class="q-pts-auto">🤖 0.60 pts</span></div>
+  <div class="answer-line">Para llevar la ΔP a ≤15 cmH₂O manteniendo la misma compliance, el nuevo Vt sería: Vt nuevo = <input class="ans-input ans-sm" inputmode="decimal" placeholder="C (mL/cmH₂O)" data-ans="18" data-tol="0.5"> × 15 = <input class="ans-input ans-md" inputmode="decimal" placeholder="resultado (mL)" data-ans="270" data-tol="5"> mL</div>
+  <div class="calc-hint">Use la compliance calculada en 4B (≈18 mL/cmH₂O) multiplicada por la ΔP objetivo (15 cmH₂O).</div>
+  <div class="ms-group">
+    <div class="ms-instruction">Tanto el Ppico como el Pplat están elevados (patrón restrictivo — compliance reducida). Marque TODAS las causas intraoperatorias plausibles:</div>
+    <div class="ms-item"><input type="checkbox" data-correct="true" id="ms4C_1"><label for="ms4C_1">Intubación selectiva (tubo en bronquio principal)</label></div>
+    <div class="ms-item"><input type="checkbox" data-correct="true" id="ms4C_2"><label for="ms4C_2">Neumotórax</label></div>
+    <div class="ms-item"><input type="checkbox" data-correct="true" id="ms4C_3"><label for="ms4C_3">Atelectasias progresivas</label></div>
+    <div class="ms-item"><input type="checkbox" data-correct="true" id="ms4C_4"><label for="ms4C_4">Neumoperitoneo o retracción quirúrgica que restringe la excursión diafragmática</label></div>
+    <div class="ms-item"><input type="checkbox" data-correct="false" id="ms4C_5"><label for="ms4C_5">Broncoespasmo aislado</label></div>
+    <div class="ms-item"><input type="checkbox" data-correct="false" id="ms4C_6"><label for="ms4C_6">Acodamiento del tubo orotraqueal</label></div>
+    <span class="ms-fb"></span>
+  </div>
+  <div class="mc-row" style="margin-top:10px;"><span class="mc-label">Conducta inmediata más apropiada:</span>
+    <select class="mc-select" onchange="chk(this,'Reducir el Vt al valor recalculado, auscultar, verificar posición del tubo y descartar neumotórax/neumoperitoneo excesivo','fb4c')">
+      <option value="">— elegir —</option>
+      <option>Reducir el Vt al valor recalculado, auscultar, verificar posición del tubo y descartar neumotórax/neumoperitoneo excesivo</option>
+      <option>Aumentar el Vt para compensar la caída de compliance</option>
+      <option>No modificar nada porque la SpO₂ no se reporta baja</option>
+    </select><span class="fb" id="fb4c"></span>
   </div>
 </div>
-    <button class="correct-btn" onclick="corregir('E4',['fb4a2','fb4b1'],0.40,this)">Corregir Ejercicio 4 — Parte autocorregible (0.40 pts)</button>
-    <div style="font-family:var(--sans);font-size:8pt;color:var(--gray-400);margin-top:6px;font-style:italic;">Pregunta 4C calificada por el docente (0.60 pts) → Total Ejercicio 4: 1.00 pt</div>
+    <button class="correct-btn" onclick="corregir('E4',['fb4a2','fb4b1','fb4c'],1.00,this)">Corregir Ejercicio 4 (1.00 pt)</button>
   </div>
 </div>
 
@@ -878,15 +1008,21 @@ footer { border-top:2px solid rgba(0,0,0,.08); padding:22px 56px 28px; display:f
       </div>
     </div>
     <div class="question">
-  <div class="question-label">5D. Explique las consecuencias clínicas de la hipocapnia en esta paciente pediátrica <span class="q-pts-manual">✏️ 0.45 pts · docente</span></div>
-  <div class="manual-block">
-    <div class="manual-block-label">✏️ CALIFICACIÓN DOCENTE — 0.45 pts</div>
-    <div class="open-question">Mencione al menos 3 consecuencias clínicas de la hipocapnia severa (EtCO₂ = 22 mmHg) en esta niña de 8 años. Para cada consecuencia explique el mecanismo fisiológico subyacente y por qué es especialmente relevante en el paciente pediátrico.</div>
-    <textarea class="open-area" placeholder="Escriba su respuesta aquí..."></textarea>
+  <div class="question-label">5D. Consecuencias clínicas de la hipocapnia en esta paciente pediátrica <span class="q-pts-auto">🤖 0.45 pts</span></div>
+  <div class="ms-group">
+    <div class="ms-instruction">EtCO₂ = 22 mmHg (hipocapnia severa). Marque TODAS las consecuencias clínicas correctas, con su mecanismo:</div>
+    <div class="ms-item"><input type="checkbox" data-correct="true" id="ms5D_1"><label for="ms5D_1">Vasoconstricción cerebral con riesgo de isquemia — la hipocapnia reduce el flujo sanguíneo cerebral</label></div>
+    <div class="ms-item"><input type="checkbox" data-correct="true" id="ms5D_2"><label for="ms5D_2">Desplazamiento izquierdo de la curva de disociación de la hemoglobina — reduce la liberación de O₂ a los tejidos</label></div>
+    <div class="ms-item"><input type="checkbox" data-correct="true" id="ms5D_3"><label for="ms5D_3">Vasoconstricción coronaria — puede comprometer la perfusión miocárdica</label></div>
+    <div class="ms-item"><input type="checkbox" data-correct="true" id="ms5D_4"><label for="ms5D_4">Hipopotasemia por desplazamiento intracelular de potasio secundario a alcalosis respiratoria</label></div>
+    <div class="ms-item"><input type="checkbox" data-correct="false" id="ms5D_5"><label for="ms5D_5">Vasodilatación cerebral con aumento del flujo sanguíneo cerebral</label></div>
+    <div class="ms-item"><input type="checkbox" data-correct="false" id="ms5D_6"><label for="ms5D_6">Desplazamiento derecho de la curva de disociación de la hemoglobina</label></div>
+    <div class="ms-item"><input type="checkbox" data-correct="false" id="ms5D_7"><label for="ms5D_7">Hiperpotasemia por acidosis metabólica asociada</label></div>
+    <div class="ms-item"><input type="checkbox" data-correct="false" id="ms5D_8"><label for="ms5D_8">No tiene relevancia clínica en pacientes pediátricos sanos</label></div>
+    <span class="ms-fb"></span>
   </div>
 </div>
-    <button class="correct-btn" onclick="corregir('E5',['fb5b','fb5c'],0.55,this)">Corregir Ejercicio 5 — Parte autocorregible (0.55 pts)</button>
-    <div style="font-family:var(--sans);font-size:8pt;color:var(--gray-400);margin-top:6px;font-style:italic;">Pregunta 5D calificada por el docente (0.45 pts) → Total Ejercicio 5: 1.00 pt</div>
+    <button class="correct-btn" onclick="corregir('E5',['fb5b','fb5c'],1.00,this)">Corregir Ejercicio 5 (1.00 pt)</button>
   </div>
 </div>
 
@@ -901,9 +1037,18 @@ footer { border-top:2px solid rgba(0,0,0,.08); padding:22px 56px 28px; display:f
   <div class="dl-error" id="errT">⚠ Por favor complete nombre y universidad antes de descargar.</div>
 </div>
 <div class="nota-bar">
-  <span class="nota-bar-label">Nota autocalificable</span>
-  <span class="nota-bar-val" id="notaTotal">0.00 / 2.70</span>
-  <span style="font-family:var(--sans);font-size:8.5pt;color:var(--gray-600);">Autocorregible (ejercicios 1–5) &nbsp;|&nbsp; <span style="color:var(--amber);font-weight:600;">✏️ 2.30 pts · razonamiento clínico y preguntas abiertas calificadas por docente</span></span>
+  <div class="nota-mod-grid">
+    <div class="nota-mod-box"><span class="nota-mod-label">Ejercicio 1</span><span class="nota-mod-val" id="notaE1">0.00 / 1.00</span></div>
+    <div class="nota-mod-box"><span class="nota-mod-label">Ejercicio 2</span><span class="nota-mod-val" id="notaE2">0.00 / 1.00</span></div>
+    <div class="nota-mod-box"><span class="nota-mod-label">Ejercicio 3</span><span class="nota-mod-val" id="notaE3">0.00 / 1.00</span></div>
+    <div class="nota-mod-box"><span class="nota-mod-label">Ejercicio 4</span><span class="nota-mod-val" id="notaE4">0.00 / 1.00</span></div>
+    <div class="nota-mod-box"><span class="nota-mod-label">Ejercicio 5</span><span class="nota-mod-val" id="notaE5">0.00 / 1.00</span></div>
+  </div>
+  <div class="nota-bar-total-row">
+    <span class="nota-bar-label">Nota Final del Taller</span>
+    <span class="nota-bar-val" id="notaTotal">0.00 / 5.00</span>
+    <span style="font-family:var(--sans);font-size:8.5pt;color:var(--gray-600);">100% Autocorregible — suma acumulada de los 5 ejercicios</span>
+  </div>
 </div>
 </div>
 </div><!-- /taller-tab -->
@@ -936,7 +1081,8 @@ function marcarCasilla(inp,estado){
 function corregir(ex,fbIds,maxPts,btn){
   var container=btn.closest('.exercise');
   var inputs=container?container.querySelectorAll('input[data-ans]'):[];
-  var total=0,ok=0,okSel=0,totSel=0,okNum=0,totNum=0;
+  var msGroups=container?container.querySelectorAll('.ms-group'):[];
+  var total=0,ok=0,okSel=0,totSel=0,okNum=0,totNum=0,totMs=0;
 
   fbIds.forEach(function(fbId){
     if(!fbId)return;
@@ -959,22 +1105,51 @@ function corregir(ex,fbIds,maxPts,btn){
     else{marcarCasilla(inp,'bad');}
   });
 
+  // Selección múltiple con crédito parcial: cada grupo cuenta como 1 unidad,
+  // con puntaje fraccionario = max(0, correctas marcadas - incorrectas marcadas) / total de correctas
+  msGroups.forEach(function(grp){
+    total++; totMs++;
+    var checks=grp.querySelectorAll('input[type="checkbox"]');
+    var totalCorrect=grp.querySelectorAll('input[data-correct="true"]').length;
+    var checkedCorrect=0, checkedWrong=0;
+    checks.forEach(function(c){
+      var item=c.closest('.ms-item');
+      if(item) item.classList.remove('ms-ok','ms-bad');
+      var isCorrectOption=c.getAttribute('data-correct')==='true';
+      if(c.checked){
+        if(isCorrectOption){ checkedCorrect++; if(item) item.classList.add('ms-ok'); }
+        else { checkedWrong++; if(item) item.classList.add('ms-bad'); }
+      }
+      // Las casillas correctas que el estudiante NO marcó se dejan sin marca visual:
+      // no se revela cuáles le faltó seleccionar.
+    });
+    var frac = totalCorrect>0 ? Math.max(0,(checkedCorrect-checkedWrong))/totalCorrect : 0;
+    ok += frac;
+    var fbEl=grp.querySelector('.ms-fb');
+    if(fbEl) fbEl.textContent='Aciertos: '+checkedCorrect+'/'+totalCorrect+(checkedWrong?' · Marcadas incorrectamente: '+checkedWrong:'')+' → '+(frac*100).toFixed(0)+'% de este punto';
+  });
+
   var p=total?(ok/total)*maxPts:0;
   pts.taller[ex]=p;
   actualizarNotas();
 
-  var msg='Ejercicio '+ex+' corregido: '+ok+'/'+total+' aciertos = '+p.toFixed(2)+' pts';
+  var msg='Ejercicio '+ex+' corregido: '+ok.toFixed(2)+'/'+total+' aciertos = '+p.toFixed(2)+' pts';
   if(totNum) msg+='\n  • Desplegables: '+okSel+'/'+totSel+'\n  • Casillas numéricas: '+okNum+'/'+totNum;
+  if(totMs) msg+='\n  • Selección múltiple: '+totMs+' grupo(s) — ver detalle en cada recuadro';
   alert(msg);
 }
 
 function actualizarNotas(){
   var t=pts.taller;
+  ['E1','E2','E3','E4','E5'].forEach(function(ex){
+    var el=document.getElementById('nota'+ex);
+    if(el) el.textContent=(t[ex]||0).toFixed(2)+' / 1.00';
+  });
   var total=(t.E1||0)+(t.E2||0)+(t.E3||0)+(t.E4||0)+(t.E5||0);
   var nt=document.getElementById('notaTotal');
-  if(nt)nt.textContent=total.toFixed(2)+' / 2.70';
+  if(nt)nt.textContent=total.toFixed(2)+' / 5.00';
   var ps=document.getElementById('printScore');
-  if(ps)ps.textContent=total.toFixed(2)+' / 2.70';
+  if(ps)ps.textContent=total.toFixed(2)+' / 5.00';
 }
 
 /* PRINT ANSWER CLONES */
@@ -1022,7 +1197,7 @@ function dlPDF(){
   var ahora=new Date();
   var f=ahora.toLocaleDateString('es-CO',{day:'2-digit',month:'long',year:'numeric'})+' '+ahora.toLocaleTimeString('es-CO',{hour:'2-digit',minute:'2-digit'});
   var codigo=generarCodigoUnico();
-  var nota=document.getElementById('notaTotal')?document.getElementById('notaTotal').textContent:'0.00 / 2.70';
+  var nota=document.getElementById('notaTotal')?document.getElementById('notaTotal').textContent:'0.00 / 5.00';
 
   var phNombre=document.getElementById('phNombre');if(phNombre)phNombre.textContent=nom;
   var phUniversidad=document.getElementById('phUniversidad');if(phUniversidad)phUniversidad.textContent=univ;

@@ -258,6 +258,30 @@ tbody td:first-child{font-weight:600;color:var(--navy);}
 select.mc-select{font-family:var(--sans);font-size:9pt;padding:5px 10px;border:1.5px solid var(--border);border-radius:5px;background:white;color:#212529;cursor:pointer;max-width:100%;}
 .fb{font-family:var(--sans);font-size:9pt;font-weight:600;margin-left:4px;}
 .fb.ok{color:var(--teal);}.fb.err{color:var(--red);}
+
+/* Selección múltiple con crédito parcial */
+.ms-group{border:1.5px solid var(--border);border-radius:8px;padding:12px 14px;margin:8px 0;background:#fbfdfd;}
+.ms-instruction{font-family:var(--sans);font-size:8.5pt;color:var(--gray-600);font-style:italic;margin-bottom:8px;}
+.ms-item{display:flex;align-items:flex-start;gap:8px;font-family:var(--sans);font-size:9.5pt;color:#212529;padding:5px 6px;border-radius:6px;margin:2px 0;}
+.ms-item input[type="checkbox"]{margin-top:3px;flex-shrink:0;cursor:pointer;}
+.ms-item label{cursor:pointer;line-height:1.5;}
+.ms-item.ms-ok{background:var(--green-light);}
+.ms-item.ms-ok::after{content:' ✓';color:var(--green);font-weight:800;}
+.ms-item.ms-bad{background:var(--red-light);}
+.ms-item.ms-bad::after{content:' ✗';color:var(--red);font-weight:800;}
+.ms-fb{display:block;font-family:var(--sans);font-size:8.5pt;font-weight:800;margin-top:8px;color:var(--navy);}
+
+/* Verdadero/Falso interactivo */
+.vf-item{border:1.5px solid var(--border);border-radius:7px;padding:9px 12px;margin:7px 0;background:#fff;}
+.vf-statement{font-family:var(--sans);font-size:9.5pt;color:#212529;line-height:1.5;margin-bottom:7px;}
+.vf-btns{display:flex;gap:8px;align-items:center;}
+.vf-btn{font-family:var(--sans);font-size:8.5pt;font-weight:700;padding:5px 16px;border-radius:20px;border:1.5px solid var(--border);background:#fff;cursor:pointer;transition:all .15s;}
+.vf-btn:hover{border-color:var(--teal);}
+.vf-btn.sel{color:#fff;}
+.vf-btn.sel.is-true{background:var(--green);border-color:var(--green);}
+.vf-btn.sel.is-false{background:var(--red);border-color:var(--red);}
+.vf-btn.result-ok{outline:3px solid #A5D6A7;}
+.vf-btn.result-bad{outline:3px solid #FFCDD2;}
 .manual-block{border:1.5px dashed var(--amber);border-radius:6px;background:var(--amber-light);padding:11px 14px;margin-top:10px;}
 .manual-block-label{font-family:var(--sans);font-size:7.5pt;font-weight:700;color:var(--amber);text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px;}
 .open-question{font-family:var(--sans);font-size:9.5pt;color:#212529;line-height:1.65;margin-bottom:8px;font-weight:500;}
@@ -275,7 +299,12 @@ select.mc-select{font-family:var(--sans);font-size:9pt;padding:5px 10px;border:1
 .calc-block{background:#f8f9fa;border:1.5px solid #dee2e6;border-radius:8px;padding:10px 14px;margin:8px 0;}
 .ans-input.fi-ok{background:var(--teal-light);color:var(--teal);border-bottom-color:var(--teal);border-radius:3px;font-weight:700;}
 .ans-input.fi-err{background:var(--red-light);color:var(--red);border-bottom-color:var(--red);border-radius:3px;font-weight:700;text-decoration:underline wavy var(--red);}
-.nota-bar{background:var(--teal-light);border:2px solid var(--teal);border-radius:8px;padding:14px 18px;margin-top:16px;display:flex;align-items:center;gap:20px;flex-wrap:wrap;}
+.nota-bar{background:var(--teal-light);border:2px solid var(--teal);border-radius:8px;padding:14px 18px 16px;margin-top:16px;}
+.nota-mod-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;}
+.nota-mod-box{background:#fff;border:1.5px solid var(--border);border-radius:7px;padding:8px 6px;text-align:center;}
+.nota-mod-label{display:block;font-family:var(--sans);font-size:7.5pt;color:var(--gray-600);font-weight:700;margin-bottom:3px;}
+.nota-mod-val{display:block;font-family:var(--mono);font-size:11pt;font-weight:600;color:var(--navy-mid);}
+.nota-bar-total-row{display:flex;align-items:baseline;gap:14px;margin-top:11px;padding-top:11px;border-top:2px solid var(--teal);flex-wrap:wrap;}
 .nota-bar-label{font-family:var(--sans);font-size:9pt;font-weight:600;color:var(--teal);text-transform:uppercase;letter-spacing:.05em;}
 .nota-bar-val{font-family:var(--mono);font-size:20pt;font-weight:500;color:var(--navy);line-height:1;}
 .download-box{background:var(--teal-light);border:2px solid var(--teal);border-radius:8px;padding:20px 24px;margin:24px 0;}
@@ -433,6 +462,134 @@ body{ background:#F6EAF0 !important; font-family:var(--sans); }
   .print-first-score{display:flex!important;margin:14px 0 0!important;padding:10px 14px!important;border:1.5px solid rgba(255,255,255,.65)!important;border-radius:9px!important;background:rgba(255,255,255,.13)!important;align-items:center!important;gap:12px!important;width:max-content!important;max-width:100%!important;position:relative!important;z-index:2!important;page-break-inside:avoid!important;}
   .print-first-score-label{font-family:var(--sans);font-size:8pt;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:#fff;}
   .print-first-score-value{font-family:var(--mono);font-size:15pt;font-weight:800;color:#fff;}
+}
+
+
+/* AJUSTE TIPOGRAFÍA Y CONTRASTE — estándar de las guías */
+html{font-size:16px!important;}
+body{
+  font-family:'DM Sans','Nunito',system-ui,sans-serif!important;
+  font-size:12pt!important;
+  line-height:1.75!important;
+  color:#000!important;
+}
+p,p.parrafo,.paso-texto,.sc-desc,.comp-nota,.sol-dato,.altitud-row,.pc-desc,
+.caso-interp,.lista-alert li,.ex-context,.ms-item,.vf-statement,.open-question,
+.open-question-part,.answer-line,.caja,.indice li,.toc-item{
+  font-size:11.5pt!important;
+  line-height:1.7!important;
+  color:#000!important;
+}
+h3,.subseccion h3,.indice h2{
+  font-size:12pt!important;
+  line-height:1.35!important;
+}
+.tab-btn{font-size:12pt!important;padding:10px 18px!important;}
+.cover-tag{font-size:11pt!important;}
+.cover h1{font-size:clamp(38px,6vw,58px)!important;}
+.cover-subtitle{font-size:13.5pt!important;line-height:1.7!important;}
+.cover-meta-label{font-size:10pt!important;}
+.cover-meta-value{font-size:12pt!important;}
+.seccion-titulo{font-size:21pt!important;}
+.seccion-numero{font-size:11pt!important;}
+.seccion-body{font-size:11.5pt!important;}
+table{font-size:11pt!important;}
+thead th{font-size:10.5pt!important;padding:11px 13px!important;}
+tbody td{font-size:11pt!important;padding:10px 13px!important;line-height:1.6!important;}
+.caja{font-size:11.5pt!important;}
+.formula-box{font-size:13pt!important;}
+.stewart-card .sc-nombre{font-size:16pt!important;}
+.stewart-card .sc-efecto{font-size:11pt!important;}
+.sem-val{font-size:11pt!important;}
+.sem-lbl{font-size:10pt!important;}
+.comp-h{font-size:11pt!important;}
+.comp-formula{font-size:11pt!important;}
+.comp-nota{font-size:10.5pt!important;}
+.sol-nombre{font-size:12pt!important;}
+.sol-dato,.sol-efecto{font-size:10.5pt!important;}
+.altitud-h{font-size:11pt!important;}
+.altitud-row{font-size:10.5pt!important;}
+.pc-nombre{font-size:10pt!important;}
+.pc-valor{font-size:19pt!important;}
+.pc-desc{font-size:10.5pt!important;}
+.caso-titulo{font-size:11pt!important;}
+.cd-param,.cd-unidad{font-size:10pt!important;}
+.cd-valor{font-size:18pt!important;}
+.caso-dx{font-size:11pt!important;}
+.tag{font-size:10pt!important;}
+.taller-header h2{font-size:23pt!important;}
+.taller-meta{font-size:11pt!important;}
+.module-tag{font-size:10pt!important;}
+.module-title{font-size:12pt!important;}
+.module-pts{font-size:10pt!important;}
+.ex-label{font-size:11pt!important;}
+.ex-num,.ex-pts-auto,.ex-pts-manual{font-size:9pt!important;}
+.gas-vals .gv-param,.gas-vals .gv-unit{font-size:9pt!important;}
+.gas-vals .gv-val{font-size:15pt!important;}
+.mc-row{font-size:11.5pt!important;}
+.mc-label{font-size:11.5pt!important;}
+select.mc-select{font-size:11pt!important;padding:7px 11px!important;}
+.fb{font-size:10.5pt!important;}
+.ms-instruction{font-size:10.5pt!important;}
+.vf-btn{font-size:10.5pt!important;padding:7px 18px!important;}
+.open-area{font-size:11.5pt!important;line-height:1.7!important;}
+.correct-btn,.dl-btn{font-size:11pt!important;padding:9px 20px!important;}
+.ans-input,.id-input{font-size:11.5pt!important;}
+.nota-mod-label{font-size:10pt!important;}
+.nota-mod-val{font-size:13pt!important;}
+.nota-bar-label{font-size:11pt!important;}
+.nota-bar-val{font-size:22pt!important;}
+.download-box h3{font-size:12pt!important;}
+.footer-name{font-size:11pt!important;}
+.footer-title,.footer-copy{font-size:9.5pt!important;}
+
+/* Contraste estricto: negro sobre superficies claras */
+.indice,.seccion-body,.seccion,.module-body,.caja,.stewart-card,.comp-body,
+.sol-card,.altitud-body,.param-card,.caso,.caso-dato,.lista-alert,.vf-item,
+.ms-group,.open-area,.answer-line,.tabla-wrap,.contenedor{
+  color:#000;
+}
+.indice li,.indice li a,.seccion-body p,.paso-texto,.sc-desc,.comp-nota,
+.sol-dato,.alt-lbl,.pc-desc,.caso-interp,.lista-alert li,.ex-context,
+.ms-item,.vf-statement,.open-question,.open-question-part,.answer-line,
+tbody td,.caja p,.caja,.open-area{
+  color:#000!important;
+}
+.indice h2,.subseccion h3,.pc-nombre,.caso-titulo,.footer-name{color:#000!important;}
+
+/* Blanco sobre superficies oscuras */
+.cover,.cover h1,.cover-subtitle,.cover-meta-value,.cover-tag,
+.seccion-header,.seccion-header .seccion-titulo,.seccion-numero,
+.taller-header,.taller-header h2,.taller-meta,.module-header,.module-title,
+.module-pts,.module-tag,.comp-h,.altitud-h,.paso-num,.ex-num,
+.ex-pts-auto,.ex-pts-manual,.correct-btn,.dl-btn,.tab-btn.active{
+  color:#fff!important;
+}
+.cover h1 span,.taller-header h2 em{color:#fff!important;-webkit-text-fill-color:#fff!important;}
+thead th{color:#fff!important;}
+.module-tag{color:#FFD54F!important;}
+.ex-pts-auto{color:#fff!important;}
+.ex-pts-manual{color:#fff!important;}
+
+/* Elementos destacados con texto legible */
+.formula-box,.param-card,.caso-dato,.gas-vals,.comp-formula{
+  color:#000!important;
+}
+.formula-box{background:#f1f5f9!important;}
+.comp-formula{color:#000!important;}
+.sc-pco2 .sc-nombre,.sc-sid .sc-nombre,.sc-atot .sc-nombre,
+.sc-pco2 .sc-efecto,.sc-sid .sc-efecto,.sc-atot .sc-efecto{font-size:11pt!important;}
+@media print{
+  body{font-size:11pt!important;color:#000!important;}
+  p,p.parrafo,.paso-texto,.ex-context,.open-question,.open-question-part,
+  .vf-statement,.ms-item,tbody td{font-size:10.5pt!important;color:#000!important;}
+  .cover,.seccion-header,.module-header,.taller-header,.comp-h,.altitud-h{
+    -webkit-print-color-adjust:exact!important;print-color-adjust:exact!important;
+  }
+  .cover h1,.cover-subtitle,.cover-meta-value,.cover-tag,
+  .seccion-header,.seccion-header .seccion-titulo,.taller-header,
+  .taller-header h2,.module-header,.module-title,.comp-h,.altitud-h,
+  thead th{color:#fff!important;}
 }
 
 </style>
@@ -967,12 +1124,12 @@ body{ background:#F6EAF0 !important; font-family:var(--sans); }
 <div class="taller-header">
   <h2>Taller Calificado – <em>Gases Arteriales</em></h2>
   <div class="taller-meta">6.0 puntos · 8 casos clínicos + 5 cálculos · Interpretación sistemática · Dr. Andrés Robayo C.</div>
-  <div class="print-first-score"><span class="print-first-score-label">Nota autocorregible</span><span class="print-first-score-value" id="printNotaGA">0.00 / 3.50</span></div>
+  <div class="print-first-score"><span class="print-first-score-label">Nota autocorregible</span><span class="print-first-score-value" id="printNotaGA">0.00 / 5.00</span></div>
 </div>
 <div class="taller-content">
 
 <div class="alert-yellow">
-  🤖 <strong>Módulo A</strong> (2.5 pts) — Interpretación de casos con selección múltiple autocorregible. Presione <em>Corregir Módulo A</em> al terminar. &nbsp;|&nbsp; ✏️ <strong>Módulo B</strong> (2.5 pts) — Análisis razonado calificado por el docente.
+  🤖 <strong>Módulos A, B y C</strong> — 100% autocorregibles: selección múltiple, cálculos, Verdadero/Falso y selección múltiple con crédito parcial. Presione <em>Corregir Módulo</em> al terminar cada uno. La nota final se expresa sobre 5.0.
 </div>
 
 <!-- MÓDULO A -->
@@ -1314,79 +1471,162 @@ body{ background:#F6EAF0 !important; font-family:var(--sans); }
       <button class="correct-btn" onclick="corregir('C',5,['fbG1','fbG2','fbG3','fbG4','fbG5'],1.0)">Corregir Módulo C (1.0 pt)</button>
     </div>
 
-    <div class="nota-bar">
-      <span class="nota-bar-label">Nota autocorregible</span>
-      <span class="nota-bar-val" id="notaGA">0.00 / 3.50</span>
-      <span style="font-family:var(--sans);font-size:9pt;color:var(--gray-400);">pts · Módulos A + C</span>
-    </div>
   </div>
 </div>
 
 <!-- MÓDULO B -->
 <div class="module">
-  <div class="module-header" style="background:var(--amber);">
-    <span class="module-tag">✏️ DOCENTE</span>
+  <div class="module-header" style="background:var(--teal);">
+    <span class="module-tag">🤖 AUTOCORREGIBLE</span>
     <span class="module-title">Módulo B — Análisis razonado de gases arteriales</span>
     <span class="module-pts">2.5 pts</span>
   </div>
-  <div class="module-body">
+  <div class="module-body" id="module-B-body">
 
     <div class="ex-item">
-      <div class="ex-label"><span class="ex-num">B1</span> Stewart en cirugía hepática mayor <span class="ex-pts-manual">0.5 pts · docente</span></div>
-      <div class="manual-block">
-        <div class="manual-block-label">✏️ Pregunta abierta</div>
-        <div class="open-question-part"><span class="open-question-part-letter">a</span><span>Un paciente con cirrosis Child B (albúmina 2.4 g/dL) tiene gases "normales" al modelo Henderson-Hasselbalch. Usando la teoría de Stewart, explique qué trastorno oculto existe, cómo calcularlo con Atot, y por qué el HH no lo detecta.</span></div>
-        <div class="open-question-part"><span class="open-question-part-letter">b</span><span>Durante la hepatectomía se administran 5 L de SS 0.9%. ¿Qué le ocurrirá al SID? ¿Cuál será el efecto sobre el pH? ¿Qué solución habría sido preferible según las guías ESICM 2022?</span></div>
-        <textarea class="open-area" placeholder="Escriba su respuesta aquí..."></textarea>
-        <div class="print-answer"></div>
+      <div class="ex-label"><span class="ex-num">B1</span> Stewart en cirugía hepática mayor <span class="ex-pts-auto">🤖 0.5 pts</span></div>
+      <div class="ex-context">Paciente con cirrosis Child B (albúmina 2.4 g/dL) tiene gases "normales" al modelo Henderson-Hasselbalch. Durante la hepatectomía se administran 5 L de SS 0.9%.</div>
+      <div class="mc-row"><span class="mc-label">Trastorno oculto que el modelo HH no detecta y por qué:</span>
+        <select class="mc-select" onchange="chk(this,'Existe acidosis por hipoalbuminemia (Atot bajo) que enmascara/compensa una alcalosis metabólica por SID alto, invisible para HH al no considerar los ácidos débiles no volátiles','fbB1a')">
+          <option value="">— elegir —</option>
+          <option>Existe acidosis por hipoalbuminemia (Atot bajo) que enmascara/compensa una alcalosis metabólica por SID alto, invisible para HH al no considerar los ácidos débiles no volátiles</option>
+          <option>No existe ningún trastorno oculto — el modelo HH es igual de sensible que Stewart en cualquier escenario</option>
+          <option>El trastorno oculto es exclusivamente respiratorio y no tiene relación con la albúmina</option>
+          <option>La cirrosis no modifica el Atot porque este depende solo del sodio plasmático</option>
+        </select><span class="fb" id="fbB1a"></span>
+      </div>
+      <div class="mc-row"><span class="mc-label">Efecto de 5 L de SS 0.9% sobre el SID, el pH y la solución preferible según ESICM 2022:</span>
+        <select class="mc-select" onchange="chk(this,'El SID cae (Cl⁻ alto respecto al Na⁺) generando acidosis metabólica hiperclorémica; ESICM 2022 prefiere cristaloides balanceados (Ringer/PlasmaLyte) sobre SS 0.9%','fbB1b')">
+          <option value="">— elegir —</option>
+          <option>El SID cae (Cl⁻ alto respecto al Na⁺) generando acidosis metabólica hiperclorémica; ESICM 2022 prefiere cristaloides balanceados (Ringer/PlasmaLyte) sobre SS 0.9%</option>
+          <option>El SID sube y genera alcalosis metabólica; ESICM 2022 recomienda SS 0.9% como primera línea siempre</option>
+          <option>El SID no cambia con cristaloides porque solo depende de la albúmina plasmática</option>
+          <option>El pH no se modifica con ningún volumen de cristaloide administrado</option>
+        </select><span class="fb" id="fbB1b"></span>
       </div>
     </div>
 
     <div class="ex-item">
-      <div class="ex-label"><span class="ex-num">B2</span> Ventilación mecánica protectora y gases <span class="ex-pts-manual">0.5 pts · docente</span></div>
-      <div class="manual-block">
-        <div class="manual-block-label">✏️ Pregunta abierta</div>
-        <div class="open-question">Un paciente de 70 kg (peso ideal) ventilado en el quirófano tiene: VT 700 mL, FR 14 rpm, PEEP 6 cmH₂O, FiO₂ 0.4. Gases: pH 7.38, PaCO₂ 39, PaO₂ 148, BE 0. Presión plateau 32 cmH₂O. (a) Evalúe si la ventilación es protectora según las guías actuales (VT/kg, Pplat, driving pressure). (b) El cirujano pide Trendelenburg 30° para laparoscopia. ¿Qué cambios espera en los gases y qué ajustes propondría? (c) ¿Cuál es la meta de PaO₂ intraoperatoria según iPROVE? ¿Tiene riesgo la hiperoxia?</div>
-        <textarea class="open-area" placeholder="Escriba su respuesta aquí..."></textarea>
-        <div class="print-answer"></div>
+      <div class="ex-label"><span class="ex-num">B2</span> Ventilación mecánica protectora y gases <span class="ex-pts-auto">🤖 0.5 pts</span></div>
+      <div class="ex-context">Paciente de 70 kg (peso ideal) ventilado: VT 700 mL, FR 14 rpm, PEEP 6 cmH₂O, FiO₂ 0.4. Gases: pH 7.38, PaCO₂ 39, PaO₂ 148, BE 0. Presión plateau 32 cmH₂O.</div>
+      <div class="calc-block" id="calc-B2">
+        <div class="answer-line">VT/kg = 700 ÷ <input data-ans="70" class="ans-input ans-sm" inputmode="decimal" placeholder="kg"> = <input data-ans="10" class="ans-input ans-sm" inputmode="decimal" placeholder="? mL/kg"> mL/kg &nbsp;|&nbsp; Driving Pressure = Pplat − PEEP = 32 − <input data-ans="6" class="ans-input ans-sm" inputmode="decimal" placeholder="PEEP"> = <input data-ans="26" class="ans-input ans-sm" inputmode="decimal" placeholder="? cmH₂O"> cmH₂O</div>
+      </div>
+      <div class="mc-row"><span class="mc-label">¿Es esta ventilación protectora?</span>
+        <select class="mc-select" onchange="chk(this,'No — VT 10 mL/kg y Driving Pressure 26 cmH₂O superan los límites protectores (6–8 mL/kg y ≤15 cmH₂O)','fbB2calc')">
+          <option value="">— elegir —</option>
+          <option>No — VT 10 mL/kg y Driving Pressure 26 cmH₂O superan los límites protectores (6–8 mL/kg y ≤15 cmH₂O)</option>
+          <option>Sí — todos los parámetros están dentro de rangos protectores estándar</option>
+          <option>Sí — el VT es adecuado aunque la Driving Pressure esté elevada, que no es relevante</option>
+          <option>No es posible evaluarla sin conocer la compliance estática exacta</option>
+        </select><span class="fb" id="fbB2calc"></span>
+      </div>
+      <div class="mc-row"><span class="mc-label">Cambios esperados con Trendelenburg 30° para laparoscopia:</span>
+        <select class="mc-select" onchange="chk(this,'↑ Presión intraabdominal e intratorácica → ↓ compliance pulmonar → ↑ Pplat y ↑ PaCO₂; puede requerir ajustar VT y aumentar FR','fbB2b')">
+          <option value="">— elegir —</option>
+          <option>↑ Presión intraabdominal e intratorácica → ↓ compliance pulmonar → ↑ Pplat y ↑ PaCO₂; puede requerir ajustar VT y aumentar FR</option>
+          <option>Sin ningún cambio relevante en la mecánica ventilatoria ni en los gases</option>
+          <option>↓ Presión intratorácica → ↑ compliance pulmonar → ↓ Pplat de forma significativa</option>
+          <option>Solo afecta la hemodinamia, sin ningún efecto sobre la ventilación</option>
+        </select><span class="fb" id="fbB2b"></span>
+      </div>
+      <div class="mc-row"><span class="mc-label">Meta de PaO₂ intraoperatoria (iPROVE) y riesgo de hiperoxia:</span>
+        <select class="mc-select" onchange="chk(this,'Meta PaO₂ 100–150 mmHg (evitar hiperoxia); FiO₂/PaO₂ excesivos se asocian a atelectasias de reabsorción y estrés oxidativo','fbB2c')">
+          <option value="">— elegir —</option>
+          <option>Meta PaO₂ 100–150 mmHg (evitar hiperoxia); FiO₂/PaO₂ excesivos se asocian a atelectasias de reabsorción y estrés oxidativo</option>
+          <option>Meta PaO₂ mayor a 300 mmHg siempre, sin ningún riesgo asociado a la hiperoxia</option>
+          <option>No existe ninguna meta definida de PaO₂ intraoperatoria en la literatura actual</option>
+          <option>Meta PaO₂ menor a 60 mmHg para minimizar el estrés oxidativo tisular</option>
+        </select><span class="fb" id="fbB2c"></span>
       </div>
     </div>
 
     <div class="ex-item">
-      <div class="ex-label"><span class="ex-num">B3</span> Bogotá 2.640 msnm: adaptación fisiológica vs patología <span class="ex-pts-manual">0.5 pts · docente</span></div>
-      <div class="manual-block">
-        <div class="manual-block-label">✏️ Pregunta abierta</div>
-        <div class="open-question-part"><span class="open-question-part-letter">a</span><span>Un residente de Bogotá de toda su vida llega a su consulta preoperatoria con: PaO₂ 63 mmHg, SaO₂ 93%, PaCO₂ 34 mmHg, pH 7.42, Hb 17.5 g/dL. ¿Es patológico? Explique cada valor según la fisiología de la altitud.</span></div>
-        <div class="open-question-part"><span class="open-question-part-letter">b</span><span>Llega el mismo día un paciente recién llegado del nivel del mar con los mismos gases. ¿Cambia su interpretación? ¿Por qué?</span></div>
-        <div class="open-question-part"><span class="open-question-part-letter">c</span><span>¿Qué valores de PaFi y SaFi utilizaría para clasificar SDRA en un paciente en UCI de Bogotá, y por qué difieren del nivel del mar?</span></div>
-        <textarea class="open-area" placeholder="Escriba su respuesta aquí..."></textarea>
-        <div class="print-answer"></div>
+      <div class="ex-label"><span class="ex-num">B3</span> Bogotá 2.640 msnm: adaptación fisiológica vs patología — Verdadero o Falso <span class="ex-pts-auto">🤖 0.5 pts</span></div>
+      <div class="ex-context">Residente de Bogotá de toda la vida: PaO₂ 63 mmHg, SaO₂ 93%, PaCO₂ 34 mmHg, pH 7.42, Hb 17.5 g/dL.</div>
+      <div class="vf-item">
+        <div class="vf-statement">1. Estos valores son hallazgos esperados de adaptación fisiológica a la altitud en un residente de toda la vida, no patológicos.</div>
+        <div class="vf-btns">
+          <button type="button" class="vf-btn" onclick="vf(this,'V','V','fbB3_1')">Verdadero</button>
+          <button type="button" class="vf-btn" onclick="vf(this,'F','V','fbB3_1')">Falso</button>
+          <span class="fb" id="fbB3_1"></span>
+        </div>
+      </div>
+      <div class="vf-item">
+        <div class="vf-statement">2. Los mismos valores gasométricos en un paciente recién llegado del nivel del mar tendrían el mismo significado fisiológico normal, sin requerir mayor estudio.</div>
+        <div class="vf-btns">
+          <button type="button" class="vf-btn" onclick="vf(this,'V','F','fbB3_2')">Verdadero</button>
+          <button type="button" class="vf-btn" onclick="vf(this,'F','F','fbB3_2')">Falso</button>
+          <span class="fb" id="fbB3_2"></span>
+        </div>
+      </div>
+      <div class="vf-item">
+        <div class="vf-statement">3. La PaCO₂ de 34 mmHg en el residente de Bogotá refleja hiperventilación crónica compensatoria por la hipoxia de la altitud.</div>
+        <div class="vf-btns">
+          <button type="button" class="vf-btn" onclick="vf(this,'V','V','fbB3_3')">Verdadero</button>
+          <button type="button" class="vf-btn" onclick="vf(this,'F','V','fbB3_3')">Falso</button>
+          <span class="fb" id="fbB3_3"></span>
+        </div>
+      </div>
+      <div class="vf-item">
+        <div class="vf-statement">4. Para clasificar SDRA en Bogotá deben usarse los mismos umbrales de PaFi que al nivel del mar, sin ningún ajuste por la altitud.</div>
+        <div class="vf-btns">
+          <button type="button" class="vf-btn" onclick="vf(this,'V','F','fbB3_4')">Verdadero</button>
+          <button type="button" class="vf-btn" onclick="vf(this,'F','F','fbB3_4')">Falso</button>
+          <span class="fb" id="fbB3_4"></span>
+        </div>
       </div>
     </div>
 
     <div class="ex-item">
-      <div class="ex-label"><span class="ex-num">B4</span> Algoritmo completo de interpretación — caso integrador <span class="ex-pts-manual">0.5 pts · docente</span></div>
-      <div class="manual-block">
-        <div class="manual-block-label">✏️ Caso integrador</div>
-        <div class="ex-context" style="margin-bottom:10px;"><strong>Datos:</strong> Mujer 66 años, DM tipo 2, falla cardíaca crónica. Ingresa a UCI postoperatoria tras bypass coronario de 4 horas. Recibió 3 L SS 0.9% + 500 mL coloides. Furosemida IV al llegar.<br>
-        pH 7.35 · PaCO₂ 38 · HCO₃⁻ 21 · BE −3 · Na⁺ 140 · K⁺ 2.9 · Cl⁻ 113 · Lactato 2.6 · Albúmina 3.0 g/dL · PaO₂ 74 (FiO₂ 0.35)</div>
-        <div class="open-question">Aplique el algoritmo completo de 11 pasos: calcule AG, AG corregido, SIDa, Atot estimado, ratio Δ/Δ, PaFi y gradiente A–a. Identifique todos los trastornos presentes (puede ser mixto). Proponga el manejo priorizado.</div>
-        <textarea class="open-area" style="min-height:120px;" placeholder="Escriba su respuesta aquí..."></textarea>
-        <div class="print-answer"></div>
+      <div class="ex-label"><span class="ex-num">B4</span> Algoritmo completo de interpretación — caso integrador <span class="ex-pts-auto">🤖 0.5 pts</span></div>
+      <div class="ex-context"><strong>Datos:</strong> Mujer 66 años, DM tipo 2, falla cardíaca crónica. Ingresa a UCI postoperatoria tras bypass coronario de 4 horas. Recibió 3 L SS 0.9% + 500 mL coloides. Furosemida IV al llegar.<br>
+      pH 7.35 · PaCO₂ 38 · HCO₃⁻ 21 · BE −3 · Na⁺ 140 · K⁺ 2.9 · Cl⁻ 113 · Lactato 2.6 · Albúmina 3.0 g/dL · PaO₂ 74 (FiO₂ 0.35)</div>
+      <div class="calc-block" id="calc-B4">
+        <div class="answer-line">AG = Na − (Cl + HCO₃) = 140 − (113 + 21) = <input data-ans="6" class="ans-input ans-sm" inputmode="decimal" placeholder="? AG"></div>
+        <div class="answer-line">AG corregido = AG + 2.5 × (4.0 − Albúmina) = 6 + 2.5 × (4.0 − 3.0) = <input data-ans="8.5" class="ans-input ans-sm" inputmode="decimal" placeholder="? AGc"></div>
+        <div class="answer-line">SIDa = (Na + K) − Cl = (140 + 2.9) − 113 = <input data-ans="29.9" class="ans-input ans-sm" inputmode="decimal" placeholder="? SIDa"></div>
+        <div class="answer-line">PaFi = PaO₂ ÷ FiO₂ = 74 ÷ 0.35 = <input data-ans="211" class="ans-input ans-sm" inputmode="decimal" placeholder="? PaFi"></div>
+      </div>
+      <div class="mc-row"><span class="mc-label">Trastornos identificados (puede ser mixto):</span>
+        <select class="mc-select" onchange="chk(this,'Acidosis metabólica hiperclorémica leve (SIDa bajo) con AG corregido normal-alto, hipopotasemia, y SDRA leve (PaFi ~211) por sobrecarga hídrica','fbB4dx')">
+          <option value="">— elegir —</option>
+          <option>Acidosis metabólica hiperclorémica leve (SIDa bajo) con AG corregido normal-alto, hipopotasemia, y SDRA leve (PaFi ~211) por sobrecarga hídrica</option>
+          <option>Alcalosis metabólica pura sin ningún componente respiratorio ni hidroelectrolítico</option>
+          <option>Acidosis respiratoria aguda aislada, sin ningún componente metabólico</option>
+          <option>Gases completamente normales, sin ningún trastorno significativo presente</option>
+        </select><span class="fb" id="fbB4dx"></span>
+      </div>
+      <div class="mc-row"><span class="mc-label">Manejo priorizado:</span>
+        <select class="mc-select" onchange="chk(this,'Corregir la hipopotasemia con KCl, manejar la sobrecarga hídrica hiperclorémica, y dar soporte ventilatorio protector para el SDRA leve','fbB4mx')">
+          <option value="">— elegir —</option>
+          <option>Corregir la hipopotasemia con KCl, manejar la sobrecarga hídrica hiperclorémica, y dar soporte ventilatorio protector para el SDRA leve</option>
+          <option>Administrar bicarbonato IV en bolo como primera medida, sin corregir el potasio</option>
+          <option>Aumentar la infusión de SS 0.9% para corregir la acidosis metabólica presente</option>
+          <option>No requiere ninguna intervención inmediata; solo observación clínica</option>
+        </select><span class="fb" id="fbB4mx"></span>
       </div>
     </div>
 
     <div class="ex-item">
-      <div class="ex-label"><span class="ex-num">B5</span> Lactato: interpretación avanzada y criterios Sepsis-3 <span class="ex-pts-manual">0.5 pts · docente</span></div>
-      <div class="manual-block">
-        <div class="manual-block-label">✏️ Pregunta abierta</div>
-        <div class="open-question-part"><span class="open-question-part-letter">a</span><span>Un paciente con sepsis tiene lactato de 3.2 mmol/L pero presión arterial normal y sin signos de hipoperfusión clínica. ¿Cumple criterios de shock séptico (Sepsis-3)? ¿Cómo diferencia hiperlactatemia tipo A de tipo B?</span></div>
-        <div class="open-question-part"><span class="open-question-part-letter">b</span><span>¿Qué es el "aclaramiento de lactato" y por qué es un objetivo de reanimación? ¿Cuánto debe bajar en 2 horas para considerarse adecuado?</span></div>
-        <div class="open-question-part"><span class="open-question-part-letter">c</span><span>Mencione tres causas de hiperlactatemia tipo B (sin hipoperfusión tisular) relevantes en el perioperatorio.</span></div>
-        <textarea class="open-area" placeholder="Escriba su respuesta aquí..."></textarea>
-        <div class="print-answer"></div>
+      <div class="ex-label"><span class="ex-num">B5</span> Lactato: interpretación avanzada y criterios Sepsis-3 <span class="ex-pts-auto">🤖 0.5 pts</span></div>
+      <div class="ex-context">Paciente con sepsis: lactato 3.2 mmol/L, presión arterial normal, sin signos clínicos de hipoperfusión.</div>
+      <div class="ms-group" id="ms-B5">
+        <div class="ms-instruction">Marque TODAS las afirmaciones correctas:</div>
+        <div class="ms-item"><input type="checkbox" data-correct="true" id="ck_B5_1"><label for="ck_B5_1">Según Sepsis-3, el shock séptico requiere hipotensión que exige vasopresores para PAM ≥65 mmHg Y lactato &gt;2 mmol/L pese a reanimación adecuada; una PA normal sin hipotensión NO cumple criterios de shock séptico aunque el lactato esté elevado</label></div>
+        <div class="ms-item"><input type="checkbox" data-correct="false" id="ck_B5_2"><label for="ck_B5_2">Un lactato &gt;2 mmol/L siempre confirma por sí solo el diagnóstico de shock séptico, independientemente de la presión arterial</label></div>
+        <div class="ms-item"><input type="checkbox" data-correct="true" id="ck_B5_3"><label for="ck_B5_3">La hiperlactatemia tipo A se asocia a hipoperfusión tisular (shock, hipoxia); la tipo B ocurre sin hipoperfusión evidente (fármacos, insuficiencia hepática, neoplasias, metformina)</label></div>
+        <div class="ms-item"><input type="checkbox" data-correct="false" id="ck_B5_4"><label for="ck_B5_4">La hiperlactatemia tipo B siempre indica hipoperfusión tisular oculta que requiere reanimación agresiva con fluidos</label></div>
+        <div class="ms-item"><input type="checkbox" data-correct="true" id="ck_B5_5"><label for="ck_B5_5">El aclaramiento de lactato se considera adecuado si desciende ≥10% en 2 horas respecto al valor basal</label></div>
+        <div class="ms-item"><input type="checkbox" data-correct="true" id="ck_B5_6"><label for="ck_B5_6">Causas perioperatorias de hiperlactatemia tipo B incluyen: uso de epinefrina, insuficiencia hepática, y toxicidad por metformina o propofol</label></div>
+        <div class="ms-item"><input type="checkbox" data-correct="false" id="ck_B5_7"><label for="ck_B5_7">El aclaramiento de lactato no tiene ningún valor pronóstico en la reanimación del shock</label></div>
+        <span class="ms-fb"></span>
       </div>
+      <button class="correct-btn" onclick="corregirB()">Corregir Módulo B (2.5 pts)</button>
     </div>
+
+  </div>
+</div>
 
   </div>
 </div>
@@ -1400,6 +1640,19 @@ body{ background:#F6EAF0 !important; font-family:var(--sans); }
   </div>
   <button class="dl-btn" onclick="dlPDF()">⬇ Descargar PDF</button>
   <div class="dl-error" id="errG">Complete nombre y universidad antes de descargar.</div>
+</div>
+
+<div class="nota-bar">
+  <div class="nota-mod-grid">
+    <div class="nota-mod-box"><span class="nota-mod-label">Módulo A</span><span class="nota-mod-val" id="notaA_GA">0.00 / 2.50</span></div>
+    <div class="nota-mod-box"><span class="nota-mod-label">Módulo B</span><span class="nota-mod-val" id="notaB_GA">0.00 / 2.50</span></div>
+    <div class="nota-mod-box"><span class="nota-mod-label">Módulo C</span><span class="nota-mod-val" id="notaC_GA">0.00 / 1.00</span></div>
+  </div>
+  <div class="nota-bar-total-row">
+    <span class="nota-bar-label">Nota Final del Taller</span>
+    <span class="nota-bar-val" id="notaGA">0.00 / 5.00</span>
+    <span style="font-family:var(--sans);font-size:8.5pt;color:var(--gray-400);">100% Autocorregible — suma acumulada de los 3 módulos</span>
+  </div>
 </div>
 
 </div><!-- /taller-content -->
@@ -1420,13 +1673,27 @@ function chk(sel,correct,fbId){
   if(fb){fb.textContent='';fb.className='fb';}
 }
 
+// Verdadero/Falso interactivo: dos botones por afirmación
+function vf(btn,choice,correct,fbId){
+  answers[fbId]={val:choice,correct:correct};
+  var group=btn.closest('.vf-btns');
+  group.querySelectorAll('.vf-btn').forEach(function(b){
+    b.classList.remove('sel','is-true','is-false','result-ok','result-bad');
+  });
+  btn.classList.add('sel', choice==='V' ? 'is-true' : 'is-false');
+  var fb=document.getElementById(fbId);
+  if(fb){fb.textContent='';fb.className='fb';}
+}
+
 // MAPEO: cada casilla de resultado (fbId) -> bloque(s) de cálculo (calc-block) que debe verificarse
 var chainMap={
   fbG1:['calc-G1'],
   fbG2:['calc-G2'],
   fbG3:['calc-G3'],
   fbG4:['calc-G4'],
-  fbG5:['calc-G5']
+  fbG5:['calc-G5'],
+  fbB2calc:['calc-B2'],
+  fbB4calc:['calc-B4']
 };
 
 // Convierte texto a número, aceptando coma decimal
@@ -1463,7 +1730,7 @@ function checkChains(fbId){
   return allOk;
 }
 
-var pts={A:0,C:0};
+var pts={A:0,B:0,C:0};
 function corregir(mod,total,fbIds,maxPts){
   var ok=0;
   fbIds.forEach(function(fbId){
@@ -1482,9 +1749,80 @@ function corregir(mod,total,fbIds,maxPts){
   actualizarNotas();
   alert('Módulo '+mod+' corregido: '+ok+'/'+total+' correctas = '+p.toFixed(2)+' pts');
 }
+
+// Helper: fracción de aciertos (0–1) de fbIds, considerando cálculo asociado si existe
+function fracFbIds(ids){
+  var ok=0;
+  ids.forEach(function(fbId){
+    var fb=document.getElementById(fbId), ans=answers[fbId];
+    var chainOk=checkChains(fbId);
+    if(!fb)return;
+    if(!ans||!ans.val){fb.textContent='— sin respuesta';fb.className='fb';return;}
+    var selectOk = ans.val===ans.correct;
+    var correct = selectOk && chainOk;
+    if(ans.val==='V'||ans.val==='F'){
+      var vfContainer=fb.closest('.vf-item');
+      if(vfContainer){
+        vfContainer.querySelectorAll('.vf-btn.sel').forEach(function(b){
+          b.classList.remove('result-ok','result-bad');
+          b.classList.add(correct?'result-ok':'result-bad');
+        });
+      }
+    }
+    if(correct){ok++;fb.textContent='✓ correcto';fb.className='fb ok';}
+    else if(selectOk && !chainOk){fb.textContent='✗ cálculo incorrecto (revise las casillas en rojo)';fb.className='fb err';}
+    else{fb.textContent='✗ incorrecto';fb.className='fb err';}
+  });
+  return ids.length ? ok/ids.length : 0;
+}
+
+// Helper: crédito parcial (0–1) de un recuadro de selección múltiple
+function fracMsGroup(grp){
+  if(!grp) return 0;
+  var checks=grp.querySelectorAll('input[type="checkbox"]');
+  var totalCorrect=grp.querySelectorAll('input[data-correct="true"]').length;
+  var checkedCorrect=0, checkedWrong=0;
+  checks.forEach(function(c){
+    var item=c.closest('.ms-item');
+    if(item) item.classList.remove('ms-ok','ms-bad');
+    var isCorrectOption=c.getAttribute('data-correct')==='true';
+    if(c.checked){
+      if(isCorrectOption){ checkedCorrect++; if(item) item.classList.add('ms-ok'); }
+      else { checkedWrong++; if(item) item.classList.add('ms-bad'); }
+    }
+  });
+  var frac = totalCorrect>0 ? Math.max(0,(checkedCorrect-checkedWrong))/totalCorrect : 0;
+  var fbEl=grp.querySelector('.ms-fb');
+  if(fbEl) fbEl.textContent='Aciertos: '+checkedCorrect+'/'+totalCorrect+(checkedWrong?' · Marcadas incorrectamente: '+checkedWrong:'')+' → '+(frac*100).toFixed(0)+'% de este punto';
+  return frac;
+}
+
+/* MÓDULO B — cada ejercicio (B1–B5) conserva su peso original de 0.5 pts,
+   calculado según su propia dinámica. */
+function corregirB(){
+  var container=document.getElementById('module-B-body');
+  var fB1 = fracFbIds(['fbB1a','fbB1b']);
+  var fB2 = fracFbIds(['fbB2calc','fbB2b','fbB2c']);
+  var fB3 = fracFbIds(['fbB3_1','fbB3_2','fbB3_3','fbB3_4']);
+  var fB4 = fracFbIds(['fbB4calc','fbB4dx','fbB4mx']);
+  var fB5 = container.querySelector('#ms-B5') ? fracMsGroup(container.querySelector('#ms-B5')) : 0;
+  var pesoEjercicio=0.5;
+  pts.B = (fB1+fB2+fB3+fB4+fB5)*pesoEjercicio;
+  actualizarNotas();
+  alert('Módulo B corregido: '+pts.B.toFixed(2)+' / 2.50 pts\n  • B1 (Stewart, cascada): '+(fB1*100).toFixed(0)+'%\n  • B2 (ventilación protectora, cálculo): '+(fB2*100).toFixed(0)+'%\n  • B3 (altitud, Verdadero/Falso): '+(fB3*100).toFixed(0)+'%\n  • B4 (algoritmo, cálculo): '+(fB4*100).toFixed(0)+'%\n  • B5 (lactato, selección múltiple): '+(fB5*100).toFixed(0)+'%');
+}
+
 function actualizarNotas(){
+  var maxPorModulo={A:2.5,B:2.5,C:1.0};
+  Object.keys(maxPorModulo).forEach(function(mod){
+    var el=document.getElementById('nota'+mod+'_GA');
+    if(el) el.textContent=(pts[mod]||0).toFixed(2)+' / '+maxPorModulo[mod].toFixed(2);
+  });
   var nt=document.getElementById('notaGA');
-  var nota=((pts.A||0)+(pts.C||0)).toFixed(2)+' / 3.50';
+  var totalRaw=((pts.A||0)+(pts.B||0)+(pts.C||0));
+  var maxRaw=6.00;
+  var totalSobre5=(totalRaw/maxRaw)*5;
+  var nota=totalSobre5.toFixed(2)+' / 5.00';
   if(nt)nt.textContent=nota;
   var pn=document.getElementById('printNotaGA');if(pn)pn.textContent=nota;
 }
