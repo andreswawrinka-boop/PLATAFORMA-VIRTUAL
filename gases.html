@@ -1588,6 +1588,7 @@ thead th{color:#fff!important;}
         <div class="answer-line">SIDa = (Na + K) − Cl = (140 + 2.9) − 113 = <input data-ans="29.9" class="ans-input ans-sm" inputmode="decimal" placeholder="? SIDa"></div>
         <div class="answer-line">PaFi = PaO₂ ÷ FiO₂ = 74 ÷ 0.35 = <input data-ans="211" class="ans-input ans-sm" inputmode="decimal" placeholder="? PaFi"></div>
       </div>
+      <span class="fb" id="fbB4calc"></span>
       <div class="mc-row"><span class="mc-label">Trastornos identificados (puede ser mixto):</span>
         <select class="mc-select" onchange="chk(this,'Acidosis metabólica hiperclorémica leve (SIDa bajo) con AG corregido normal-alto, hipopotasemia, y SDRA leve (PaFi ~211) por sobrecarga hídrica','fbB4dx')">
           <option value="">— elegir —</option>
@@ -1757,6 +1758,13 @@ function fracFbIds(ids){
     var fb=document.getElementById(fbId), ans=answers[fbId];
     var chainOk=checkChains(fbId);
     if(!fb)return;
+    // Ítems puramente de cálculo (sin select/V-F asociado, solo casillas numéricas
+    // registradas en chainMap): se califican únicamente por las casillas de cálculo.
+    if(!ans && chainMap[fbId]){
+      if(chainOk){ok++;fb.textContent='✓ correcto';fb.className='fb ok';}
+      else{fb.textContent='✗ revise las casillas en rojo';fb.className='fb err';}
+      return;
+    }
     if(!ans||!ans.val){fb.textContent='— sin respuesta';fb.className='fb';return;}
     var selectOk = ans.val===ans.correct;
     var correct = selectOk && chainOk;
