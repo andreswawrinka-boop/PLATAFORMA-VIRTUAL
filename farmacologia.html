@@ -1471,8 +1471,9 @@ function checkChains(fbId){
   var allOk=true;
   chains.forEach(function(cid){
     var chain=document.getElementById(cid);
-    if(!chain) return;
+    if(!chain){ allOk=false; return; }
     var inputs=chain.querySelectorAll('input[data-ans]');
+    if(!inputs.length){ allOk=false; return; }
     inputs.forEach(function(inp){
       var expected=parseNum(inp.getAttribute('data-ans'));
       var given=parseNum(inp.value);

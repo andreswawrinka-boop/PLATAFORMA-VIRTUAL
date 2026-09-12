@@ -1100,7 +1100,8 @@ function corregir(ex,fbIds,maxPts,btn){
     var tol=parseFloat(inp.getAttribute('data-tol')||'0.5');
     var raw=(inp.value||'').trim().replace(',','.');
     if(raw===''){marcarCasilla(inp,'empty');return;}
-    var val=parseFloat(raw);
+    var normalized=raw.replace(/\s+/g,'');
+    var val=/^[+-]?(?:\d+(?:\.\d*)?|\.\d+)$/.test(normalized)?parseFloat(normalized):NaN;
     if(!isNaN(val)&&Math.abs(val-expected)<=tol){ok++;okNum++;marcarCasilla(inp,'ok');}
     else{marcarCasilla(inp,'bad');}
   });

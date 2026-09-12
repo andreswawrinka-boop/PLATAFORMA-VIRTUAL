@@ -1297,18 +1297,30 @@ function aplicarCodigoAntiPlagio(codigo){
   document.querySelectorAll('.anti-code-mark').forEach(function(x){x.remove();});
 }
 function corregirCalculosE(){
-  var ids=['calc-E1','calc-E2','calc-E3','calc-E4','calc-E5a','calc-E5b'];
-  var total=ids.length, okBlocks=0;
-  ids.forEach(function(id){
-    var block=document.getElementById(id); if(!block)return;
-    var allOk=true; block.querySelectorAll('input[data-ans]').forEach(function(inp){
-      var ok=numClose(parseNum(inp.value),parseNum(inp.getAttribute('data-ans')));
-      inp.classList.remove('fi-ok','fi-err'); inp.classList.add(ok?'fi-ok':'fi-err'); if(!ok)allOk=false;
+  // E5 se compone de 2 casillas (neostigmina + atropina): ambas deben estar
+  // correctas para que el ejercicio 5 cuente como completo. Por eso se agrupan
+  // en un solo "ejercicio" y siempre se divide entre 5 ejercicios reales.
+  var ejercicios=[
+    {ids:['calc-E1']},
+    {ids:['calc-E2']},
+    {ids:['calc-E3']},
+    {ids:['calc-E4']},
+    {ids:['calc-E5a','calc-E5b']}
+  ];
+  var total=ejercicios.length, okBlocks=0;
+  ejercicios.forEach(function(ej){
+    var allOk=true;
+    ej.ids.forEach(function(id){
+      var block=document.getElementById(id); if(!block){allOk=false;return;}
+      block.querySelectorAll('input[data-ans]').forEach(function(inp){
+        var ok=numClose(parseNum(inp.value),parseNum(inp.getAttribute('data-ans')));
+        inp.classList.remove('fi-ok','fi-err'); inp.classList.add(ok?'fi-ok':'fi-err'); if(!ok)allOk=false;
+      });
     });
     if(allOk)okBlocks++;
   });
-  pts.E=(okBlocks/5)*1.0; actualizarNotas();
-  alert('Módulo E corregido: '+okBlocks+'/5 ejercicios completos = '+pts.E.toFixed(2)+' pts autocorregibles');
+  pts.E=(okBlocks/total)*1.0; actualizarNotas();
+  alert('Módulo E corregido: '+okBlocks+'/'+total+' ejercicios completos = '+pts.E.toFixed(2)+' pts autocorregibles');
 }
 function dlPDF(){var nom=document.getElementById('nomBNM').value.trim();var univ=document.getElementById('univBNM').value.trim();if(!nom||!univ){document.getElementById('errBNM').style.display='block';return;}document.getElementById('errBNM').style.display='none';var ahora=new Date();var f=ahora.toLocaleDateString('es-CO',{day:'2-digit',month:'long',year:'numeric'})+' '+ahora.toLocaleTimeString('es-CO',{hour:'2-digit',minute:'2-digit'});['phNombre','pfNombre'].forEach(id=>{var el=document.getElementById(id);if(el)el.textContent=nom;});['phUniversidad','pfUniversidad'].forEach(id=>{var el=document.getElementById(id);if(el)el.textContent=univ;});['phGuia','pfGuia'].forEach(id=>{var el=document.getElementById(id);if(el)el.textContent='Taller — Bloqueantes Neuromusculares e ISR';});['phFecha','pfFecha'].forEach(id=>{var el=document.getElementById(id);if(el)el.textContent=f;});document.querySelectorAll('.tab-content').forEach(t=>t.classList.remove('active'));document.getElementById('taller-tab').classList.add('active');
   var codigo=antiHash(nom+'|'+univ+'|Bloqueantes Neuromusculares e ISR|'+f);
